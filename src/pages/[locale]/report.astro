@@ -1,0 +1,905 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DestinyMatrixChart from '../../components/matrix/DestinyMatrixChart.astro';
+import { generateOrGetDeepReport } from '../../services/calculation/report-generator';
+import { supportedLocales } from '../../config/locales.config';
+import { t } from '../../i18n';
+
+export function getStaticPaths() {
+  return supportedLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.params;
+const nameParam = Astro.url.searchParams.get('name') || '';
+const dobParam = Astro.url.searchParams.get('dob') || '1980-01-14';
+
+const defaultReport = await generateOrGetDeepReport(dobParam, nameParam);
+const hasQueryParams = Boolean(Astro.url.searchParams.get('name') || Astro.url.searchParams.get('dob'));
+
+---
+
+<BaseLayout title={`Soul Matrix Deep Report | Souliography`} description="Read your complete 10-section Soul Matrix Deep Report." locale={locale} noIndex={hasQueryParams}>
+  <!-- Clean Printable PDF Stylesheet with Anchor Smooth Scrolling -->
+  <style is:global>
+    html {
+      scroll-behavior: smooth;
+    }
+    @media print {
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+      @page :first {
+        margin: 0;
+      }
+      body {
+        background: #ffffff !important;
+        color: #1c1c1c !important;
+        font-family: serif !important;
+      }
+      header, nav, footer, .no-print {
+        display: none !important;
+      }
+      .page-break {
+        page-break-before: always !important;
+        break-before: page !important;
+      }
+      .print-card {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      /* Cover page fills exactly one A4 page */
+      .pdf-cover {
+        width: 210mm;
+        height: 297mm !important;
+        min-height: 297mm !important;
+        max-height: 297mm !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        background-color: #0d0118 !important;
+        color: #f5f0e8 !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      .pdf-cover h1 {
+        color: #f5f0e8 !important;
+      }
+      .pdf-cover p {
+        color: rgba(245, 240, 232, 0.75) !important;
+      }
+      .pdf-cover strong, .pdf-cover span {
+        color: #e8c88c !important;
+      }
+      .pdf-cover span#coverName {
+        color: #f5a0b0 !important;
+      }
+      /* Hexagram page fills full A4 */
+      .pdf-chart-page {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0;
+        border-radius: 0 !important;
+      }
+    }
+    /* Social share button base style */
+    .share-social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      transition: opacity 0.15s, transform 0.12s;
+      white-space: nowrap;
+    }
+    .share-social-btn:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+    .share-social-btn:active {
+      transform: scale(0.97);
+    }
+  </style>
+
+  <div class="bg-[#F7F3EC] min-h-screen py-10 px-4 font-sans text-stone-800">
+    <div class="max-w-4xl mx-auto space-y-8">
+      
+      <!-- Top Action Bar -->
+      <div class="no-print flex flex-wrap gap-3 justify-between items-center bg-white rounded-2xl p-4 border border-stone-200 shadow-2xs">
+        <a href={`/${locale}/`} class="text-xs font-bold text-[#2E4A3D] hover:underline flex items-center gap-1">
+          ← {locale === 'ar' ? 'العودة إلى حاسبة مصفوفة الروح' : (locale === 'pt' ? 'Voltar para Calculadora da Matriz da Alma' : 'Back to Soul Matrix Calculator')}
+        </a>
+        <!-- Social Share Bar -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <!-- Facebook -->
+          <button id="shareFacebook" title="Share on Facebook" class="share-social-btn" style="background:#1877F2;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+            <span>Facebook</span>
+          </button>
+          <!-- X (Twitter) -->
+          <button id="shareX" title="Share on X" class="share-social-btn" style="background:#000000;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            <span>X</span>
+          </button>
+          <!-- Instagram -->
+          <button id="shareInstagram" title="Share on Instagram" class="share-social-btn" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            <span>Instagram</span>
+          </button>
+          <!-- TikTok -->
+          <button id="shareTikTok" title="Share on TikTok" class="share-social-btn" style="background:#010101;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.18 8.18 0 004.78 1.52V6.82a4.85 4.85 0 01-1.01-.13z"/></svg>
+            <span>TikTok</span>
+          </button>
+          <!-- Snapchat -->
+          <button id="shareSnapchat" title="Share on Snapchat" class="share-social-btn" style="background:#FFFC00; color:#000;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="black"><path d="M12.065.026C9.09.026 6.21 1.67 4.754 4.17c-.74 1.27-.948 2.69-.948 4.12 0 .36.022.72.044 1.07-.31.16-.65.24-1.01.24-.33 0-.67-.07-.97-.21-.12-.06-.25-.09-.38-.09-.34 0-.63.19-.72.5-.06.2-.04.42.06.6.24.46.96.83 2.04 1.05.05.01.1.02.15.04-.15.43-.41.83-.76 1.13-.74.64-1.56.93-1.56 1.42 0 .38.31.72.82.72.17 0 .35-.04.52-.1.54-.2 1.06-.3 1.56-.3.59 0 1.07.13 1.48.39.83.52 1.41 1.53 2.52 2.36.93.69 2.04 1.06 3.16 1.06.33 0 .66-.04.98-.12.19.08.39.16.62.23.73.22 1.52.35 2.34.35.77 0 1.51-.12 2.21-.32.24-.07.45-.16.63-.25.32.08.65.12.98.12 1.12 0 2.23-.37 3.16-1.06 1.11-.83 1.69-1.84 2.52-2.36.41-.26.89-.39 1.48-.39.5 0 1.02.1 1.56.3.17.06.35.1.52.1.51 0 .82-.34.82-.72 0-.49-.82-.78-1.56-1.42-.35-.3-.61-.7-.76-1.13.05-.02.1-.03.15-.04 1.08-.22 1.8-.59 2.04-1.05.1-.18.12-.4.06-.6-.09-.31-.38-.5-.72-.5-.13 0-.26.03-.38.09-.3.14-.64.21-.97.21-.36 0-.7-.08-1.01-.24.022-.35.044-.71.044-1.07 0-1.43-.208-2.85-.948-4.12C17.79 1.67 14.91.026 12.065.026z"/></svg>
+            <span>Snapchat</span>
+          </button>
+          <!-- WhatsApp -->
+          <button id="shareWhatsApp" title="Share on WhatsApp" class="share-social-btn" style="background:#25D366;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span>WhatsApp</span>
+          </button>
+          <!-- Email -->
+          <button id="shareEmail" title="Share via Email" class="share-social-btn" style="background:#6B7280;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <span>Email</span>
+          </button>
+          <!-- Copy Link -->
+          <button id="shareCopyLink" title="Copy Link" class="share-social-btn" style="background:#8B5CF6;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            <span id="copyLinkLabel">{locale === 'ar' ? 'نسخ الرابط' : (locale === 'pt' ? 'Copiar Link' : 'Copy Link')}</span>
+          </button>
+          <!-- Download PDF -->
+          <button onclick="window.print()" class="share-social-btn" style="background:#2E4A3D;">
+            <span>📄</span>
+            <span>{locale === 'ar' ? 'PDF' : (locale === 'pt' ? 'PDF' : 'PDF')}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- COVER PAGE — Branded Hero Image + Name/DOB overlay -->
+      <!-- ══════════════════════════════════════════════════ -->
+      <div class="pdf-cover bg-[#0d0118] rounded-3xl overflow-hidden relative flex flex-col print-card" style="min-height:600px;">
+
+        <!-- Full-bleed hero image -->
+        <img
+          src="/contact_hero_combined.jpg"
+          alt="Souliography Soul Matrix Report Cover"
+          class="absolute inset-0 w-full h-full object-cover object-center opacity-70"
+          style="object-position: center 20%;"
+        />
+
+        <!-- Dark gradient overlay for readability -->
+        <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(10,3,24,0.35) 0%, rgba(10,3,24,0.55) 40%, rgba(10,3,24,0.92) 75%, #0d0118 100%);"></div>
+
+        <!-- Content -->
+        <div class="relative z-10 flex flex-col justify-end flex-1 p-10 sm:p-16 space-y-6 text-center">
+
+          <!-- Souliography Logo Wordmark -->
+          <div class="absolute top-8 left-0 right-0 flex justify-center">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-[#6A3289] to-[#2E4A3D] flex items-center justify-center text-lg shadow-lg border border-amber-300/30">✨</div>
+              <span class="text-amber-100 font-serif font-bold text-2xl tracking-wide" style="text-shadow:0 2px 12px rgba(0,0,0,0.7);">Souliography</span>
+            </div>
+          </div>
+
+          <!-- Report title + seeker name -->
+          <div class="space-y-3 pt-8">
+            <span id="coverTag" class="text-[11px] font-bold uppercase tracking-widest block" style="color:#d4a0a0;">Personalized Soul Matrix Reading</span>
+            <h1 id="coverTitle" class="font-serif font-bold leading-tight" style="font-size:clamp(2rem,5vw,3.2rem); color:#f5f0e8; text-shadow:0 2px 20px rgba(0,0,0,0.6);">
+              {defaultReport.titleName} Soul Matrix
+            </h1>
+            <p class="font-serif text-lg" style="color:rgba(245,240,232,0.7);">Deep Personal Interpretation</p>
+          </div>
+
+          <!-- Personalized metadata badge -->
+          <div class="mx-auto rounded-2xl px-8 py-5 space-y-2 text-sm" style="background:rgba(255,255,255,0.07); border:1px solid rgba(196,164,122,0.3); backdrop-filter:blur(8px); max-width:400px;">
+            <p style="color:#e8c88c; font-weight:700;">Prepared for: <span id="coverName" style="color:#f5a0b0;">{defaultReport.name || 'Seeker'}</span></p>
+            <p style="color:rgba(245,240,232,0.75);"><strong style="color:#e8c88c;">Date of Birth:</strong> <span id="coverDob">January 14, 1980</span></p>
+            <p style="color:rgba(245,240,232,0.65);"><strong style="color:#e8c88c;">Generated:</strong> {defaultReport.generatedDate}</p>
+            <p style="color:rgba(245,240,232,0.65);"><strong style="color:#e8c88c;">{locale === 'ar' ? 'مدة القراءة:' : (locale === 'pt' ? 'Tempo de Leitura:' : 'Reading Time:')}</strong> {locale === 'ar' ? '١٢ دقيقة قراءة' : (locale === 'pt' ? '12 min de leitura' : '12 min read')}</p>
+          </div>
+
+          <!-- Footer brand line -->
+          <div class="flex justify-between text-[11px] font-mono pt-4" style="color:rgba(245,240,232,0.4);">
+            <span>souliography.com</span>
+            <span>Page 1 · Soul Matrix Deep Report</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- PAGE 2 — Personal Destiny Matrix Hexagram Chart    -->
+      <!-- ══════════════════════════════════════════════════ -->
+      <div class="pdf-chart-page page-break bg-white rounded-3xl p-8 sm:p-12 border border-stone-200/80 shadow-md print-card">
+        <!-- Header -->
+        <div class="text-center space-y-2 border-b border-stone-100 pb-6 mb-6">
+          <div class="flex items-center justify-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-[#2E163B] to-[#2E4A3D] flex items-center justify-center text-sm">✨</div>
+            <span class="text-[10px] font-bold text-[#B67B7B] uppercase tracking-widest font-mono">Destiny Matrix Chart</span>
+          </div>
+          <h2 id="chartPageTitle" class="text-2xl sm:text-3xl font-serif text-[#2E3D34] font-bold">
+            {defaultReport.titleName} Personal Hexagram
+          </h2>
+          <p class="text-xs text-stone-500 font-medium" id="chartPageSubtitle">Birth date energy map — all positions calculated from your date of birth</p>
+        </div>
+
+        <!-- The Destiny Matrix Hexagram — dynamically sized for print -->
+        <div class="flex justify-center">
+          <div class="w-full max-w-[520px]" id="chartContainer">
+            <DestinyMatrixChart
+              dayArcana={14}
+              monthArcana={1}
+              yearArcana={6}
+              bottomArcana={21}
+              centerArcana={6}
+            />
+          </div>
+        </div>
+
+        <!-- Matrix key legend -->
+        <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3" id="chartLegend">
+          <div class="text-center p-3 bg-[#F7F3EC] rounded-xl">
+            <div class="text-[10px] text-stone-500 uppercase tracking-widest font-mono">{locale === 'ar' ? 'المركز' : (locale === 'pt' ? 'Centro' : 'Center')}</div>
+            <div class="text-xl font-serif font-bold text-[#2E3D34] mt-1" id="legendCenter">6</div>
+            <div class="text-[10px] text-[#B67B7B]">{locale === 'ar' ? 'مسار الحياة' : (locale === 'pt' ? 'Caminho de Vida' : 'Life Purpose')}</div>
+          </div>
+          <div class="text-center p-3 bg-[#F7F3EC] rounded-xl">
+            <div class="text-[10px] text-stone-500 uppercase tracking-widest font-mono">{locale === 'ar' ? 'الروح' : (locale === 'pt' ? 'Alma' : 'Soul')}</div>
+            <div class="text-xl font-serif font-bold text-[#2E3D34] mt-1" id="legendSoul">—</div>
+            <div class="text-[10px] text-[#B67B7B]">{locale === 'ar' ? 'الطبيعة الداخلية' : (locale === 'pt' ? 'Natureza Interna' : 'Inner Nature')}</div>
+          </div>
+          <div class="text-center p-3 bg-[#F7F3EC] rounded-xl">
+            <div class="text-[10px] text-stone-500 uppercase tracking-widest font-mono">{locale === 'ar' ? 'الكارما' : (locale === 'pt' ? 'Karma' : 'Karma')}</div>
+            <div class="text-xl font-serif font-bold text-[#2E3D34] mt-1" id="legendKarma">21</div>
+            <div class="text-[10px] text-[#B67B7B]">{locale === 'ar' ? 'الذيل الكارمي' : (locale === 'pt' ? 'Cauda Kármica' : 'Karmic Tail')}</div>
+          </div>
+          <div class="text-center p-3 bg-[#F7F3EC] rounded-xl">
+            <div class="text-[10px] text-stone-500 uppercase tracking-widest font-mono">DOB</div>
+            <div class="text-xl font-serif font-bold text-[#2E3D34] mt-1" id="legendDob">14·1·6</div>
+            <div class="text-[10px] text-[#B67B7B]">{locale === 'ar' ? 'اليوم · الشهر · السنة' : (locale === 'pt' ? 'Dia · Mês · Ano' : 'Day · Month · Year')}</div>
+          </div>
+        </div>
+
+        <div class="pt-6 border-t border-stone-100 flex justify-between text-[11px] text-stone-400 font-mono mt-6">
+          <span>souliography.com</span>
+          <span>{locale === 'ar' ? 'الصفحة ٢ · الشكل السداسي الشخصي' : (locale === 'pt' ? 'Página 2 · Hexagrama Pessoal' : 'Page 2 · Personal Hexagram')}</span>
+        </div>
+      </div>
+
+      <!-- TABLE OF CONTENTS (Page 2 - With Clickable Anchor Links!) -->
+      <div class="page-break bg-white rounded-3xl p-8 sm:p-12 border border-stone-200/80 shadow-md space-y-6 print-card">
+        <div class="border-b border-stone-100 pb-4 flex justify-between items-center">
+          <div>
+            <span class="text-[10px] font-bold text-[#B67B7B] uppercase tracking-widest block font-mono">{locale === 'ar' ? 'فهرس التقرير' : (locale === 'pt' ? 'ÍNDICE DO RELATÓRIO' : 'REPORT INDEX')}</span>
+            <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">{locale === 'ar' ? 'جدول المحتويات' : (locale === 'pt' ? 'Índice de Conteúdo' : 'Table of Contents')}</h2>
+          </div>
+          <span class="text-xs text-stone-400 font-medium">{locale === 'ar' ? 'انقر على أي قسم للانتقال إليه مباشرة' : (locale === 'pt' ? 'Clique em qualquer seção para ir direto' : 'Click any section to jump directly')}</span>
+        </div>
+
+        <!-- Clickable TOC Links with Hover Highlighting -->
+        <div class="space-y-3 text-xs sm:text-sm font-medium text-stone-700 font-mono">
+          <a href="#core-personality" class="flex justify-between border-b border-dashed border-stone-200 pb-2.5 hover:text-[#2E4A3D] hover:border-[#7A9B7E] transition-colors group">
+            <span class="group-hover:translate-x-1 transition-transform">{locale === 'ar' ? '١. خريطة الشخصية الأساسية' : (locale === 'pt' ? '1. Mapa de Personalidade Principal' : '1. Core Personality Map')}</span>
+            <span class="text-stone-400 group-hover:text-[#2E4A3D] font-bold">Page 3 →</span>
+          </a>
+
+          <a href="#life-purpose" class="flex justify-between border-b border-dashed border-stone-200 pb-2.5 hover:text-[#2E4A3D] hover:border-[#7A9B7E] transition-colors group">
+            <span class="group-hover:translate-x-1 transition-transform">{locale === 'ar' ? '٢. مسار الحياة ورسالة الروح' : (locale === 'pt' ? '2. Propósito de Vida e Missão da Alma' : '2. Life Purpose & Soul Mission')}</span>
+            <span class="text-stone-400 group-hover:text-[#2E4A3D] font-bold">Page 4 →</span>
+          </a>
+
+          <a href="#career-money" class="flex justify-between border-b border-dashed border-stone-200 pb-2.5 hover:text-[#2E4A3D] hover:border-[#7A9B7E] transition-colors group">
+            <span class="group-hover:translate-x-1 transition-transform">{locale === 'ar' ? '٣. مخطط الحياة المهنية والمالية' : (locale === 'pt' ? '3. Plano de Carreira e Finanças' : '3. Career & Money Blueprint')}</span>
+            <span class="text-stone-400 group-hover:text-[#2E4A3D] font-bold">Page 5 →</span>
+          </a>
+
+          <a href="#love-compatibility" class="flex justify-between border-b border-dashed border-stone-200 pb-2.5 hover:text-[#2E4A3D] hover:border-[#7A9B7E] transition-colors group">
+            <span class="group-hover:translate-x-1 transition-transform">{locale === 'ar' ? '٤. الحب والتوافق والعلاقات' : (locale === 'pt' ? '4. Amor e Compatibilidade' : '4. Love & Compatibility')}</span>
+            <span class="text-stone-400 group-hover:text-[#2E4A3D] font-bold">Page 6 →</span>
+          </a>
+
+          <a href="#karmic-blueprint" class="flex justify-between border-b border-dashed border-stone-200 pb-2.5 hover:text-[#2E4A3D] hover:border-[#7A9B7E] transition-colors group">
+            <span class="group-hover:translate-x-1 transition-transform">{locale === 'ar' ? '٥. المخطط الكارمي ورغبات الروح' : (locale === 'pt' ? '5. Blueprint Kármico' : '5. Karmic Blueprint')}</span>
+            <span class="text-stone-400 group-hover:text-[#2E4A3D] font-bold">Page 7 →</span>
+          </a>
+
+          <a href="#natural-gifts" class="flex justify-between border-b border-dashed border-stone-200 pb-2.5 hover:text-[#2E4A3D] hover:border-[#7A9B7E] transition-colors group">
+            <span class="group-hover:translate-x-1 transition-transform">{locale === 'ar' ? '٦. المواهب الطبيعية والقدرات الحدسية' : (locale === 'pt' ? '6. Dons Naturais e Intuição' : '6. Natural Gifts & Intuitive Strengths')}</span>
+            <span class="text-stone-400 group-hover:text-[#2E4A3D] font-bold">Page 8 →</span>
+          </a>
+
+          <a href="#chakra-analysis" class="flex justify-between border-b border-dashed border-stone-200 pb-2.5 hover:text-[#2E4A3D] hover:border-[#7A9B7E] transition-colors group">
+            <span class="group-hover:translate-x-1 transition-transform">{locale === 'ar' ? '٧. تحليل طاقة الشاكرات السبع' : (locale === 'pt' ? '7. Análise de Energia dos Chakras' : '7. Chakra Energy Analysis')}</span>
+            <span class="text-stone-400 group-hover:text-[#2E4A3D] font-bold">Page 9 →</span>
+          </a>
+
+          <a href="#current-life-stage" class="flex justify-between border-b border-dashed border-stone-200 pb-2.5 hover:text-[#2E4A3D] hover:border-[#7A9B7E] transition-colors group">
+            <span class="group-hover:translate-x-1 transition-transform">{locale === 'ar' ? '٨. مرحلة الحياة الحالية والتوقيت الكوني' : (locale === 'pt' ? '8. Ciclo e Estágio de Vida Atual' : '8. Current Life Stage')}</span>
+            <span class="text-stone-400 group-hover:text-[#2E4A3D] font-bold">Page 10 →</span>
+          </a>
+
+          <a href="#growth-roadmap" class="flex justify-between border-b border-dashed border-stone-200 pb-2.5 hover:text-[#2E4A3D] hover:border-[#7A9B7E] transition-colors group">
+            <span class="group-hover:translate-x-1 transition-transform">{locale === 'ar' ? '٩. خريطة طريق النمو والتطور الشخصي' : (locale === 'pt' ? '9. Roteiro de Crescimento Pessoal' : '9. Growth Roadmap')}</span>
+            <span class="text-stone-400 group-hover:text-[#2E4A3D] font-bold">Page 11 →</span>
+          </a>
+
+          <a href="#soul-summary" class="flex justify-between border-b border-dashed border-stone-200 pb-2.5 hover:text-[#2E4A3D] hover:border-[#7A9B7E] transition-colors group">
+            <span class="group-hover:translate-x-1 transition-transform">{locale === 'ar' ? '١٠. ملخص قراءة الروح الختامية' : (locale === 'pt' ? '10. Resumo Geral da Alma' : '10. Soul Summary')}</span>
+            <span class="text-stone-400 group-hover:text-[#2E4A3D] font-bold">Page 12 →</span>
+          </a>
+        </div>
+
+        <div class="pt-6 border-t border-stone-100 flex justify-between text-[11px] text-stone-400 font-mono">
+          <span>souliography.com</span>
+          <span>Page 2</span>
+        </div>
+      </div>
+
+      <!-- 10 PER-SECTION PAGES (Dynamic Container via Client JS) -->
+      <div id="sectionsContainer" class="space-y-8">
+        {Object.entries(defaultReport.sections).map(([key, sec], idx) => (
+          <div id={key} class="page-break bg-white rounded-3xl p-8 sm:p-12 border border-stone-200/80 shadow-md space-y-6 print-card scroll-mt-6">
+            <div class="flex justify-between items-center border-b border-stone-100 pb-4">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-bold text-[#B67B7B] uppercase tracking-widest font-mono">
+                  SECTION {idx + 1} OF 10
+                </span>
+                <span class="text-xs text-stone-400">·</span>
+                <span class="sec-meta-badge text-xs font-semibold text-[#2E3D34]">Seeker</span>
+              </div>
+              <a href="#" class="no-print text-xs font-semibold text-stone-400 hover:text-[#2E4A3D]">Top ↑</a>
+            </div>
+
+            <div class="space-y-4">
+              <h2 class="text-3xl font-serif text-[#2E3D34] font-bold">
+                {key.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+              </h2>
+              
+              <!-- Italic Strapline -->
+              <p class="text-xs text-stone-500 italic font-serif">"{sec.strapline}"</p>
+
+              <!-- Bold AI Headline -->
+              <h3 id={`sec-head-${key}`} class="text-xl sm:text-2xl font-serif font-bold text-[#2E3D34] leading-snug pt-2">
+                {sec.headline}
+              </h3>
+
+              <!-- AI Explanatory Paragraph Personalized -->
+              <p id={`sec-body-${key}`} class="text-sm text-stone-700 leading-relaxed font-sans">
+                {sec.body}
+              </p>
+            </div>
+
+            <div class="pt-6 border-t border-stone-100 flex justify-between items-center text-[11px] text-stone-400 font-mono">
+              <span id={`sec-nums-${key}`}>Relevant numbers: {sec.relevantNumbersStr}</span>
+              <span>souliography.com · Page {idx + 3}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- CLOSING PAGE -->
+      <div class="page-break bg-white rounded-3xl p-10 sm:p-16 border border-stone-200/80 shadow-md text-center space-y-6 print-card">
+        <div class="w-12 h-12 mx-auto rounded-full bg-[#F7F3EC] text-[#2E3D34] flex items-center justify-center text-xl font-bold">
+          ✨
+        </div>
+        <h2 id="closingHeader" class="text-3xl font-serif text-[#2E3D34] font-bold">Thank You for Exploring Your Soul Matrix!</h2>
+        <p id="closingSub" class="text-sm text-stone-600 max-w-md mx-auto leading-relaxed">
+          Generate a new chart, check compatibility, or revisit this reading anytime at <strong>souliography.com</strong>
+        </p>
+        <div class="pt-8 border-t border-stone-100 flex justify-between text-[11px] text-stone-400 font-mono">
+          <span>souliography.com</span>
+          <span>Final Page</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Client-side Dynamic Report Rendering script -->
+  <script is:inline>
+    (function() {
+      const currentLocale = window.location.pathname.startsWith('/ar') ? 'ar' : (window.location.pathname.startsWith('/pt') ? 'pt' : 'en');
+
+      const ARCANA_EN = {
+        1: { title: "Magician & Pioneer", core: "creation, manifestation, and original thought", gift: "turning ideas into immediate reality", challenge: "avoiding impatience or controlling tendencies" },
+        2: { title: "High Priestess & Intuitive", core: "receptive wisdom, intuition, and unseen truths", gift: "perceiving underlying emotional currents", challenge: "overcoming passive isolation" },
+        3: { title: "Empress & Nurturer", core: "abundance, creativity, and organic growth", gift: "bringing projects to full bloom", challenge: "balancing self-care" },
+        4: { title: "Emperor & System Builder", core: "structure, discipline, and executive authority", gift: "building lasting systems", challenge: "guarding against rigidity" },
+        5: { title: "Hierophant & Teacher", core: "tradition, spiritual guidance, and higher knowledge", gift: "sharing wisdom", challenge: "releasing dogma" },
+        6: { title: "Lovers & Harmonizer", core: "choice, relationships, and emotional harmony", gift: "uniting contrasting forces with compassion", challenge: "overcoming indecision" },
+        7: { title: "Charioteer & Goal Attainer", core: "willpower, victory through effort, and focused drive", gift: "overcoming obstacles", challenge: "managing burnout" },
+        8: { title: "Justice & Balance Keeper", core: "karmic law, cause-and-effect, and moral truth", gift: "seeing raw facts and restoring fair equilibrium", challenge: "avoiding harsh self-criticism" },
+        9: { title: "Hermit & Truth Seeker", core: "introspection, inner mastery, and deep analysis", gift: "finding clarity in solitude", challenge: "preventing excessive detachment" },
+        10: { title: "Wheel of Fortune & Catalyst", core: "cycles, unexpected shifts, and divine luck", gift: "adapting swiftly to life's changing rhythms", challenge: "resisting temporary loss of control" },
+        11: { title: "Strength & Resilient Leader", core: "inner fortitude, passion, and gentle power", gift: "mastering intense emotions with calm composure", challenge: "avoiding suppression of feelings" },
+        12: { title: "Hanged Man & Perspective Shifter", core: "unconventional vision, patience, and altruism", gift: "seeing solutions from novel angles", challenge: "guarding against self-sacrifice" },
+        13: { title: "Rebirth & Transformative Force", core: "profound metamorphosis and renewal", gift: "initiating needed endings for powerful beginnings", challenge: "clinging to obsolete patterns" },
+        14: { title: "Temperance & Master Alchemist", core: "moderation, synthesis, and inner harmony", gift: "blending diverse ideas into balance", challenge: "avoiding extremes" },
+        15: { title: "Devil & Shadow Master", core: "vital energy, material mastery, and unmasking illusion", gift: "harnessing passion and seeing true motives", challenge: "breaking free from unhealthy attachments" },
+        16: { title: "Tower & Breakthrough Catalyst", core: "awakening and radical dismantling", gift: "breaking through false structures", challenge: "navigating sudden disruption" },
+        17: { title: "Star & Inspiring Visionary", core: "hope, talent illumination, and higher purpose", gift: "radiating authentic inspiration", challenge: "staying grounded in reality" },
+        18: { title: "Moon & Subconscious Navigator", core: "imagination, depth, and unlocking hidden potential", gift: "navigating psychological depth", challenge: "dispelling anxiety or illusion" },
+        19: { title: "Sun & Radiant Joy", core: "vitality, leadership, and expansive success", gift: "illuminating space and uplifting surrounding community", challenge: "distributing warmth without burnout" },
+        20: { title: "Judgment & Ancestral Awakening", core: "soul calling, rebirth, and ancestral healing", gift: "heeding your higher vocation", challenge: "releasing self-doubt" },
+        21: { title: "World & Global Synthesizer", core: "completion, broad horizons, and universal harmony", gift: "unifying global perspectives", challenge: "avoiding fear of expanding past comfort" },
+        22: { title: "Fool & Infinite Explorer", core: "freedom, trust in the journey, and pure potential", gift: "embracing fresh starts with faith", challenge: "ensuring practical foresight" }
+      };
+
+      const ARCANA_PT = {
+        1: { title: "Mago e Pioneiro", core: "criação, manifestação e pensamento original", gift: "transformar ideias em realidade imediata", challenge: "evitar impaciência ou tendências controladoras" },
+        2: { title: "Sacerdotisa e Intuitiva", core: "sabedoria receptiva, intuição e verdades ocultas", gift: "perceber correntes emocionais subjacentes", challenge: "superar o isolamento passivo" },
+        3: { title: "Imperatriz e Nutridora", core: "abundância, criatividade e crescimento orgânico", gift: "trazer projetos para o pleno florescimento", challenge: "equilibrar o autocuidado" },
+        4: { title: "Imperador e Construtor de Sistemas", core: "estrutura, disciplina e autoridade executiva", gift: "construir sistemas duradouros", challenge: "proteger-se contra a rigidez" },
+        5: { title: "Hierofante e Instrutor", core: "tradição, orientação espiritual e conhecimento superior", gift: "compartilhar sabedoria", challenge: "libertar-se de dogmas" },
+        6: { title: "Os Namorados e Harmonizador", core: "escolha, relacionamentos e harmonia emocional", gift: "unir forças contrastantes com compaixão", challenge: "superar a indecisão" },
+        7: { title: "O Carro e Conquistador de Objetivos", core: "força de vontade, vitória pelo esforço e foco direcionado", gift: "superar obstáculos", challenge: "gerenciar o esgotamento" },
+        8: { title: "Justiça e Guardião do Equilíbrio", core: "lei kármica, causa e efeito e verdade moral", gift: "ver fatos puros e restaurar um equilíbrio justo", challenge: "evitar autocrítica severa" },
+        9: { title: "O Eremita e Buscador da Verdade", core: "introspecção, domínio interno e análise profunda", gift: "encontrar clareza na solidez", challenge: "evitar o desapego excessivo" },
+        10: { title: "Roda da Fortuna e Catalisador", core: "ciclos, mudanças inesperadas e sorte divina", gift: "adaptar-se rapidamente aos ritmos mutáveis da vida", challenge: "resistir à perda temporária de controle" },
+        11: { title: "Força e Líder Resiliente", core: "fortitude interna, paixão e poder gentil", gift: "dominar emoções intensas com compostura calma", challenge: "evitar a supressão de sentimentos" },
+        12: { title: "O Enforcado e Mudança de Perspectiva", core: "visão não convencional, paciência e altruísmo", gift: "ver soluções sob novos ângulos", challenge: "proteger-se contra o autossacrifício" },
+        13: { title: "Renascimento e Força Transformativa", core: "metamorfose profunda e renovação", gift: "iniciar finais necessários para começos poderosos", challenge: "apegar-se a padrões obsoletos" },
+        14: { title: "Temperança e Alquimista Mestre", core: "moderação, síntese e harmonia interior", gift: "misturar ideias diversas em equilíbrio", challenge: "evitar extremos" },
+        15: { title: "O Diabo e Mestre das Sombras", core: "energia vital, domínio material e desmascarar ilusões", gift: "canalizar a paixão e ver motivos reais", challenge: "libertar-se de apegos prejudiciais" },
+        16: { title: "A Torre e Catalisador de Avanço", core: "despertar e desmantelamento radical", gift: "romper estruturas falsas", challenge: "navegar por interrupções repentinas" },
+        17: { title: "A Estrela e Visionário Inspirador", core: "esperança, iluminação de talentos e propósito superior", gift: "irradiar inspiração autêntica", challenge: "manter-se fundamentado na realidade" },
+        18: { title: "A Lua e Navegador do Subconsciente", core: "imaginação, profundidade e desbloqueio de potencial oculto", gift: "navegar por profundidades psicológicas", challenge: "dissipar ansiedade ou ilusão" },
+        19: { title: "O Sol e Alegria Radiante", core: "vitalidade, liderança e sucesso expansivo", gift: "iluminar espaços e elevar a comunidade ao redor", challenge: "distribuir calor sem esgotamento" },
+        20: { title: "O Julgamento e Despertar Ancestral", core: "chamado da alma, renascimento e cura ancestral", gift: "atender à sua vocação superior", challenge: "libertar-se da autodúvida" },
+        21: { title: "O Mundo e Sintetizador Global", core: "conclusão, horizontes amplos e harmonia universal", gift: "unificar perspectivas globais", challenge: "evitar o medo de expandir além do conforto" },
+        22: { title: "O Louco e Explorador Infinito", core: "liberdade, confiança na jornada e puro potencial", gift: "abraçar novos começos com fé", challenge: "garantir previdência prática" }
+      };
+
+      const ARCANA_AR = {
+        1: { title: "الساحر والريادي", core: "الخلق، والتجلي، والفكر الأصيل", gift: "تحويل الأفكار إلى واقع ملموس فوراً", challenge: "تجنب نفاد الصبر أو الرغبة في السيطرة" },
+        2: { title: "الكاهنة العظمى والحدسية", core: "الحكمة المستقبلية، والحدس، والحقائق غير المرئية", gift: "إدراك التيارات العاطفية الكامنة", challenge: "التغلب على العزلة السلبية" },
+        3: { title: "الإمبراطورة والمربية", core: "الوفرة، والإبداع، والنمو العضوي", gift: "إيصال المشاريع إلى الازدهار الكامل", challenge: "موازنة الرعاية الذاتية" },
+        4: { title: "الإمبراطور ومنشئ النظام", core: "الهيكل، والانضباط، والسلطة التنفيذية", gift: "بناء أنظمة مستدامة", challenge: "الحذر من الصلابة والجمود" },
+        5: { title: "الكاهن الأكبر والمعلم", core: "التقاليد، والإرشاد الروحي، والمعرفة العليا", gift: "مشاركة الحكمة والتعاليم", challenge: "التخلي عن الأفكار العقائدية الصلبة" },
+        6: { title: "العشاق والمنسق", core: "الاختيار، والعلاقات، والانسجام العاطفي", gift: "توحيد القوى المتناقضة بالتعاطف", challenge: "التغلب على التردد في اتخاذ القرارات" },
+        7: { title: "العربة ومحقق الأهداف", core: "قوة الإرادة، والنصر بالجهد، والتركيز الموجه", gift: "التغلب على العقبات والتحديات", challenge: "إدارة الإرهاق والاحتراق النفسي" },
+        8: { title: "العدالة وحارس التوازن", core: "القانون الكارمي، السبب والنتيجة، والحقيقة الأخلاقية", gift: "رؤية الحقائق المجردة واستعادة التوازن العادل", challenge: "تجنب النقد الذاتي القاسي" },
+        9: { title: "الناسك والباحث عن الحقيقة", core: "التأمل الداخلي، التمكن الذاتي، والتحليل العميق", gift: "إيجاد الوضوح والهدوء في العزلة", challenge: "منع الانفصال المفرط عن الآخرين" },
+        10: { title: "عجلة الحظ والمحفز", core: "الدورات، التحولات غير المتوقعة، والحظ الإلهي", gift: "التكيف بسرعة مع إيقاعات الحياة المتغيرة", challenge: "مقاومة الشعور المؤقت بفقدان السيطرة" },
+        11: { title: "القوة والقائد المرن", core: "الثبات الداخلي، الشغف، والقوة اللطيفة", gift: "السيطرة على العواطف القوية بهدوء تام", challenge: "تجنب كبت ومقاومة المشاعر" },
+        12: { title: "الرجل المشنوق ومغير المنظور", core: "الرؤية غير التقليدية، الصبر، والإيثار", gift: "رؤية الحلول من زوايا مبتكرة جديدة", challenge: "الحذر من التضحية المفرطة بالذات" },
+        13: { title: "الموت والولادة والقدرة التحولية", core: "التحول العميق والتجدد الشامل", gift: "البدء بالنهايات الضرورية لتمهيد بدايات قوية", challenge: "التمسك بالأنماط القديمة التي انتهت صلاحيتها" },
+        14: { title: "الاعتدال والخيميائي الماستر", core: "الاعتدال، والتركيب، والانسجام الداخلي", gift: "دمج الأفكار المختلفة لتحقيق التوازن", challenge: "تجنب التطرف والمبالغة" },
+        15: { title: "الشيطان وسيد الظل", core: "الطاقة الحيوية، والتمكن المادي، وكشف الأوهام", gift: "توجيه الشغف ورؤية الدوافع الحقيقية للآخرين", challenge: "التحرر من الارتباطات غير الصحية" },
+        16: { title: "البرج ومحفز الاختراق", core: "الصحوة والتفكيك الجذري للأفكار القديمة", gift: "اختراق الهياكل والحدوز الزائفة لإنشاء الجديد", challenge: "التعامل الحكيم مع الاضطرابات المفاجئة" },
+        17: { title: "النجم والملهم البصري", core: "الأمل، إضاءة المواهب، والهدف الأسمى", gift: "نشر الإلهام الحقيقي الصادق لمن حولك", challenge: "البقاء واقعياً ومتصلاً بالأرض" },
+        18: { title: "القمر ومستكشف الباطن", core: "الخيال، العمق، وإطلاق الطاقات والقدرات الكامنة", gift: "فهم واستكشاف الأبعاد النفسية العميقة", challenge: "تبديد مشاعر القلق أو الأوهام" },
+        19: { title: "الشمس والبهجة الساطعة", core: "الحيوية، القيادة، والنجاح الواسع الممتد", gift: "إضاءة المكان ورفع معنويات من حولك", challenge: "توزيع الدفء والاهتمام دون احتراق ذاتي" },
+        20: { title: "الحساب واليقظة السلفية", core: "نداء الروح، الولادة الجديدة، والشفاء الموروث", gift: "الاستجابة لرسالتك المهنية والروحية العليا", challenge: "التخلص من الشك الذاتي المانع للتقدم" },
+        21: { title: "العالم والموحد العالمي", core: "الاكتمال، الآفاق الواسعة، والانسجام الكوني الشامل", gift: "توحيد الرؤى والمنظورات العالمية المتنوعة", challenge: "تجنب الخوف من التوسع خارج منطقة الراحة" },
+        22: { title: "الأحمق والمستكشف اللانهائي", core: "الحرية، الثقة في مسار الرحلة، والقدرات اللامتناهية", gift: "احتضان البدايات الجديدة بإيمان وثقة", challenge: "ضمان البصيرة العملية لتجنب التهور" }
+      };
+
+      const ARCANA = currentLocale === 'ar' ? ARCANA_AR : (currentLocale === 'pt' ? ARCANA_PT : ARCANA_EN);
+
+      function reduceArcana(num) {
+        if (!num || isNaN(num)) return 6;
+        let n = parseInt(num, 10);
+        while (n > 22) {
+          let sum = 0;
+          let str = n.toString();
+          for (let i = 0; i < str.length; i++) sum += parseInt(str[i], 10);
+          n = sum;
+        }
+        return n <= 0 ? 1 : n;
+      }
+
+      function getArc(num) {
+        const r = reduceArcana(num);
+        return ARCANA[r] || ARCANA[6];
+      }
+
+      // Calculate Destiny Matrix client-side from parameters
+      const params = new URLSearchParams(window.location.search);
+      const nameStr = (params.get('name') || '').trim();
+      const dobStr = params.get('dob') || '1980-01-14';
+
+      const displayName = nameStr ? nameStr : (currentLocale === 'ar' ? 'الباحث' : (currentLocale === 'pt' ? 'Buscador' : 'Seeker'));
+      
+      let titleName = 'Your';
+      if (nameStr) {
+        titleName = currentLocale === 'ar' ? `مصفوفة ${nameStr}` : (currentLocale === 'pt' ? `Matriz de ${nameStr}` : `${nameStr}'s`);
+      } else {
+        titleName = currentLocale === 'ar' ? 'مصفوفتك الشخصية' : (currentLocale === 'pt' ? 'Sua Matriz Pessoal' : 'Your');
+      }
+
+      // Robust date parser helper
+      function parseDobLocal(dStr) {
+        if (!dStr) return { day: 14, month: 1, year: 1980 };
+        const parts = dStr.split(/[-/.]/);
+        if (parts.length !== 3) return { day: 14, month: 1, year: 1980 };
+        const p0 = parseInt(parts[0], 10);
+        const p1 = parseInt(parts[1], 10);
+        const p2 = parseInt(parts[2], 10);
+        if (isNaN(p0) || isNaN(p1) || isNaN(p2)) return { day: 14, month: 1, year: 1980 };
+        let d = 14, m = 1, y = 1980;
+        if (p0 > 31) {
+          y = p0; m = p1; d = p2;
+        } else if (p2 > 31) {
+          d = p0; m = p1; y = p2;
+        } else {
+          d = p0; m = p1; y = p2 < 100 ? (p2 > 30 ? 1900 + p2 : 2000 + p2) : p2;
+        }
+        d = Math.max(1, Math.min(31, d));
+        m = Math.max(1, Math.min(12, m));
+        if (y < 100) y = 2000 + y;
+        return { day: d, month: m, year: y };
+      }
+
+      const { day, month, year } = parseDobLocal(dobStr);
+
+      let formattedDob = dobStr;
+      try {
+        const dObj = new Date(year, month - 1, day);
+        const lStr = currentLocale === 'ar' ? 'ar-SA' : (currentLocale === 'pt' ? 'pt-BR' : 'en-US');
+        formattedDob = dObj.toLocaleDateString(lStr, { month: 'long', day: 'numeric', year: 'numeric' });
+      } catch (e) {}
+
+      // Calculate numerology numbers
+      const dayArc = reduceArcana(day);
+      const monthArc = reduceArcana(month);
+      const ySum = year.toString().split('').reduce((a, b) => a + parseInt(b, 10), 0);
+      const yearArc = reduceArcana(ySum);
+      const bottomArc = reduceArcana(dayArc + monthArc + yearArc);
+      const centerArc = reduceArcana(dayArc + monthArc + yearArc + bottomArc);
+
+      let nameSum = 0;
+      for (let i = 0; i < nameStr.length; i++) {
+        nameSum += nameStr.toLowerCase().charCodeAt(i) % 9 + 1;
+      }
+      const soulNum = reduceArcana(nameSum || 1);
+      const personalityNum = dayArc;
+      const lifePathNum = centerArc;
+      const expressionNum = reduceArcana(dayArc + monthArc);
+      const moneyArc = reduceArcana(centerArc + yearArc);
+      const loveArc = reduceArcana(centerArc + bottomArc);
+      const talentArc = reduceArcana(dayArc + monthArc);
+
+      // Diagonal corners
+      const topLeftArc = reduceArcana(dayArc + monthArc);
+      const topRightArc = reduceArcana(monthArc + yearArc);
+      const bottomRightArc = reduceArcana(yearArc + bottomArc);
+      const bottomLeftArc = reduceArcana(bottomArc + dayArc);
+
+      // Dynamically update visual SVG chart elements
+      const svgNodes = {
+        'svgCenterArcana': centerArc,
+        'svgDayArcana': dayArc,
+        'svgMonthArcana': monthArc,
+        'svgYearArcana': yearArc,
+        'svgBottomArcana': bottomArc,
+        'svgTopRightArcana': topRightArc,
+        'svgBottomRightArcana': bottomRightArc,
+        'svgBottomLeftArcana': bottomLeftArc,
+        'svgTopLeftArcana': topLeftArc,
+        'svgMoneyArcana': moneyArc,
+        'svgLoveArcana': loveArc
+      };
+
+      for (const [id, val] of Object.entries(svgNodes)) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = val;
+      }
+
+      // Update Cover Page elements
+      const tagEl = document.getElementById('coverTag');
+      if (tagEl) {
+        tagEl.textContent = currentLocale === 'ar' ? `تحليل روحي مخصص لـ ${displayName.toUpperCase()}` : (currentLocale === 'pt' ? `LEITURA PERSONALIZADA PARA ${displayName.toUpperCase()}` : `PERSONALIZED READING FOR ${displayName.toUpperCase()}`);
+      }
+      
+      const titleEl = document.getElementById('coverTitle');
+      if (titleEl) {
+        titleEl.textContent = currentLocale === 'ar' ? `مصفوفة روح ${displayName}` : (currentLocale === 'pt' ? `Matriz da Alma de ${displayName}` : `${titleName} Soul Matrix`);
+      }
+
+      const nameEl = document.getElementById('coverName');
+      if (nameEl) nameEl.textContent = displayName;
+
+      const dobEl = document.getElementById('coverDob');
+      if (dobEl) dobEl.textContent = formattedDob;
+
+      const metaBadges = document.querySelectorAll('.sec-meta-badge');
+      metaBadges.forEach(b => b.textContent = `${displayName} (${formattedDob})`);
+
+      const closingHead = document.getElementById('closingHeader');
+      if (closingHead) {
+        closingHead.textContent = currentLocale === 'ar' ? `شكراً لاستكشاف مصفوفة روحك، ${displayName}!` : (currentLocale === 'pt' ? `Obrigado por Explorar sua Matriz da Alma, ${displayName}!` : `Thank You for Exploring Your Soul Matrix, ${displayName}!`);
+      }
+
+      const closingSub = document.getElementById('closingSub');
+      if (closingSub) {
+        if (currentLocale === 'ar') {
+          closingSub.innerHTML = `أنشئ مخططاً جديداً، أو تحقق من التوافق، أو أعد زيارة هذه القراءة لـ <strong>${displayName} (${formattedDob})</strong> في أي وقت على <strong>souliography.com</strong>`;
+        } else if (currentLocale === 'pt') {
+          closingSub.innerHTML = `Gere um novo gráfico, verifique a compatibilidade ou revisite esta leitura para <strong>${displayName} (${formattedDob})</strong> a qualquer momento em <strong>souliography.com</strong>`;
+        } else {
+          closingSub.innerHTML = `Generate a new chart, check compatibility, or revisit this reading for <strong>${displayName} (${formattedDob})</strong> anytime at <strong>souliography.com</strong>`;
+        }
+      }
+
+      // Update Page 2 — Chart page title & legend
+      const chartTitle = document.getElementById('chartPageTitle');
+      if (chartTitle) {
+        chartTitle.textContent = currentLocale === 'ar' ? `الشكل السداسي الشخصي لـ ${displayName}` : (currentLocale === 'pt' ? `Hexagrama Pessoal de ${displayName}` : `${titleName} Personal Hexagram`);
+      }
+
+      const chartSub = document.getElementById('chartPageSubtitle');
+      if (chartSub) {
+        if (currentLocale === 'ar') {
+          chartSub.textContent = `${formattedDob} — خريطة طاقة تاريخ الميلاد، جميع المواقع محسوبة من تاريخ ميلادك`;
+        } else if (currentLocale === 'pt') {
+          chartSub.textContent = `${formattedDob} — Mapa de energia da data de nascimento, todas as posições calculadas a partir da sua data de nascimento`;
+        } else {
+          chartSub.textContent = `${formattedDob} — Birth date energy map, all positions calculated from your date of birth`;
+        }
+      }
+
+      const lCenter = document.getElementById('legendCenter');
+      if (lCenter) lCenter.textContent = centerArc;
+
+      const lSoul = document.getElementById('legendSoul');
+      if (lSoul) lSoul.textContent = soulNum;
+
+      const lKarma = document.getElementById('legendKarma');
+      if (lKarma) lKarma.textContent = bottomArc;
+
+      const lDob = document.getElementById('legendDob');
+      if (lDob) lDob.textContent = `${day}·${month}·${year % 100}`;
+
+      // Update 10 Sections Content dynamically based on locale
+      const secs = {};
+      
+      if (currentLocale === 'pt') {
+        secs['core-personality'] = {
+          h: `${displayName}, sua Personalidade ${personalityNum} (${getArc(personalityNum).title}) ancora sua presença externa, enquanto a Alma ${soulNum} (${getArc(soulNum).title}) molda sua força interior.`,
+          b: `A Arcana da Personalidade ${personalityNum} torna a ${getArc(personalityNum).core} sua base natural nas interações diárias. Sob essa superfície, a Arcana da Alma ${soulNum} chama ${displayName} em direção a ${getArc(soulNum).core}. Seu mecanismo único une o dom de ${getArc(personalityNum).gift} com a evolução em direção a ${getArc(soulNum).gift}.`,
+          n: `Arcana de Personalidade ${personalityNum}, Arcana da Alma ${soulNum}`
+        };
+        secs['life-purpose'] = {
+          h: `O Caminho de Vida ${lifePathNum} (${getArc(lifePathNum).title}) direciona seu destino de longo prazo, alinhado com a Expressão ${expressionNum} (${getArc(expressionNum).title}).`,
+          b: `Seu caminho de vida é governado pela Arcana ${lifePathNum}, focando sua evolução em ${getArc(lifePathNum).core}. A Arcana de Expressão ${expressionNum} dá a este propósito execução prática através de ${getArc(expressionNum).gift}. Para ${displayName}, decisões importantes têm sucesso quando você canaliza ${getArc(lifePathNum).gift}.`,
+          n: `Arcana do Caminho de Vida ${lifePathNum}, Arcana de Expressão ${expressionNum}`
+        };
+        secs['career-money'] = {
+          h: `O Propósito Central ${centerArc} (${getArc(centerArc).title}) canaliza-se na Linha do Dinheiro ${moneyArc} (${getArc(moneyArc).title}) para avanços profissionais.`,
+          b: `A Arcana Central ${centerArc} define seu estilo de tomada de decisão sob pressão comercial. A Arcana da Linha do Dinheiro ${moneyArc} traduz isso em estratégia financeira ao desbloquear o dom de ${getArc(moneyArc).gift}. Para ${displayName}, o crescimento financeiro prospera ao combinar ${getArc(centerArc).core} com execução clara.`,
+          n: `Arcana Central ${centerArc}, Arcana da Linha do Dinheiro ${moneyArc}`
+        };
+        secs['love-compatibility'] = {
+          h: `A Linha do Amor ${loveArc} (${getArc(loveArc).title}) ancora a segurança relacional, exigindo alinhamento de limites com a Alma ${soulNum}.`,
+          b: `A Arcana da Linha do Amor ${loveArc} governa como ${displayName} expressa afeto e estabelece confiança. Juntamente com a Arcana da Alma ${soulNum}, sua dinâmica de relacionamento floresce através de ${getArc(loveArc).core}. A confiança é construída ao aproveitar ${getArc(loveArc).gift}.`,
+          n: `Arcana da Linha do Amor ${loveArc}, Arcana da Alma ${soulNum}`
+        };
+        secs['karmic-blueprint'] = {
+          h: `A Cauda Kármica ${bottomArc} (${getArc(bottomArc).title}) destaca fricções sob estresse, resolvidas pelo Propósito Central ${centerArc}.`,
+          b: `Sob estresse agudo, a Arcana Kármica ${bottomArc} ativa o desafio de ${getArc(bottomArc).challenge}. Para ${displayName}, interromper esse padrão requer mudar o foco para a Arcana Central ${centerArc} (${getArc(centerArc).title}), transformando reações no dom de ${getArc(centerArc).gift}.`,
+          n: `Arcana Kármica ${bottomArc}, Arcana Central ${centerArc}`
+        };
+        secs['natural-gifts'] = {
+          h: `A Zona de Talentos ${talentArc} (${getArc(talentArc).title}) concede domínio natural na execução criativa e intuitiva.`,
+          b: `Posicionada na Arcana ${talentArc}, sua superpotência inata foca em ${getArc(talentArc).gift}. Para ${displayName}, esta força intuitiva opera com facilidade, proporcionando uma vantagem estratégica clara.`,
+          n: `Arcana de Talento ${talentArc}`
+        };
+        secs['chakra-analysis'] = {
+          h: `A Coroa Física ${reduceArcana(dayArc + monthArc)} e a Emoção do Coração ${reduceArcana(centerArc + monthArc)} equilibram o foco mental e emocional.`,
+          b: `Seu gráfico energético personalizado conecta a clareza mental superior (Coroa ${reduceArcana(dayArc + monthArc)}) com a ressonância emocional (Coração ${reduceArcana(centerArc + monthArc)}). A energia do chakra Básico ancora sua vitalidade física, dando a ${displayName} um vigor equilibrado no dia a dia.`,
+          n: `Coroa ${reduceArcana(dayArc + monthArc)}, Coração ${reduceArcana(centerArc + monthArc)}`
+        };
+        secs['current-life-stage'] = {
+          h: `Seu ciclo temporal ativa a Arcana do Ano ${yearArc} (${getArc(yearArc).title}), instando ações decisivas por meio de ${getArc(yearArc).core}.`,
+          b: `Refletindo seu ciclo ativo de idade, a Arcana do Ano ${yearArc} enfatiza o dom de ${getArc(yearArc).gift}. Para ${displayName}, este período recompensa a iniciativa clara em vez da hesitação.`,
+          n: `Arcana do Ano Atual ${yearArc}`
+        };
+        secs['growth-roadmap'] = {
+          h: `Foque metas de 30 dias no Caminho de Vida ${lifePathNum} (${getArc(lifePathNum).title}) enquanto libera hesitações Kármicas ${bottomArc}.`,
+          b: `Seu roteiro de crescimento convida ${displayName} a focar em ${getArc(lifePathNum).gift}. Simultaneamente, libertar-se do desafio de ${getArc(bottomArc).challenge} libera um impulso imediato nas áreas pessoal e profissional.`,
+          n: `Arcana do Caminho de Vida ${lifePathNum}, Arcana Kármica ${bottomArc}`
+        };
+        secs['soul-summary'] = {
+          h: `Síntese para ${displayName}: Unificando o Centro ${centerArc}, Caminho de Vida ${lifePathNum} e Linha do Amor ${loveArc} em maestria ativa.`,
+          b: `Sua Matriz da Alma conecta identidade (${centerArc}: ${getArc(centerArc).title}), propósito (${lifePathNum}: ${getArc(lifePathNum).title}) e relacionamentos (${loveArc}: ${getArc(loveArc).title}). Alinhar estas arcanas fornece a ${displayName} uma estrutura autêntica para a realização ao longo da vida.`,
+          n: `Centro ${centerArc}, Caminho de Vida ${lifePathNum}, Dinheiro ${moneyArc}, Amor ${loveArc}`
+        };
+      } 
+      else if (currentLocale === 'ar') {
+        secs['core-personality'] = {
+          h: `${displayName}، شخصيتك الكونية رقم ${personalityNum} (${getArc(personalityNum).title}) ترتكز في حضورك الخارجي بينما تشكل الروح رقم ${soulNum} (${getArc(soulNum).title}) دوافعك الداخلية العميقة.`,
+          b: `تجعل مصفوفة الشخصية ${personalityNum} من ${getArc(personalityNum).core} أساساً تلقائياً في تفاعلاتك اليومية. وتحت هذا، تدعو مصفوفة الروح ${soulNum} الشخصية ${displayName} نحو ${getArc(soulNum).core}. آليتك الفريدة تجمع بين موهبة ${getArc(personalityNum).gift} والبحث المستمر عن ${getArc(soulNum).gift}.`,
+          n: `مصفوفة الشخصية ${personalityNum}، مصفوفة الروح ${soulNum}`
+        };
+        secs['life-purpose'] = {
+          h: `يوجه مسار الحياة رقم ${lifePathNum} (${getArc(lifePathNum).title}) مصيرك على المدى الطويل، متماشياً مع التعبير رقم ${expressionNum} (${getArc(expressionNum).title}).`,
+          b: `مسار حياتك محكوم بالرقم ${lifePathNum}، مركزاً تطورك على ${getArc(lifePathNum).core}. ويمنح رقم التعبير ${expressionNum} هذا الهدف تنفيذاً عملياً من خلال ${getArc(expressionNum).gift}. بالنسبة لـ ${displayName}، تنجح القرارات الرئيسية عندما توجه طاقة ${getArc(lifePathNum).gift}.`,
+          n: `مصفوفة مسار الحياة ${lifePathNum}، مصفوفة التعبير ${expressionNum}`
+        };
+        secs['career-money'] = {
+          h: `يتدفق الهدف المركزي ${centerArc} (${getArc(centerArc).title}) في خط المال رقم ${moneyArc} (${getArc(moneyArc).title}) لتحقيق طفرة في حياتك المهنية.`,
+          b: `يحدد الرقم المركزي ${centerArc} أسلوب اتخاذ القرارات تحت الضغوط التجارية. ويترجم خط المال ${moneyArc} هذا الأسلوب إلى استراتيجية مالية عبر إطلاق موهبة ${getArc(moneyArc).gift}. بالنسبة لـ ${displayName}، يزدهر النمو المالي عند الجمع بين ${getArc(centerArc).core} والتنفيذ الواضح للخطط.`,
+          n: `الرقم المركزي ${centerArc}، خط المال الكوني ${moneyArc}`
+        };
+        secs['love-compatibility'] = {
+          h: `يرسخ خط الحب رقم ${loveArc} (${getArc(loveArc).title}) الأمان العاطفي، متطلباً توافق حدود مفتوح مع طاقة الروح رقم ${soulNum}.`,
+          b: `يحكم خط الحب ${loveArc} كيف يعبر ${displayName} عن المودة ويبني الثقة. بالاقتران مع مصفوفة الروح ${soulNum}، تزدهر علاقاتك من خلال ${getArc(loveArc).core}. وتبنى الثقة عندما تستثمر في طاقة ${getArc(loveArc).gift}.`,
+          n: `خط الحب الكوني ${loveArc}، مصفوفة الروح ${soulNum}`
+        };
+        secs['karmic-blueprint'] = {
+          h: `يسلط الذيل الكارمي رقم ${bottomArc} (${getArc(bottomArc).title}) الضوء على ضغوط الاحتكاك، ويتم حله عبر الهدف المركزي ${centerArc}.`,
+          b: `تحت الضغوط الحادة، يفعل الكارما رقم ${bottomArc} تحدي ${getArc(bottomArc).challenge}. بالنسبة لـ ${displayName}، يتطلب إيقاف هذا النمط الانتقال إلى طاقة الرقم المركزي ${centerArc} (${getArc(centerArc).title})، وتحويل ردود الأفعال إلى ${getArc(centerArc).gift}.`,
+          n: `الرقم الكارمي ${bottomArc}، الرقم المركزي ${centerArc}`
+        };
+        secs['natural-gifts'] = {
+          h: `تمنحك منطقة المواهب رقم ${talentArc} (${getArc(talentArc).title}) تمكناً طبيعياً وسهلاً في التعبير الإبداعي والحدسي والروحي.`,
+          b: `المتواجد في موضع الموهبة ${talentArc}، قوتك الخارقة تتركز في ${getArc(talentArc).gift}. بالنسبة لـ ${displayName}، تعمل هذه القوة الحدسية بسهولة بالغة، مما يوفر ميزة استراتيجية واضحة.`,
+          n: `موضع الموهبة الكونية ${talentArc}`
+        };
+        secs['chakra-analysis'] = {
+          h: `توازن طاقة التفكير بالتاج رقم ${reduceArcana(dayArc + monthArc)} وعاطفة القلب رقم ${reduceArcana(centerArc + monthArc)} التركيز الذهني والوجداني.`,
+          b: `يصل مخطط الطاقة الشخصي الخاص بك بين وضوح العقل العلوي (التاج ${reduceArcana(dayArc + monthArc)}) والصدى العاطفي (القلب ${reduceArcana(centerArc + monthArc)}). وتوفر طاقة الجذور الاستقرار الجسدي والقدرة على التحمل لـ ${displayName} في متطلبات الحياة اليومية.`,
+          n: `طاقة التاج ${reduceArcana(dayArc + monthArc)}، طاقة القلب ${reduceArcana(centerArc + monthArc)}`
+        };
+        secs['current-life-stage'] = {
+          h: `تنشط دورتك الزمنية طاقة العام رقم ${yearArc} (${getArc(yearArc).title})، مما يستدعي اتخاذ قرارات حاسمة عبر ${getArc(yearArc).core}.`,
+          b: `تعكس طاقة عامك النشط ${yearArc} موهبة ${getArc(yearArc).gift}. بالنسبة لـ ${displayName}، تكافئ هذه الفترة المبادرة والوضوح بدلاً من التردد والانتظار.`,
+          n: `طاقة العام الحالي ${yearArc}`
+        };
+        secs['growth-roadmap'] = {
+          h: `ركز أهدافك خلال الـ 30 يوماً القادمة على مسار الحياة رقم ${lifePathNum} (${getArc(lifePathNum).title}) مع التخلي عن تردد الكارما رقم ${bottomArc}.`,
+          b: `تدعوك خريطة طريق نموك الشخصي ${displayName} لمضاعفة طاقتك في ${getArc(lifePathNum).gift}. وفي الوقت نفسه، يمنحك التحرر من تحدي ${getArc(bottomArc).challenge} قوة اندفاع فورية في المجالات الشخصية والمهنية.`,
+          n: `مسار الحياة ${lifePathNum}، الرقم الكارمي ${bottomArc}`
+        };
+        secs['soul-summary'] = {
+          h: `ملخص قراءة الروح لـ ${displayName}: دمج الرقم المركزي ${centerArc}، ومسار الحياة ${lifePathNum}، وخط الحب ${loveArc} للوصول إلى التمكن النشط.`,
+          b: `تربط مصفوفة روحك بين هويتك (${centerArc}: ${getArc(centerArc).title})، وهدفك (${lifePathNum}: ${getArc(lifePathNum).title})، وعلاقاتك (${loveArc}: ${getArc(loveArc).title}). يوفر مواءمة هذه الأرقام لـ ${displayName} إطاراً حقيقياً لتحقيق الرضا طوال حياتك.`,
+          n: `المركز ${centerArc}، مسار الحياة ${lifePathNum}، المال ${moneyArc}، الحب ${loveArc}`
+        };
+      } 
+      else {
+        secs['core-personality'] = {
+          h: `${displayName}, your Personality ${personalityNum} (${getArc(personalityNum).title}) anchors your external presence while Soul ${soulNum} (${getArc(soulNum).title}) shapes your inner drive.`,
+          b: `Personality Arcana ${personalityNum} makes ${getArc(personalityNum).core} your automatic baseline in daily interactions. Beneath this, Soul Arcana ${soulNum} calls ${displayName} toward ${getArc(soulNum).core}. Your distinct mechanism pairs the gift of ${getArc(personalityNum).gift} with an evolving quest for ${getArc(soulNum).gift}.`,
+          n: `Personality Arcana ${personalityNum}, Soul Arcana ${soulNum}`
+        };
+        secs['life-purpose'] = {
+          h: `Life Path ${lifePathNum} (${getArc(lifePathNum).title}) directs long-term destiny, aligned with Expression ${expressionNum} (${getArc(expressionNum).title}).`,
+          b: `Your life path is governed by Arcana ${lifePathNum}, focusing your evolution on ${getArc(lifePathNum).core}. Expression Arcana ${expressionNum} gives this purpose practical execution through ${getArc(expressionNum).gift}. For ${displayName}, key decisions succeed when you channel ${getArc(lifePathNum).gift}.`,
+          n: `Life Path Arcana ${lifePathNum}, Expression Arcana ${expressionNum}`
+        };
+        secs['career-money'] = {
+          h: `Center Purpose ${centerArc} (${getArc(centerArc).title}) channels into Money Line ${moneyArc} (${getArc(moneyArc).title}) for career breakthrough.`,
+          b: `Center Arcana ${centerArc} defines your decision-making style under commercial pressure. Money Line Arcana ${moneyArc} translates this into financial strategy by unlocking ${getArc(moneyArc).gift}. For ${displayName}, financial growth thrives when combining ${getArc(centerArc).core} with clear execution.`,
+          n: `Center Arcana ${centerArc}, Money Line Arcana ${moneyArc}`
+        };
+        secs['love-compatibility'] = {
+          h: `Love Line ${loveArc} (${getArc(loveArc).title}) anchors relational safety, requiring open boundary alignment with Soul ${soulNum}.`,
+          b: `Love Line Arcana ${loveArc} governs how ${displayName} expresses affection and establishes trust. Coupled with Soul Arcana ${soulNum}, your relationship dynamic flourishes through ${getArc(loveArc).core}. Trust builds when you leverage ${getArc(loveArc).gift}.`,
+          n: `Love Line Arcana ${loveArc}, Soul Arcana ${soulNum}`
+        };
+        secs['karmic-blueprint'] = {
+          h: `Karmic Tail ${bottomArc} (${getArc(bottomArc).title}) highlights stress friction, resolved through Center Purpose ${centerArc}.`,
+          b: `Under acute stress, Karmic Arcana ${bottomArc} triggers ${getArc(bottomArc).challenge}. For ${displayName}, interrupting this pattern requires shifting to Center Arcana ${centerArc} (${getArc(centerArc).title}), transforming reaction into ${getArc(centerArc).gift}.`,
+          n: `Karmic Arcana ${bottomArc}, Center Arcana ${centerArc}`
+        };
+        secs['natural-gifts'] = {
+          h: `Talent Zone Arcana ${talentArc} (${getArc(talentArc).title}) grants effortless mastery in creative and intuitive execution.`,
+          b: `Positioned at Arcana ${talentArc}, your innate superpower centers on ${getArc(talentArc).gift}. For ${displayName}, this intuitive strength operates with natural ease, providing a distinct strategic advantage.`,
+          n: `Talent Arcana ${talentArc}`
+        };
+        secs['chakra-analysis'] = {
+          h: `Crown Physics ${reduceArcana(dayArc + monthArc)} and Heart Emotion ${reduceArcana(centerArc + monthArc)} balance mental & emotional focus.`,
+          b: `Your personalized energy chart bridges upper mental clarity (Crown ${reduceArcana(dayArc + monthArc)}) with emotional resonance (Heart ${reduceArcana(centerArc + monthArc)}). Root energy anchors physical stamina, giving ${displayName} balanced endurance across daily demands.`,
+          n: `Crown ${reduceArcana(dayArc + monthArc)}, Heart ${reduceArcana(centerArc + monthArc)}`
+        };
+        secs['current-life-stage'] = {
+          h: `Your timing cycle activates Year Arcana ${yearArc} (${getArc(yearArc).title}), urging decisive action through ${getArc(yearArc).core}.`,
+          b: `Reflecting your active age cycle, Year Arcana ${yearArc} emphasizes ${getArc(yearArc).gift}. For ${displayName}, this period rewards clear initiative over passive hesitation.`,
+          n: `Current Year Arcana ${yearArc}`
+        };
+        secs['growth-roadmap'] = {
+          h: `Focus 30-day goals on Life Path ${lifePathNum} (${getArc(lifePathNum).title}) while releasing Karmic ${bottomArc} hesitation.`,
+          b: `Your growth roadmap calls ${displayName} to double down on ${getArc(lifePathNum).gift}. Simultaneously, releasing ${getArc(bottomArc).challenge} unlocks immediate momentum across personal and professional domains.`,
+          n: `Life Path Arcana ${lifePathNum}, Karmic Arcana ${bottomArc}`
+        };
+        secs['soul-summary'] = {
+          h: `Synthesis for ${displayName}: Unifying Center ${centerArc}, Life Path ${lifePathNum}, and Love Line ${loveArc} into active mastery.`,
+          b: `Your Soul Matrix connects identity (${centerArc}: ${getArc(centerArc).title}), purpose (${lifePathNum}: ${getArc(lifePathNum).title}), and relationships (${loveArc}: ${getArc(loveArc).title}). Aligning these arcana provides ${displayName} with an authentic, empowering framework for lifelong fulfillment.`,
+          n: `Center ${centerArc}, Life Path ${lifePathNum}, Money ${moneyArc}, Love ${loveArc}`
+        };
+      }
+
+      for (const [k, v] of Object.entries(secs)) {
+        const hEl = document.getElementById(`sec-head-${k}`);
+        if (hEl) hEl.textContent = v.h;
+        const bEl = document.getElementById(`sec-body-${k}`);
+        if (bEl) bEl.textContent = v.b;
+        const nEl = document.getElementById(`sec-nums-${k}`);
+        if (nEl) {
+          const lbl = currentLocale === 'ar' ? 'الأرقام ذات الصلة' : (currentLocale === 'pt' ? 'Números relevantes' : 'Relevant numbers');
+          nEl.textContent = `${lbl}: ${v.n}`;
+        }
+      }
+
+      // ── Social Share handlers ──────────────────────────────────────────
+      const pageUrl = encodeURIComponent(window.location.href);
+      const shareText = encodeURIComponent(
+        currentLocale === 'ar'
+          ? 'شاهد تقرير مصفوفة الروح الخاص بي على Souliography!'
+          : currentLocale === 'pt'
+          ? 'Veja meu Relatório da Matriz da Alma no Souliography!'
+          : 'Check out my Destiny Matrix (Soul Matrix) Report on Souliography!'
+      );
+
+      const socialHandlers = {
+        shareFacebook: () =>
+          window.open(`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`, '_blank'),
+        shareX: () =>
+          window.open(`https://x.com/intent/tweet?url=${pageUrl}&text=${shareText}`, '_blank'),
+        shareInstagram: async () => {
+          await navigator.clipboard.writeText(window.location.href);
+          alert(currentLocale === 'ar'
+            ? 'تم نسخ الرابط! افتح إنستغرام لمشاركته.'
+            : currentLocale === 'pt'
+            ? 'Link copiado! Abra o Instagram para compartilhá-lo.'
+            : 'Link copied! Open Instagram to share it.');
+          window.open('https://instagram.com', '_blank');
+        },
+        shareTikTok: async () => {
+          await navigator.clipboard.writeText(window.location.href);
+          alert(currentLocale === 'ar'
+            ? 'تم نسخ الرابط! افتح TikTok لمشاركته.'
+            : currentLocale === 'pt'
+            ? 'Link copiado! Abra o TikTok para compartilhá-lo.'
+            : 'Link copied! Open TikTok to share it.');
+          window.open('https://tiktok.com', '_blank');
+        },
+        shareSnapchat: () =>
+          window.open(`https://www.snapchat.com/scan?attachmentUrl=${pageUrl}`, '_blank'),
+        shareWhatsApp: () =>
+          window.open(`https://api.whatsapp.com/send?text=${shareText}%20${pageUrl}`, '_blank'),
+        shareEmail: () =>
+          window.location.href = `mailto:?subject=${encodeURIComponent('My Soul Matrix Report — Souliography')}&body=${shareText}%20${pageUrl}`,
+        shareCopyLink: async () => {
+          try {
+            await navigator.clipboard.writeText(window.location.href);
+            const lbl = document.getElementById('copyLinkLabel');
+            if (lbl) {
+              lbl.textContent = currentLocale === 'ar' ? '✓ تم النسخ' : currentLocale === 'pt' ? '✓ Copiado' : '✓ Copied!';
+              setTimeout(() => {
+                lbl.textContent = currentLocale === 'ar' ? 'نسخ الرابط' : currentLocale === 'pt' ? 'Copiar Link' : 'Copy Link';
+              }, 2000);
+            }
+          } catch (err) { console.error(err); }
+        }
+      };
+
+      for (const [id, handler] of Object.entries(socialHandlers)) {
+        const btn = document.getElementById(id);
+        if (btn) btn.addEventListener('click', handler);
+      }
+    })();
+  </script>
+</BaseLayout>

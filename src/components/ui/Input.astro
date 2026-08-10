@@ -1,0 +1,38 @@
+---
+interface Props {
+  name: string;
+  type?: 'text' | 'date' | 'number' | 'email';
+  value?: string;
+  placeholder?: string;
+  required?: boolean;
+  disabled?: boolean;
+  class?: string;
+  id?: string;
+}
+
+const {
+  name,
+  type = 'text',
+  value = '',
+  placeholder,
+  required = false,
+  disabled = false,
+  class: className = '',
+  id = name,
+} = Astro.props;
+
+const baseStyles = 'w-full px-4 py-2.5 rounded-[var(--radius-md)] border border-purple-200 bg-white text-purple-950 placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 disabled:opacity-50';
+
+const computedClass = `${baseStyles} ${className}`;
+---
+
+<input
+  id={id}
+  name={name}
+  type={type}
+  value={value}
+  placeholder={placeholder}
+  required={required}
+  disabled={disabled}
+  class={computedClass}
+/>

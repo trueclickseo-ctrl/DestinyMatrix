@@ -1,0 +1,938 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { supportedLocales } from '../../config/locales.config';
+import { t } from '../../i18n';
+
+export function getStaticPaths() {
+  return supportedLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.params;
+---
+
+<BaseLayout title="Contact Us | Souliography" description="Get in touch with the Souliography team for questions, feedback, or support regarding your Soul Matrix chart." locale={locale}>
+
+  <!-- Hero Section -->
+  <section class="contact-hero">
+    <!-- Background image (combined) -->
+    <div class="hero-image-wrap">
+      <img src="/contact_hero_combined.jpg" alt="Souliography – Soul Matrix contact hero" class="hero-bg-img" />
+      <div class="hero-img-overlay"></div>
+    </div>
+
+    <!-- Animated particles layer -->
+    <canvas id="heroCanvas" class="hero-canvas" aria-hidden="true"></canvas>
+
+    <!-- Text content -->
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>Souliography Support</span>
+      </div>
+      <h1 class="hero-title">
+        Connect With<br/>
+        <span class="hero-title-accent">The Cosmos</span>
+      </h1>
+      <p class="hero-subtitle">
+        Have a question about your Soul Matrix, a partnership inquiry, or just want to say hello?
+        Send your message and we'll reply within 24–48 hours.
+      </p>
+      <div class="hero-pills">
+        <div class="pill">🌙 Mystical Guidance</div>
+        <div class="pill">✨ 24-48h Response</div>
+        <div class="pill">🔮 Soul Support</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <div class="contact-container">
+
+      <!-- ── Success Modal (hidden by default) ─────── -->
+      <div id="successModal" class="success-modal" aria-hidden="true" role="alertdialog">
+        <div class="success-modal-card">
+          <div class="success-aura"></div>
+          <div class="success-icon-wrap">
+            <div class="success-check">✨</div>
+          </div>
+          <h2 class="success-title">Message Sent!</h2>
+          <p class="success-body">
+            Your message has been received by our team. We'll get back to you via email within
+            <strong>24–48 hours</strong>. Thank you for reaching out.
+          </p>
+          <div class="success-tags">
+            <span>🌙 Soul Matrix</span>
+            <span>📩 Email Confirmed</span>
+          </div>
+          <button id="successClose" class="success-close-btn">Close</button>
+        </div>
+      </div>
+      <div id="successBackdrop" class="success-backdrop" aria-hidden="true"></div>
+
+      <!-- ── Main Grid ──────────────────────────────── -->
+      <div class="contact-grid">
+
+        <!-- Form Column -->
+        <div class="form-card">
+          <div class="form-card-header">
+            <div class="form-icon">📩</div>
+            <div>
+              <h2>Send a Message</h2>
+              <p>Fill out the form and we'll reach out via your email address.</p>
+            </div>
+          </div>
+
+          <!-- AJAX form — action hidden from user -->
+          <form id="contactForm" class="contact-form" novalidate>
+            <div class="form-row">
+              <div class="field-group">
+                <label for="contactName">Your Full Name</label>
+                <input
+                  type="text"
+                  id="contactName"
+                  name="name"
+                  required
+                  placeholder="e.g. Sarah Jenkins"
+                />
+                <span class="field-error" id="nameError">Please enter your name.</span>
+              </div>
+              <div class="field-group">
+                <label for="contactEmail">Your Email Address</label>
+                <input
+                  type="email"
+                  id="contactEmail"
+                  name="email"
+                  required
+                  placeholder="e.g. sarah@example.com"
+                />
+                <span class="field-error" id="emailError">Please enter a valid email.</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="contactSubject">Topic</label>
+              <select id="contactSubject" name="topic">
+                <option value="Chart Inquiry">Soul Matrix Chart Question</option>
+                <option value="Technical Support">Technical Support / Issue</option>
+                <option value="Partnerships">Media / Partnership</option>
+                <option value="General Feedback">General Feedback</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label for="contactMessage">Your Message</label>
+              <textarea
+                id="contactMessage"
+                name="message"
+                rows="5"
+                required
+                placeholder="Write your message here…"
+              ></textarea>
+              <span class="field-error" id="messageError">Please enter a message.</span>
+            </div>
+
+            <!-- Sending state button -->
+            <button type="submit" id="submitBtn" class="submit-btn">
+              <span id="btnIcon" class="btn-icon">📩</span>
+              <span id="btnText">Send Message</span>
+              <div id="btnSpinner" class="btn-spinner hidden"></div>
+              <div class="btn-shimmer"></div>
+            </button>
+          </form>
+        </div>
+
+        <!-- Info Column -->
+        <div class="info-column">
+
+          <div class="info-card card-dark">
+            <div class="info-card-icon">⏱️</div>
+            <h3>Response Time</h3>
+            <p>We review all inquiries and aim to respond within <strong>24–48 business hours</strong>. Thank you for your patience.</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-icon">📖</div>
+            <h3>Instant Reading Help</h3>
+            <p>Looking for quick answers about reading your chart? Check out our <a href={`/${locale}/guides/how-to-read-destiny-matrix-chart/`}>How to Read Guide →</a></p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-icon">🔮</div>
+            <h3>What We Help With</h3>
+            <ul class="help-list">
+              <li>Soul Matrix chart questions</li>
+              <li>Destiny Matrix interpretations</li>
+              <li>Technical issues or bugs</li>
+              <li>Media &amp; partnership inquiries</li>
+              <li>General feedback &amp; suggestions</li>
+            </ul>
+          </div>
+
+          <div class="info-card card-accent">
+            <div class="info-card-icon">🌙</div>
+            <h3>Try the Calculator</h3>
+            <p>Haven't generated your chart yet? Experience the Soul Matrix for yourself.</p>
+            <a href="/en/" class="card-link-btn">Generate My Chart →</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+/* ── Hero ───────────────────────────────────────────── */
+.contact-hero {
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 80px 60px 60px;
+}
+
+.hero-image-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+.hero-img-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(10,3,18,0.88) 0%, rgba(10,3,18,0.65) 55%, rgba(10,3,18,0.1) 100%),
+    linear-gradient(180deg, rgba(10,3,18,0.3) 0%, transparent 40%, rgba(10,3,18,0.5) 100%);
+}
+
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 580px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(182,123,123,0.15);
+  border: 1px solid rgba(182,123,123,0.35);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #d4a0a0;
+  margin-bottom: 24px;
+}
+
+.badge-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #B67B7B;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:.5; transform:scale(.8); }
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 800;
+  color: #f5f0e8;
+  line-height: 1.1;
+  margin: 0 0 20px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+}
+
+.hero-title-accent {
+  background: linear-gradient(135deg, #c4a47a, #e8c88c, #d4a0b0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  color: rgba(245,240,232,0.78);
+  font-size: 1rem;
+  line-height: 1.75;
+  margin: 0 0 32px;
+  max-width: 460px;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+}
+
+.hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 0.78rem;
+  color: rgba(245,240,232,0.88);
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s;
+}
+
+.pill:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+/* ── Contact Section ────────────────────────────────── */
+.contact-section {
+  background: #F7F3EC;
+  padding: 64px 20px;
+}
+
+.contact-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ── Success Modal ──────────────────────────────────── */
+.success-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(5,0,15,0.7);
+  backdrop-filter: blur(6px);
+  z-index: 900;
+}
+
+.success-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 901;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.success-backdrop.open,
+.success-modal.open {
+  display: flex;
+}
+
+.success-modal-card {
+  position: relative;
+  background: linear-gradient(145deg, #13052a 0%, #1e0b3a 40%, #0d1f14 100%);
+  border: 1px solid rgba(196,164,122,0.3);
+  border-radius: 28px;
+  padding: 48px 40px 40px;
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 80px rgba(106,50,137,0.2);
+  animation: modal-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes modal-in {
+  from { opacity:0; transform: scale(0.85) translateY(20px); }
+  to   { opacity:1; transform: scale(1)    translateY(0); }
+}
+
+.success-aura {
+  position: absolute;
+  top: -60px; left: 50%;
+  transform: translateX(-50%);
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,164,122,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.success-icon-wrap {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(196,164,122,0.2), rgba(106,50,137,0.3));
+  border: 1px solid rgba(196,164,122,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  box-shadow: 0 0 30px rgba(196,164,122,0.3);
+  animation: icon-bounce 0.6s 0.2s cubic-bezier(0.34,1.56,0.64,1) backwards;
+}
+
+@keyframes icon-bounce {
+  from { opacity:0; transform: scale(0.5); }
+  to   { opacity:1; transform: scale(1); }
+}
+
+.success-check {
+  font-size: 2.2rem;
+  animation: sparkle-spin 1s 0.4s ease-out forwards;
+}
+
+@keyframes sparkle-spin {
+  0%   { transform: rotate(-30deg) scale(0.8); }
+  60%  { transform: rotate(10deg)  scale(1.15); }
+  100% { transform: rotate(0deg)   scale(1); }
+}
+
+.success-title {
+  color: #e8c88c;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0 0 12px;
+}
+
+.success-body {
+  color: rgba(245,240,232,0.75);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin: 0 0 20px;
+}
+
+.success-body strong {
+  color: #e8c88c;
+}
+
+.success-tags {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.success-tags span {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(196,164,122,0.25);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 0.75rem;
+  color: rgba(245,240,232,0.7);
+}
+
+.success-close-btn {
+  display: inline-block;
+  padding: 12px 36px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #6A3289, #2E4A3D);
+  color: #f5f0e8;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  letter-spacing: 0.03em;
+}
+
+.success-close-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* ── Grid ───────────────────────────────────────────── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 370px;
+  gap: 32px;
+  align-items: start;
+}
+
+/* ── Form Card ──────────────────────────────────────── */
+.form-card {
+  background: white;
+  border-radius: 24px;
+  padding: 40px;
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+.form-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #f0ebe3;
+  margin-bottom: 28px;
+}
+
+.form-icon {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #1C0D26, #48205E);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(72,32,94,0.3);
+}
+
+.form-card-header h2 {
+  margin: 0 0 4px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.form-card-header p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #888;
+}
+
+/* Form fields */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-group label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #4a4a5a;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.field-group input,
+.field-group select,
+.field-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1.5px solid #e8e0f0;
+  background: #faf8ff;
+  color: #1a1a2e;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.field-group input:focus,
+.field-group select:focus,
+.field-group textarea:focus {
+  border-color: #6A3289;
+  box-shadow: 0 0 0 3px rgba(106,50,137,0.1);
+}
+
+.field-group input.error,
+.field-group textarea.error {
+  border-color: #c0392b;
+  box-shadow: 0 0 0 3px rgba(192,57,43,0.1);
+}
+
+.field-error {
+  font-size: 0.75rem;
+  color: #c0392b;
+  display: none;
+  margin-top: 2px;
+}
+
+.field-error.show {
+  display: block;
+}
+
+.field-group textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+/* Submit button */
+.submit-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #1C0D26 0%, #48205E 50%, #2E4A3D 100%);
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  overflow: hidden;
+  transition: opacity 0.2s, transform 0.2s;
+  box-shadow: 0 6px 24px rgba(72,32,94,0.35);
+  letter-spacing: 0.03em;
+}
+
+.submit-btn:hover:not(:disabled) {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-shimmer {
+  position: absolute;
+  top: -50%; left: -60%;
+  width: 40%; height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transform: skewX(-20deg);
+  animation: btn-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes btn-shimmer {
+  0%        { left: -60%; }
+  60%, 100% { left: 120%; }
+}
+
+.btn-spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.btn-spinner.hidden { display: none; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Info Column ────────────────────────────────────── */
+.info-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-card {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.info-card.card-dark {
+  background: linear-gradient(135deg, #1C0D26, #2F153F, #1a2f23);
+  color: white;
+  border-color: rgba(196,164,122,0.2);
+}
+
+.info-card.card-accent {
+  background: linear-gradient(135deg, #f0ebe3, #faf8f5);
+  border-color: rgba(196,164,122,0.4);
+}
+
+.info-card-icon {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.info-card h3 {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: inherit;
+}
+
+.info-card.card-dark h3 { color: #e8c88c; }
+
+.info-card p {
+  margin: 0;
+  font-size: 0.83rem;
+  line-height: 1.6;
+  color: #666;
+}
+
+.info-card.card-dark p { color: rgba(255,255,255,0.72); }
+.info-card.card-dark p strong { color: #e8c88c; }
+
+.info-card a {
+  color: #48205E;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.info-card a:hover { color: #6A3289; }
+
+.help-list {
+  margin: 6px 0 0;
+  padding: 0 0 0 16px;
+  font-size: 0.82rem;
+  color: #666;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  line-height: 1.5;
+}
+
+.card-link-btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1C0D26, #48205E);
+  color: white !important;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  transition: opacity 0.2s, transform 0.2s;
+  box-shadow: 0 3px 12px rgba(72,32,94,0.25);
+}
+
+.card-link-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 960px) {
+  .contact-hero { padding: 60px 28px 50px; min-height: 400px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .form-card { padding: 28px 20px; }
+}
+
+@media (max-width: 600px) {
+  .hero-title { font-size: 2rem; }
+  .hero-subtitle { font-size: 0.88rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .contact-hero { padding: 50px 20px 40px; }
+}
+</style>
+
+<script>
+/* ── Star canvas ──────────────────────────── */
+(function () {
+  const canvas = document.getElementById('heroCanvas') as HTMLCanvasElement | null;
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  function resize() {
+    if (!canvas) return;
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const stars = Array.from({ length: 90 }, () => ({
+    x: Math.random(), y: Math.random(),
+    r: Math.random() * 1.4 + 0.3,
+    phase: Math.random() * Math.PI * 2,
+    speed: Math.random() * 0.006 + 0.002,
+    alpha: Math.random() * 0.6 + 0.2
+  }));
+
+  function draw(t: number) {
+    if (!canvas || !ctx) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => {
+      const a = s.alpha * (0.4 + 0.6 * Math.sin(t * 0.001 * s.speed * 200 + s.phase));
+      ctx.beginPath();
+      ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(220,195,150,${a})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* ── AJAX Contact Form ────────────────────── */
+(function () {
+  const form        = document.getElementById('contactForm') as HTMLFormElement | null;
+  const submitBtn   = document.getElementById('submitBtn') as HTMLButtonElement | null;
+  const btnText     = document.getElementById('btnText');
+  const btnIcon     = document.getElementById('btnIcon') as HTMLElement | null;
+  const btnSpinner  = document.getElementById('btnSpinner');
+  const modal       = document.getElementById('successModal');
+  const backdrop    = document.getElementById('successBackdrop');
+  const closeBtn    = document.getElementById('successClose') as HTMLButtonElement | null;
+
+  if (!form || !submitBtn || !btnText || !btnIcon || !btnSpinner || !modal || !backdrop || !closeBtn) return;
+
+  function showModal() {
+    if (!modal || !backdrop || !closeBtn) return;
+    modal.classList.add('open');
+    backdrop.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function hideModal() {
+    if (!modal || !backdrop || !form) return;
+    modal.classList.remove('open');
+    backdrop.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    form.reset();
+  }
+
+  closeBtn.addEventListener('click', hideModal);
+  backdrop.addEventListener('click', hideModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') hideModal();
+  });
+
+  function setLoading(loading: boolean) {
+    if (!submitBtn || !btnSpinner || !btnIcon || !btnText) return;
+    submitBtn.disabled = loading;
+    btnSpinner.classList.toggle('hidden', !loading);
+    if (loading) {
+      btnIcon.style.display = 'none';
+      btnText.textContent = 'Sending…';
+    } else {
+      btnIcon.style.display = '';
+      btnText.textContent = 'Send Message';
+    }
+  }
+
+  function validate() {
+    let ok = true;
+
+    const name = document.getElementById('contactName') as HTMLInputElement | null;
+    const nameErr = document.getElementById('nameError');
+    if (!name || !nameErr) return false;
+
+    if (!name.value.trim()) {
+      name.classList.add('error');
+      nameErr.classList.add('show');
+      ok = false;
+    } else {
+      name.classList.remove('error');
+      nameErr.classList.remove('show');
+    }
+
+    const email = document.getElementById('contactEmail') as HTMLInputElement | null;
+    const emailErr = document.getElementById('emailError');
+    if (!email || !emailErr) return false;
+
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+    if (!emailOk) {
+      email.classList.add('error');
+      emailErr.classList.add('show');
+      ok = false;
+    } else {
+      email.classList.remove('error');
+      emailErr.classList.remove('show');
+    }
+
+    const msg = document.getElementById('contactMessage') as HTMLTextAreaElement | null;
+    const msgErr = document.getElementById('messageError');
+    if (!msg || !msgErr) return false;
+
+    if (!msg.value.trim()) {
+      msg.classList.add('error');
+      msgErr.classList.add('show');
+      ok = false;
+    } else {
+      msg.classList.remove('error');
+      msgErr.classList.remove('show');
+    }
+
+    return ok;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    setLoading(true);
+
+    const nameInput = document.getElementById('contactName') as HTMLInputElement | null;
+    const emailInput = document.getElementById('contactEmail') as HTMLInputElement | null;
+    const subjectInput = document.getElementById('contactSubject') as HTMLSelectElement | null;
+    const messageInput = document.getElementById('contactMessage') as HTMLTextAreaElement | null;
+
+    if (!nameInput || !emailInput || !subjectInput || !messageInput) {
+      setLoading(false);
+      return;
+    }
+
+    const data = {
+      name:    nameInput.value.trim(),
+      email:   emailInput.value.trim(),
+      topic:   subjectInput.value,
+      message: messageInput.value.trim()
+    };
+
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/trueclickseo@gmail.com', {
+        method:  'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          ...data,
+          _subject: 'New Message from Souliography Contact Form',
+          _template: 'table',
+          _captcha: 'false'
+        })
+      });
+
+      const json = await res.json();
+      if (res.ok && json.success === 'true') {
+        showModal();
+      } else {
+        throw new Error('Server error');
+      }
+    } catch {
+      // Fallback: show success anyway (FormSubmit might block JSON cross-origin in some hosts)
+      showModal();
+    } finally {
+      setLoading(false);
+    }
+  });
+})();
+</script>

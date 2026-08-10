@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { supportedLocales } from '../../config/locales.config';
+import { t } from '../../i18n';
+
+export function getStaticPaths() {
+  return supportedLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.params;
+---
+
+<BaseLayout title="Privacy Policy | Souliography" description="Souliography Privacy Policy detailing data collection, processing, and protection." locale={locale}>
+  <div class="bg-[#F7F3EC] min-h-screen py-16 px-4 font-sans">
+    <div class="max-w-3xl mx-auto bg-white rounded-3xl p-8 sm:p-12 border border-stone-200 shadow-sm space-y-8">
+      
+      <div class="space-y-3 border-b border-stone-100 pb-6">
+        <span class="text-xs font-bold text-[#B67B7B] uppercase tracking-widest font-mono">DATA PROTECTION</span>
+        <h1 class="text-4xl font-serif text-[#2E3D34] font-bold">Privacy Policy</h1>
+        <p class="text-xs text-stone-400 font-mono">Last updated: July 31, 2026</p>
+      </div>
+
+      <div class="space-y-6 text-sm text-stone-700 leading-relaxed font-sans">
+        <section class="space-y-2">
+          <h2 class="text-lg font-serif font-bold text-[#2E3D34]">1. Information We Collect</h2>
+          <p>We prioritize your privacy. Souliography does not require account creation or store sensitive personal information on external servers. Birth dates and names entered into our calculator are processed in real-time to generate your Soul Matrix chart.</p>
+        </section>
+
+        <section class="space-y-2">
+          <h2 class="text-lg font-serif font-bold text-[#2E3D34]">2. Client-Side Processing</h2>
+          <p>All numerology calculations and report renderings occur directly within your web browser. Your inputs are not sold, leased, or shared with third-party data brokers.</p>
+        </section>
+
+        <section class="space-y-2">
+          <h2 class="text-lg font-serif font-bold text-[#2E3D34]">3. Cookies & Analytics</h2>
+          <p>We may use standard, privacy-friendly web analytics tools to collect aggregated performance metrics (such as page views and browser types) to improve site navigation and performance.</p>
+        </section>
+
+        <section class="space-y-2">
+          <h2 class="text-lg font-serif font-bold text-[#2E3D34]">4. Contact Information</h2>
+          <p>If you have any questions regarding this Privacy Policy, please contact us at <a href="mailto:privacy@souliography.com" class="text-[#2E4A3D] font-bold underline">privacy@souliography.com</a>.</p>
+        </section>
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>

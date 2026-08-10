@@ -1,0 +1,123 @@
+---
+import { t } from '../../i18n';
+
+interface Props {
+  locale?: string;
+}
+const { locale = 'en' } = Astro.props;
+---
+
+<!-- Elegant Mystical Destiny Matrix Footer -->
+<footer class="relative text-stone-300 font-sans overflow-hidden">
+
+  <!-- Hero Image Banner — top of footer -->
+  <div class="relative h-52 sm:h-64 overflow-hidden">
+    <img
+      src="/homepage_hero_bright.jpg"
+      alt="Souliography Soul Matrix"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      style="object-position: center 25%;"
+    />
+    <!-- Dark-to-solid gradient fade into footer body -->
+    <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(10,3,24,0.2) 0%, rgba(10,3,24,0.55) 55%, #1C0D26 100%);"></div>
+
+    <!-- Centered hero tagline floating over image -->
+    <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-10" style="padding-bottom:2rem;">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-300 via-pink-300 to-white flex items-center justify-center text-base shadow-lg">✨</div>
+        <span class="font-serif text-2xl sm:text-3xl font-bold bg-gradient-to-r from-amber-200 via-pink-200 to-white bg-clip-text text-transparent" style="text-shadow: 0 2px 20px rgba(0,0,0,0.8);">{t('brand.name', locale)}</span>
+      </div>
+      <p class="text-xs sm:text-sm text-purple-100/90 max-w-sm leading-relaxed" style="text-shadow: 0 1px 8px rgba(0,0,0,0.9);">
+        {t('brand.tagline', locale)}
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer Body -->
+  <div class="bg-gradient-to-b from-[#1C0D26] via-[#14081F] to-[#0A0312] border-t border-[#6A3289]/40 px-4 sm:px-8 pb-12 pt-10 relative">
+
+    <!-- Glow Orbs -->
+    <div class="absolute top-0 left-1/4 w-80 h-80 bg-purple-700/8 blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-64 h-64 bg-rose-500/5 blur-[100px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10 space-y-10">
+
+      <!-- Mission Tagline row -->
+      <div class="flex flex-wrap items-center justify-center gap-4 text-[11px] text-amber-200/80 font-mono text-center border-b border-purple-900/30 pb-8">
+        <span class="flex items-center gap-1.5">☸️ <span>22 Arcana Matrices</span></span>
+        <span class="text-purple-700">│</span>
+        <span class="flex items-center gap-1.5">🌈 <span>7 Chakra Energy Table</span></span>
+        <span class="text-purple-700">│</span>
+        <span class="flex items-center gap-1.5">📜 <span>Deep Matrix Report</span></span>
+        <span class="text-purple-700">│</span>
+        <span class="flex items-center gap-1.5">🤖 <span>AI-Guided Interpretation</span></span>
+        <span class="text-purple-700">│</span>
+        <span class="flex items-center gap-1.5">🔓 <span>Free & Unlimited</span></span>
+      </div>
+
+      <!-- 4-Column links grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 text-xs pb-10 border-b border-purple-900/30">
+
+        <!-- Column 1: Calculators -->
+        <div class="space-y-3">
+          <h4 class="font-bold text-amber-200 uppercase tracking-wider text-[11px] font-mono flex items-center gap-1.5">
+            <span>🔮</span> {t('footer.calculators', locale)}
+          </h4>
+          <ul class="space-y-2.5 text-stone-400">
+            <li><a href={`/${locale}/`} class="hover:text-amber-200 transition-colors flex items-center gap-1.5"><span>›</span> {t('nav.home', locale)}</a></li>
+            <li><a href={`/${locale}/calculators/life-path-number/`} class="hover:text-amber-200 transition-colors flex items-center gap-1.5"><span>›</span> {t('result.lifePathNumber', locale)}</a></li>
+            <li><a href={`/${locale}/destiny-matrix/arcana/`} class="hover:text-amber-200 transition-colors flex items-center gap-1.5"><span>›</span> {t('nav.arcana', locale)}</a></li>
+            <li><a href={`/${locale}/destiny-matrix/birthdays/`} class="hover:text-amber-200 transition-colors flex items-center gap-1.5"><span>›</span> {t('nav.birthdays', locale)}</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 2: Guides & Support -->
+        <div class="space-y-3">
+          <h4 class="font-bold text-amber-200 uppercase tracking-wider text-[11px] font-mono flex items-center gap-1.5">
+            <span>📖</span> {t('nav.guides', locale)}
+          </h4>
+          <ul class="space-y-2.5 text-stone-400">
+            <li><a href={`/${locale}/guides/how-to-read-destiny-matrix-chart/`} class="hover:text-amber-200 transition-colors flex items-center gap-1.5"><span>›</span> How to Read Chart</a></li>
+            <li><a href={`/${locale}/guides/destiny-vs-life-path/`} class="hover:text-amber-200 transition-colors flex items-center gap-1.5"><span>›</span> Destiny vs Life Path</a></li>
+            <li><a href={`/${locale}/contact/`} class="hover:text-amber-200 transition-colors flex items-center gap-1.5"><span>›</span> {t('nav.contact', locale)}</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Languages -->
+        <div class="space-y-3">
+          <h4 class="font-bold text-amber-200 uppercase tracking-wider text-[11px] font-mono flex items-center gap-1.5">
+            <span>🌐</span> Top Locales
+          </h4>
+          <ul class="space-y-2 text-stone-400">
+            <li><a href="/en/" class="hover:text-amber-200 transition-colors flex items-center gap-1.5"><span>›</span> English (EN)</a></li>
+            <li><a href="/de/" class="hover:text-amber-200 transition-colors flex items-center gap-1.5"><span>›</span> Deutsch (DE)</a></li>
+            <li><a href="/hi/" class="hover:text-amber-200 transition-colors flex items-center gap-1.5"><span>›</span> हिन्दी (HI)</a></li>
+            <li><a href="/ar/" class="hover:text-amber-200 transition-colors flex items-center gap-1.5"><span>›</span> العربية (AR)</a></li>
+            <li><a href="/es/" class="hover:text-amber-200 transition-colors flex items-center gap-1.5"><span>›</span> Español (ES)</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Legal -->
+        <div class="space-y-3">
+          <h4 class="font-bold text-amber-200 uppercase tracking-wider text-[11px] font-mono flex items-center gap-1.5">
+            <span>⚖️</span> {t('footer.legal', locale)}
+          </h4>
+          <ul class="space-y-2.5 text-stone-400">
+            <li><a href={`/${locale}/privacy/`} class="hover:text-amber-200 transition-colors flex items-center gap-1.5"><span>›</span> {t('nav.privacy', locale)}</a></li>
+            <li><a href={`/${locale}/terms/`} class="hover:text-amber-200 transition-colors flex items-center gap-1.5"><span>›</span> {t('nav.terms', locale)}</a></li>
+            <li><a href={`/${locale}/disclaimer/`} class="hover:text-amber-200 transition-colors flex items-center gap-1.5"><span>›</span> {t('nav.disclaimer', locale)}</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Copyright Row -->
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-3 text-[11px] text-stone-600 font-mono">
+        <p>© {new Date().getFullYear()} Souliography. {t('footer.copyright', locale)}</p>
+        <p class="text-purple-800/70 italic text-[10px]">Charts and interpretations are for self-reflection purposes only.</p>
+      </div>
+
+    </div>
+  </div>
+
+</footer>

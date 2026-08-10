@@ -1,0 +1,71 @@
+---
+import { type MatrixKnowledgeContext } from '../../knowledge/matrix-knowledge-graph';
+
+interface Props {
+  knowledge: MatrixKnowledgeContext;
+}
+
+const { knowledge } = Astro.props;
+---
+
+<div class="bg-gradient-to-br from-stone-900 via-purple-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 border border-purple-800/40 shadow-2xl space-y-6">
+  <div class="flex items-center justify-between border-b border-purple-800/40 pb-4">
+    <div>
+      <span class="text-[10px] font-extrabold uppercase tracking-widest text-amber-400 block">PERSONAL DESTINY OVERVIEW</span>
+      <h3 class="text-2xl font-serif font-bold text-white">Your Life Areas Dashboard</h3>
+    </div>
+    <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold">
+      Overall Balance: {knowledge.energyBalanceScore}%
+    </span>
+  </div>
+
+  <!-- Soul Archetype Card -->
+  <div class="p-5 rounded-2xl bg-white/5 border border-purple-500/30 space-y-2">
+    <span class="text-[10px] font-extrabold uppercase tracking-widest text-amber-300 block">SOUL ARCHETYPE</span>
+    <h4 class="text-xl font-serif font-bold text-white" id="dashArchetypeTitle">{knowledge.archetypeTitle}</h4>
+    <p class="text-xs text-purple-200/80 leading-relaxed" id="dashArchetypeDesc">{knowledge.archetypeDescription}</p>
+  </div>
+
+  <!-- 5 Life Area Progress Bars -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+    <div class="p-4 rounded-2xl bg-stone-900/80 border border-stone-800 space-y-2">
+      <div class="flex justify-between items-center text-xs font-bold">
+        <span class="text-rose-400">❤️ Love & Harmony</span>
+        <span class="text-white" id="dashLoveScore">{knowledge.loveResonanceScore}%</span>
+      </div>
+      <div class="w-full h-2 rounded-full bg-stone-800 overflow-hidden">
+        <div class="h-full bg-rose-500 rounded-full transition-all duration-500" style={`width: ${knowledge.loveResonanceScore}%`}></div>
+      </div>
+    </div>
+
+    <div class="p-4 rounded-2xl bg-stone-900/80 border border-stone-800 space-y-2">
+      <div class="flex justify-between items-center text-xs font-bold">
+        <span class="text-emerald-400">💰 Money & Flow</span>
+        <span class="text-white" id="dashMoneyScore">{knowledge.moneyResonanceScore}%</span>
+      </div>
+      <div class="w-full h-2 rounded-full bg-stone-800 overflow-hidden">
+        <div class="h-full bg-emerald-500 rounded-full transition-all duration-500" style={`width: ${knowledge.moneyResonanceScore}%`}></div>
+      </div>
+    </div>
+
+    <div class="p-4 rounded-2xl bg-stone-900/80 border border-stone-800 space-y-2">
+      <div class="flex justify-between items-center text-xs font-bold">
+        <span class="text-amber-400">💼 Career Vocation</span>
+        <span class="text-white" id="dashCareerScore">{knowledge.careerResonanceScore}%</span>
+      </div>
+      <div class="w-full h-2 rounded-full bg-stone-800 overflow-hidden">
+        <div class="h-full bg-amber-500 rounded-full transition-all duration-500" style={`width: ${knowledge.careerResonanceScore}%`}></div>
+      </div>
+    </div>
+
+    <div class="p-4 rounded-2xl bg-stone-900/80 border border-stone-800 space-y-2">
+      <div class="flex justify-between items-center text-xs font-bold">
+        <span class="text-purple-400">🌱 Spiritual Growth</span>
+        <span class="text-white" id="dashSpiritualScore">{knowledge.spiritualResonanceScore}%</span>
+      </div>
+      <div class="w-full h-2 rounded-full bg-stone-800 overflow-hidden">
+        <div class="h-full bg-purple-500 rounded-full transition-all duration-500" style={`width: ${knowledge.spiritualResonanceScore}%`}></div>
+      </div>
+    </div>
+  </div>
+</div>

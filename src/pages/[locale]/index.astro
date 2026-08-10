@@ -1,0 +1,1066 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DestinyMatrixChart from '../../components/matrix/DestinyMatrixChart.astro';
+import ChakraEnergyTable from '../../components/matrix/ChakraEnergyTable.astro';
+import { calculateDetailedDestinyMatrix } from '../../services/calculation/destiny-matrix';
+import { supportedLocales } from '../../config/locales.config';
+import { t } from '../../i18n';
+
+export function getStaticPaths() {
+  return supportedLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.params;
+const initialData = calculateDetailedDestinyMatrix('1980-01-14', 'Kashif');
+
+const howToSteps = [
+  {
+    name: "Enter Your Birth Date",
+    text: "Enter your date of birth. No birth time, birthplace, or account login is required."
+  },
+  {
+    name: "Get Your Free Chart",
+    text: "See your Destiny Matrix chart, core numbers, and complete chakra table instantly."
+  },
+  {
+    name: "Unlock AI-Guided Depth",
+    text: "Open the Deep Report or ask AI follow-up questions to connect your chart to real-world decisions."
+  },
+  {
+    name: "Explore Compatibility (Optional)",
+    text: "Compare your chart with someone else's using the Compatibility Matrix to find alignment and potential friction."
+  }
+];
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Generate and Read Your Destiny Matrix Chart",
+  "step": howToSteps.map((step, index) => ({
+    "@type": "HowToStep",
+    "position": index + 1,
+    "name": step.name,
+    "text": step.text
+  }))
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a Soul Matrix chart?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A Soul Matrix — also called a Destiny Matrix — is a chart calculated from your birth date using numerology and the 22 Arcana framework. It maps your core numbers across personality, relationships, career, and karma, showing how they interact rather than reading each number in isolation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the Soul Matrix calculator free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Chart generation is free, unlimited, and requires no account. The Deep Report and AI follow-up questions use credits."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Destiny Matrix different from regular numerology?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Standard numerology reads individual numbers separately — your Life Path number on its own, your Expression number on its own. A Destiny Matrix chart maps those numbers onto a single connected structure, showing how they influence each other rather than reading them one at a time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a Destiny Matrix reading accurate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The chart calculation itself is mathematically consistent — the same birth date always produces the same chart. The interpretation functions as a self-reflection tool rather than a fixed prediction; many users find the karmic and personality sections resonate strongly with lived experience."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the karmic tail / karmic number in my chart?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It refers to unresolved patterns — often relational or emotional — that keep resurfacing until they're consciously addressed. Your chart's karmic section breaks this down specifically based on your birth date."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I check compatibility with someone else?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — the Compatibility Matrix compares two charts to show where you naturally align and where tension is more likely to appear."
+      },
+      "@type": "Question",
+      "name": "Who developed the Destiny Matrix system?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Destiny Matrix (also known as Matrix of Destiny) method traces back to the 22 Arcana framework popularized in the mid-2000s, combining numerology, tarot symbolism, and chakra correspondences into a single chart structure."
+      },
+      "@type": "Question",
+      "name": "How long does it take to generate my chart?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Instantly. Enter your birth date and your full chart, core numbers, and chakra table appear immediately — no waiting, no email required."
+      }
+    }
+  ]
+};
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Souliography Soul Matrix Calculator",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires HTML5 and JavaScript support",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Free online Destiny Matrix (Soul Matrix) calculator. Enter your name and date of birth to instantly generate your personal numerology hexagram chart, AI-powered report, and chakra energy table.",
+  "url": "https://souliography.com/en/",
+  "screenshot": "https://souliography.com/homepage_hero_bright.jpg"
+};
+---
+
+<BaseLayout
+  title="Souliography — Free Destiny Matrix & Soul Matrix Chart Calculator"
+  description="Map your Destiny Matrix (Soul Matrix) chart free, instantly, with no login. See your core numbers and chakra table, then let AI turn them into clear, personal guidance."
+  ogDescription="Enter your birth date and see your full Destiny Matrix chart instantly — free, unlimited, no account needed. AI-powered guidance included."
+  locale={locale}
+>
+
+  <!-- JSON-LD FAQ Schema -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+  <!-- JSON-LD HowTo Schema -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(howToSchema)} />
+  <!-- JSON-LD Software Application Schema -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(softwareSchema)} />
+
+
+  <!-- 1. Hero Section — Full-bleed bright mystical image -->
+  <section class="hero-section" id="heroSection">
+    <!-- Full-bleed background image -->
+    <div class="hero-img-wrap" aria-hidden="true">
+      <img src="/homepage_hero_bright.jpg" alt="Souliography Soul Matrix hero" class="hero-bg-img" />
+      <!-- Bright light overlay — left side readable, right side shows image -->
+      <div class="hero-img-overlay"></div>
+    </div>
+
+    <!-- Subtle twinkling star canvas -->
+    <canvas id="heroStarsCanvas" class="hero-stars-canvas" aria-hidden="true"></canvas>
+
+    <!-- Content centred over image -->
+    <div class="hero-inner">
+
+      <!-- Badge Row -->
+      <div class="hero-badges">
+        <span class="hbadge hbadge-gold">✨ No Login Required</span>
+        <span class="hbadge hbadge-green">🌿 Unlimited Generations</span>
+        <span class="hbadge hbadge-rose">🔮 AI-Powered Guidance</span>
+      </div>
+
+      <!-- H1 -->
+      <h1 class="hero-h1">
+        {t('hero.title', locale)}<br/>
+        <span class="hero-h1-accent">{t('hero.subtitle', locale)}</span>
+      </h1>
+
+      <!-- Subheading -->
+      <p class="hero-sub">
+        {t('hero.desc', locale)}
+      </p>
+
+      <!-- Input Card -->
+      <div class="hero-form-wrap">
+        <form id="matrixForm" class="hero-form">
+          <input
+            type="text"
+            id="matrixNameInput"
+            name="fullName"
+            placeholder={t('form.fullName', locale)}
+            autocomplete="name"
+            class="hero-input"
+          />
+          <input
+            type="date"
+            id="matrixDobInput"
+            name="dob"
+            placeholder={t('form.birthDate', locale)}
+            class="hero-input"
+          />
+          <button type="submit" id="matrixSubmitBtn" class="hero-submit-btn">
+            <span id="btnSpinner" class="hidden animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
+            <span id="btnText">{t('form.calculate', locale)}</span>
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- Bottom fade into cream page background -->
+    <div class="hero-bottom-fade" aria-hidden="true"></div>
+  </section>
+
+  <style>
+    /* ── Homepage Hero Styles ───────────────────────────── */
+    .hero-section {
+      position: relative;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 80px 24px 100px;
+      text-align: center;
+    }
+
+    .hero-img-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      display: block;
+    }
+
+    /* Light overlay: mostly transparent in centre, softly fades edges */
+    .hero-img-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 70% at 50% 40%, rgba(255,248,240,0.55) 0%, transparent 70%),
+        linear-gradient(180deg,
+          rgba(255,248,240,0.25) 0%,
+          rgba(255,248,240,0.1) 40%,
+          rgba(247,243,236,0.92) 100%
+        );
+    }
+
+    .hero-stars-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.4;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Badges */
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .hbadge {
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+      border: 1px solid;
+    }
+
+    .hbadge-gold {
+      background: rgba(196,164,122,0.2);
+      color: #7a5b1e;
+      border-color: rgba(196,164,122,0.5);
+    }
+
+    .hbadge-green {
+      background: rgba(46,74,61,0.12);
+      color: #2E4A3D;
+      border-color: rgba(46,74,61,0.3);
+    }
+
+    .hbadge-rose {
+      background: rgba(182,123,123,0.15);
+      color: #8a3f3f;
+      border-color: rgba(182,123,123,0.4);
+    }
+
+    /* H1 */
+    .hero-h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 5.5vw, 3.6rem);
+      font-weight: 800;
+      color: #1a1020;
+      line-height: 1.15;
+      margin: 0;
+      text-shadow: 0 2px 20px rgba(255,248,240,0.8), 0 0 40px rgba(255,255,255,0.5);
+    }
+
+    .hero-h1-accent {
+      background: linear-gradient(135deg, #6A3289, #2E4A3D, #c4a47a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Subheading */
+    .hero-sub {
+      color: #3a2a40;
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      line-height: 1.75;
+      max-width: 560px;
+      margin: 0;
+      text-shadow: 0 1px 6px rgba(255,255,255,0.7);
+    }
+
+    /* Tab switcher */
+    .hero-tabs { width: 100%; display: flex; justify-content: center; }
+
+    .hero-tab-wrap {
+      display: inline-flex;
+      padding: 4px;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 999px;
+      border: 1px solid rgba(106,50,137,0.2);
+      box-shadow: 0 2px 12px rgba(106,50,137,0.1);
+    }
+
+    .hero-tab {
+      padding: 10px 24px;
+      border-radius: 999px;
+      border: none;
+      background: transparent;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #6A3289;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .hero-tab.hero-tab-active {
+      background: linear-gradient(135deg, #2E4A3D, #48205E);
+      color: white;
+      box-shadow: 0 2px 10px rgba(72,32,94,0.3);
+    }
+
+    /* Form */
+    .hero-form-wrap { width: 100%; max-width: 760px; }
+
+    .hero-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      padding: 16px 20px;
+      box-shadow: 0 12px 48px rgba(106,50,137,0.15), 0 2px 8px rgba(0,0,0,0.08);
+      border: 1px solid rgba(196,164,122,0.3);
+    }
+
+    @media (min-width: 640px) {
+      .hero-form {
+        flex-direction: row;
+        align-items: center;
+        padding: 12px 16px;
+      }
+    }
+
+    .hero-input {
+      flex: 1;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 1.5px solid #e8e0f0;
+      background: #faf8ff;
+      color: #1a1a2e;
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .hero-input:focus {
+      border-color: #6A3289;
+      box-shadow: 0 0 0 3px rgba(106,50,137,0.1);
+    }
+
+    .hero-submit-btn {
+      padding: 14px 28px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, #2E4A3D, #48205E);
+      color: white;
+      font-weight: 800;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(72,32,94,0.35);
+      transition: opacity 0.2s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-submit-btn:hover {
+      opacity: 0.93;
+      transform: translateY(-1px);
+    }
+
+    /* Bottom fade into cream section */
+    .hero-bottom-fade {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, #F7F3EC);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @media (max-width: 640px) {
+      .hero-section { padding: 60px 16px 90px; min-height: 520px; }
+      .hero-h1 { font-size: 1.9rem; }
+    }
+  </style>
+
+  <script>
+    // Star twinkle canvas for homepage hero
+    (function() {
+      const canvas = document.getElementById('heroStarsCanvas') as HTMLCanvasElement | null;
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      function resize() {
+        if (!canvas) return;
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+      const stars = Array.from({ length: 60 }, () => ({
+        x: Math.random(), y: Math.random(),
+        r: Math.random() * 1.2 + 0.2,
+        phase: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.004 + 0.001,
+        alpha: Math.random() * 0.5 + 0.15
+      }));
+      function draw(t: number) {
+        if (!canvas || !ctx) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+          const a = s.alpha * (0.4 + 0.6 * Math.sin(t * 0.001 * s.speed * 300 + s.phase));
+          ctx.beginPath();
+          ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(160,120,200,${a})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+      requestAnimationFrame(draw);
+    })();
+  </script>
+
+  <!-- 3. What Is a Soul Matrix Explainer Block -->
+  <section class="bg-[#F7F3EC] pt-10 pb-4 px-4 font-sans">
+    <div class="max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-sm space-y-3">
+      <h2 class="text-2xl sm:text-3xl font-serif text-[#2E3D34] font-bold">
+        {t('explainer.title', locale)}
+      </h2>
+      <p class="text-sm text-stone-600 leading-relaxed">
+        {t('explainer.body', locale)}
+      </p>
+    </div>
+  </section>
+
+  <!-- 4. Interactive Results & Deep Report Section -->
+  <section class="bg-[#F7F3EC] py-8 px-4 font-sans" id="matrixResultSection">
+    <div class="max-w-6xl mx-auto space-y-8">
+
+      <!-- Two-Column Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- LEFT COLUMN: Hexagon Diagram + Numerology Number Cards -->
+        <div class="lg:col-span-8 space-y-6">
+          
+          <div class="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-sm space-y-6">
+            
+            <div>
+              <span class="text-[10px] font-extrabold uppercase tracking-widest text-[#2E3D34] bg-[#F7F3EC] px-3.5 py-1 rounded-full border border-stone-200 inline-block">
+                FREE RESULT
+              </span>
+              <h2 class="text-3xl font-serif text-[#2E3D34] font-bold pt-2">Your Personal Matrix</h2>
+              <p class="text-xs text-stone-500 font-medium pt-1">
+                Your matrix, core numbers, and complete chakra table stay visible here for free. Deeper interpretations open in the Personal Matrix Deep Report.
+              </p>
+            </div>
+
+            <!-- Hexagon Diagram Container -->
+            <div class="border-t border-b border-stone-100 py-6">
+              <DestinyMatrixChart
+                dayArcana={initialData.dayArcana}
+                monthArcana={initialData.monthArcana}
+                yearArcana={initialData.yearArcana}
+                bottomArcana={initialData.bottomArcana}
+                centerArcana={initialData.centerArcana}
+                topLeftArcana={initialData.topLeftArcana}
+                topRightArcana={initialData.topRightArcana}
+                bottomRightArcana={initialData.bottomRightArcana}
+                bottomLeftArcana={initialData.bottomLeftArcana}
+                moneyArcana={initialData.moneyArcana}
+                loveArcana={initialData.loveArcana}
+              />
+            </div>
+
+            <!-- Numerology Core Numbers Cards below Diagram -->
+            <div class="space-y-4 pt-2">
+              <div class="flex justify-between items-center pb-1">
+                <h2 class="text-xl font-serif font-bold text-[#2E3D34]">Your Numerology Numbers</h2>
+                <span class="text-[10px] font-bold text-[#B67B7B] uppercase tracking-widest">ALWAYS FREE</span>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="p-4 bg-white rounded-2xl border border-stone-200/80 flex items-center justify-between shadow-2xs">
+                  <div>
+                    <h4 class="text-xs font-bold text-[#2E3D34]">Soul Number</h4>
+                    <p class="text-[11px] text-stone-500">Your inner desires</p>
+                  </div>
+                  <span class="text-2xl font-serif font-bold text-[#B67B7B]" id="resSoulNum">{initialData.soulNumber}</span>
+                </div>
+
+                <div class="p-4 bg-white rounded-2xl border border-stone-200/80 flex items-center justify-between shadow-2xs">
+                  <div>
+                    <h4 class="text-xs font-bold text-[#2E3D34]">Personality Number</h4>
+                    <p class="text-[11px] text-stone-500">How others see you</p>
+                  </div>
+                  <span class="text-2xl font-serif font-bold text-[#B67B7B]" id="resPersonalityNum">{initialData.personalityNumber}</span>
+                </div>
+
+                <div class="p-4 bg-white rounded-2xl border border-stone-200/80 flex items-center justify-between shadow-2xs">
+                  <div>
+                    <h4 class="text-xs font-bold text-[#2E3D34]">Expression Number</h4>
+                    <p class="text-[11px] text-stone-500">Your natural talents</p>
+                  </div>
+                  <span class="text-2xl font-serif font-bold text-[#B67B7B]" id="resExpressionNum">{initialData.expressionNumber}</span>
+                </div>
+
+                <div class="p-4 bg-white rounded-2xl border border-stone-200/80 flex items-center justify-between shadow-2xs">
+                  <div>
+                    <h4 class="text-xs font-bold text-[#2E3D34]">Life Path Number</h4>
+                    <p class="text-[11px] text-stone-500">Your life purpose</p>
+                  </div>
+                  <span class="text-2xl font-serif font-bold text-[#B67B7B]" id="resLifePathNum">{initialData.lifePathNumber}</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: Deep Interpretation Card matching screenshot layout -->
+        <div class="lg:col-span-4 space-y-4 lg:sticky lg:top-6">
+          <div class="bg-[#FCF9F5] rounded-3xl p-6 sm:p-7 border border-[#EBE3D5] shadow-lg relative overflow-hidden space-y-6">
+            
+            <!-- Card Header with Mystical Girl Artwork Overlay -->
+            <div class="relative z-10 space-y-2 pr-24">
+              <span class="text-[10px] font-extrabold uppercase tracking-widest text-[#9C7A44] flex items-center gap-1">
+                <span>✨</span> DEEP INTERPRETATION
+              </span>
+              <h2 class="text-2xl font-serif text-[#2D1B36] font-bold leading-tight">
+                Unlock the Meaning Behind Your Matrix
+              </h2>
+              <p class="text-xs text-stone-600 leading-relaxed pt-1">
+                Your numbers hold a story. Discover the patterns, energy & purpose written in your chart.
+              </p>
+            </div>
+
+            <!-- Absolute Mystical Art Portrait Top Right -->
+            <div class="absolute -top-4 -right-4 w-36 h-48 sm:w-40 sm:h-52 rounded-bl-full overflow-hidden opacity-95 pointer-events-none shadow-md">
+              <img src="/destiny_hero_mystic.jpg" alt="Mystical Guide" class="w-full h-full object-cover object-top filter contrast-105" />
+              <div class="absolute inset-0 bg-gradient-to-l from-transparent via-[#FCF9F5]/30 to-[#FCF9F5]"></div>
+            </div>
+
+            <!-- Action Options Matching User's Screenshot -->
+            <div class="space-y-3 pt-2 relative z-10">
+              
+              <!-- 1. Free Preview -->
+              <a href="#matrixResultSection" class="w-full p-4 rounded-2xl bg-[#F4ECF7]/80 hover:bg-[#ECE0F2] border border-[#E2D0EB] text-[#3D254C] flex items-center justify-between transition-all group shadow-xs">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-[#52296B] text-amber-200 flex items-center justify-center text-lg shrink-0 shadow-xs">
+                    ✨
+                  </div>
+                  <div class="text-left">
+                    <h3 class="font-bold text-xs text-[#3D254C]">FREE PERSONALIZED PREVIEW</h3>
+                    <p class="text-[11px] text-stone-500">Get a glimpse of your full Destiny Matrix Deep Report.</p>
+                  </div>
+                </div>
+                <span class="text-stone-400 group-hover:translate-x-1 transition-transform text-lg">›</span>
+              </a>
+
+              <!-- 2. Primary Deep Report Button (Purple Metallic Card style) -->
+              <a id="openFullReportLink" href={`/${locale}/report?dob=1980-01-14&name=Kashif`} class="w-full p-4 rounded-2xl bg-gradient-to-r from-[#2F153F] via-[#48205E] to-[#2B123B] hover:opacity-95 text-white flex items-center justify-between transition-all group shadow-md border border-[#6A3289]">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-[#6B328C]/60 border border-purple-300/30 text-amber-200 flex items-center justify-center text-lg shrink-0">
+                    📜
+                  </div>
+                  <div class="text-left">
+                    <h3 class="font-bold text-xs text-white">View Personal Matrix Deep Report</h3>
+                    <p class="text-[11px] text-amber-200/90">Unlock your complete interpretation</p>
+                  </div>
+                </div>
+                <span class="text-amber-200 group-hover:translate-x-1 transition-transform text-lg font-bold">›</span>
+              </a>
+
+              <!-- 3. Informational Text Block (Replaces redundant PDF link / redirects) -->
+              <div class="w-full p-4 rounded-2xl bg-white border border-stone-200 text-[#3D254C] flex items-center justify-between shadow-2xs">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-[#F7F3EC] text-stone-700 flex items-center justify-center text-lg shrink-0">
+                    ℹ️
+                  </div>
+                  <div class="text-left">
+                    <h3 class="font-bold text-xs text-[#3D254C]">
+                      {locale === 'ar' ? 'دليل مصفوفة الروح' : (locale === 'pt' ? 'Guia da Matriz da Alma' : 'Soul Matrix Guide')}
+                    </h3>
+                    <p class="text-[11px] text-stone-500 font-sans">
+                      {locale === 'ar' ? 'احفظ هذه الصفحة أو سجل نتائجك للرجوع إلى تفاصيل قراءتك المخصصة في أي وقت.' : (locale === 'pt' ? 'Salve seus resultados ou adicione esta página aos favoritos para revisitar os detalhes de sua leitura personalizada a qualquer momento.' : 'Bookmark this page or save your results to revisit your personalized reading details anytime.')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <a href={`/${locale}/guides/how-to-read-destiny-matrix-chart/`} class="w-full p-4 rounded-2xl bg-white hover:bg-stone-50 border border-stone-200 text-[#3D254C] flex items-center justify-between transition-all group shadow-xs">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-[#F5EFE6] text-stone-700 flex items-center justify-center text-lg shrink-0">
+                    📖
+                  </div>
+                  <div class="text-left">
+                    <h3 class="font-bold text-xs text-[#3D254C]">How to Read Your Chart Guide</h3>
+                    <p class="text-[11px] text-stone-500">Understand every part of your matrix</p>
+                  </div>
+                </div>
+                <span class="text-stone-400 group-hover:translate-x-1 transition-transform text-lg">›</span>
+              </a>
+
+            </div>
+
+            <!-- Quick Questions Grid Section -->
+            <div class="pt-4 border-t border-stone-200/70 space-y-3">
+              <span class="text-[10px] font-extrabold uppercase tracking-widest text-[#3D254C] flex items-center gap-1">
+                <span>⚡</span> QUICK QUESTIONS
+              </span>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <a id="qqThemeBtn" href="/en/report?dob=1980-01-14&name=Kashif#core-personality" class="quick-q-btn p-3.5 rounded-2xl bg-[#F8F3FA] hover:bg-[#EFE6F5] border border-[#E9D9F2] text-left flex justify-between items-center group transition-colors">
+                  <div class="flex items-center gap-2">
+                    <span class="w-7 h-7 rounded-full bg-[#52296B] text-amber-200 flex items-center justify-center text-xs shrink-0">❇️</span>
+                    <span class="text-[11px] font-bold text-[#3D254C] leading-snug">What are the 3 main themes right now?</span>
+                  </div>
+                  <span class="text-stone-400 group-hover:translate-x-0.5 text-xs font-bold">›</span>
+                </a>
+
+                <a id="qqCareerBtn" href="/en/report?dob=1980-01-14&name=Kashif#career-money" class="quick-q-btn p-3.5 rounded-2xl bg-[#F8F3FA] hover:bg-[#EFE6F5] border border-[#E9D9F2] text-left flex justify-between items-center group transition-colors">
+                  <div class="flex items-center gap-2">
+                    <span class="w-7 h-7 rounded-full bg-[#52296B] text-amber-200 flex items-center justify-center text-xs shrink-0">📈</span>
+                    <span class="text-[11px] font-bold text-[#3D254C] leading-snug">What does my chart say about career & money?</span>
+                  </div>
+                  <span class="text-stone-400 group-hover:translate-x-0.5 text-xs font-bold">›</span>
+                </a>
+
+                <a id="qqLoveBtn" href="/en/report?dob=1980-01-14&name=Kashif#love-compatibility" class="quick-q-btn p-3.5 rounded-2xl bg-[#F8F3FA] hover:bg-[#EFE6F5] border border-[#E9D9F2] text-left flex justify-between items-center group transition-colors">
+                  <div class="flex items-center gap-2">
+                    <span class="w-7 h-7 rounded-full bg-[#52296B] text-amber-200 flex items-center justify-center text-xs shrink-0">💜</span>
+                    <span class="text-[11px] font-bold text-[#3D254C] leading-snug">What relationship patterns keep repeating?</span>
+                  </div>
+                  <span class="text-stone-400 group-hover:translate-x-0.5 text-xs font-bold">›</span>
+                </a>
+
+                <a id="qqKarmicBtn" href="/en/report?dob=1980-01-14&name=Kashif#karmic-blueprint" class="quick-q-btn p-3.5 rounded-2xl bg-[#F8F3FA] hover:bg-[#EFE6F5] border border-[#E9D9F2] text-left flex justify-between items-center group transition-colors">
+                  <div class="flex items-center gap-2">
+                    <span class="w-7 h-7 rounded-full bg-[#52296B] text-amber-200 flex items-center justify-center text-xs shrink-0">♾️</span>
+                    <span class="text-[11px] font-bold text-[#3D254C] leading-snug">What do my karmic numbers mean?</span>
+                  </div>
+                  <span class="text-stone-400 group-hover:translate-x-0.5 text-xs font-bold">›</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Bottom Banner (Your Journey. Your Truth) -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-[#1C0D26] to-[#36154C] text-white flex justify-between items-center gap-2 shadow-md">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">☸️</span>
+                <div>
+                  <h4 class="font-serif font-bold text-xs text-amber-200">Your Journey. Your Truth.</h4>
+                  <p class="text-[10px] text-stone-300">Every number has a message. Every pattern has a purpose.</p>
+                </div>
+              </div>
+              <a href="#openFullReportLink" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-amber-200 font-bold text-[10px] whitespace-nowrap transition-colors">
+                ✨ Explore Deeper
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Chakra Energy Table Section -->
+      <ChakraEnergyTable chakras={initialData.chakras} />
+
+    </div>
+  </section>
+
+  <!-- 6. Glossary Blurbs & 7. How It Works Section -->
+  <section class="bg-[#F7F3EC] py-10 px-4 font-sans">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- 6. Glossary Blurbs -->
+      <div class="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-sm space-y-6 flex flex-col justify-between">
+        <div>
+          <h2 class="text-2xl font-serif text-[#2E3D34] font-bold mb-4">{t('section.keyConcepts', locale)}</h2>
+          
+          <div class="space-y-4">
+            <div class="p-4 bg-[#F7F3EC]/70 rounded-2xl border border-stone-200/60">
+              <h3 class="font-bold text-[#2E3D34] text-sm">{t('concept.loveLine.title', locale)}</h3>
+              <p class="text-xs text-stone-600 pt-1 leading-relaxed">{t('concept.loveLine.body', locale)}</p>
+            </div>
+
+            <div class="p-4 bg-[#F7F3EC]/70 rounded-2xl border border-stone-200/60">
+              <h3 class="font-bold text-[#2E3D34] text-sm">{t('concept.moneyLine.title', locale)}</h3>
+              <p class="text-xs text-stone-600 pt-1 leading-relaxed">{t('concept.moneyLine.body', locale)}</p>
+            </div>
+
+            <div class="p-4 bg-[#F7F3EC]/70 rounded-2xl border border-stone-200/60">
+              <h3 class="font-bold text-[#2E3D34] text-sm">{t('concept.karmic.title', locale)}</h3>
+              <p class="text-xs text-stone-600 pt-1 leading-relaxed">{t('concept.karmic.body', locale)}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 text-[10px] text-stone-400 leading-relaxed italic border-t border-stone-100 mt-4">
+          {t('section.methodNote', locale)}
+        </div>
+      </div>
+
+      <!-- 7. How It Works -->
+      <div class="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-sm space-y-6">
+        <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">{t('section.howItWorks', locale)}</h2>
+
+        <div class="space-y-5">
+          <div class="flex items-start gap-4">
+            <span class="w-9 h-9 rounded-2xl bg-[#2E4A3D] text-white font-bold flex items-center justify-center shrink-0 text-sm shadow-2xs">1</span>
+            <div>
+              <h3 class="font-bold text-[#2E3D34] text-sm">{t('howto.step1.title', locale)}</h3>
+              <p class="text-xs text-stone-600 pt-1 leading-relaxed">{t('howto.step1.body', locale)}</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 border-t border-stone-100 pt-4">
+            <span class="w-9 h-9 rounded-2xl bg-[#2E4A3D] text-white font-bold flex items-center justify-center shrink-0 text-sm shadow-2xs">2</span>
+            <div>
+              <h3 class="font-bold text-[#2E3D34] text-sm">{t('howto.step2.title', locale)}</h3>
+              <p class="text-xs text-stone-600 pt-1 leading-relaxed">{t('howto.step2.body', locale)}</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 border-t border-stone-100 pt-4">
+            <span class="w-9 h-9 rounded-2xl bg-[#2E4A3D] text-white font-bold flex items-center justify-center shrink-0 text-sm shadow-2xs">3</span>
+            <div>
+              <h3 class="font-bold text-[#2E3D34] text-sm">{t('howto.step3.title', locale)}</h3>
+              <p class="text-xs text-stone-600 pt-1 leading-relaxed">{t('howto.step3.body', locale)}</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 border-t border-stone-100 pt-4">
+            <span class="w-9 h-9 rounded-2xl bg-[#2E4A3D] text-white font-bold flex items-center justify-center shrink-0 text-sm shadow-2xs">4</span>
+            <div>
+              <h3 class="font-bold text-[#2E3D34] text-sm">{t('howto.step4.title', locale)}</h3>
+              <p class="text-xs text-stone-600 pt-1 leading-relaxed">{t('howto.step4.body', locale)}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- What Your Free Chart Includes & How Calculation Works -->
+    <div class="max-w-6xl mx-auto mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-3xl p-6 sm:p-10 border border-stone-200/80 shadow-sm text-stone-700 font-sans">
+      <div class="space-y-4">
+        <h3 class="text-xl font-serif text-[#2E3D34] font-bold">{t('includes.title', locale)}</h3>
+        <ul class="list-disc pl-5 space-y-2 text-xs sm:text-sm text-stone-600">
+          <li>{t('includes.item1', locale)}</li>
+          <li>{t('includes.item2', locale)}</li>
+          <li>{t('includes.item3', locale)}</li>
+          <li>{t('includes.item4', locale)}</li>
+        </ul>
+      </div>
+
+      <div class="space-y-4 flex flex-col justify-between">
+        <div>
+          <h3 class="text-xl font-serif text-[#2E3D34] font-bold">{t('calc.howTitle', locale)}</h3>
+          <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">{t('calc.howBody', locale)}</p>
+        </div>
+        <div class="pt-4 border-t border-stone-100 text-[10px] text-stone-400 italic leading-relaxed mt-4">
+          {t('calc.disclaimer', locale)}
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 8. Frequently Asked Questions -->
+  <section class="bg-[#F7F3EC] pb-16 px-4 font-sans">
+    <div class="max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-stone-200/80 shadow-sm space-y-6">
+      <h2 class="text-3xl font-serif text-[#2E3D34] font-bold">{t('faq.title', locale)}</h2>
+
+      <div class="space-y-4">
+        <div class="p-4 bg-[#F7F3EC]/60 rounded-2xl border border-stone-200/60">
+          <h3 class="font-bold text-[#2E3D34] text-base">{t('faq.q1', locale)}</h3>
+          <p class="text-xs sm:text-sm text-stone-600 pt-1.5 leading-relaxed">{t('faq.a1', locale)}</p>
+        </div>
+
+        <div class="p-4 bg-[#F7F3EC]/60 rounded-2xl border border-stone-200/60">
+          <h3 class="font-bold text-[#2E3D34] text-base">{t('faq.q2', locale)}</h3>
+          <p class="text-xs sm:text-sm text-stone-600 pt-1.5 leading-relaxed">{t('faq.a2', locale)}</p>
+        </div>
+
+        <div class="p-4 bg-[#F7F3EC]/60 rounded-2xl border border-stone-200/60">
+          <h3 class="font-bold text-[#2E3D34] text-base">{t('faq.q3', locale)}</h3>
+          <p class="text-xs sm:text-sm text-stone-600 pt-1.5 leading-relaxed">{t('faq.a3', locale)}</p>
+        </div>
+
+        <div class="p-4 bg-[#F7F3EC]/60 rounded-2xl border border-stone-200/60">
+          <h3 class="font-bold text-[#2E3D34] text-base">{t('faq.q4', locale)}</h3>
+          <p class="text-xs sm:text-sm text-stone-600 pt-1.5 leading-relaxed">{t('faq.a4', locale)}</p>
+        </div>
+
+        <div class="p-4 bg-[#F7F3EC]/60 rounded-2xl border border-stone-200/60">
+          <h3 class="font-bold text-[#2E3D34] text-base">{t('faq.q5', locale)}</h3>
+          <p class="text-xs sm:text-sm text-stone-600 pt-1.5 leading-relaxed">{t('faq.a5', locale)}</p>
+        </div>
+
+        <div class="p-4 bg-[#F7F3EC]/60 rounded-2xl border border-stone-200/60">
+          <h3 class="font-bold text-[#2E3D34] text-base">{t('faq.q6', locale)}</h3>
+          <p class="text-xs sm:text-sm text-stone-600 pt-1.5 leading-relaxed">{t('faq.a6', locale)}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    function reduce22Val(val) {
+      let num = Math.abs(val);
+      while (num > 22) {
+        num = num.toString().split('').reduce((a, b) => a + parseInt(b, 10), 0);
+      }
+      return num || 1;
+    }
+
+    function parseDobLocal(dStr) {
+      if (!dStr) return { d: 14, m: 1, y: 1980 };
+      const parts = dStr.split(/[-/.]/);
+      if (parts.length !== 3) return { d: 14, m: 1, y: 1980 };
+      const p0 = parseInt(parts[0], 10);
+      const p1 = parseInt(parts[1], 10);
+      const p2 = parseInt(parts[2], 10);
+      if (isNaN(p0) || isNaN(p1) || isNaN(p2)) return { d: 14, m: 1, y: 1980 };
+      let d = 14, m = 1, y = 1980;
+      if (p0 > 31) {
+        y = p0; m = p1; d = p2;
+      } else if (p2 > 31) {
+        d = p0; m = p1; y = p2;
+      } else {
+        d = p0; m = p1; y = p2 < 100 ? (p2 > 30 ? 1900 + p2 : 2000 + p2) : p2;
+      }
+      d = Math.max(1, Math.min(31, d));
+      m = Math.max(1, Math.min(12, m));
+      if (y < 100) y = 2000 + y;
+      return { d, m, y };
+    }
+
+    function recalculateMatrix(dobVal, nameVal) {
+      const { d, m, y } = parseDobLocal(dobVal);
+
+      const dayA = reduce22Val(d);
+      const monthB = reduce22Val(m);
+      const ySum = y.toString().split('').reduce((a, b) => a + parseInt(b, 10), 0);
+      const yearC = reduce22Val(ySum);
+
+      const bottomD = reduce22Val(dayA + monthB + yearC);
+      const centerE = reduce22Val(dayA + monthB + yearC + bottomD);
+
+      const moneyVal = reduce22Val(centerE + yearC);
+      const loveVal = reduce22Val(centerE + bottomD);
+
+      const topLeft = reduce22Val(dayA + monthB);
+      const topRight = reduce22Val(monthB + yearC);
+      const bottomRight = reduce22Val(yearC + bottomD);
+      const bottomLeft = reduce22Val(bottomD + dayA);
+
+      const lifePath = reduce22Val(dayA + monthB + yearC);
+      const soul = monthB;
+      const personality = reduce22Val(dayA + centerE);
+
+      const cleanName = (nameVal || 'Kashif').toLowerCase().replace(/[^a-z]/g, '') || 'kashif';
+      const letterMap = { a:1,b:2,c:3,d:4,e:5,f:6,g:7,h:8,i:9,j:1,k:2,l:3,m:4,n:5,o:6,p:7,q:8,r:9,s:1,t:2,u:3,v:4,w:5,x:6,y:7,z:8 };
+      let nSum = 0;
+      for (let i = 0; i < cleanName.length; i++) nSum += letterMap[cleanName[i]] || 0;
+      const expression = reduce22Val(nSum);
+
+      document.getElementById('svgCenterArcana').textContent = centerE;
+      document.getElementById('svgDayArcana').textContent = dayA;
+      document.getElementById('svgMonthArcana').textContent = monthB;
+      document.getElementById('svgYearArcana').textContent = yearC;
+      document.getElementById('svgBottomArcana').textContent = bottomD;
+      document.getElementById('svgMoneyArcana').textContent = moneyVal;
+      document.getElementById('svgLoveArcana').textContent = loveVal;
+      document.getElementById('svgTopLeftArcana').textContent = topLeft;
+      document.getElementById('svgTopRightArcana').textContent = topRight;
+      document.getElementById('svgBottomRightArcana').textContent = bottomRight;
+      document.getElementById('svgBottomLeftArcana').textContent = bottomLeft;
+
+      document.getElementById('resSoulNum').textContent = soul;
+      document.getElementById('resPersonalityNum').textContent = personality;
+      document.getElementById('resExpressionNum').textContent = expression;
+      document.getElementById('resLifePathNum').textContent = lifePath;
+
+      // Update Report Links dynamically
+      const currentLocale = window.location.pathname.startsWith('/ar') ? 'ar' : (window.location.pathname.startsWith('/pt') ? 'pt' : 'en');
+      const fullLink = document.getElementById('openFullReportLink');
+      if (fullLink) fullLink.href = `/${currentLocale}/report?dob=${dobVal}&name=${encodeURIComponent(nameVal)}`;
+    }
+
+    function initMatrixEvents() {
+      const form = document.getElementById('matrixForm');
+      const spinner = document.getElementById('btnSpinner');
+      const btnText = document.getElementById('btnText');
+      const nameInp = document.getElementById('matrixNameInput');
+      const dobInp = document.getElementById('matrixDobInput');
+      const targetSec = document.getElementById('matrixResultSection');
+      const openFullReportLink = document.getElementById('openFullReportLink');
+
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const nameVal = nameInp ? nameInp.value.trim() : '';
+          const dobVal = dobInp ? dobInp.value : '';
+          const currentLocale = window.location.pathname.startsWith('/ar') ? 'ar' : (window.location.pathname.startsWith('/pt') ? 'pt' : 'en');
+
+          if (!nameVal || !dobVal) {
+            if (nameInp && !nameVal) nameInp.focus();
+            else if (dobInp && !dobVal) dobInp.focus();
+            alert(currentLocale === 'ar' ? 'يرجى إدخال الاسم وتاريخ الميلاد أولاً.' : (currentLocale === 'pt' ? 'Por favor, insira o nome e a data de nascimento primeiro.' : 'Please enter your name and date of birth first.'));
+            return;
+          }
+
+          const parts = dobVal.split('-');
+          const year = parts[0] ? parseInt(parts[0], 10) : 0;
+          const currentYear = new Date().getFullYear();
+          if (isNaN(year) || year < 1900 || year > currentYear) {
+            if (dobInp) dobInp.focus();
+            alert(currentLocale === 'ar' 
+              ? `يرجى إدخال سنة ميلاد صالحة بين 1900 و ${currentYear}.` 
+              : (currentLocale === 'pt' ? `Por favor, insira um ano de nascimento válido entre 1900 e ${currentYear}.` : `Please enter a valid birth year between 1900 and ${currentYear}.`));
+            return;
+          }
+
+          if (openFullReportLink) {
+            openFullReportLink.href = `/${currentLocale}/report?dob=${encodeURIComponent(dobVal)}&name=${encodeURIComponent(nameVal)}`;
+          }
+
+          // Quick Questions Href Bindings
+          const qqTheme = document.getElementById('qqThemeBtn');
+          const qqCareer = document.getElementById('qqCareerBtn');
+          const qqLove = document.getElementById('qqLoveBtn');
+          const qqKarmic = document.getElementById('qqKarmicBtn');
+          if (qqTheme) qqTheme.href = `/${currentLocale}/report?dob=${encodeURIComponent(dobVal)}&name=${encodeURIComponent(nameVal)}#core-personality`;
+          if (qqCareer) qqCareer.href = `/${currentLocale}/report?dob=${encodeURIComponent(dobVal)}&name=${encodeURIComponent(nameVal)}#career-money`;
+          if (qqLove) qqLove.href = `/${currentLocale}/report?dob=${encodeURIComponent(dobVal)}&name=${encodeURIComponent(nameVal)}#love-compatibility`;
+          if (qqKarmic) qqKarmic.href = `/${currentLocale}/report?dob=${encodeURIComponent(dobVal)}&name=${encodeURIComponent(nameVal)}#karmic-blueprint`;
+
+          if (spinner) spinner.classList.remove('hidden');
+          const originalText = btnText ? btnText.textContent : '';
+          if (btnText) btnText.textContent = currentLocale === 'ar' ? 'جاري الحساب...' : (currentLocale === 'pt' ? 'Calculando...' : 'Calculating...');
+          setTimeout(() => {
+            recalculateMatrix(dobVal, nameVal);
+            if (spinner) spinner.classList.add('hidden');
+            if (btnText) btnText.textContent = originalText;
+            if (targetSec) targetSec.scrollIntoView({ behavior: 'smooth' });
+          }, 200);
+        });
+      }
+
+      // Prevent navigation if name and DOB are not filled
+      const reportLinks = [
+        openFullReportLink,
+        document.getElementById('qqThemeBtn'),
+        document.getElementById('qqCareerBtn'),
+        document.getElementById('qqLoveBtn'),
+        document.getElementById('qqKarmicBtn')
+      ];
+      reportLinks.forEach(link => {
+        if (link) {
+          link.addEventListener('click', (e) => {
+            const nameRaw = nameInp ? nameInp.value.trim() : '';
+            const dobRaw = dobInp ? dobInp.value : '';
+            const currentLocale = window.location.pathname.startsWith('/ar') ? 'ar' : (window.location.pathname.startsWith('/pt') ? 'pt' : 'en');
+            
+            if (!nameRaw || !dobRaw) {
+              e.preventDefault();
+              if (nameInp && !nameRaw) nameInp.focus();
+              else if (dobInp && !dobRaw) dobInp.focus();
+              alert(currentLocale === 'ar' ? 'يرجى إدخال الاسم وتاريخ الميلاد أولاً.' : (currentLocale === 'pt' ? 'Por favor, insira o nome e a data de nascimento primeiro.' : 'Please enter your name and date of birth first.'));
+              return;
+            }
+
+            const parts = dobRaw.split('-');
+            const year = parts[0] ? parseInt(parts[0], 10) : 0;
+            const currentYear = new Date().getFullYear();
+            if (isNaN(year) || year < 1900 || year > currentYear) {
+              e.preventDefault();
+              if (dobInp) dobInp.focus();
+              alert(currentLocale === 'ar' 
+                ? `يرجى إدخال سنة ميلاد صالحة بين 1900 و ${currentYear}.` 
+                : (currentLocale === 'pt' ? `Por favor, insira um ano de nascimento válido entre 1900 e ${currentYear}.` : `Please enter a valid birth year between 1900 and ${currentYear}.`));
+              return;
+            }
+
+            // Dynamically build the target url based on the field values
+            let targetUrl = `/${currentLocale}/report?dob=${encodeURIComponent(dobRaw)}&name=${encodeURIComponent(nameRaw)}`;
+            if (link.id === 'qqThemeBtn') targetUrl += '#core-personality';
+            else if (link.id === 'qqCareerBtn') targetUrl += '#career-money';
+            else if (link.id === 'qqLoveBtn') targetUrl += '#love-compatibility';
+            else if (link.id === 'qqKarmicBtn') targetUrl += '#karmic-blueprint';
+            link.href = targetUrl;
+          });
+        }
+      });
+    }
+
+    window.addEventListener('load', initMatrixEvents);
+    document.addEventListener('DOMContentLoaded', initMatrixEvents);
+  </script>
+</BaseLayout>

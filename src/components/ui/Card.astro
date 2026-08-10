@@ -1,0 +1,27 @@
+---
+interface Props {
+  variant?: 'flat' | 'elevated' | 'bordered' | 'glow' | 'rose' | 'amber' | 'emerald' | 'indigo';
+  class?: string;
+}
+
+const { variant = 'elevated', class: className = '' } = Astro.props;
+
+const baseStyles = 'rounded-[var(--radius-xl)] p-6 transition-all duration-300 transform hover:-translate-y-0.5';
+
+const variants = {
+  flat: 'bg-indigo-50/90 text-indigo-950 border border-indigo-200/80 shadow-xs',
+  elevated: 'bg-white text-indigo-950 shadow-xl border-2 border-purple-100/90',
+  bordered: 'bg-white/90 backdrop-blur-md border-2 border-purple-300 text-purple-950 shadow-md',
+  glow: 'bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white border-2 border-amber-300/40 shadow-[var(--shadow-glow)]',
+  rose: 'bg-gradient-to-br from-rose-500 to-pink-600 text-white shadow-lg shadow-rose-500/20 border border-rose-300/40',
+  amber: 'bg-gradient-to-br from-amber-400 to-orange-500 text-slate-950 font-medium shadow-lg shadow-amber-500/20 border border-amber-200/60',
+  emerald: 'bg-gradient-to-br from-emerald-500 to-teal-700 text-white shadow-lg shadow-emerald-500/20 border border-emerald-300/40',
+  indigo: 'bg-gradient-to-br from-violet-600 to-indigo-700 text-white shadow-lg shadow-indigo-500/20 border border-indigo-300/40',
+};
+
+const computedClass = `${baseStyles} ${variants[variant]} ${className}`;
+---
+
+<div class={computedClass}>
+  <slot />
+</div>

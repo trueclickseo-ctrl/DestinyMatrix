@@ -1,0 +1,120 @@
+---
+import { brandConfig } from '../config/brand.config';
+import { localesConfig } from '../config/locales.config';
+import { t } from '../services/translation';
+import { SEOEngine } from '../engines/seo';
+import { SchemaEngine } from '../engines/schema';
+import LanguageSwitcher from '../components/common/LanguageSwitcher.astro';
+import Footer from '../components/common/Footer.astro';
+import '../design-system/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  ogDescription?: string;
+  locale?: string;
+  noIndex?: boolean;
+}
+
+const { title, description, ogDescription, locale = 'en', noIndex = false } = Astro.props;
+const currentLocaleConfig = localesConfig[locale] || localesConfig['en'];
+const rawPath = Astro.url.pathname.replace(/^\/[a-z]{2}/, '').replace(/^\/+|\/+$/g, '');
+const canonicalUrl = rawPath ? `https://${brandConfig.domain}/${locale}/${rawPath}/` : `https://${brandConfig.domain}/${locale}/`;
+
+const seoMeta = SEOEngine.generateMeta({
+  title,
+  description,
+  canonicalUrl,
+  locale,
+  availableLocales: Object.keys(localesConfig),
+});
+
+// Use custom OG description if provided, otherwise fall back to meta description
+const ogDesc = ogDescription ?? description;
+
+const websiteSchema = SchemaEngine.generateWebSiteSchema(`https://${brandConfig.domain}`);
+
+// Hero image URL for preload (LCP optimisation)
+const heroImage = '/homepage_hero_bright.jpg';
+const isHomePage = Astro.url.pathname === `/${locale}` || Astro.url.pathname === `/${locale}/`;
+---
+
+<!xhtml>
+<html lang={locale} dir={currentLocaleConfig.dir} class="h-full scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
+    <meta name="theme-color" content="#48205E" />
+
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Title & Description -->
+    <title>{seoMeta.title}</title>
+    <meta name="description" content={seoMeta.description} />
+    <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'} />
+
+    <!-- Canonical & Hreflang -->
+    <link rel="canonical" href={seoMeta.canonical} />
+    <link rel="alternate" hreflang="x-default" href={`https://${brandConfig.domain}/en/`} />
+    {seoMeta.hreflangs.map((item) => (
+      <link rel="alternate" hreflang={item.lang} href={item.href} />
+    ))}
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content={seoMeta.openGraph.title} />
+    <meta property="og:description" content={ogDesc} />
+    <meta property="og:url" content={seoMeta.openGraph.url} />
+    <meta property="og:image" content={`https://${brandConfig.domain}${seoMeta.openGraph.image}`} />
+    <meta property="og:type" content={seoMeta.openGraph.type} />
+    <meta property="og:site_name" content="Souliography" />
+    <meta property="og:locale" content={locale === 'ar' ? 'ar_SA' : locale === 'pt' ? 'pt_BR' : 'en_US'} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={seoMeta.openGraph.title} />
+    <meta name="twitter:description" content={ogDesc} />
+    <meta name="twitter:image" content={`https://${brandConfig.domain}${seoMeta.openGraph.image}`} />
+    <meta name="twitter:site" content="@souliography" />
+
+    <!-- Preload hero for LCP -->
+    {isHomePage && (
+      <link rel="preload" as="image" href={heroImage} fetchpriority="high" />
+    )}
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Schema JSON-LD -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  </head>
+  <body class="min-h-full flex flex-col bg-slate-50 text-slate-900 antialiased selection:bg-pink-500 selection:text-white">
+    <!-- Distinct Header with rich contrasting bar -->
+    <header class="border-b border-purple-200/80 bg-gradient-to-r from-violet-950 via-purple-900 to-indigo-950 text-white sticky top-0 z-50 shadow-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <a href={`/${locale}/`} class="flex items-center gap-2 font-extrabold text-xl tracking-wide text-white hover:text-amber-300 transition-colors">
+          <span class="text-2xl animate-pulse">{brandConfig.logo.symbol}</span>
+          <span class="font-heading bg-gradient-to-r from-amber-200 via-pink-200 to-white bg-clip-text text-transparent">{brandConfig.name}</span>
+        </a>
+
+        <!-- Locale Switcher -->
+        <LanguageSwitcher currentLocale={locale} />
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+      <slot />
+    </main>
+
+    <!-- Beautiful Soul Footer -->
+    <Footer locale={locale} />
+  </body>
+</html>

@@ -1,0 +1,21 @@
+---
+interface Props {
+  symbol?: string;
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+
+const { symbol = '✨', size = 'md', class: className = '' } = Astro.props;
+
+const sizes = {
+  sm: 'text-base w-6 h-6',
+  md: 'text-xl w-8 h-8',
+  lg: 'text-3xl w-12 h-12',
+};
+
+const computedClass = `inline-flex items-center justify-center rounded-full bg-indigo-500/10 text-indigo-500 ${sizes[size]} ${className}`;
+---
+
+<span class={computedClass} aria-hidden="true">
+  {symbol}
+</span>

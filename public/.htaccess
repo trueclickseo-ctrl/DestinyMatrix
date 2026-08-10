@@ -1,0 +1,2 @@
+# Permanent 301 Redirect from root to /en/
+RedirectMatch 301 ^/$ /en/

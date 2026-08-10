@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { supportedLocales } from '../../config/locales.config';
+import { t } from '../../i18n';
+
+export function getStaticPaths() {
+  return supportedLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.params;
+---
+
+<BaseLayout title="Terms & Conditions | Souliography" description="Read the Terms and Conditions for using Souliography's Soul Matrix services." locale={locale}>
+  <div class="bg-[#F7F3EC] min-h-screen py-16 px-4 font-sans">
+    <div class="max-w-3xl mx-auto bg-white rounded-3xl p-8 sm:p-12 border border-stone-200 shadow-sm space-y-8">
+      
+      <div class="space-y-3 border-b border-stone-100 pb-6">
+        <span class="text-xs font-bold text-[#B67B7B] uppercase tracking-widest font-mono">LEGAL AGREEMENT</span>
+        <h1 class="text-4xl font-serif text-[#2E3D34] font-bold">Terms & Conditions</h1>
+        <p class="text-xs text-stone-400 font-mono">Last updated: July 31, 2026</p>
+      </div>
+
+      <div class="space-y-6 text-sm text-stone-700 leading-relaxed font-sans">
+        <section class="space-y-2">
+          <h2 class="text-lg font-serif font-bold text-[#2E3D34]">1. Acceptance of Terms</h2>
+          <p>By accessing or using Souliography (souliography.com), you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please discontinue use of our site.</p>
+        </section>
+
+        <section class="space-y-2">
+          <h2 class="text-lg font-serif font-bold text-[#2E3D34]">2. Nature of Services</h2>
+          <p>Souliography provides self-discovery, numerology calculations, chakra energy tables, and personal interpretive reports based on birth date inputs. All content is intended solely for personal self-reflection and entertainment purposes.</p>
+        </section>
+
+        <section class="space-y-2">
+          <h2 class="text-lg font-serif font-bold text-[#2E3D34]">3. Intellectual Property</h2>
+          <p>All designs, code, illustrations, text interpretations, and brand elements on Souliography are the intellectual property of Souliography.com and are protected by applicable copyright and trademark laws.</p>
+        </section>
+
+        <section class="space-y-2">
+          <h2 class="text-lg font-serif font-bold text-[#2E3D34]">4. Limitation of Liability</h2>
+          <p>In no event shall Souliography, its founders, or operators be liable for any direct, indirect, or incidental damages resulting from the use or inability to use the site or its interpretive contents.</p>
+        </section>
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>

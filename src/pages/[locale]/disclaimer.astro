@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { supportedLocales } from '../../config/locales.config';
+import { t } from '../../i18n';
+
+export function getStaticPaths() {
+  return supportedLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.params;
+---
+
+<BaseLayout title="Disclaimer | Souliography" description="Souliography Disclaimer regarding spiritual, numerological, and interpretive advice." locale={locale}>
+  <div class="bg-[#F7F3EC] min-h-screen py-16 px-4 font-sans">
+    <div class="max-w-3xl mx-auto bg-white rounded-3xl p-8 sm:p-12 border border-stone-200 shadow-sm space-y-8">
+      
+      <div class="space-y-3 border-b border-stone-100 pb-6">
+        <span class="text-xs font-bold text-[#B67B7B] uppercase tracking-widest font-mono">IMPORTANT NOTICE</span>
+        <h1 class="text-4xl font-serif text-[#2E3D34] font-bold">Disclaimer</h1>
+        <p class="text-xs text-stone-400 font-mono">Last updated: July 31, 2026</p>
+      </div>
+
+      <div class="space-y-6 text-sm text-stone-700 leading-relaxed font-sans">
+        <section class="space-y-2">
+          <h2 class="text-lg font-serif font-bold text-[#2E3D34]">1. For Self-Reflection & Guidance Only</h2>
+          <p>The interpretations, calculations, chakra analyses, and readings provided by Souliography are intended solely for self-reflection, spiritual exploration, and educational growth.</p>
+        </section>
+
+        <section class="space-y-2">
+          <h2 class="text-lg font-serif font-bold text-[#2E3D34]">2. Not Professional Medical or Financial Advice</h2>
+          <p>Souliography does not offer professional medical, legal, financial, psychological, or psychiatric advice. Readings should never be used as a substitute for professional counsel from licensed experts.</p>
+        </section>
+
+        <section class="space-y-2">
+          <h2 class="text-lg font-serif font-bold text-[#2E3D34]">3. Personal Responsibility</h2>
+          <p>All actions, choices, or decisions made based on information found on Souliography are at the sole discretion and responsibility of the user.</p>
+        </section>
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>

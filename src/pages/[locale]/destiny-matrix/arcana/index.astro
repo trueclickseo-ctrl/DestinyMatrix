@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { MAJOR_ARCANA_DATABASE, getLocalizedArcanaEntry } from '../../../../data/arcana';
+import { supportedLocales } from '../../../../config/locales.config';
+import { t } from '../../../../i18n';
+
+export function getStaticPaths() {
+  return supportedLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.params;
+const arcanaList = Object.values(MAJOR_ARCANA_DATABASE)
+  .sort((a, b) => a.number - b.number)
+  .map(item => getLocalizedArcanaEntry(item.number, locale));
+---
+
+<BaseLayout
+  title="22 Major Arcana Destiny Matrix Encyclopedia | Souliography"
+  description="Explore the complete 22 Major Arcana encyclopedia in Destiny Matrix. Deep spiritual, psychological, career, and love interpretations for every Arcana frequency."
+  locale={locale}
+>
+  <section class="bg-gradient-to-b from-stone-900 via-purple-950 to-slate-950 text-white py-16 px-4 text-center">
+    <div class="max-w-4xl mx-auto space-y-4">
+      <span class="text-xs uppercase tracking-widest text-amber-400 font-extrabold bg-white/10 px-4 py-1.5 rounded-full inline-block">
+        DESTINY MATRIX ENCYCLOPEDIA
+      </span>
+      <h1 class="text-4xl sm:text-6xl font-serif font-bold text-amber-200">
+        The 22 Major Arcana Frequencies
+      </h1>
+      <p class="text-purple-200 max-w-2xl mx-auto text-base sm:text-lg">
+        Comprehensive guide to the 22 core energies of the Destiny Matrix system. Discover positive vibrations, shadow expressions, career paths, and relationship synergy.
+      </p>
+    </div>
+  </section>
+
+  <div class="bg-stone-50 py-12 px-4">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {arcanaList.map((arcana) => (
+        <a
+          href={`/${locale}/destiny-matrix/arcana/${arcana.number}-${arcana.name.toLowerCase().replace(/\s+/g, '-')}/`}
+          class="bg-white rounded-2xl p-6 border border-stone-200 shadow-sm hover:shadow-md hover:border-purple-300 transition-all flex flex-col justify-between space-y-4 group"
+        >
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-xs font-mono font-bold text-purple-700 bg-purple-50 px-2.5 py-1 rounded-md">
+                Arcana {arcana.number}
+              </span>
+              <span class="text-stone-400 group-hover:text-purple-600 text-xs font-bold transition-colors">Read Guide →</span>
+            </div>
+            <h2 class="text-xl font-serif font-bold text-stone-900 group-hover:text-purple-900 transition-colors">
+              {arcana.name}
+            </h2>
+            <p class="text-xs font-semibold text-amber-700">
+              {arcana.archetype}
+            </p>
+            <p class="text-xs text-stone-600 line-clamp-3 leading-relaxed">
+              {arcana.meaning}
+            </p>
+          </div>
+          <div class="pt-3 border-t border-stone-100 flex items-center justify-between text-[11px] text-stone-500 font-mono">
+            <span>Chakra: {arcana.chakraConnection.split('(')[0]}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

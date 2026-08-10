@@ -1,0 +1,176 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import DestinyMatrixChart from '../../../components/matrix/DestinyMatrixChart.astro';
+import { supportedLocales } from '../../../config/locales.config';
+import { t } from '../../../i18n';
+
+export function getStaticPaths() {
+  return supportedLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.params;
+
+const pageTitle = "How to Read Your Destiny Matrix Chart: Ultimate Beginner's Guide | Souliography";
+const pageDesc = "Learn how to read and interpret your Destiny Matrix chart step-by-step. Discover core numbers, karmic tail, love line, money channel, 7 chakras, and soul vocation.";
+---
+
+<BaseLayout title={pageTitle} description={pageDesc} locale={locale}>
+  <!-- Hero Banner -->
+  <section class="bg-gradient-to-b from-[#2e1d2b] via-[#4a2638] to-[#F7F3EC] text-white py-16 px-4 text-center">
+    <div class="max-w-4xl mx-auto space-y-4">
+      <span class="text-xs uppercase tracking-widest text-amber-300 font-extrabold bg-white/10 px-4 py-1.5 rounded-full inline-block">
+        DESTINY MATRIX ESSENTIAL GUIDE
+      </span>
+      <h1 class="text-4xl sm:text-6xl font-serif text-amber-100 font-normal leading-tight max-w-3xl mx-auto">
+        How to Read Your Destiny Matrix Chart
+      </h1>
+      <div class="flex justify-center items-center gap-4 text-xs font-mono text-rose-200/80 pt-1 pb-2">
+        <span>⏱️ {locale === 'ar' ? '٨ دقائق قراءة' : (locale === 'pt' ? '8 min de leitura' : '8 min read')}</span>
+        <span>•</span>
+        <span>📖 {locale === 'ar' ? 'دليل خطوة بخطوة' : (locale === 'pt' ? 'Guia Passo a Passo' : 'Step-by-Step Guide')}</span>
+      </div>
+      <p class="text-rose-100/90 max-w-xl mx-auto text-base sm:text-lg leading-relaxed font-normal">
+        A complete, original step-by-step handbook to decoding your 22 Arcana chart, energy lines, 7 chakras, and life path.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Article Body with Sticky Table of Contents Sidebar (Step 8) -->
+  <div class="bg-[#F7F3EC] py-12 px-4 font-sans">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      
+      <!-- STICKY TABLE OF CONTENTS SIDEBAR -->
+      <aside class="lg:col-span-4 lg:sticky lg:top-6 space-y-4">
+        <div class="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-sm space-y-4">
+          <h3 class="text-lg font-serif font-bold text-[#2E3D34] border-b border-stone-100 pb-3">
+            Table of Contents
+          </h3>
+          <nav class="space-y-2 text-xs font-medium text-stone-600">
+            <a href="#intro" class="block p-2 rounded-xl hover:bg-[#F7F3EC] hover:text-[#2E4A3D] transition-colors">1. Introduction & Overview</a>
+            <a href="#core-number" class="block p-2 rounded-xl hover:bg-[#F7F3EC] hover:text-[#2E4A3D] transition-colors">2. Core/Center Number</a>
+            <a href="#personality-number" class="block p-2 rounded-xl hover:bg-[#F7F3EC] hover:text-[#2E4A3D] transition-colors">3. Personality Number</a>
+            <a href="#karmic-tail" class="block p-2 rounded-xl hover:bg-[#F7F3EC] hover:text-[#2E4A3D] transition-colors">4. Karmic Tail Lessons</a>
+            <a href="#love-line" class="block p-2 rounded-xl hover:bg-[#F7F3EC] hover:text-[#2E4A3D] transition-colors">5. Relationship & Love Line</a>
+            <a href="#money-line" class="block p-2 rounded-xl hover:bg-[#F7F3EC] hover:text-[#2E4A3D] transition-colors">6. Money & Vocation Channel</a>
+            <a href="#talent-zone" class="block p-2 rounded-xl hover:bg-[#F7F3EC] hover:text-[#2E4A3D] transition-colors">7. Talent Zone</a>
+            <a href="#soul-path" class="block p-2 rounded-xl hover:bg-[#F7F3EC] hover:text-[#2E4A3D] transition-colors">8. Soul Path & Purpose</a>
+            <a href="#ancestral-line" class="block p-2 rounded-xl hover:bg-[#F7F3EC] hover:text-[#2E4A3D] transition-colors">9. Ancestral Lineage</a>
+            <a href="#life-phases" class="block p-2 rounded-xl hover:bg-[#F7F3EC] hover:text-[#2E4A3D] transition-colors">10. Life Phases (Before vs After 40)</a>
+            <a href="#chakra-table" class="block p-2 rounded-xl hover:bg-[#F7F3EC] hover:text-[#2E4A3D] transition-colors">11. The 7 Chakras</a>
+            <a href="#faq" class="block p-2 rounded-xl hover:bg-[#F7F3EC] hover:text-[#2E4A3D] transition-colors">12. Frequently Asked Questions</a>
+          </nav>
+
+          <a href={`/${locale}/`} class="w-full py-3 rounded-2xl bg-[#2E4A3D] hover:bg-[#233b30] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-all cursor-pointer">
+            <span>✨</span>
+            <span>Calculate Your Free Chart</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- MAIN ARTICLE CONTENT (12 SECTIONS) -->
+      <main class="lg:col-span-8 space-y-8 bg-white rounded-3xl p-6 sm:p-10 border border-stone-200/80 shadow-sm text-stone-700 leading-relaxed text-sm">
+        
+        <!-- Interactive Chart Zone Visualizer Diagram -->
+        <div class="border-b border-stone-100 pb-8 text-center space-y-4">
+          <span class="text-[10px] font-bold text-[#B67B7B] uppercase tracking-widest block">DIAGRAM MAP</span>
+          <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">Chart Zone Architecture</h2>
+          <div class="max-w-md mx-auto">
+            <DestinyMatrixChart dayArcana={14} monthArcana={1} yearArcana={6} bottomArcana={21} centerArcana={6} />
+          </div>
+        </div>
+
+        <!-- Section 1 -->
+        <section id="intro" class="space-y-3 pt-2">
+          <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">1. Intro: What the Chart Shows at a Glance</h2>
+          <p>The Destiny Matrix is an ancient 22 Major Arcana mathematical system derived from your birth date. Rather than isolated numbers, it maps your psychological archetypes, financial potential, relationship dynamics, and karmic life lessons onto a sacred geometry octagram.</p>
+        </section>
+
+        <!-- Section 2 -->
+        <section id="core-number" class="space-y-3 pt-4 border-t border-stone-100">
+          <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">2. Core/Center Number: Your Inner Identity</h2>
+          <p>Located at the center of the octagram (Point E), your Center Arcana represents your comfort zone, core motivation, and spiritual nucleus. This frequency dictates how you respond when under stress and what state brings you absolute internal peace.</p>
+        </section>
+
+        <!-- Section 3 -->
+        <section id="personality-number" class="space-y-3 pt-4 border-t border-stone-100">
+          <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">3. Personality Number: How Others Perceive You</h2>
+          <p>Positioned on the far-left point of the horizontal line (Point A, derived from your birth day), your Personality Arcana acts as your social aura. It reflects the first impression you project and how your environment perceives your strengths.</p>
+        </section>
+
+        <!-- Section 4 -->
+        <section id="karmic-tail" class="space-y-3 pt-4 border-t border-stone-100">
+          <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">4. Karmic Tail: Recurring Life Lessons</h2>
+          <p>Sitting at the bottom vertex of the chart (Point D), the Karmic Tail reveals subconscious patterns inherited from past cycles. When unmastered, these numbers manifest as repeating challenges; when integrated, they become your greatest source of wisdom.</p>
+        </section>
+
+        <!-- Section 5 -->
+        <section id="love-line" class="space-y-3 pt-4 border-t border-stone-100">
+          <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">5. Relationship & Love Line: Bonding Patterns</h2>
+          <p>Represented by the ♥ icon channel, your Love Line details your romantic preferences, ideal partner archetypes, and key emotional triggers. It guides you on how to cultivate unconditional harmony without falling into codependency.</p>
+        </section>
+
+        <!-- Section 6 -->
+        <section id="money-line" class="space-y-3 pt-4 border-t border-stone-100">
+          <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">6. Money Line: Financial Energy & Vocation</h2>
+          <p>Marked by the $ symbol channel, the Money Line shows how financial abundance flows into your life. It identifies whether you thrive through independent entrepreneurship, corporate structure, or creative expression.</p>
+        </section>
+
+        <!-- Section 7 -->
+        <section id="talent-zone" class="space-y-3 pt-4 border-t border-stone-100">
+          <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">7. Talent Zone: Natural Abilities</h2>
+          <p>Positioned at the top of the chart (Point B, calculated from your birth month), the Talent Zone reflects gifts you were born with. These abilities often come effortlessly and serve as catalysts for your career growth.</p>
+        </section>
+
+        <!-- Section 8 -->
+        <section id="soul-path" class="space-y-3 pt-4 border-t border-stone-100">
+          <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">8. Soul Path: Life Purpose & Direction</h2>
+          <p>Your Soul Path synthesizes your core center with your outer foundation, charting your evolution from youth into mature spiritual alignment.</p>
+        </section>
+
+        <!-- Section 9 -->
+        <section id="ancestral-line" class="space-y-3 pt-4 border-t border-stone-100">
+          <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">9. Ancestral Lineage: Inherited Family Patterns</h2>
+          <p>The diagonal lines (Male Line and Female Line) represent paternal and maternal lineage patterns. They illuminate gifts and subconscious beliefs passed down through generations.</p>
+        </section>
+
+        <!-- Section 10 -->
+        <section id="life-phases" class="space-y-3 pt-4 border-t border-stone-100">
+          <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">10. Life Phases: Before Age 40 vs After Age 40</h2>
+          <p>The Destiny Matrix splits your timeline into major evolution phases. Before 40 focus lies heavily on personal identity and career establishment; after 40 shifts toward spiritual vocation and ancestral contribution.</p>
+        </section>
+
+        <!-- Section 11 -->
+        <section id="chakra-table" class="space-y-3 pt-4 border-t border-stone-100">
+          <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">11. Chakra Table: 7 Energy Centers</h2>
+          <p>The 7 Chakras (Crown down to Root) link your birth Arcana to physical health, emotional balance, and spiritual clarity. Each chakra features Physics, Energy, and Emotions numerical breakdowns.</p>
+        </section>
+
+        <!-- Section 12 FAQ -->
+        <section id="faq" class="space-y-4 pt-4 border-t border-stone-100">
+          <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">12. Frequently Asked Questions</h2>
+          <div class="space-y-3">
+            <div class="p-4 bg-[#F7F3EC] rounded-2xl border border-stone-200/60">
+              <h4 class="font-bold text-[#2E3D34]">Do I need prior numerology experience to understand my chart?</h4>
+              <p class="text-xs text-stone-600 pt-1">No. Our interactive calculator computes all 21 Arcana positions instantly and provides clear explanations.</p>
+            </div>
+            <div class="p-4 bg-[#F7F3EC] rounded-2xl border border-stone-200/60">
+              <h4 class="font-bold text-[#2E3D34]">Is the Destiny Matrix chart free?</h4>
+              <p class="text-xs text-stone-600 pt-1">Yes, generating your chart, viewing core numbers, and reading the 7 chakra table on Souliography is 100% free with no login required.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Closing CTA -->
+        <div class="pt-8 border-t border-stone-100 text-center space-y-4">
+          <h3 class="text-2xl font-serif font-bold text-[#2E3D34]">Ready to Calculate Your Matrix?</h3>
+          <p class="text-xs text-stone-600 max-w-md mx-auto">Generate your custom Destiny Matrix chart in seconds with your birth date.</p>
+          <a href={`/${locale}/`} class="inline-block px-8 py-3.5 rounded-2xl bg-[#2E4A3D] hover:bg-[#233b30] text-white font-bold text-sm shadow-md transition-all">
+            Open Destiny Matrix Calculator
+          </a>
+        </div>
+
+      </main>
+
+    </div>
+  </div>
+</BaseLayout>

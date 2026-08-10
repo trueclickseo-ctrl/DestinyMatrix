@@ -1,0 +1,71 @@
+---
+interface Props {
+  chakras?: Array<{
+    name: string;
+    sanskrit?: string;
+    physics: number;
+    energy: number;
+    emotions: number;
+  }>;
+}
+
+const { chakras = [
+  { name: 'Crown (Sahasrara)', physics: 14, energy: 1, emotions: 15 },
+  { name: 'Third eye (Ajna)', physics: 7, energy: 8, emotions: 15 },
+  { name: 'Throat (Vishuddha)', physics: 20, energy: 7, emotions: 9 },
+  { name: 'Heart (Anahata)', physics: 8, energy: 13, emotions: 21 },
+  { name: 'Solar plexus (Manipura)', physics: 6, energy: 6, emotions: 12 },
+  { name: 'Sacral (Swadhisthana)', physics: 9, energy: 12, emotions: 21 },
+  { name: 'Root (Muladhara)', physics: 6, energy: 21, emotions: 9 },
+] } = Astro.props;
+
+const chakraTextColors: Record<string, string> = {
+  'Crown (Sahasrara)': 'text-[#9B51E0]',
+  'Third eye (Ajna)': 'text-[#4A6FA5]',
+  'Throat (Vishuddha)': 'text-[#2F80ED]',
+  'Heart (Anahata)': 'text-[#27AE60]',
+  'Solar plexus (Manipura)': 'text-[#E2A03F]',
+  'Sacral (Swadhisthana)': 'text-[#E67E22]',
+  'Root (Muladhara)': 'text-[#EB5757]'
+};
+---
+
+<div class="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-md space-y-4">
+  <!-- Table Header -->
+  <div class="flex justify-between items-center pb-2">
+    <span class="text-xs font-serif text-[#B67B7B]">Name of Chakra</span>
+    <div class="flex items-center gap-12 sm:gap-16 pr-4 text-xs font-serif text-[#B67B7B]">
+      <span>Physics</span>
+      <span>Energy</span>
+      <span>Emotions</span>
+    </div>
+  </div>
+
+  <!-- Rounded Rows matching user screenshot -->
+  <div class="space-y-3">
+    {chakras.map((c) => {
+      const displayName = c.sanskrit ? `${c.name} (${c.sanskrit})` : c.name;
+      const textColor = chakraTextColors[displayName] || 'text-stone-700';
+      return (
+        <div class="bg-[#FDFBF7] hover:bg-[#F7F3EC] transition-colors rounded-2xl p-4 flex items-center justify-between border border-stone-100 shadow-2xs">
+          <span class={`font-bold text-sm ${textColor}`}>{displayName}</span>
+          <div class="flex items-center gap-14 sm:gap-20 text-stone-700 font-semibold text-sm pr-2">
+            <span class="w-6 text-center">{c.physics}</span>
+            <span class="w-6 text-center">{c.energy}</span>
+            <span class="w-6 text-center">{c.emotions}</span>
+          </div>
+        </div>
+      );
+    })}
+
+    <!-- Bottom Result Summary Row (Matching Screenshot) -->
+    <div class="bg-[#C99494] text-white rounded-2xl p-4 flex items-center justify-between shadow-xs font-bold text-sm">
+      <span>Result</span>
+      <div class="flex items-center gap-14 sm:gap-20 pr-2">
+        <span class="w-6 text-center">7</span>
+        <span class="w-6 text-center">14</span>
+        <span class="w-6 text-center">12</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+---
+interface Props {
+  label?: string;
+  htmlFor?: string;
+  error?: string;
+  hint?: string;
+  required?: boolean;
+  class?: string;
+}
+
+const { label, htmlFor, error, hint, required = false, class: className = '' } = Astro.props;
+---
+
+<div class={`flex flex-col gap-1.5 ${className}`}>
+  {label && (
+    <label for={htmlFor} class="text-sm font-semibold text-purple-900">
+      {label}
+      {required && <span class="text-pink-500 ms-1">*</span>}
+    </label>
+  )}
+  <slot />
+  {hint && !error && <p class="text-xs text-purple-600">{hint}</p>}
+  {error && <p class="text-xs text-red-500 font-medium">{error}</p>}
+</div>

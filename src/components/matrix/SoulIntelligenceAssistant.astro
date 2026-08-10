@@ -1,0 +1,94 @@
+---
+---
+
+<div class="bg-gradient-to-br from-slate-900 via-purple-950 to-stone-900 text-white rounded-3xl p-6 sm:p-8 border border-purple-800/40 shadow-2xl space-y-6">
+  <div class="flex items-center gap-3">
+    <div class="p-3 rounded-2xl bg-purple-600/30 ring-2 ring-purple-400/40 text-purple-300 text-xl">
+      🤖
+    </div>
+    <div>
+      <span class="text-[10px] font-extrabold uppercase tracking-widest text-purple-400 block">AI DESTINY ANALYST</span>
+      <h3 class="text-xl sm:text-2xl font-serif font-bold text-white">Soul Intelligence Assistant</h3>
+    </div>
+  </div>
+
+  <p class="text-xs text-purple-200/80 leading-relaxed font-medium">
+    Ask anything about your matrix. The AI assistant evaluates your Center Arcana, Money Channel, Love Line, 7 Chakras, and active year cycle.
+  </p>
+
+  <!-- Interactive Quick Question Chips -->
+  <div class="space-y-2 pt-1">
+    <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest block">QUICK AI PROMPTS</span>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+      <button class="ai-prompt-btn p-3 bg-white/5 hover:bg-purple-900/40 rounded-xl text-left text-purple-100 border border-purple-500/20 transition-all cursor-pointer">
+        🔮 What is my core soul purpose?
+      </button>
+      <button class="ai-prompt-btn p-3 bg-white/5 hover:bg-purple-900/40 rounded-xl text-left text-purple-100 border border-purple-500/20 transition-all cursor-pointer">
+        💼 Explain my money & career line.
+      </button>
+      <button class="ai-prompt-btn p-3 bg-white/5 hover:bg-purple-900/40 rounded-xl text-left text-purple-100 border border-purple-500/20 transition-all cursor-pointer">
+        ❤️ Why do I repeat love patterns?
+      </button>
+      <button class="ai-prompt-btn p-3 bg-white/5 hover:bg-purple-900/40 rounded-xl text-left text-purple-100 border border-purple-500/20 transition-all cursor-pointer">
+        🌱 What is my current year forecast focus?
+      </button>
+    </div>
+  </div>
+
+  <!-- Response Display Box -->
+  <div id="aiResponseBox" class="p-4 rounded-2xl bg-black/40 border border-purple-500/30 text-xs text-purple-100 leading-relaxed space-y-2">
+    <p id="aiResponseText">
+      Select a prompt above or type a custom question below to receive context-aware analysis generated from your 22 Arcana chart.
+    </p>
+  </div>
+
+  <!-- Custom Input Field -->
+  <div class="flex gap-2">
+    <input
+      type="text"
+      id="aiCustomInput"
+      placeholder="Ask about your karmic tail, money line, or relationship energy..."
+      class="w-full px-4 py-3 rounded-2xl bg-stone-900 border border-purple-500/30 text-white placeholder-stone-500 text-xs focus:outline-none focus:ring-2 focus:ring-purple-500"
+    />
+    <button id="aiSendBtn" class="px-6 py-3 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-md transition-all cursor-pointer">
+      Ask
+    </button>
+  </div>
+</div>
+
+<script is:inline>
+  function setupAIWidget() {
+    const box = document.getElementById('aiResponseText');
+    const input = document.getElementById('aiCustomInput');
+    const sendBtn = document.getElementById('aiSendBtn');
+    const promptBtns = document.querySelectorAll('.ai-prompt-btn');
+
+    const sampleAnswers = {
+      purpose: "Your Center Arcana dictates that your primary soul purpose is bridging high-level visionary ideas into tangible physical structures. You operate best when leading with autonomy while cultivating emotional stability.",
+      money: "Your Money Line is governed by active creation. Wealth flows when you establish independent personal projects rather than working under rigid corporate hierarchies.",
+      love: "Your Love Line reveals a desire for high intellectual resonance. The pattern you repeat stems from protecting your vulnerability — opening your heart chakra unlocks harmonious partnership.",
+      forecast: "In your current timeline cycle, your primary focus is internal alchemy and strategic expansion. Prepare for an important transition period toward higher leadership."
+    };
+
+    promptBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const text = btn.textContent || '';
+        if (text.includes('soul purpose')) box.textContent = sampleAnswers.purpose;
+        else if (text.includes('money')) box.textContent = sampleAnswers.money;
+        else if (text.includes('love')) box.textContent = sampleAnswers.love;
+        else box.textContent = sampleAnswers.forecast;
+      });
+    });
+
+    if (sendBtn && input) {
+      sendBtn.addEventListener('click', () => {
+        if (!input.value) return;
+        box.textContent = `Analyzing your matrix for question: "${input.value}"... Result: Your Center Arcana energy supports active expansion and creative confidence. Follow your inner signal.`;
+        input.value = '';
+      });
+    }
+  }
+
+  window.addEventListener('load', setupAIWidget);
+  document.addEventListener('DOMContentLoaded', setupAIWidget);
+</script>

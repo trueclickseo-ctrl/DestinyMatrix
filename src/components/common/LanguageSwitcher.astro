@@ -1,0 +1,152 @@
+---
+import { localesConfig, supportedLocales } from '../../config/locales.config';
+import { t } from '../../i18n';
+
+interface Props {
+  currentLocale: string;
+}
+
+const { currentLocale } = Astro.props;
+const currentConfig = localesConfig[currentLocale] || localesConfig['en'];
+
+// Strip current locale prefix from current pathname to build target locale links
+const rawPath = Astro.url.pathname.replace(/^\/[a-z]{2}/, '').replace(/^\/+|\/+$/g, '');
+const targetPath = rawPath ? `/${rawPath}/` : '/';
+---
+
+<div class="relative inline-block text-left" id="languageSwitcherContainer">
+  <!-- Trigger Button -->
+  <button
+    id="langDropdownTrigger"
+    type="button"
+    aria-expanded="false"
+    aria-haspopup="true"
+    class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold transition-all shadow-xs backdrop-blur-xs cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-300"
+  >
+    <span class="text-sm">🌐</span>
+    <span class="font-medium">{currentConfig.nativeName}</span>
+    <span class="text-[10px] text-amber-200 uppercase font-mono tracking-wider">({currentLocale})</span>
+    <span class="text-stone-300 text-[10px]">▼</span>
+  </button>
+
+  <!-- Dropdown Modal Panel -->
+  <div
+    id="langDropdownPanel"
+    class="hidden absolute right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 mt-2 w-72 sm:w-80 rounded-2xl bg-white shadow-2xl border border-purple-100 z-50 overflow-hidden transition-all duration-200 transform opacity-0 scale-95"
+  >
+    <!-- Search Bar -->
+    <div class="p-3 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white border-b border-purple-800/50">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs font-bold text-amber-200 flex items-center gap-1.5">
+          <span>🌐</span> {t('lang.selectLanguage', currentLocale)}
+        </span>
+        <span class="text-[10px] text-purple-200 bg-white/10 px-2 py-0.5 rounded-full font-mono">40 Locales</span>
+      </div>
+      <input
+        type="text"
+        id="langSearchInput"
+        placeholder={t('lang.searchPlaceholder', currentLocale)}
+        class="w-full px-3 py-1.5 rounded-xl bg-white/10 border border-white/20 text-white text-xs placeholder-purple-200/70 focus:outline-none focus:bg-white/20 focus:border-amber-300 transition-colors"
+      />
+    </div>
+
+    <!-- Language Grid / List -->
+    <div class="max-h-72 overflow-y-auto p-1.5 space-y-0.5" id="langListContainer">
+      {supportedLocales.map((code) => {
+        const item = localesConfig[code];
+        const isSelected = code === currentLocale;
+        const href = `/${code}${targetPath}`;
+        return (
+          <a
+            href={href}
+            data-lang-code={code}
+            data-lang-name={item.name.toLowerCase()}
+            data-lang-native={item.nativeName.toLowerCase()}
+            class={`lang-item-btn flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-colors ${
+              isSelected
+                ? 'bg-purple-100 text-purple-950 font-bold border border-purple-300'
+                : 'text-stone-700 hover:bg-stone-100 hover:text-purple-900'
+            }`}
+          >
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-stone-900">{item.nativeName}</span>
+              <span class="text-[11px] text-stone-400">({item.name})</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-stone-100 text-stone-500 font-bold">
+                {code}
+              </span>
+              {isSelected && <span class="text-xs text-purple-700">✓</span>}
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const trigger = document.getElementById('langDropdownTrigger');
+    const panel = document.getElementById('langDropdownPanel');
+    const searchInput = document.getElementById('langSearchInput');
+    const langItems = document.querySelectorAll('.lang-item-btn');
+
+    if (!trigger || !panel) return;
+
+    function toggleDropdown() {
+      const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+      if (isExpanded) {
+        closeDropdown();
+      } else {
+        openDropdown();
+      }
+    }
+
+    function openDropdown() {
+      trigger.setAttribute('aria-expanded', 'true');
+      panel.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        panel.classList.remove('opacity-0', 'scale-95');
+        panel.classList.add('opacity-100', 'scale-100');
+      });
+      if (searchInput) searchInput.focus();
+    }
+
+    function closeDropdown() {
+      trigger.setAttribute('aria-expanded', 'false');
+      panel.classList.remove('opacity-100', 'scale-100');
+      panel.classList.add('opacity-0', 'scale-95');
+      setTimeout(() => {
+        panel.classList.add('hidden');
+      }, 150);
+    }
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDropdown();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!panel.contains(e.target) && !trigger.contains(e.target)) {
+        closeDropdown();
+      }
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        langItems.forEach((item) => {
+          const code = item.getAttribute('data-lang-code') || '';
+          const name = item.getAttribute('data-lang-name') || '';
+          const native = item.getAttribute('data-lang-native') || '';
+          if (code.includes(query) || name.includes(query) || native.includes(query)) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+      });
+    }
+  })();
+</script>

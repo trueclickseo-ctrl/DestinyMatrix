@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Card from '../../../components/ui/Card.astro';
+import Icon from '../../../components/ui/Icon.astro';
+import { supportedLocales } from '../../../config/locales.config';
+import { t } from '../../../i18n';
+
+export function getStaticPaths() {
+  return supportedLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.params;
+
+const pageTitle = "Destiny Number vs Life Path Number: Full Comparison Guide";
+const pageDesc = "Understand the key differences between your Destiny Number (Name Vibration) and Life Path Number (Birth Date). Discover how they shape your life purpose.";
+---
+
+<BaseLayout title={pageTitle} description={pageDesc} locale={locale}>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-b from-violet-950 via-purple-900 to-slate-900 text-white py-16 px-4">
+    <div class="max-w-4xl mx-auto text-center space-y-4">
+      <div class="inline-flex items-center justify-center p-4 rounded-full bg-amber-400/20 text-amber-300 ring-2 ring-amber-400/40 mb-2">
+        <Icon symbol="⚖️" size="lg" />
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-black font-heading bg-gradient-to-r from-amber-200 via-pink-200 to-white bg-clip-text text-transparent">
+        Destiny Number vs. Life Path Number
+      </h1>
+      <p class="text-purple-200 max-w-2xl mx-auto text-base sm:text-lg">
+        The ultimate guide to distinguishing your birth date vibration from your name energy.
+      </p>
+    </div>
+  </section>
+
+  <div class="bg-gradient-to-b from-purple-50 via-pink-50/50 to-amber-50/30 py-12 px-4">
+    <div class="max-w-4xl mx-auto space-y-10">
+
+      <!-- Comparison Summary Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card variant="elevated" class="space-y-4 bg-white border-2 border-purple-200">
+          <h2 class="text-2xl font-extrabold text-purple-950 font-heading flex items-center gap-2">
+            <span>📅</span>
+            <span>Life Path Number</span>
+          </h2>
+          <p class="text-xs font-bold text-purple-600 uppercase tracking-widest">Derived From: Full Birth Date</p>
+          <p class="text-sm text-purple-900 leading-relaxed font-medium">
+            Your <strong>Life Path Number</strong> reveals your core spiritual blueprint, lifetime opportunity track, and natural lessons you were born to master in this lifetime.
+          </p>
+          <ul class="text-xs text-purple-800 space-y-1.5 pt-2">
+            <li>✓ Fixed and unchangeable throughout life</li>
+            <li>✓ Represents your primary life purpose</li>
+            <li>✓ Dictates major life cycles and opportunities</li>
+          </ul>
+        </Card>
+
+        <Card variant="elevated" class="space-y-4 bg-white border-2 border-pink-200">
+          <h2 class="text-2xl font-extrabold text-purple-950 font-heading flex items-center gap-2">
+            <span>✍️</span>
+            <span>Destiny Number</span>
+          </h2>
+          <p class="text-xs font-bold text-pink-600 uppercase tracking-widest">Derived From: Full Birth Name</p>
+          <p class="text-sm text-purple-900 leading-relaxed font-medium">
+            Your <strong>Destiny Number</strong> (Expression Number) shows your outward capabilities, talents, physical actions, and how you fulfill your Life Path.
+          </p>
+          <ul class="text-xs text-purple-800 space-y-1.5 pt-2">
+            <li>✓ Based on letter numerical vibrations</li>
+            <li>✓ Shows how you express your potential</li>
+            <li>✓ Reflects physical skills and talents</li>
+          </ul>
+        </Card>
+      </div>
+
+      <!-- Deep Dive Comparison -->
+      <Card variant="elevated" class="space-y-5 bg-white border border-purple-200">
+        <h3 class="text-2xl font-bold text-purple-950 font-heading border-b border-purple-100 pb-2">
+          How They Work Together in Harmony
+        </h3>
+        <p class="text-sm text-purple-900 leading-relaxed font-medium">
+          Think of your <strong>Life Path Number</strong> as the road you are driving on, while your <strong>Destiny Number</strong> is the vehicle you drive to complete the journey. When both numbers work in alignment, life flows with synchronicities and clear purpose.
+        </p>
+      </Card>
+
+      <!-- Calculator Links -->
+      <div class="flex flex-wrap justify-center gap-4 pt-4">
+        <a href={`/${locale}/calculators/life-path-number/`} class="px-6 py-3 rounded-xl bg-purple-600 text-white font-bold text-sm shadow-md hover:bg-purple-700">Calculate Life Path Number</a>
+        <a href={`/${locale}/calculators/destiny-number/`} class="px-6 py-3 rounded-xl bg-pink-600 text-white font-bold text-sm shadow-md hover:bg-pink-700">Calculate Destiny Number</a>
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>

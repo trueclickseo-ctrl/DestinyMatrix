@@ -1,0 +1,59 @@
+---
+import { type ChakraDetail } from '../../engines/chakra-engine';
+
+interface Props {
+  chakras: ChakraDetail[];
+}
+
+const { chakras } = Astro.props;
+---
+
+<div class="bg-gradient-to-b from-stone-900 to-slate-950 text-white rounded-3xl p-6 sm:p-8 border border-stone-800 shadow-2xl space-y-8">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-stone-800 pb-5 gap-4">
+    <div>
+      <span class="text-xs uppercase tracking-widest text-purple-400 font-extrabold block">ENERGY BALANCING SYSTEM</span>
+      <h3 class="text-2xl sm:text-3xl font-serif font-bold text-white">
+        7 Chakra Matrix Intelligence
+      </h3>
+    </div>
+
+    <div class="flex items-center gap-4 text-xs">
+      <div class="bg-stone-800/80 px-4 py-2 rounded-2xl border border-stone-700">
+        <span class="text-stone-400 block text-[10px]">SYSTEM BALANCE</span>
+        <span class="text-emerald-400 font-bold text-base">86.4% Optimal</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Chakra Table -->
+  <div class="overflow-x-auto">
+    <table class="w-full text-left text-xs text-stone-300 border-collapse">
+      <thead>
+        <tr class="text-stone-400 font-serif text-xs border-b border-stone-800 pb-3 uppercase tracking-wider">
+          <th class="py-3 font-semibold">Chakra Level</th>
+          <th class="py-3 font-semibold text-center">Physics</th>
+          <th class="py-3 font-semibold text-center">Energy</th>
+          <th class="py-3 font-semibold text-center">Emotions</th>
+          <th class="py-3 font-semibold">Dominant Pattern</th>
+          <th class="py-3 font-semibold">Activation Advice</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-stone-800/60 font-medium">
+        {chakras.map((c) => (
+          <tr class="hover:bg-stone-800/40 transition-colors">
+            <td class="py-4 font-bold flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full" style={`background-color: ${c.color}`}></span>
+              <span>{c.name}</span>
+              <span class="text-[10px] text-stone-500 font-normal">({c.sanskrit})</span>
+            </td>
+            <td class="py-4 text-center font-bold text-white" id={`chk-p-${c.name.toLowerCase().replace(/\s+/g, '')}`}>{c.physics}</td>
+            <td class="py-4 text-center font-bold text-amber-400" id={`chk-e-${c.name.toLowerCase().replace(/\s+/g, '')}`}>{c.energy}</td>
+            <td class="py-4 text-center font-bold text-purple-400" id={`chk-em-${c.name.toLowerCase().replace(/\s+/g, '')}`}>{c.emotions}</td>
+            <td class="py-4 text-stone-200">{c.dominantPattern}</td>
+            <td class="py-4 text-stone-400 text-[11px]">{c.growthAdvice}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
