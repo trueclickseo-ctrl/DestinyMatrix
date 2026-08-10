@@ -30,7 +30,7 @@ jobs:
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER || secrets.FTP_HOST }}
+          server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
@@ -39,5 +39,6 @@ jobs:
       - name: Verify Deployed Files via FTP
         run: |
           echo "Listing files in public_html:"
-          curl -s --list-only "ftp://${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}@${{ secrets.FTP_SERVER || secrets.FTP_HOST }}/public_html/"
+          curl -s --list-only "ftp://${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}@${{ secrets.FTP_SERVER }}/public_html/"
+
 
