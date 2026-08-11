@@ -1,0 +1,5 @@
+URL,self_hreflang,target_hreflangs_count,x_default_valid,reciprocal_valid,status_code_200_all_targets,result
+https://souliography.com/en/,https://souliography.com/en/,40,true,true,true,PASS
+https://souliography.com/de/,https://souliography.com/de/,40,true,true,true,PASS
+https://souliography.com/fr/,https://souliography.com/fr/,40,true,true,true,PASS
+https://souliography.com/es/,https://souliography.com/es/,40,true,true,true,PASS

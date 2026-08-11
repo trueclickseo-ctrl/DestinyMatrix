@@ -1,0 +1,5 @@
+source_locale,source_url,element_type,clicked_link,destination_url,destination_locale,locale_preserved,result
+de,https://souliography.com/de/,quick_questions,qqThemeBtn,https://souliography.com/de/report?dob=1980-01-14&name=Kashif#core-personality,de,true,PASS
+fr,https://souliography.com/fr/,quick_questions,qqCareerBtn,https://souliography.com/fr/report?dob=1980-01-14&name=Kashif#career-money,fr,true,PASS
+es,https://souliography.com/es/,contact,card-link-btn,https://souliography.com/es/,es,true,PASS
+ar,https://souliography.com/ar/,footer,nav_link,https://souliography.com/ar/privacy/,ar,true,PASS

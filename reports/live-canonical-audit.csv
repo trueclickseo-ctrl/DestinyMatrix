@@ -1,0 +1,7 @@
+URL,http_status,canonical_header_or_meta,is_absolute,is_https,is_souliography_domain,self_referencing,result
+https://souliography.com/en/,200,https://souliography.com/en/,true,true,true,true,PASS
+https://souliography.com/de/,200,https://souliography.com/de/,true,true,true,true,PASS
+https://souliography.com/fr/,200,https://souliography.com/fr/,true,true,true,true,PASS
+https://souliography.com/es/,200,https://souliography.com/es/,true,true,true,true,PASS
+https://souliography.com/en/destiny-matrix/arcana/1-the-magician/,200,https://souliography.com/en/destiny-matrix/arcana/1-the-magician/,true,true,true,true,PASS
+https://souliography.com/en/destiny-matrix/birthdays/january-1/,200,https://souliography.com/en/destiny-matrix/birthdays/january-1/,true,true,true,true,PASS

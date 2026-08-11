@@ -1,0 +1,298 @@
+{
+  "totalGeneratedUrls": 30521,
+  "totalRootRedirects": 1,
+  "totalContentUrls": 30520,
+  "testedHomepages": [
+    {
+      "locale": "en",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "de",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "fr",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "es",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "pt",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "it",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "nl",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "pl",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "sv",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "da",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "no",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "fi",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "is",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "cs",
+      "statusCode": 403,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 787
+    },
+    {
+      "locale": "sk",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "hu",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "ro",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "bg",
+      "statusCode": 403,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 787
+    },
+    {
+      "locale": "el",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "uk",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "ru",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "tr",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "id",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "ms",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "vi",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "th",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "zh",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "ja",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "ko",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "ar",
+      "statusCode": 403,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 787
+    },
+    {
+      "locale": "hi",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "bn",
+      "statusCode": 403,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 787
+    },
+    {
+      "locale": "ta",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "te",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "mr",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "gu",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "kn",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "ml",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "pa",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    },
+    {
+      "locale": "ur",
+      "statusCode": 404,
+      "hasCanonical": false,
+      "hasRawKey": false,
+      "bodyLength": 4511
+    }
+  ],
+  "testedPages": 61,
+  "passed200Count": 0,
+  "failedCount": 61,
+  "rawKeyFailures": [],
+  "canonicalErrors": [],
+  "hreflangErrors": [],
+  "brokenLinks": [],
+  "sitemapStatus": {
+    "index": 404,
+    "child0": 404
+  }
+}

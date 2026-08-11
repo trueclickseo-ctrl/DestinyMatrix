@@ -1,0 +1,4 @@
+page_url,asset_url,asset_type,http_status,result
+https://souliography.com/en/,/destiny_hero_mystic.jpg,image,200,PASS
+https://souliography.com/en/,/contact_hero_combined.jpg,image,200,PASS
+https://souliography.com/en/,/homepage_hero_bright.jpg,image,200,PASS

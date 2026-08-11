@@ -1,0 +1,5 @@
+source_url,source_locale,anchor_text,destination_url,destination_locale,http_status,final_url,redirect_count,canonical,result,error
+https://souliography.com/en/,en,Calculators,https://souliography.com/en/calculators/life-path-number/,en,200,https://souliography.com/en/calculators/life-path-number/,0,https://souliography.com/en/calculators/life-path-number/,PASS,NONE
+https://souliography.com/de/,de,Quick Questions,https://souliography.com/de/report?dob=1980-01-14&name=Kashif#core-personality,de,200,https://souliography.com/de/report?dob=1980-01-14&name=Kashif#core-personality,0,https://souliography.com/de/report/,PASS,NONE
+https://souliography.com/fr/,fr,Contact,https://souliography.com/fr/contact/,fr,200,https://souliography.com/fr/contact/,0,https://souliography.com/fr/contact/,PASS,NONE
+https://souliography.com/es/,es,Privacy Policy,https://souliography.com/es/privacy/,es,200,https://souliography.com/es/privacy/,0,https://souliography.com/es/privacy/,PASS,NONE

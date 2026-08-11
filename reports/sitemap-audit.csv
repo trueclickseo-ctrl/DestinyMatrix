@@ -1,0 +1,8 @@
+EXPECTED_URL,IN_SITEMAP,MISSING_FROM_SITEMAP,UNEXPECTED_IN_SITEMAP,BROKEN_IN_SITEMAP,STATUS
+https://souliography.com/en/,true,false,false,false,PASS
+https://souliography.com/de/,true,false,false,false,PASS
+https://souliography.com/fr/,true,false,false,false,PASS
+https://souliography.com/es/,true,false,false,false,PASS
+https://souliography.com/en/destiny-matrix/arcana/1-the-magician/,true,false,false,false,PASS
+https://souliography.com/en/destiny-matrix/birthdays/january-1/,true,false,false,false,PASS
+https://souliography.com/en/numerology/life-path-number/1/,true,false,false,false,PASS

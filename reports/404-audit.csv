@@ -1,0 +1,3 @@
+tested_url,url_type,expected_status,actual_status,soft_404,result
+https://souliography.com/nonexistent-page-test-123,deliberately_invalid,404,404,false,PASS
+https://souliography.com/en/nonexistent-calculator-xyz,deliberately_invalid,404,404,false,PASS

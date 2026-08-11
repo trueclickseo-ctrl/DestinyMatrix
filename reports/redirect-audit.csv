@@ -1,0 +1,2 @@
+source_url,destination_url,status_code,redirect_chain_count,final_destination_status,canonical_valid,result
+https://souliography.com/,https://souliography.com/en/,301,1,200,true,PASS

@@ -1,0 +1,5 @@
+url,locale,page_type,http_status,canonical,hreflang_count,title,h1,raw_keys,pass_status
+https://souliography.com/,en,root_redirect,301,https://souliography.com/en/,0,N/A,N/A,0,PASS
+https://souliography.com/en/,en,homepage,200,https://souliography.com/en/,40,Souliography — Destiny Matrix & Soul Blueprint,Your Free Destiny Matrix & Soul Chart,0,PASS
+https://souliography.com/de/,de,homepage,200,https://souliography.com/de/,40,Souliography — Schicksalsmatrix & Seelenblaupause,Ihr kostenloses Schicksalsmatrix- & Seelendiagramm,0,PASS
+https://souliography.com/fr/,fr,homepage,200,https://souliography.com/fr/,40,Souliography — Matrice du Destin & Plan de l'Âme,Votre Thème Gratuit de Matrice du Destin,0,PASS
