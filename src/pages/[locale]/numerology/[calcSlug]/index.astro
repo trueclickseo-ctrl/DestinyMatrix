@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Icon from '../../../../components/ui/Icon.astro';
+import { numerologyCalculators, type CalculatorConfig } from '../../../../config/calculators.config';
+import { supportedLocales } from '../../../../config/locales.config';
+
+export function getStaticPaths() {
+  const paths = [];
+  for (const locale of supportedLocales) {
+    for (const calc of numerologyCalculators) {
+      paths.push({
+        params: {
+          locale,
+          calcSlug: calc.slug,
+        },
+      });
+    }
+  }
+  return paths;
+}
+
+const { locale = 'en', calcSlug } = Astro.params;
+const calcConfig = numerologyCalculators.find((c: CalculatorConfig) => c.slug === calcSlug) || numerologyCalculators[0];
+const calcName = calcConfig.id.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase());
+
+const validNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33];
+
+const pageTitle = `${calcName} Meanings & All Numbers Index | Souliography`;
+const pageDesc = `Complete directory of all numerical meanings for ${calcName}. Explore individual archetype profiles for numbers 1 to 9 and Master Numbers 11, 22, and 33.`;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: `https://souliography.com/${locale}/`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Numerology',
+      item: `https://souliography.com/${locale}/numerology/`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: calcName,
+      item: `https://souliography.com/${locale}/numerology/${calcSlug}/`,
+    },
+  ],
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDesc} locale={locale}>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <!-- Hero Header -->
+  <section class="bg-gradient-to-b from-violet-950 via-purple-900 to-slate-900 text-white py-16 px-4 text-center">
+    <div class="max-w-4xl mx-auto space-y-4">
+      
+      <!-- HTML Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="mb-4">
+        <ol class="inline-flex items-center gap-2 text-xs text-purple-300 font-mono">
+          <li>
+            <a href={`/${locale}/`} class="hover:text-amber-300 transition-colors">Home</a>
+          </li>
+          <li>/</li>
+          <li>
+            <a href={`/${locale}/numerology/`} class="hover:text-amber-300 transition-colors">Numerology</a>
+          </li>
+          <li>/</li>
+          <li class="text-amber-200 font-bold" aria-current="page">{calcName}</li>
+        </ol>
+      </nav>
+
+      <div class="inline-flex items-center justify-center p-4 rounded-full bg-amber-400/20 text-amber-300 ring-2 ring-amber-400/40 mb-2">
+        <Icon symbol={calcConfig.icon || '🔮'} size="lg" />
+      </div>
+
+      <span class="text-xs uppercase tracking-widest text-amber-400 font-extrabold bg-white/10 px-4 py-1.5 rounded-full block w-max mx-auto">
+        {calcName.toUpperCase()} ARCHETYPE DIRECTORY
+      </span>
+      <h1 class="text-4xl sm:text-6xl font-black font-heading bg-gradient-to-r from-amber-200 via-pink-200 to-white bg-clip-text text-transparent">
+        {calcName} Number Meanings
+      </h1>
+      <p class="text-purple-200 max-w-2xl mx-auto text-base sm:text-lg">
+        Select a specific number below to access its in-depth archetype reading, career trajectory, relationship compatibility, and shadow traits.
+      </p>
+    </div>
+  </section>
+
+  <!-- Number Cards Grid -->
+  <div class="bg-gradient-to-b from-purple-50 via-pink-50/50 to-amber-50/30 py-12 px-4">
+    <div class="max-w-5xl mx-auto space-y-8">
+      
+      <!-- Back Link & Action Bar -->
+      <div class="flex items-center justify-between">
+        <a href={`/${locale}/numerology/`} class="text-xs font-bold text-purple-700 hover:text-purple-900 inline-flex items-center gap-1 font-mono">
+          ← Back to All Numerology Calculators
+        </a>
+        <a href={`/${locale}/calculators/${calcSlug}/`} class="text-xs font-bold text-amber-700 hover:text-amber-900 inline-flex items-center gap-1 font-mono bg-amber-100 hover:bg-amber-200 px-3 py-1.5 rounded-lg border border-amber-300">
+          Interactive {calcName} Calculator ⚡
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        {validNumbers.map((num) => (
+          <a
+            href={`/${locale}/numerology/${calcSlug}/${num}/`}
+            class="bg-white rounded-2xl p-6 border border-purple-200 shadow-sm hover:shadow-md hover:border-purple-400 transition-all text-center space-y-2 group"
+          >
+            <div class="text-3xl font-black text-purple-900 group-hover:text-purple-600 font-heading">
+              {num}
+            </div>
+            <div class="text-xs font-bold text-stone-700 group-hover:text-stone-900">
+              {calcName} {num}
+            </div>
+            <span class="text-[10px] text-purple-600 font-mono inline-block pt-1 group-hover:underline">
+              Read Profile →
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

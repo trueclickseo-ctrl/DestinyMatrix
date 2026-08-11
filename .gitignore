@@ -21,6 +21,7 @@ files/.env
 # scratch & temporary exports
 gsc_exports/
 scratch/
+*.zip
 
 # macOS-specific files
 .DS_Store
