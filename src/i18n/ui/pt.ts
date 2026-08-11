@@ -1,5 +1,12 @@
 // explainer injected
 export const uiTranslations_pt: Record<string, string> = {
+  'faq.a6': "Sim — a Matriz de Compatibilidade compara dois mapas para mostrar onde vocês naturalmente se alinham e onde tensões são mais prováveis.",
+  'faq.q6': "P: Posso verificar compatibilidade com outra pessoa?",
+  'faq.a5': "Refere-se a padrões não resolvidos — geralmente relacionais ou emocionais — que continuam ressurgindo até serem reconhecidos e trabalhados.",
+  'faq.q5': "P: O que é a cauda kármica / número kármico no meu mapa?",
+  'calc.disclaimer': "A interpretação é uma ferramenta de autorreflexão, não uma previsão científica ou orientação profissional.",
+  'calc.howBody': "Seu mapa é construído inteiramente a partir da sua data de nascimento. Cada parte da data é reduzida a um número entre 1 e 22, e esses números são colocados no seu mapa para revelar como personalidade, relacionamentos, carreira e padrões kármicos se conectam.",
+  'calc.howTitle': "Como o Cálculo Funciona",
   'explainer.title': "O que é o Gráfico da Matriz da Alma (Matriz do Destino)?",
   'explainer.body': "Uma Matriz da Alma — também conhecida como Matriz do Destino — é um gráfico construído inteiramente a partir da sua data de nascimento. Mapeia seus números principais, padrões de vida recorrentes e as áreas onde esses padrões mais se destacam.",
   "brand.tagline": "Mapeando a arquitetura da sua alma",

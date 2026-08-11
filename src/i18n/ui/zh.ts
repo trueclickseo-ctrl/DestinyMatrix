@@ -1,5 +1,12 @@
 // explainer injected
 export const uiTranslations_zh: Record<string, string> = {
+  'faq.a6': "Yes — the Compatibility Matrix compares two charts to show where you naturally align and where tension is more likely to show up.",
+  'faq.q6': "Can I check compatibility with someone else?",
+  'faq.a5': "It refers to unresolved patterns — often relational or emotional — that keep resurfacing until they're consciously addressed.",
+  'faq.q5': "What is the karmic tail / karmic number in my chart?",
+  'calc.disclaimer': "Note: Interpretations are intended for self-reflection and personal growth.",
+  'calc.howBody': "Calculations are based on 22 Arcana modular arithmetic. If a sum exceeds 22, its digits are added together to stay within the 22 core archetypes.",
+  'calc.howTitle': "How the Calculation Works",
   'explainer.title': "什么是灵魂矩阵（命运矩阵）图表？",
   'explainer.body': "灵魂矩阵（也称为命运矩阵）是完全基于您的出生日期绘制的图表。它映射了您的核心数字、循环出现的生命模式以及这些模式最常体现的领域：金钱、人际关系、业力与个人成长。",
   "brand.tagline": "绘制灵魂的建筑蓝图",

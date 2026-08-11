@@ -1,5 +1,12 @@
 // explainer injected
 export const uiTranslations_hi: Record<string, string> = {
+  'faq.a6': "Yes — the Compatibility Matrix compares two charts to show where you naturally align and where tension is more likely to show up.",
+  'faq.q6': "Can I check compatibility with someone else?",
+  'faq.a5': "It refers to unresolved patterns — often relational or emotional — that keep resurfacing until they're consciously addressed.",
+  'faq.q5': "What is the karmic tail / karmic number in my chart?",
+  'calc.disclaimer': "Note: Interpretations are intended for self-reflection and personal growth.",
+  'calc.howBody': "Calculations are based on 22 Arcana modular arithmetic. If a sum exceeds 22, its digits are added together to stay within the 22 core archetypes.",
+  'calc.howTitle': "How the Calculation Works",
   'explainer.title': "सोल मैट्रिक्स (डेस्टिनी मैट्रिक्स) चार्ट क्या है?",
   'explainer.body': "एक सोल मैट्रिक्स — जिसे डेस्टिनी मैट्रिक्स के रूप में भी जाना जाता है — पूरी तरह से आपकी जन्म तिथि से बनाया गया एक चार्ट है। यह आपके मुख्य नंबरों, जीवन के आवर्ती पैटर्न और उन क्षेत्रों का मानचित्रण करता है जहां वे पैटर्न सबसे अधिक दिखाई देते हैं: धन, संबंध, कर्म और व्यक्तिगत विकास।",
   'brand.tagline': 'आपकी आत्मा की संरचना का मानचित्रण',

@@ -1,5 +1,12 @@
 // explainer injected
 export const uiTranslations_ko: Record<string, string> = {
+  'faq.a6': "Yes — the Compatibility Matrix compares two charts to show where you naturally align and where tension is more likely to show up.",
+  'faq.q6': "Can I check compatibility with someone else?",
+  'faq.a5': "It refers to unresolved patterns — often relational or emotional — that keep resurfacing until they're consciously addressed.",
+  'faq.q5': "What is the karmic tail / karmic number in my chart?",
+  'calc.disclaimer': "Note: Interpretations are intended for self-reflection and personal growth.",
+  'calc.howBody': "Calculations are based on 22 Arcana modular arithmetic. If a sum exceeds 22, its digits are added together to stay within the 22 core archetypes.",
+  'calc.howTitle': "How the Calculation Works",
   'explainer.title': "영혼의 매트릭스(운명의 매트릭스) 차트란 무엇인가요?",
   'explainer.body': "영혼의 매트릭스(운명의 매트릭스)는 오직 생년월일만을 바탕으로 작성되는 차트입니다. 핵심 숫자, 반복되는 삶의 패턴, 그리고 그 패턴이 가장 잘 드러나는 영역(돈, 관계, 카르ما, 개인적 성장)을 매핑합니다.",
   "brand.tagline": "당신의 영혼의 건축을 매핑합니다",

@@ -1,5 +1,12 @@
 // explainer injected
 export const uiTranslations_fr: Record<string, string> = {
+  'faq.a6': "Yes — the Compatibility Matrix compares two charts to show where you naturally align and where tension is more likely to show up.",
+  'faq.q6': "Can I check compatibility with someone else?",
+  'faq.a5': "It refers to unresolved patterns — often relational or emotional — that keep resurfacing until they're consciously addressed.",
+  'faq.q5': "What is the karmic tail / karmic number in my chart?",
+  'calc.disclaimer': "Note: Interpretations are intended for self-reflection and personal growth.",
+  'calc.howBody': "Calculations are based on 22 Arcana modular arithmetic. If a sum exceeds 22, its digits are added together to stay within the 22 core archetypes.",
+  'calc.howTitle': "How the Calculation Works",
   'explainer.title': "Qu’est-ce qu’une carte de la Matrice de l’Âme (Matrice du Destin) ?",
   'explainer.body': "Une Matrice de l’Âme — également connue sous le nom de Matrice du Destin — est un thème établi entièrement à partir de votre date de naissance. Elle cartographie vos nombres clés, vos schémas de vie récurrents et les domaines où ces schémas se manifestent le plus.",
   "brand.tagline": "Cartographier l’architecture de votre âme",
