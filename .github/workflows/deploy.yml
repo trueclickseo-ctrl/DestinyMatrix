@@ -30,11 +30,11 @@ jobs:
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          server: ${{ secrets.FTP_SERVER || secrets.FTP_HOST || '195.35.39.151' }}
+          username: ${{ secrets.FTP_USERNAME || 'u104700239.souliography.com' }}
+          password: ${{ secrets.FTP_PASSWORD || 'Z#3yuGwOP|&p6nDj' }}
           local-dir: ./dist/
-          server-dir: ./public_html/
+          server-dir: ./
 
       - name: Verify Deployed Files via FTP
         run: |
