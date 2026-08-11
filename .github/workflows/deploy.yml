@@ -35,6 +35,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD || 'Z#3yuGwOP|&p6nDj' }}
           local-dir: ./dist/
           server-dir: ./
+          security: true
 
       - name: Verify Deployed Files via FTP
         run: |
