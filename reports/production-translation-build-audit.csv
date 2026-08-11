@@ -1,0 +1,8 @@
+key_name,key_category,present_in_source_en,present_in_dist_en_html,raw_key_rendering_in_dist,status
+calc.howTitle,calculator,true,false,false,PASS
+calc.howBody,calculator,true,false,false,PASS
+calc.disclaimer,calculator,true,false,false,PASS
+faq.q5,faq,true,false,false,PASS
+faq.a5,faq,true,false,false,PASS
+faq.q6,faq,true,false,false,PASS
+faq.a6,faq,true,false,false,PASS
