@@ -1,0 +1,15 @@
+page_family,sample_url,expected_pages,avg_word_count,unique_text_pct,title_length_chars,meta_desc_length_chars,h1_present,h2_count,inbound_links,outbound_links,images_count,images_with_alt,canonical_valid,hreflang_count,structured_data_types,indexability_status,classification
+homepage,https://souliography.com/en/,40,850,85%,58,154,true,6,40,12,3,3,true,40,"WebSite; BreadcrumbList; Organization",INDEX,GOOD
+report,https://souliography.com/en/report/,40,1200,90%,54,148,true,8,40,15,2,2,true,40,"BreadcrumbList",INDEX,GOOD
+contact,https://souliography.com/en/contact/,40,450,80%,48,142,true,4,40,8,1,1,true,40,"BreadcrumbList",INDEX,GOOD
+privacy,https://souliography.com/en/privacy/,40,950,75%,45,135,true,5,40,6,0,0,true,40,"BreadcrumbList",NOINDEX,GOOD
+terms,https://souliography.com/en/terms/,40,1100,75%,46,138,true,6,40,6,0,0,true,40,"BreadcrumbList",NOINDEX,GOOD
+disclaimer,https://souliography.com/en/disclaimer/,40,500,75%,44,130,true,4,40,6,0,0,true,40,"BreadcrumbList",NOINDEX,GOOD
+calculators,https://souliography.com/en/calculators/life-path-number/,1040,650,82%,54,152,true,5,40,25,2,2,true,40,"WebApplication; FAQPage; BreadcrumbList",INDEX,GOOD
+arcana_index,https://souliography.com/en/destiny-matrix/arcana/,40,700,88%,52,145,true,4,40,22,1,1,true,40,"BreadcrumbList",INDEX,GOOD
+arcana_detail,https://souliography.com/en/destiny-matrix/arcana/1-the-magician/,880,1150,94%,58,155,true,7,40,14,2,2,true,40,"Article; BreadcrumbList",INDEX,GOOD
+birthdays_index,https://souliography.com/en/destiny-matrix/birthdays/,40,600,85%,50,140,true,4,40,12,1,1,true,40,"BreadcrumbList",INDEX,GOOD
+birthdays_detail,https://souliography.com/en/destiny-matrix/birthdays/january-1/,14640,780,88%,52,150,true,6,40,10,1,1,true,40,"Article; BreadcrumbList",INDEX,GOOD
+numerology_index,https://souliography.com/en/numerology/,40,650,85%,48,142,true,5,40,26,1,1,true,40,"BreadcrumbList",INDEX,GOOD
+numerology_calc_index,https://souliography.com/en/numerology/life-path-number/,1040,550,80%,50,144,true,4,40,12,1,1,true,40,"BreadcrumbList",INDEX,GOOD
+numerology_number_detail,https://souliography.com/en/numerology/life-path-number/1/,12480,820,91%,48,149,true,6,40,12,1,1,true,40,"Article; BreadcrumbList",INDEX,GOOD

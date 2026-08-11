@@ -1,0 +1,15 @@
+page_family,sample_url,inbound_links_count,outbound_links_count,crawl_depth_from_home,parent_url,sibling_link_count,breadcrumb_present,contextual_links_count,crawl_efficiency_status
+homepage,https://souliography.com/en/,40,18,1,https://souliography.com/en/,12,true,8,OPTIMAL
+report,https://souliography.com/en/report/,40,15,2,https://souliography.com/en/,10,true,6,OPTIMAL
+contact,https://souliography.com/en/contact/,40,8,2,https://souliography.com/en/,5,true,4,OPTIMAL
+privacy,https://souliography.com/en/privacy/,40,6,2,https://souliography.com/en/,4,true,2,OPTIMAL
+terms,https://souliography.com/en/terms/,40,6,2,https://souliography.com/en/,4,true,2,OPTIMAL
+disclaimer,https://souliography.com/en/disclaimer/,40,6,2,https://souliography.com/en/,4,true,2,OPTIMAL
+calculators,https://souliography.com/en/calculators/life-path-number/,40,25,2,https://souliography.com/en/calculators/,25,true,12,OPTIMAL
+arcana_index,https://souliography.com/en/destiny-matrix/arcana/,40,22,2,https://souliography.com/en/,22,true,8,OPTIMAL
+arcana_detail,https://souliography.com/en/destiny-matrix/arcana/1-the-magician/,40,14,3,https://souliography.com/en/destiny-matrix/arcana/,21,true,6,OPTIMAL
+birthdays_index,https://souliography.com/en/destiny-matrix/birthdays/,40,12,2,https://souliography.com/en/,12,true,6,OPTIMAL
+birthdays_detail,https://souliography.com/en/destiny-matrix/birthdays/january-1/,40,10,3,https://souliography.com/en/destiny-matrix/birthdays/,365,true,4,OPTIMAL
+numerology_index,https://souliography.com/en/numerology/,40,26,2,https://souliography.com/en/,26,true,8,OPTIMAL
+numerology_calc_index,https://souliography.com/en/numerology/life-path-number/,40,12,3,https://souliography.com/en/numerology/,25,true,6,OPTIMAL
+numerology_number_detail,https://souliography.com/en/numerology/life-path-number/1/,40,12,4,https://souliography.com/en/numerology/life-path-number/,11,true,4,OPTIMAL
