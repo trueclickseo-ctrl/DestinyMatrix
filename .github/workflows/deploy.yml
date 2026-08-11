@@ -6,7 +6,6 @@ on:
       - main
   workflow_dispatch:
 
-
 jobs:
   web-deploy:
     name: Build & Deploy to Hostinger
@@ -27,19 +26,19 @@ jobs:
       - name: Build Static Site
         run: npm run build
 
-      - name: Deploy to Hostinger
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER || secrets.FTP_HOST || '195.35.39.151' }}
-          username: ${{ secrets.FTP_USERNAME || 'u104700239.souliography.com' }}
-          password: ${{ secrets.FTP_PASSWORD || 'Z#3yuGwOP|&p6nDj' }}
-          local-dir: ./dist/
-          server-dir: ./
-          security: true
-
-      - name: Verify Deployed Files via FTP
+      - name: Deploy via LFTP Mirror
         run: |
-          echo "Listing files in public_html:"
-          curl -s --list-only "ftp://${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}@${{ secrets.FTP_SERVER }}/public_html/"
+          sudo apt-get update && sudo apt-get install -y lftp
+          lftp -c "
+          set ftp:ssl-allow no;
+          set net:max-retries 10;
+          set net:timeout 30;
+          set net:reconnect-interval-base 2;
+          open -u 'u104700239.souliography.com','Z#3yuGwOP|&p6nDj' 195.35.39.151;
+          mirror -R --parallel=3 --verbose ./dist/ ./
+          "
 
-
+      - name: Verify Deployed Files
+        run: |
+          echo "Verifying deployment:"
+          curl -s -I https://souliography.com/en/
