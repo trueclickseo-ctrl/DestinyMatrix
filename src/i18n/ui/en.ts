@@ -3,6 +3,10 @@ export const uiTranslations_en = {
   'brand.tagline': 'Mapping the Architecture of Your Soul',
   'brand.name': 'Souliography',
 
+  // Explainer
+  'explainer.title': 'What Is a Soul Matrix (Destiny Matrix) Chart?',
+  'explainer.body': 'A Soul Matrix — also known as a Destiny Matrix — is a chart built entirely from your birth date. It maps out your core numbers, recurring life patterns, and the areas where those patterns show up most: money, relationships, karma, and personal growth. The chart itself gives you the structure. Souliography\'s AI guidance helps you understand what that structure actually means for your day-to-day choices.',
+
   // Navigation
   'nav.home': 'Home',
   'nav.calculators': 'Calculators',

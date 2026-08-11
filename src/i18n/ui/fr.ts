@@ -1,4 +1,7 @@
+// explainer injected
 export const uiTranslations_fr: Record<string, string> = {
+  'explainer.title': "Qu’est-ce qu’une carte de la Matrice de l’Âme (Matrice du Destin) ?",
+  'explainer.body': "Une Matrice de l’Âme — également connue sous le nom de Matrice du Destin — est un thème établi entièrement à partir de votre date de naissance. Elle cartographie vos nombres clés, vos schémas de vie récurrents et les domaines où ces schémas se manifestent le plus.",
   "brand.tagline": "Cartographier l’architecture de votre âme",
   "brand.name": "Souliography",
   "nav.home": "Home",

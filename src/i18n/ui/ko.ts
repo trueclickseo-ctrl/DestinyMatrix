@@ -1,4 +1,7 @@
+// explainer injected
 export const uiTranslations_ko: Record<string, string> = {
+  'explainer.title': "영혼의 매트릭스(운명의 매트릭스) 차트란 무엇인가요?",
+  'explainer.body': "영혼의 매트릭스(운명의 매트릭스)는 오직 생년월일만을 바탕으로 작성되는 차트입니다. 핵심 숫자, 반복되는 삶의 패턴, 그리고 그 패턴이 가장 잘 드러나는 영역(돈, 관계, 카르ما, 개인적 성장)을 매핑합니다.",
   "brand.tagline": "당신의 영혼의 건축을 매핑합니다",
   "brand.name": "Souliography",
   "nav.home": "Home",

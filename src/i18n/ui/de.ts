@@ -1,4 +1,7 @@
+// explainer injected
 export const uiTranslations_de: Record<string, string> = {
+  'explainer.title': "Was ist ein Seelenmatrix-Diagramm (Schicksalsmatrix)?",
+  'explainer.body': "Eine Seelenmatrix – auch Schicksalsmatrix genannt – ist ein Diagramm, das vollständig aus Ihrem Geburtsdatum erstellt wird. Es kartiert Ihre Kernzahlen, wiederkehrenden Lebensmuster und die Bereiche, in denen sich diese Muster am stärksten zeigen: Geld, Beziehungen, Karma und persönliches Wachstum.",
   'brand.tagline': 'Die Architektur Deiner Seele Kartieren',
   'brand.name': 'Souliography',
   'nav.home': 'Startseite',

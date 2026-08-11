@@ -1,4 +1,7 @@
+// explainer injected
 export const uiTranslations_pt: Record<string, string> = {
+  'explainer.title': "O que é o Gráfico da Matriz da Alma (Matriz do Destino)?",
+  'explainer.body': "Uma Matriz da Alma — também conhecida como Matriz do Destino — é um gráfico construído inteiramente a partir da sua data de nascimento. Mapeia seus números principais, padrões de vida recorrentes e as áreas onde esses padrões mais se destacam.",
   "brand.tagline": "Mapeando a arquitetura da sua alma",
   "brand.name": "Souliography",
   "nav.home": "Home",

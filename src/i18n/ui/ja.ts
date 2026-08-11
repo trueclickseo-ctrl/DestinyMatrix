@@ -1,4 +1,7 @@
+// explainer injected
 export const uiTranslations_ja: Record<string, string> = {
+  'explainer.title': "ソウルマトリックス（運命のマトリックス）チャートとは何ですか？",
+  'explainer.body': "ソウルマトリックス（別名：運命のマトリックス）は、生年月日のみから作成されるチャートです。コアナンバー、繰り返される人生のパターン、そしてそれらのパターンが最も現れやすい分野（金钱、人間関係、カルマ、個人の成長）をマッピングします。",
   "brand.tagline": "あなたの魂の建築をマッピングする",
   "brand.name": "Souliography",
   "nav.home": "Home",

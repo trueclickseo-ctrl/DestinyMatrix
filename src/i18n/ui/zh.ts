@@ -1,4 +1,7 @@
+// explainer injected
 export const uiTranslations_zh: Record<string, string> = {
+  'explainer.title': "什么是灵魂矩阵（命运矩阵）图表？",
+  'explainer.body': "灵魂矩阵（也称为命运矩阵）是完全基于您的出生日期绘制的图表。它映射了您的核心数字、循环出现的生命模式以及这些模式最常体现的领域：金钱、人际关系、业力与个人成长。",
   "brand.tagline": "绘制灵魂的建筑蓝图",
   "brand.name": "Souliography",
   "nav.home": "Home",
