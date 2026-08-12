@@ -1,0 +1,608 @@
+{
+  "timestamp": "2026-08-12T20:47:31.867Z",
+  "totalTested": 60,
+  "totalPass": 60,
+  "totalFail": 0,
+  "results": [
+    {
+      "url": "https://souliography.com/en/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/en/numerology/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/en/calculators/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/en/calculators/essence-number/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/en/calculators/life-path-number/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/en/destiny-matrix/arcana/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/en/destiny-matrix/arcana/1-the-magician/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/en/destiny-matrix/birthdays/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/en/destiny-matrix/birthdays/february-5/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/en/guides/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/de/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/de/numerology/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/de/calculators/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/de/calculators/essence-number/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/de/calculators/life-path-number/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/de/destiny-matrix/arcana/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/de/destiny-matrix/arcana/1-the-magician/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/de/destiny-matrix/birthdays/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/de/destiny-matrix/birthdays/february-5/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/de/guides/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/fr/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/fr/numerology/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/fr/calculators/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/fr/calculators/essence-number/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/fr/calculators/life-path-number/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/fr/destiny-matrix/arcana/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/fr/destiny-matrix/arcana/1-the-magician/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/fr/destiny-matrix/birthdays/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/fr/destiny-matrix/birthdays/february-5/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/fr/guides/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/es/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/es/numerology/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/es/calculators/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/es/calculators/essence-number/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/es/calculators/life-path-number/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/es/destiny-matrix/arcana/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/es/destiny-matrix/arcana/1-the-magician/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/es/destiny-matrix/birthdays/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/es/destiny-matrix/birthdays/february-5/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/es/guides/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/pt/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/pt/numerology/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/pt/calculators/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/pt/calculators/essence-number/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/pt/calculators/life-path-number/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/pt/destiny-matrix/arcana/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/pt/destiny-matrix/arcana/1-the-magician/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/pt/destiny-matrix/birthdays/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/pt/destiny-matrix/birthdays/february-5/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/pt/guides/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/ar/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/ar/numerology/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/ar/calculators/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/ar/calculators/essence-number/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/ar/calculators/life-path-number/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/ar/destiny-matrix/arcana/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/ar/destiny-matrix/arcana/1-the-magician/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/ar/destiny-matrix/birthdays/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/ar/destiny-matrix/birthdays/february-5/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    },
+    {
+      "url": "https://souliography.com/ar/guides/",
+      "status": 200,
+      "htmlLang": "PASS",
+      "css": "PASS",
+      "translation": "PASS",
+      "navigation": "PASS",
+      "footer": "PASS",
+      "result": "PASS"
+    }
+  ]
+}
