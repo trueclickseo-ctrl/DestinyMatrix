@@ -40,51 +40,53 @@ import { uiTranslations_ml } from './ui/ml.ts';
 import { uiTranslations_pa } from './ui/pa.ts';
 import { uiTranslations_ur } from './ui/ur.ts';
 
+import { calculatorTranslations } from './ui/calculators.ts';
+
 // Master English Dictionary
-export const masterDictionary: Record<string, string> = { ...uiTranslations_en };
+export const masterDictionary: Record<string, string> = { ...uiTranslations_en, ...(calculatorTranslations['en'] || {}) };
 
 // Registered Localized Dictionaries for all 40 supported locales
 const localizedDictionaries: Record<string, Record<string, string>> = {
-  en: uiTranslations_en,
-  de: uiTranslations_de,
-  fr: uiTranslations_fr,
-  es: uiTranslations_es,
-  pt: uiTranslations_pt,
-  it: uiTranslations_it,
-  nl: uiTranslations_nl,
-  pl: uiTranslations_pl,
-  sv: uiTranslations_sv,
-  da: uiTranslations_da,
-  no: uiTranslations_no,
-  fi: uiTranslations_fi,
-  is: uiTranslations_is,
-  cs: uiTranslations_cs,
-  sk: uiTranslations_sk,
-  hu: uiTranslations_hu,
-  ro: uiTranslations_ro,
-  bg: uiTranslations_bg,
-  el: uiTranslations_el,
-  uk: uiTranslations_uk,
-  ru: uiTranslations_ru,
-  tr: uiTranslations_tr,
-  id: uiTranslations_id,
-  ms: uiTranslations_ms,
-  vi: uiTranslations_vi,
-  th: uiTranslations_th,
-  zh: uiTranslations_zh,
-  ja: uiTranslations_ja,
-  ko: uiTranslations_ko,
-  ar: uiTranslations_ar,
-  hi: uiTranslations_hi,
-  bn: uiTranslations_bn,
-  ta: uiTranslations_ta,
-  te: uiTranslations_te,
-  mr: uiTranslations_mr,
-  gu: uiTranslations_gu,
-  kn: uiTranslations_kn,
-  ml: uiTranslations_ml,
-  pa: uiTranslations_pa,
-  ur: uiTranslations_ur,
+  en: { ...uiTranslations_en, ...(calculatorTranslations['en'] || {}) },
+  de: { ...uiTranslations_de, ...(calculatorTranslations['de'] || {}) },
+  fr: { ...uiTranslations_fr, ...(calculatorTranslations['fr'] || {}) },
+  es: { ...uiTranslations_es, ...(calculatorTranslations['es'] || {}) },
+  pt: { ...uiTranslations_pt, ...(calculatorTranslations['pt'] || {}) },
+  it: { ...uiTranslations_it, ...(calculatorTranslations['it'] || {}) },
+  nl: { ...uiTranslations_nl, ...(calculatorTranslations['nl'] || {}) },
+  pl: { ...uiTranslations_pl, ...(calculatorTranslations['pl'] || {}) },
+  sv: { ...uiTranslations_sv, ...(calculatorTranslations['sv'] || {}) },
+  da: { ...uiTranslations_da, ...(calculatorTranslations['da'] || {}) },
+  no: { ...uiTranslations_no, ...(calculatorTranslations['no'] || {}) },
+  fi: { ...uiTranslations_fi, ...(calculatorTranslations['fi'] || {}) },
+  is: { ...uiTranslations_is, ...(calculatorTranslations['is'] || {}) },
+  cs: { ...uiTranslations_cs, ...(calculatorTranslations['cs'] || {}) },
+  sk: { ...uiTranslations_sk, ...(calculatorTranslations['sk'] || {}) },
+  hu: { ...uiTranslations_hu, ...(calculatorTranslations['hu'] || {}) },
+  ro: { ...uiTranslations_ro, ...(calculatorTranslations['ro'] || {}) },
+  bg: { ...uiTranslations_bg, ...(calculatorTranslations['bg'] || {}) },
+  el: { ...uiTranslations_el, ...(calculatorTranslations['el'] || {}) },
+  uk: { ...uiTranslations_uk, ...(calculatorTranslations['uk'] || {}) },
+  ru: { ...uiTranslations_ru, ...(calculatorTranslations['ru'] || {}) },
+  tr: { ...uiTranslations_tr, ...(calculatorTranslations['tr'] || {}) },
+  id: { ...uiTranslations_id, ...(calculatorTranslations['id'] || {}) },
+  ms: { ...uiTranslations_ms, ...(calculatorTranslations['ms'] || {}) },
+  vi: { ...uiTranslations_vi, ...(calculatorTranslations['vi'] || {}) },
+  th: { ...uiTranslations_th, ...(calculatorTranslations['th'] || {}) },
+  zh: { ...uiTranslations_zh, ...(calculatorTranslations['zh'] || {}) },
+  ja: { ...uiTranslations_ja, ...(calculatorTranslations['ja'] || {}) },
+  ko: { ...uiTranslations_ko, ...(calculatorTranslations['ko'] || {}) },
+  ar: { ...uiTranslations_ar, ...(calculatorTranslations['ar'] || {}) },
+  hi: { ...uiTranslations_hi, ...(calculatorTranslations['hi'] || {}) },
+  bn: { ...uiTranslations_bn, ...(calculatorTranslations['bn'] || {}) },
+  ta: { ...uiTranslations_ta, ...(calculatorTranslations['ta'] || {}) },
+  te: { ...uiTranslations_te, ...(calculatorTranslations['te'] || {}) },
+  mr: { ...uiTranslations_mr, ...(calculatorTranslations['mr'] || {}) },
+  gu: { ...uiTranslations_gu, ...(calculatorTranslations['gu'] || {}) },
+  kn: { ...uiTranslations_kn, ...(calculatorTranslations['kn'] || {}) },
+  ml: { ...uiTranslations_ml, ...(calculatorTranslations['ml'] || {}) },
+  pa: { ...uiTranslations_pa, ...(calculatorTranslations['pa'] || {}) },
+  ur: { ...uiTranslations_ur, ...(calculatorTranslations['ur'] || {}) },
 };
 
 // Content version tracking for future stale translation detection
@@ -114,6 +116,22 @@ export function t(key: string, locale: string = 'en'): string {
     return targetDict[key];
   }
 
+  // Check calculatorTranslations directly
+  const calcDict = calculatorTranslations[locale] || calculatorTranslations['en'];
+  if (calcDict && calcDict[key] !== undefined && calcDict[key] !== '') {
+    return calcDict[key];
+  }
+
+  // Fallback to Master English
+  if (masterDictionary[key] !== undefined && masterDictionary[key] !== '') {
+    return masterDictionary[key];
+  }
+
+  // Fallback to calculatorTranslations English
+  if (calculatorTranslations['en']?.[key]) {
+    return calculatorTranslations['en'][key];
+  }
+
   // Record missing key for non-English locales
   if (locale !== 'en') {
     if (!missingKeysTracker[locale]) {
@@ -122,8 +140,17 @@ export function t(key: string, locale: string = 'en'): string {
     missingKeysTracker[locale].add(key);
   }
 
-  // Fallback to Master English
-  return masterDictionary[key] || key;
+  // Formatting Fallback: If key starts with "calc.", convert dot notation to human text instead of leaking raw key
+  if (key.startsWith('calc.')) {
+    const parts = key.split('.');
+    const calcName = parts[1] || '';
+    const field = parts[2] || '';
+    const formattedName = calcName.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+    if (field === 'title') return `${formattedName} Calculator`;
+    if (field === 'desc') return `Calculate your ${formattedName} and explore core numerical vibrations.`;
+  }
+
+  return key;
 }
 
 // Helper to check if a specific key is translated in a locale
