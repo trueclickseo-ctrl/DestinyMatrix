@@ -1,0 +1,57 @@
+---
+import type { CalculationBreakdownStep } from '../../engines/calculator/core/types';
+
+interface Props {
+  title?: string;
+  steps: CalculationBreakdownStep[];
+  finalResult: number | string;
+  isMasterNumber?: boolean;
+}
+
+const { title = 'Calculation Breakdown & Arithmetic Steps', steps, finalResult, isMasterNumber = false } = Astro.props;
+---
+
+<div class="ref-card p-6 space-y-4 border-l-4 border-l-[#C4A052] bg-[#FFFFFF]">
+  <div class="flex items-center justify-between border-b border-[#D8D0C5] pb-3">
+    <h3 class="text-lg font-serif font-bold text-[#1C1625] flex items-center gap-2">
+      <span>🧮</span>
+      <span>{title}</span>
+    </h3>
+    <span class="text-xs font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-[#F5F2EB] text-[#524B5A] font-bold border border-[#D8D0C5]">
+      Deterministic Math
+    </span>
+  </div>
+
+  <p class="text-xs text-[#524B5A] leading-relaxed">
+    Below is the exact step-by-step arithmetic used to derive your numerical vibration:
+  </p>
+
+  <div class="space-y-3 pt-1">
+    {steps.map((step, index) => (
+      <div class="p-3 bg-[#FBF9F5] rounded border border-[#D8D0C5] flex flex-wrap items-center justify-between gap-2 text-xs">
+        <div class="space-y-0.5">
+          <span class="font-bold text-[#1C1625] block">{step.label}</span>
+          <code class="font-mono text-[#524B5A] text-[11px] block">{step.operation}</code>
+        </div>
+        <div class="text-right">
+          <span class="font-mono font-bold text-sm text-[#231530] bg-[#F5F2EB] px-2 py-1 rounded border border-[#D8D0C5] inline-block">
+            = {step.result}
+          </span>
+          {step.note && <span class="block text-[10px] text-[#9E7B3B] font-semibold pt-0.5">{step.note}</span>}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="p-4 bg-[#231530] text-white rounded flex items-center justify-between border border-[#C4A052]">
+    <div>
+      <span class="text-xs font-serif uppercase tracking-widest text-[#C4A052] block">Final Calculated Vibration</span>
+      <span class="text-xs text-stone-300">
+        {isMasterNumber ? 'Preserved Master Number Frequency' : 'Reduced Single Digit Value'}
+      </span>
+    </div>
+    <div class="text-3xl font-serif font-bold text-[#C4A052] font-mono px-3 py-1 bg-black/30 rounded border border-[#C4A052]">
+      {finalResult}
+    </div>
+  </div>
+</div>

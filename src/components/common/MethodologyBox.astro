@@ -1,0 +1,43 @@
+---
+interface Props {
+  title: string;
+  systemName: string;
+  summary: string;
+  whyResultMayDiffer?: string;
+  disclosures?: string;
+}
+
+const { title, systemName, summary, whyResultMayDiffer, disclosures } = Astro.props;
+---
+
+<div class="ref-card p-6 space-y-4 bg-[#F5F2EB] border border-[#D8D0C5]">
+  <div class="border-b border-[#D8D0C5] pb-3">
+    <span class="text-[10px] font-mono uppercase tracking-widest text-[#9E7B3B] font-bold block">
+      Methodology & Tradition Disclosures
+    </span>
+    <h3 class="text-xl font-serif font-bold text-[#1C1625] pt-0.5">{title}</h3>
+    <span class="text-xs font-semibold text-[#524B5A] block pt-0.5">System: {systemName}</span>
+  </div>
+
+  <p class="text-xs text-[#1C1625] leading-relaxed font-normal">
+    {summary}
+  </p>
+
+  {whyResultMayDiffer && (
+    <div class="p-3.5 bg-[#FFFFFF] rounded border border-[#D8D0C5] space-y-1">
+      <h4 class="text-xs font-bold text-[#231530] flex items-center gap-1.5">
+        <span>❓</span>
+        <span>Why your result may differ on other websites</span>
+      </h4>
+      <p class="text-xs text-[#524B5A] leading-relaxed">
+        {whyResultMayDiffer}
+      </p>
+    </div>
+  )}
+
+  {disclosures && (
+    <p class="text-[11px] text-[#524B5A] italic border-t border-[#D8D0C5] pt-2">
+      {disclosures}
+    </p>
+  )}
+</div>

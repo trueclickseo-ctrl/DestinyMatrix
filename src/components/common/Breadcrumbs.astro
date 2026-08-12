@@ -1,0 +1,31 @@
+---
+export interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+  locale?: string;
+}
+
+const { items, locale = 'en' } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="py-2">
+  <ol class="flex flex-wrap items-center gap-2 text-xs font-mono text-[#524B5A]">
+    <li>
+      <a href={`/${locale}/`} class="hover:text-[#C4A052] transition-colors">Home</a>
+    </li>
+    {items.map((item, index) => (
+      <li class="flex items-center gap-2">
+        <span class="text-[#D8D0C5]">/</span>
+        {item.href ? (
+          <a href={item.href} class="hover:text-[#C4A052] transition-colors">{item.label}</a>
+        ) : (
+          <span class="text-[#1C1625] font-bold" aria-current="page">{item.label}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>

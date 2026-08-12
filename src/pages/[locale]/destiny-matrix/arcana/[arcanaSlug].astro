@@ -1,17 +1,23 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/common/Breadcrumbs.astro';
+import DisclaimerBox from '../../../../components/common/DisclaimerBox.astro';
+import MethodologyBox from '../../../../components/common/MethodologyBox.astro';
 import { MAJOR_ARCANA_DATABASE, getLocalizedArcanaEntry } from '../../../../data/arcana';
 import { supportedLocales } from '../../../../config/locales.config';
+import { t } from '../../../../i18n';
 
 export function getStaticPaths() {
   const paths = [];
 
   for (const locale of supportedLocales) {
     for (let i = 1; i <= 22; i++) {
+      const entry = MAJOR_ARCANA_DATABASE[i] || MAJOR_ARCANA_DATABASE[1];
+      const slugName = entry.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
       paths.push({
         params: {
           locale,
-          arcanaSlug: `${i}-${(MAJOR_ARCANA_DATABASE[i]?.name || 'Arcana').toLowerCase().replace(/\s+/g, '-')}`
+          arcanaSlug: `${i}-${slugName}`
         }
       });
     }
@@ -20,105 +26,164 @@ export function getStaticPaths() {
 }
 
 const { locale = 'en', arcanaSlug } = Astro.params;
-const arcanaNum = parseInt((arcanaSlug || '1').split('-')[0], 10);
-const arcanaData = getLocalizedArcanaEntry(arcanaNum, locale);
+const currentLocale = locale;
 
-const pageTitle = `${arcanaData.name} (Arcana ${arcanaData.number}): Comprehensive Meaning & Encyclopedia Guide`;
-const pageDesc = `Detailed 2,500+ word encyclopedia guide for ${arcanaData.name} in Destiny Matrix. Discover positive & shadow expressions, career, love compatibility, money channel, and chakra connections.`;
+const arcanaNum = parseInt((arcanaSlug || '1').split('-')[0], 10) || 1;
+const arcanaData = getLocalizedArcanaEntry(arcanaNum, currentLocale);
+
+const pageTitle = `Arcana ${arcanaData.number}: ${arcanaData.name} — Destiny Matrix Reference Guide`;
+const pageDesc = `Explore Arcana ${arcanaData.number} (${arcanaData.name}) in the Destiny Matrix system. Detailed analysis of positive and shadow expressions, career vocation, love line, money channel, and practical self-reflection questions.`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: pageTitle,
+  description: pageDesc,
+  author: { '@type': 'Organization', name: 'Souliography Editorial Team' },
+  publisher: { '@type': 'Organization', name: 'Souliography', url: `https://souliography.com/${currentLocale}/` },
+  mainEntityOfPage: `https://souliography.com/${currentLocale}/destiny-matrix/arcana/${arcanaSlug}/`
+};
+
+const breadcrumbItems = [
+  { label: 'Destiny Matrix', href: `/${currentLocale}/` },
+  { label: 'Arcana Directory', href: `/${currentLocale}/destiny-matrix/arcana/` },
+  { label: `Arcana ${arcanaData.number}: ${arcanaData.name}` }
+];
 ---
 
-<BaseLayout title={pageTitle} description={pageDesc} locale={locale}>
-  <!-- Hero Section -->
-  <section class="bg-gradient-to-b from-stone-900 via-purple-950 to-slate-950 text-white py-16 px-4">
-    <div class="max-w-4xl mx-auto text-center space-y-4">
-      <span class="text-xs uppercase tracking-widest text-amber-400 font-extrabold bg-white/10 px-4 py-1.5 rounded-full inline-block">
-        22 MAJOR ARCANA ENCYCLOPEDIA
+<BaseLayout title={pageTitle} description={pageDesc} locale={currentLocale}>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <!-- Hero Header Panel -->
+  <section class="bg-[#231530] text-white py-12 px-4 border-b-2 border-[#C4A052]">
+    <div class="max-w-4xl mx-auto space-y-4">
+      <Breadcrumbs items={breadcrumbItems} locale={currentLocale} />
+
+      <span class="text-xs uppercase tracking-widest text-[#C4A052] font-mono font-bold bg-white/10 px-3 py-1 rounded inline-block border border-[#C4A052]/40">
+        22 Major Arcana Reference Library
       </span>
-      <h1 class="text-4xl sm:text-6xl font-serif font-bold text-amber-200">
+      <h1 class="text-4xl sm:text-5xl font-serif font-bold text-amber-100">
         Arcana {arcanaData.number}: {arcanaData.name}
       </h1>
-      <p class="text-purple-200 max-w-xl mx-auto text-base sm:text-lg">
+      <p class="text-purple-200 max-w-2xl text-base sm:text-lg font-serif">
         {arcanaData.archetype}
       </p>
     </div>
   </section>
 
-  <!-- Main Content Body (2500+ Word Authority Guide) -->
-  <div class="bg-stone-50 py-12 px-4">
-    <div class="max-w-4xl mx-auto space-y-10">
-      
-      <!-- Meaning & Overview -->
-      <div class="bg-white rounded-3xl p-8 border border-stone-200 shadow-sm space-y-4">
-        <h2 class="text-2xl font-serif text-teal-950 font-bold border-b border-stone-100 pb-3">
-          1. Core Meaning & Archetypal Frequency
+  <!-- Main Reference Guide Content Body -->
+  <div class="bg-[#FBF9F5] py-10 px-4 text-[#1C1625]">
+    <div class="max-w-4xl mx-auto space-y-8">
+
+      <!-- 1. Core Meaning & Archetypal Vibration -->
+      <article class="ref-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-2xl font-serif font-bold text-[#1C1625] border-b border-[#D8D0C5] pb-3 flex items-center gap-2">
+          <span>📜</span>
+          <span>1. Core Archetypal Meaning</span>
         </h2>
-        <p class="text-sm text-stone-700 leading-relaxed font-normal">
+        <p class="text-sm leading-relaxed text-[#1C1625]">
           {arcanaData.meaning}
         </p>
-      </div>
+        <div class="p-4 bg-[#F5F2EB] rounded border border-[#D8D0C5] space-y-1 pt-3">
+          <h3 class="text-xs font-mono font-bold uppercase text-[#9E7B3B] tracking-wider">Historical & Esoteric Context</h3>
+          <p class="text-xs text-[#524B5A] leading-relaxed">{arcanaData.historicalContext}</p>
+        </div>
+      </article>
 
-      <!-- Positive & Shadow Expressions -->
+      <!-- 2. Constructive High Frequency vs Shadow Expressions -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div class="bg-emerald-50/60 rounded-3xl p-6 border border-emerald-200 space-y-3">
-          <h3 class="text-lg font-bold text-emerald-950">🌟 Positive High Frequency</h3>
-          <p class="text-xs text-emerald-900 leading-relaxed">{arcanaData.positiveExpression}</p>
+        <div class="ref-card p-6 bg-[#FFFFFF] border-t-4 border-t-emerald-600 space-y-3">
+          <h3 class="text-lg font-serif font-bold text-emerald-950 flex items-center gap-2">
+            <span>🌟</span>
+            <span>Constructive High Frequency</span>
+          </h3>
+          <p class="text-xs text-stone-700 leading-relaxed font-normal">{arcanaData.positiveExpression}</p>
         </div>
 
-        <div class="bg-rose-50/60 rounded-3xl p-6 border border-rose-200 space-y-3">
-          <h3 class="text-lg font-bold text-rose-950">🌱 Shadow & Blocked Frequency</h3>
-          <p class="text-xs text-rose-900 leading-relaxed">{arcanaData.shadowExpression}</p>
+        <div class="ref-card p-6 bg-[#FFFFFF] border-t-4 border-t-rose-600 space-y-3">
+          <h3 class="text-lg font-serif font-bold text-rose-950 flex items-center gap-2">
+            <span>🌱</span>
+            <span>Shadow Expression & Blockages</span>
+          </h3>
+          <p class="text-xs text-stone-700 leading-relaxed font-normal">{arcanaData.shadowExpression}</p>
         </div>
       </div>
 
-      <!-- Career, Love & Money Channels -->
-      <div class="bg-white rounded-3xl p-8 border border-stone-200 shadow-sm space-y-6">
-        <h2 class="text-2xl font-serif text-teal-950 font-bold border-b border-stone-100 pb-3">
-          2. Vocation, Financial Flow & Love Resonance
+      <!-- 3. Vocation, Money Line & Love Synergy -->
+      <article class="ref-card p-6 sm:p-8 space-y-6">
+        <h2 class="text-2xl font-serif font-bold text-[#1C1625] border-b border-[#D8D0C5] pb-3 flex items-center gap-2">
+          <span>💼</span>
+          <span>2. Vocation, Money Line & Love Synergy</span>
         </h2>
         
-        <div class="space-y-4">
-          <div>
-            <h4 class="text-sm font-bold text-teal-950">💼 Ideal Career Path</h4>
-            <p class="text-xs text-stone-600 pt-1">{arcanaData.careerGuidance}</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+          <div class="p-4 bg-[#F5F2EB] rounded border border-[#D8D0C5] space-y-1">
+            <h4 class="text-xs font-bold text-[#231530] font-serif">Ideal Career Vocation</h4>
+            <p class="text-xs text-[#524B5A] leading-relaxed">{arcanaData.careerGuidance}</p>
           </div>
 
-          <div>
-            <h4 class="text-sm font-bold text-teal-950">💰 Money Channel Activation</h4>
-            <p class="text-xs text-stone-600 pt-1">{arcanaData.moneyChannel}</p>
+          <div class="p-4 bg-[#F5F2EB] rounded border border-[#D8D0C5] space-y-1">
+            <h4 class="text-xs font-bold text-[#231530] font-serif">Money Channel Activation</h4>
+            <p class="text-xs text-[#524B5A] leading-relaxed">{arcanaData.moneyChannel}</p>
           </div>
 
-          <div>
-            <h4 class="text-sm font-bold text-teal-950">❤️ Love & Partnership Compatibility</h4>
-            <p class="text-xs text-stone-600 pt-1">{arcanaData.loveCompatibility}</p>
+          <div class="p-4 bg-[#F5F2EB] rounded border border-[#D8D0C5] space-y-1">
+            <h4 class="text-xs font-bold text-[#231530] font-serif">Love & Partnership Synergy</h4>
+            <p class="text-xs text-[#524B5A] leading-relaxed">{arcanaData.loveCompatibility}</p>
           </div>
         </div>
-      </div>
+      </article>
 
-      <!-- Spiritual Lesson & Daily Guidance -->
-      <div class="bg-gradient-to-r from-purple-900 to-slate-900 text-white rounded-3xl p-8 space-y-4 shadow-lg">
-        <h3 class="text-xl font-serif font-bold text-amber-200">Spiritual Vocation & Daily Guidance</h3>
-        <p class="text-xs text-purple-100 leading-relaxed font-medium">
-          <strong>Spiritual Lesson:</strong> {arcanaData.spiritualLesson}
+      <!-- 4. Practical Self-Reflection Prompts -->
+      <article class="ref-card p-6 sm:p-8 space-y-4 bg-[#231530] text-white border-2 border-[#C4A052]">
+        <h3 class="text-xl font-serif font-bold text-[#C4A052] flex items-center gap-2">
+          <span>🔮</span>
+          <span>Practical Self-Reflection Prompts</span>
+        </h3>
+        <p class="text-xs text-stone-300">
+          Use these reflection questions to examine how Arcana {arcanaData.number} manifests in your choices:
         </p>
-        <p class="text-xs text-amber-300 leading-relaxed font-medium">
-          <strong>Daily Wisdom:</strong> {arcanaData.dailyWisdom}
-        </p>
-      </div>
+        <ul class="space-y-2 pt-1">
+          {arcanaData.reflectionQuestions.map((q) => (
+            <li class="flex items-start gap-2.5 text-xs text-stone-200">
+              <span class="text-[#C4A052] font-bold">›</span>
+              <span>{q}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="border-t border-[#C4A052]/40 pt-3 text-[11px] text-amber-200">
+          <strong>Daily Guidance:</strong> {arcanaData.dailyWisdom}
+        </div>
+      </article>
+
+      <!-- Methodology Disclosures & Disclaimer -->
+      <MethodologyBox
+        title="Arcana Reference Methodology"
+        systemName="Natalia Ladini 22 Arcana Destiny Matrix System"
+        summary="Calculations follow Natalia Ladini's 22 Major Arcana framework developed in the mid-2000s, mapping birth date numbers to Tarot archetypes."
+        disclosures="Destiny Matrix readings are non-dogmatic tools for self-reflection and personal contemplation."
+      />
+
+      <DisclaimerBox />
 
       <!-- All 22 Arcana Navigation Cluster -->
-      <div class="pt-6 space-y-4">
-        <h3 class="text-xl font-serif text-teal-950 font-bold text-center">
+      <div class="pt-4 space-y-4 text-center">
+        <h3 class="text-lg font-serif font-bold text-[#1C1625]">
           Explore All 22 Major Arcana Encyclopedias
         </h3>
         <div class="flex flex-wrap justify-center gap-2">
-          {Array.from({ length: 22 }, (_, index) => index + 1).map((num) => (
-            <a
-              href={`/${locale}/destiny-matrix/arcana/${num}-${(MAJOR_ARCANA_DATABASE[num]?.name || 'Arcana').toLowerCase().replace(/\s+/g, '-')}/`}
-              class={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${num === arcanaNum ? 'bg-purple-600 text-white shadow-md' : 'bg-white text-stone-700 border border-stone-200 hover:border-purple-400'}`}
-            >
-              Arcana {num}
-            </a>
-          ))}
+          {Array.from({ length: 22 }, (_, index) => index + 1).map((num) => {
+            const entry = MAJOR_ARCANA_DATABASE[num] || MAJOR_ARCANA_DATABASE[1];
+            const slug = `${num}-${entry.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
+            return (
+              <a
+                href={`/${currentLocale}/destiny-matrix/arcana/${slug}/`}
+                class={`px-3 py-1.5 rounded text-xs font-bold transition-all border ${num === arcanaNum ? 'bg-[#231530] text-[#C4A052] border-[#C4A052]' : 'bg-white text-[#1C1625] border-[#D8D0C5] hover:border-[#C4A052]'}`}
+              >
+                Arcana {num}
+              </a>
+            );
+          })}
         </div>
       </div>
 

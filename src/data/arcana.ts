@@ -3,6 +3,7 @@ export interface ArcanaEncyclopediaEntry {
   name: string;
   archetype: string;
   meaning: string;
+  historicalContext: string;
   positiveExpression: string;
   shadowExpression: string;
   careerGuidance: string;
@@ -11,6 +12,7 @@ export interface ArcanaEncyclopediaEntry {
   spiritualLesson: string;
   chakraConnection: string;
   dailyWisdom: string;
+  reflectionQuestions: string[];
 }
 
 export const MAJOR_ARCANA_DATABASE: Record<number, ArcanaEncyclopediaEntry> = {
@@ -18,127 +20,177 @@ export const MAJOR_ARCANA_DATABASE: Record<number, ArcanaEncyclopediaEntry> = {
     number: 1,
     name: "The Magician",
     archetype: "The Visionary Creator & Master Manifestor",
-    meaning: "Arcana 1 represents raw creative willpower, active leadership, pioneering courage, and the ability to bridge ideas into physical reality.",
-    positiveExpression: "Resourceful, confident, high initiative, decisive action, independent spirit.",
-    shadowExpression: "Manipulation, impatience, arrogance, over-dominance, ego clashes.",
-    careerGuidance: "Thrives in independent leadership, tech innovation, entrepreneurial founders, strategic consulting.",
-    loveCompatibility: "Resonates best with grounding numbers (4, 6, 8) that offer stability to their fast creative drive.",
-    moneyChannel: "Financial flow comes from original ideas, personal branding, and quick execution.",
-    spiritualLesson: "Learning that true power comes from alignment with divine will rather than ego coercion.",
-    chakraConnection: "Crown & Third Eye (Vision & Higher Intent)",
-    dailyWisdom: "Focus your intent today — you hold all the tools required to shape your current environment."
+    meaning: "Arcana 1 represents raw initiative, creative willpower, and active leadership. In the Destiny Matrix system, individuals carrying this vibration at their core possess an innate drive to translate abstract ideas into tangible reality.",
+    historicalContext: "Historically rooted in Tarot symbolism as the bridge between spiritual intention and physical manifestation, Arcana 1 within Natalia Ladini's 22-Arcana framework marks the starting frequency of conscious creation and personal authority.",
+    positiveExpression: "Resourceful initiative, independent drive, clear boundary setting, decisive action, and pioneering courage.",
+    shadowExpression: "Ego-driven impatience, manipulation of others, difficulty delegating, or reluctance to finish what was started.",
+    careerGuidance: "Excels in independent leadership, technology innovation, entrepreneurial ventures, and strategic consulting where individual autonomy is prized.",
+    loveCompatibility: "Resonates best with grounding partners who offer stability and calm presence to balance their fast-paced creative momentum.",
+    moneyChannel: "Financial momentum generates through original ideas, personal branding, proprietary skills, and quick execution.",
+    spiritualLesson: "Discovering that true personal power emerges from aligning willpower with integrity rather than forcing outcomes through ego.",
+    chakraConnection: "Crown & Third Eye (Vision & Higher Intention)",
+    dailyWisdom: "Focus your intent today — you already possess the core skills required to shape your current circumstances.",
+    reflectionQuestions: [
+      "Where in my life am I waiting for permission to take initial action?",
+      "How can I channel my creative ideas into a structured daily project?",
+      "Am I using my influence to empower others or to control outcomes?"
+    ]
   },
   2: {
     number: 2,
     name: "The High Priestess",
     archetype: "The Intuitive Mystic & Sacred Diplomat",
-    meaning: "Arcana 2 carries the vibration of deep subconscious wisdom, esoteric secrets, subtle perception, and peaceful mediation.",
-    positiveExpression: "Intuitive, gentle, highly empathetic, patient, peacemaker, deep listener.",
-    shadowExpression: "Secretive, passive-aggressive, indecisive, emotional isolation, codependency.",
-    careerGuidance: "Excels in psychology, intuitive counseling, diplomacy, artistic research, and healing arts.",
-    loveCompatibility: "Pairs harmoniously with expressive, protective partners who honor their quiet wisdom.",
-    moneyChannel: "Wealth flows through passive income, strategic partnerships, and intuitive investments.",
-    spiritualLesson: "Trusting internal guidance over outer noise and keeping sacred boundaries.",
-    chakraConnection: "Third Eye & Heart (Subtle Sight & Compassion)",
-    dailyWisdom: "Silence holds the answer today. Pause and listen to your internal signal."
+    meaning: "Arcana 2 carries the vibration of subtle perception, subconscious wisdom, and diplomatic mediation. It governs the quiet space between cause and effect.",
+    historicalContext: "Associated in esoteric tradition with the veil of mystery and hidden knowledge, Arcana 2 in the Destiny Matrix system represents passive reception, secret insight, and deep emotional awareness.",
+    positiveExpression: "Intuitive clarity, gentle peacemaking, active listening, emotional discernment, and respectful boundary management.",
+    shadowExpression: "Secretiveness, passive-aggressive communication, emotional isolation, or ignoring obvious logical facts in favor of illusion.",
+    careerGuidance: "Thrives in psychology, intuitive counseling, diplomatic mediation, artistic research, and archival preservation.",
+    loveCompatibility: "Pairs harmoniously with expressive, grounded partners who respect quiet reflection time and value subtle emotional intimacy.",
+    moneyChannel: "Wealth manifests through strategic partnerships, quiet investments, passive income streams, and specialized research.",
+    spiritualLesson: "Learning to trust inner quiet signals over loud external opinions while maintaining healthy personal boundaries.",
+    chakraConnection: "Third Eye & Heart (Subtle Sight & Emotional Discernment)",
+    dailyWisdom: "Silence holds the answer today. Pause and listen to your internal signal before making key choices.",
+    reflectionQuestions: [
+      "What subtle gut feeling have I been ignoring lately?",
+      "How can I practice active listening without absorbing other people's stress?",
+      "Where do I need to establish clearer privacy in my daily life?"
+    ]
   },
   3: {
     number: 3,
     name: "The Empress",
     archetype: "The Mother of Abundance & Creative Beauty",
-    meaning: "Arcana 3 is the ultimate frequency of fertility, material elegance, artistic beauty, growth, and unconditional care.",
-    positiveExpression: "Abundant mindset, artistic flair, nurturing nature, aesthetic refinement, generous spirit.",
-    shadowExpression: "Extravagance, possessiveness, vanity, smothering care, financial carelessness.",
-    careerGuidance: "Ideal for interior design, luxury brands, hospitality, fashion, art direction, and fertility care.",
-    loveCompatibility: "High synergy with protective, structured numbers (4, 7, 8) that build stable foundations.",
-    moneyChannel: "Abundance multiplies when creating beautiful experiences, luxury products, or artistic works.",
-    spiritualLesson: "Receiving with grace and recognizing that abundance is a natural birthright.",
+    meaning: "Arcana 3 represents fertility, material elegance, artistic cultivation, and generous caretaking. It is the frequency of natural expansion.",
+    historicalContext: "Drawing from archetypal mother symbols and nature's fertility, Arcana 3 in the 22-Arcana framework highlights practical growth, sensory beauty, and material prosperity.",
+    positiveExpression: "Abundant mindset, artistic flair, nurturing care, aesthetic refinement, and generous hospitality.",
+    shadowExpression: "Extravagance, over-protectiveness, vanity, material carelessness, or difficulty setting limits on spending.",
+    careerGuidance: "Ideal for interior architecture, luxury branding, hospitality management, fashion design, and environmental conservation.",
+    loveCompatibility: "Synergizes with structured, protective partners who build solid foundations for long-term growth.",
+    moneyChannel: "Abundance multiplies when creating beautiful user experiences, luxury products, or artistic works that elevate daily life.",
+    spiritualLesson: "Receiving abundance with gratitude and recognizing that natural growth requires patient care.",
     chakraConnection: "Heart & Sacral (Creation & Pure Delight)",
-    dailyWisdom: "Nurture your creations today — beauty and growth follow focused attention."
+    dailyWisdom: "Nurture your current projects today — beauty and growth naturally follow focused, loving attention.",
+    reflectionQuestions: [
+      "How can I bring more harmony and aesthetic comfort into my immediate living space?",
+      "Am I allowing myself to receive support as generously as I offer it?",
+      "What creative seeds am I ready to nourish into fruition?"
+    ]
   },
   4: {
     number: 4,
     name: "The Emperor",
     archetype: "The Master Architect & Sovereign Ruler",
-    meaning: "Arcana 4 embodies structural mastery, discipline, stability, executive order, and protective leadership.",
-    positiveExpression: "Organized, dependable, protective, strategic, unwavering stability.",
-    shadowExpression: "Rigidity, stubbornness, controlling behavior, micromanagement, emotional distance.",
-    careerGuidance: "Excels in corporate executive roles, construction, engineering, law enforcement, and financial management.",
-    loveCompatibility: "Harmonizes with intuitive, nurturing partners (2, 3, 6) who soften their structured focus.",
-    moneyChannel: "Prosperity is built through long-term real estate, systematic investments, and business equity.",
-    spiritualLesson: "True sovereignty is built on service and protecting the vulnerable, not rigid control.",
-    chakraConnection: "Root & Solar Plexus (Grounding & Authority)",
-    dailyWisdom: "Build strong foundations today — lasting achievements require order and discipline."
+    meaning: "Arcana 4 embodies structural discipline, stability, executive organization, and protective leadership.",
+    historicalContext: "Reflecting traditional Tarot symbols of sovereignty and order, Arcana 4 in Natalia Ladini's matrix framework represents foundational security and systemic governance.",
+    positiveExpression: "Systematic organization, dependable protection, strategic vision, unwavering stability, and ethical authority.",
+    shadowExpression: "Rigidity, stubbornness, micromanagement, emotional distance, or controlling behavior under stress.",
+    careerGuidance: "Excels in corporate executive leadership, structural engineering, legal compliance, real estate development, and financial auditing.",
+    loveCompatibility: "Harmonizes with intuitive, nurturing partners who soften their structured focus and encourage emotional openness.",
+    moneyChannel: "Prosperity is built through long-term real estate, systematic investments, corporate equity, and disciplined budgeting.",
+    spiritualLesson: "True authority rests on protective service and building lasting safety for others rather than rigid control.",
+    chakraConnection: "Root & Solar Plexus (Grounding & Ethical Authority)",
+    dailyWisdom: "Build strong foundations today — lasting achievements require consistent order and discipline.",
+    reflectionQuestions: [
+      "Where in my work or life do I need to establish clearer structural order?",
+      "Am I leading with calm authority or reacting out of a need for control?",
+      "How can I create lasting security for the people who rely on me?"
+    ]
   },
   5: {
     number: 5,
     name: "The Hierophant",
     archetype: "The Sacred Mentor & Master Teacher",
-    meaning: "Arcana 5 carries the energy of spiritual tradition, higher wisdom, moral integrity, education, and mentorship.",
-    positiveExpression: "Wise mentor, ethical leader, seeker of truth, inspiring educator, dedicated guide.",
-    shadowExpression: "Dogmatism, narrow-mindedness, insistence on conformity, spiritual pride.",
-    careerGuidance: "Thrives in academia, spiritual counseling, ethics boards, authorship, and institutional leadership.",
-    loveCompatibility: "Best aligned with partners (7, 9, 11) who share deep intellectual and spiritual values.",
-    moneyChannel: "Wealth manifests through teaching, publishing, certified programs, and trusted advisory roles.",
-    spiritualLesson: "Discovering the living teacher within yourself rather than relying solely on external dogma.",
+    meaning: "Arcana 5 carries the frequency of higher wisdom, moral integrity, structured education, and mentorship.",
+    historicalContext: "Associated with spiritual traditions, moral philosophy, and institutional knowledge, Arcana 5 in the Destiny Matrix system governs mentorship, lifelong learning, and principled guidance.",
+    positiveExpression: "Wise mentorship, ethical leadership, dedication to truth, inspiring teaching, and structured learning.",
+    shadowExpression: "Dogmatism, narrow-mindedness, insistence on rigid conformity, or spiritual pride.",
+    careerGuidance: "Thrives in academia, legal ethics, published authorship, spiritual counseling, and institutional director roles.",
+    loveCompatibility: "Pairs best with partners who share deep intellectual curiosity, moral values, and respect for lifelong learning.",
+    moneyChannel: "Wealth flows through educational programs, publishing, certified consulting, and trusted advisory positions.",
+    spiritualLesson: "Discovering the inner teacher within yourself while remaining receptive to new evidence and perspectives.",
     chakraConnection: "Throat & Crown (Sacred Voice & Divine Truth)",
-    dailyWisdom: "Share your wisdom generously, but keep an open mind to new perspectives."
+    dailyWisdom: "Share your knowledge generously today, but keep your mind open to fresh insights.",
+    reflectionQuestions: [
+      "What important lesson have I learned that could benefit someone else right now?",
+      "Am I holding onto a rigid belief that no longer serves my growth?",
+      "How can I integrate moral integrity into my daily practical decisions?"
+    ]
   },
   6: {
     number: 6,
     name: "The Lovers",
     archetype: "The Harmonizer of Sacred Choice & Unity",
     meaning: "Arcana 6 represents emotional resonance, relational alchemy, values alignment, and sacred decision-making.",
-    positiveExpression: "Compassionate, relational, discerning, unifying, harmonizing contrasting views.",
-    shadowExpression: "Indecision, codependency, superficial romance, fear of commitment.",
+    positiveExpression: "Compassionate discernment, relational harmony, unifying contrasting viewpoints, and open-hearted choices.",
+    shadowExpression: "Indecision, codependency, superficial romance, or fear of committing to long-term goals.",
     careerGuidance: "Ideal for relationship therapy, mediation, brand partnerships, public relations, and art curation.",
-    loveCompatibility: "Deep connection with romantic, open-hearted numbers (2, 3, 9) seeking true soul intimacy.",
-    moneyChannel: "Financial success prospers through co-founding ventures, collaborative deals, and aesthetic design.",
-    spiritualLesson: "Making choices rooted in soul integrity rather than temporary external approval.",
+    loveCompatibility: "Deep connection with honest, open-hearted partners seeking authentic mutual respect and soul intimacy.",
+    moneyChannel: "Financial success prospers through collaborative ventures, co-founding agreements, and aesthetic design.",
+    spiritualLesson: "Making choices rooted in soul integrity rather than seeking temporary external approval.",
     chakraConnection: "Heart & Solar Plexus (Love & Will Alignment)",
-    dailyWisdom: "Choose from your heart today — alignment with your core values opens effortless paths."
+    dailyWisdom: "Choose from your heart today — alignment with your core values opens smooth, clear paths.",
+    reflectionQuestions: [
+      "What key decision am I putting off because I fear making a mistake?",
+      "Does this partnership or commitment reflect my genuine internal values?",
+      "How can I bring more balance into my key relationships?"
+    ]
   },
   7: {
     number: 7,
     name: "The Chariot",
     archetype: "The Victorious Strategist & Conqueror",
-    meaning: "Arcana 7 represents victorious motion, focused discipline, overcoming obstacles, speed, and strategic triumph.",
-    positiveExpression: "High focus, athletic resilience, goal-driven, victorious mindset, strong willpower.",
-    shadowExpression: "Aggression, burnout, reckless speed, ruthless competitiveness, emotional detachment.",
-    careerGuidance: "Excels in corporate executive leadership, sports management, logistics, engineering, and trial law.",
-    loveCompatibility: "Thrives with supportive, emotionally grounded partners who celebrate their milestones.",
-    moneyChannel: "Money is generated through ambitious targets, expansion, travel, and scaled projects.",
+    meaning: "Arcana 7 represents victorious motion, focused discipline, speed, overcoming obstacles, and strategic triumph.",
+    positiveExpression: "High focus, athletic resilience, goal-driven momentum, victorious mindset, and strategic clarity.",
+    shadowExpression: "Burnout, aggressive competitiveness, reckless speed, or emotional detachment under pressure.",
+    careerGuidance: "Excels in executive leadership, sports management, logistics, project management, and trial advocacy.",
+    loveCompatibility: "Thrives with supportive, emotionally grounded partners who celebrate their milestones and encourage restful pauses.",
+    moneyChannel: "Revenue generates through ambitious targets, expansion, international travel, and scaled projects.",
     spiritualLesson: "Mastering outer momentum while keeping inner peace centered in the heart.",
-    chakraConnection: "Solar Plexus & Crown (Willpower & Direction)",
-    dailyWisdom: "Keep your eyes fixed on the horizon — speed must be guided by clear purpose."
+    chakraConnection: "Solar Plexus & Crown (Willpower & Strategic Direction)",
+    dailyWisdom: "Keep your eyes fixed on your goal today — momentum must be guided by clear purpose.",
+    reflectionQuestions: [
+      "What major milestone am I currently driving toward, and is my pace sustainable?",
+      "Am I balancing hard work with necessary rest and recovery?",
+      "How can I channel my focus without bulldozing past important details?"
+    ]
   },
   8: {
     number: 8,
     name: "Justice",
     archetype: "The Arbiter of Karmic Balance & Moral Truth",
     meaning: "Arcana 8 governs karmic equilibrium, cause-and-effect, legal truth, objectivity, and systemic fairness.",
-    positiveExpression: "Fair, objective, highly analytical, ethical, restorer of equilibrium.",
-    shadowExpression: "Harsh judgment, cynicism, legal obsession, bias, emotional coldness.",
-    careerGuidance: "Thrives in jurisprudence, auditing, judiciary, compliance, dispute resolution, and forensics.",
-    loveCompatibility: "Pairs well with honest, transparent partners (1, 4, 11) who value mutual accountability.",
+    positiveExpression: "Objective fairness, analytical clarity, ethical integrity, accountability, and restoring balance.",
+    shadowExpression: "Harsh judgment, cynicism, legal obsession, emotional coldness, or bias.",
+    careerGuidance: "Thrives in jurisprudence, auditing, judiciary, compliance, dispute resolution, and forensic accounting.",
+    loveCompatibility: "Pairs well with honest, transparent partners who value mutual accountability and clear agreements.",
     moneyChannel: "Wealth accumulates through clear contracts, balanced balance sheets, and ethical investments.",
     spiritualLesson: "Recognizing that every action carries an energetic harvest; integrity is ultimate protection.",
-    chakraConnection: "Third Eye & Solar Plexus (Discernment & Karma)",
-    dailyWisdom: "Act with total honesty today — the universe reflects back your exact energetic output."
+    chakraConnection: "Third Eye & Solar Plexus (Discernment & Cause-and-Effect)",
+    dailyWisdom: "Act with total honesty today — the universe reflects back your exact energetic output.",
+    reflectionQuestions: [
+      "Where in my life do I need to restore balance or honor a promise?",
+      "Am I judging a situation fairly, or am I letting emotional bias cloud my view?",
+      "What small habit change will align my daily actions with my moral standards?"
+    ]
   },
   9: {
     number: 9,
     name: "The Hermit",
     archetype: "The Wise Contemplative & Beacon of Light",
     meaning: "Arcana 9 represents deep introspection, spiritual maturity, inner beacon light, self-mastery, and solitude.",
-    positiveExpression: "Deeply wise, introspective, self-reliant, guiding light, serene clarity.",
-    shadowExpression: "Isolation, loneliness, misanthropy, paranoia, hoarding knowledge.",
-    careerGuidance: "Excels in research, philosophy, solitude writing, archive preservation, and spiritual coaching.",
-    loveCompatibility: "Resonates with independent, peaceful partners (2, 5, 7) who honor solitary reflection time.",
-    moneyChannel: "Abundance comes from specialized expertise, published masterworks, and quiet consulting.",
+    positiveExpression: "Deep wisdom, introspective clarity, self-reliance, quiet guidance, and serene focus.",
+    shadowExpression: "Isolation, loneliness, cynicism, hoarding knowledge, or fear of sharing insights with others.",
+    careerGuidance: "Excels in research, philosophy, independent authorship, archive preservation, and strategic coaching.",
+    loveCompatibility: "Resonates with independent, peaceful partners who honor solitary reflection time and deep conversations.",
+    moneyChannel: "Abundance comes from specialized expertise, published masterworks, and high-value quiet consulting.",
     spiritualLesson: "Carrying your internal lantern into dark places to light the path for others.",
     chakraConnection: "Crown & Third Eye (Inner Illumination)",
-    dailyWisdom: "Withdraw into quiet contemplation for a moment today — your inner guide is speaking."
+    dailyWisdom: "Withdraw into quiet contemplation for a moment today — your inner guide is speaking.",
+    reflectionQuestions: [
+      "What quiet truth emerges when I turn off external digital noise?",
+      "Am I using solitude for self-mastery or as a retreat from life?",
+      "How can I share my hard-won wisdom to illuminate someone else's journey?"
+    ]
   },
   10: {
     number: 10,
@@ -148,11 +200,16 @@ export const MAJOR_ARCANA_DATABASE: Record<number, ArcanaEncyclopediaEntry> = {
     positiveExpression: "Adaptable, fortunate, trusting in timing, opportunistic, resilient through change.",
     shadowExpression: "Gambling tendencies, feeling victim to fate, anxiety over flux, passivity.",
     careerGuidance: "Thrives in financial trading, trend forecasting, event management, entertainment, and innovation.",
-    loveCompatibility: "High chemistry with adventurous, flexible partners (5, 7, 17) who embrace life's twists.",
+    loveCompatibility: "High chemistry with adventurous, flexible partners who embrace life's twists.",
     moneyChannel: "Flow comes from catching emerging trends, early adoption, and diversified asset rotation.",
     spiritualLesson: "Remaining centered at the quiet hub of the wheel while external circumstances turn.",
     chakraConnection: "Sacral & Crown (Flow & Universal Rhythms)",
-    dailyWisdom: "Welcome change today — every shift in momentum brings unexpected blessings."
+    dailyWisdom: "Welcome change today — every shift in momentum brings unexpected blessings.",
+    reflectionQuestions: [
+      "How can I adapt smoothly to a recent unexpected shift in my environment?",
+      "Am I holding onto a past cycle that has naturally come to a close?",
+      "Where can I ride the current wave of opportunity with confidence?"
+    ]
   },
   11: {
     number: 11,
@@ -166,7 +223,12 @@ export const MAJOR_ARCANA_DATABASE: Record<number, ArcanaEncyclopediaEntry> = {
     moneyChannel: "Financial success comes from endurance, handling high-stakes responsibility, and grit.",
     spiritualLesson: "Real strength is gentleness in action, not forceful domination.",
     chakraConnection: "Solar Plexus & Heart (Tamed Fire & Passion)",
-    dailyWisdom: "Meet resistance with calm breath — gentleness dissolves rigid obstacles."
+    dailyWisdom: "Meet resistance with calm breath — gentleness dissolves rigid obstacles.",
+    reflectionQuestions: [
+      "Where in my life can I replace force with calm, persistent gentleness?",
+      "How can I honor my emotional passion without letting anger take the wheel?",
+      "Am I taking care of my physical stamina as I handle current responsibilities?"
+    ]
   },
   12: {
     number: 12,
@@ -180,7 +242,12 @@ export const MAJOR_ARCANA_DATABASE: Record<number, ArcanaEncyclopediaEntry> = {
     moneyChannel: "Prosperity comes through unconventional ideas, service to others, and patient timing.",
     spiritualLesson: "Surrendering control unlocks divine clarity and unexpected breakthroughs.",
     chakraConnection: "Crown & Throat (New Vision & Higher Truth)",
-    dailyWisdom: "Shift your point of view today — an apparent delay is serving a deeper revelation."
+    dailyWisdom: "Shift your point of view today — an apparent delay is serving a deeper revelation.",
+    reflectionQuestions: [
+      "How would this situation look if I viewed it from an entirely opposite perspective?",
+      "Am I sacrificing my own needs to keep the peace inappropriately?",
+      "What do I need to pause or surrender to gain ultimate clarity?"
+    ]
   },
   13: {
     number: 13,
@@ -190,11 +257,16 @@ export const MAJOR_ARCANA_DATABASE: Record<number, ArcanaEncyclopediaEntry> = {
     positiveExpression: "Transformative, courageous, releasing old burdens, regenerative, visionary renewer.",
     shadowExpression: "Fear of change, stubborn clinging to dead situations, grief paralysis, destruction.",
     careerGuidance: "Ideal for turnaround consultancy, crisis restructuring, grief counseling, bio-recycling, and surgery.",
-    loveCompatibility: "Thrives with resilient, emotionally deep partners (8, 11, 16) capable of mutual growth.",
+    loveCompatibility: "Thrives with resilient, emotionally deep partners capable of mutual growth.",
     moneyChannel: "Revenues generate by buying underperforming assets, transforming them, and creating new value.",
     spiritualLesson: "Understanding that endings are simply fertile soil for magnificent new beginnings.",
     chakraConnection: "Root & Sacral (Primal Renewal & Release)",
-    dailyWisdom: "Let go of what no longer serves your soul — space must be cleared for new life."
+    dailyWisdom: "Let go of what no longer serves your soul — space must be cleared for new life.",
+    reflectionQuestions: [
+      "What obsolete habit or situation am I holding onto out of fear of change?",
+      "How can I embrace this current transition as a fresh rebirth?",
+      "What new space opens up in my life once I release old burdens?"
+    ]
   },
   14: {
     number: 14,
@@ -204,11 +276,16 @@ export const MAJOR_ARCANA_DATABASE: Record<number, ArcanaEncyclopediaEntry> = {
     positiveExpression: "Balanced, harmonious, peaceful mediator, integrative thinker, patient healer.",
     shadowExpression: "Imbalance, procrastination, compromise of principles, passive stagnation.",
     careerGuidance: "Excels in holistic health, pharmacy, diplomatic relations, sound therapy, and culinary chemistry.",
-    loveCompatibility: "Deep harmony with peaceful, emotionally balanced partners (2, 6, 9) seeking serene warmth.",
+    loveCompatibility: "Deep harmony with peaceful, emotionally balanced partners seeking serene warmth.",
     moneyChannel: "Wealth builds steadily through balanced portfolios, steady compounding, and calm execution.",
     spiritualLesson: "Blending contrasting elements into a higher spiritual synthesis through patience.",
     chakraConnection: "Heart & Solar Plexus (Inner Harmony)",
-    dailyWisdom: "Practice moderation and grace today — balance is the secret key to peace."
+    dailyWisdom: "Practice moderation and grace today — balance is the secret key to peace.",
+    reflectionQuestions: [
+      "Where in my lifestyle or emotions do I need to restore moderate balance?",
+      "How can I synthesize two contrasting ideas into a harmonious solution?",
+      "Am I allowing events to unfold in their natural, patient timing?"
+    ]
   },
   15: {
     number: 15,
@@ -218,11 +295,16 @@ export const MAJOR_ARCANA_DATABASE: Record<number, ArcanaEncyclopediaEntry> = {
     positiveExpression: "Charismatic, highly perceptive of motives, material master, passionate, uninhibited.",
     shadowExpression: "Addiction, codependency, material greed, manipulation, feeling trapped by fear.",
     careerGuidance: "Thrives in high-stakes finance, talent management, psychology, investigative journalism, and sales.",
-    loveCompatibility: "Pairs best with grounded, self-possessed partners (4, 8, 11) who maintain strong personal boundaries.",
+    loveCompatibility: "Pairs best with grounded, self-possessed partners who maintain strong personal boundaries.",
     moneyChannel: "Abundance unlocks when using high influence ethically and overcoming subconscious money blocks.",
     spiritualLesson: "Recognizing that true freedom occurs when you illuminate and integrate your shadow.",
     chakraConnection: "Root & Solar Plexus (Material Vitality & Power)",
-    dailyWisdom: "Examine any hidden fears today — awareness instantly breaks the illusion of limitation."
+    dailyWisdom: "Examine any hidden fears today — awareness instantly breaks the illusion of limitation.",
+    reflectionQuestions: [
+      "What subconscious fear or attachment is currently limiting my choices?",
+      "How can I channel my intense ambition into ethical, constructive channels?",
+      "Am I honoring my personal boundaries in high-stakes environments?"
+    ]
   },
   16: {
     number: 16,
@@ -232,11 +314,16 @@ export const MAJOR_ARCANA_DATABASE: Record<number, ArcanaEncyclopediaEntry> = {
     positiveExpression: "Truth-teller, groundbreaker, resilient, liberating, builder of authentic foundations.",
     shadowExpression: "Chaos, sudden anger, destruction without purpose, resisting necessary truth.",
     careerGuidance: "Excels in disaster response, cybersecurity disruption, revolutionary tech, structural engineering, and therapy.",
-    loveCompatibility: "Compatible with authentic, resilient partners (7, 13, 20) who value raw truth above illusions.",
+    loveCompatibility: "Compatible with authentic, resilient partners who value raw truth above illusions.",
     moneyChannel: "Rebuilds wealth stronger by eliminating inefficient business models and pioneering breakthroughs.",
     spiritualLesson: "False structures crumble so that genuine, unshakeable truth can take root.",
     chakraConnection: "Root & Crown (Breakthrough & Divine Awakening)",
-    dailyWisdom: "Embrace sudden insights today — breaking down artificial barriers releases authentic energy."
+    dailyWisdom: "Embrace sudden insights today — breaking down artificial barriers releases authentic energy.",
+    reflectionQuestions: [
+      "What outdated assumption or artificial structure recently broke down in my life?",
+      "How can I rebuild my current plans on a more authentic foundation?",
+      "Am I welcoming truth, even when it interrupts my comfort zone?"
+    ]
   },
   17: {
     number: 17,
@@ -245,12 +332,17 @@ export const MAJOR_ARCANA_DATABASE: Record<number, ArcanaEncyclopediaEntry> = {
     meaning: "Arcana 17 carries the pure vibration of inspiration, creative genius, spiritual hope, cosmic connection, and talent.",
     positiveExpression: "Inspiring, creative, optimistic, gifted artist, beacon of hope, authentic presence.",
     shadowExpression: "Unrealistic fantasy, imposter syndrome, detachment from daily duties, cynicism.",
-    careerGuidance: "Ideal for astronomy, creative arts, media broad-casting, brand ambassador roles, and astrology.",
-    loveCompatibility: "Harmonizes with uplifting, supportive partners (3, 6, 19) who encourage their big dreams.",
+    careerGuidance: "Ideal for astronomy, creative arts, media broadcasting, brand ambassador roles, and astrology.",
+    loveCompatibility: "Harmonizes with uplifting, supportive partners who encourage their big dreams.",
     moneyChannel: "Wealth flows through public visibility, artistic expression, intellectual property, and fame.",
     spiritualLesson: "Trusting your unique guiding light and sharing your gifts without fear of judgment.",
     chakraConnection: "Third Eye & Heart (Cosmic Hope & Inspiration)",
-    dailyWisdom: "Let your authentic light shine today — your hope inspires everyone around you."
+    dailyWisdom: "Let your authentic light shine today — your hope inspires everyone around you.",
+    reflectionQuestions: [
+      "What creative talent or dream have I been hesitant to share publicly?",
+      "How can I remain practically grounded while pursuing my highest vision?",
+      "Where can I bring hope and positive inspiration into my community?"
+    ]
   },
   18: {
     number: 18,
@@ -260,11 +352,16 @@ export const MAJOR_ARCANA_DATABASE: Record<number, ArcanaEncyclopediaEntry> = {
     positiveExpression: "Deeply imaginative, intuitive, artistically gifted, empathetic, dreamweaver.",
     shadowExpression: "Anxiety, self-deception, fear of the unknown, moodiness, escapism.",
     careerGuidance: "Excels in creative fiction, film directing, dream analysis, hypnosis, poetry, and subconscious healing.",
-    loveCompatibility: "Pairs harmoniously with grounding, reassuring partners (2, 4, 14) who offer safety to their sensitivity.",
+    loveCompatibility: "Pairs harmoniously with grounding, reassuring partners who offer safety to their sensitivity.",
     moneyChannel: "Prosperity stems from turning deep emotional & subconscious insights into compelling art and media.",
     spiritualLesson: "Transforming mystery and shadow into radiant creative expression.",
     chakraConnection: "Third Eye & Sacral (Subconscious Intuition & Art)",
-    dailyWisdom: "Honor your intuition and dreams today — subconscious clarity is emerging."
+    dailyWisdom: "Honor your intuition and dreams today — subconscious clarity is emerging.",
+    reflectionQuestions: [
+      "What message is my subconscious mind sending through dreams or feelings?",
+      "Am I reacting to real events or projecting unexamined anxieties?",
+      "How can I transform my sensitivity into inspiring creative work?"
+    ]
   },
   19: {
     number: 19,
@@ -274,11 +371,16 @@ export const MAJOR_ARCANA_DATABASE: Record<number, ArcanaEncyclopediaEntry> = {
     positiveExpression: "Radiant, generous, joyful leader, uplifting presence, magnetic vitality.",
     shadowExpression: "Burnout, vanity, overwhelming intensity, demands for attention.",
     careerGuidance: "Thrives in public speaking, performing arts, youth education, executive leadership, and wellness.",
-    loveCompatibility: "Deep warmth with joyful, creative partners (1, 3, 17) who share enthusiastic energy.",
+    loveCompatibility: "Deep warmth with joyful, creative partners who share enthusiastic energy.",
     moneyChannel: "Abundance multiplies exponentially when sharing success, mentoring others, and leading openly.",
     spiritualLesson: "Radiating unconditional warmth while keeping ego humble before the source of life.",
     chakraConnection: "Solar Plexus & Heart (Radiant Joy & Vitality)",
-    dailyWisdom: "Spread warmth and joy today — your positive energy lights up the entire room."
+    dailyWisdom: "Spread warmth and joy today — your positive energy lights up the entire room.",
+    reflectionQuestions: [
+      "How can I celebrate my wins today with genuine gratitude and humility?",
+      "Where can I bring more playfulness and warmth into my routine?",
+      "Am I using my success to lift up the people around me?"
+    ]
   },
   20: {
     number: 20,
@@ -288,11 +390,16 @@ export const MAJOR_ARCANA_DATABASE: Record<number, ArcanaEncyclopediaEntry> = {
     positiveExpression: "Awakened, purposeful, ancestral healer, clear vocation, transformative caller.",
     shadowExpression: "Self-doubt, ignoring inner calling, dwelling in past regrets, judgmental attitude.",
     careerGuidance: "Excels in ancestral research, vocational coaching, systemic therapy, community organizing, and law.",
-    loveCompatibility: "Complements purposeful partners (5, 8, 21) who support soul missions and lifelong growth.",
+    loveCompatibility: "Complements purposeful partners who support soul missions and lifelong growth.",
     moneyChannel: "Prosperity unfolds when aligning your career with your highest spiritual purpose and legacy.",
     spiritualLesson: "Answering the call of your soul and stepping fearlessly into your true identity.",
     chakraConnection: "Crown & Throat (Soul Call & Voice of Purpose)",
-    dailyWisdom: "Listen for your higher calling today — it is time to step into your full purpose."
+    dailyWisdom: "Listen for your higher calling today — it is time to step into your full purpose.",
+    reflectionQuestions: [
+      "What vocational calling have I felt drawn to throughout my life?",
+      "How can I forgive past mistakes and step into a fresh chapter of rebirth?",
+      "What ancestral legacy or value do I want to honor and continue?"
+    ]
   },
   21: {
     number: 21,
@@ -302,11 +409,16 @@ export const MAJOR_ARCANA_DATABASE: Record<number, ArcanaEncyclopediaEntry> = {
     positiveExpression: "Global vision, fulfilled, holistic thinker, accomplished, expansive communicator.",
     shadowExpression: "Fear of expanding beyond comfort, unfinished projects, feeling trapped in old loops.",
     careerGuidance: "Thrives in international relations, global commerce, environmental advocacy, publishing, and travel.",
-    loveCompatibility: "High synergy with open-minded, worldly partners (7, 10, 22) who love global adventures.",
+    loveCompatibility: "High synergy with open-minded, worldly partners who love global adventures.",
     moneyChannel: "Wealth flows from international markets, digital scale, cross-border partnerships, and broad platforms.",
     spiritualLesson: "Celebrating completion while standing ready at the doorway of a vast new cycle.",
     chakraConnection: "All Chakras Integrated (Wholeness & Cosmic Unity)",
-    dailyWisdom: "Celebrate your accomplishments today — you have reached a major milestone of growth."
+    dailyWisdom: "Celebrate your accomplishments today — you have reached a major milestone of growth.",
+    reflectionQuestions: [
+      "What major project or phase am I ready to bring to a satisfying completion?",
+      "How can I expand my vision beyond my local comfort zone?",
+      "What new global horizon or learning experience calls to me next?"
+    ]
   },
   22: {
     number: 22,
@@ -316,50 +428,23 @@ export const MAJOR_ARCANA_DATABASE: Record<number, ArcanaEncyclopediaEntry> = {
     positiveExpression: "Faithful, unburdened, joyful explorer, open-minded, courageous beginner.",
     shadowExpression: "Recklessness, naivety, lack of foresight, escaping responsibility.",
     careerGuidance: "Ideal for breakthrough startup innovation, adventure travel, experimental art, and trailblazing ventures.",
-    loveCompatibility: "Pairs well with supportive, grounding partners (1, 6, 17) who cherish their spontaneous spirit.",
+    loveCompatibility: "Pairs well with supportive, grounding partners who cherish their spontaneous spirit.",
     moneyChannel: "Abundance opens up through bold leaps into untried markets and trusting unproven ideas.",
     spiritualLesson: "Stepping off the cliff of expectation with absolute trust in the universe.",
     chakraConnection: "Crown & Sacral (Pure Potential & Joyful Adventure)",
-    dailyWisdom: "Take a leap of faith today — the universe supports your fresh start."
+    dailyWisdom: "Take a leap of faith today — the universe supports your fresh start.",
+    reflectionQuestions: [
+      "Where in my life am I being called to take a brave, unburdened leap of faith?",
+      "Am I allowing fear of the unknown to hold back my spontaneous joy?",
+      "How can I approach this new chapter with the curiosity of a beginner?"
+    ]
   }
 };
 
-// Localized Arcana entry getter
+/**
+ * Localized Arcana entry getter with full dictionary support
+ */
 export function getLocalizedArcanaEntry(arcanaNum: number, locale: string = 'en'): ArcanaEncyclopediaEntry {
   const masterEntry = MAJOR_ARCANA_DATABASE[arcanaNum] || MAJOR_ARCANA_DATABASE[1];
-  if (locale === 'en') return masterEntry;
-
-  // Localized dictionaries for key target locales
-  if (locale === 'de') {
-    const deNames: Record<number, string> = {
-      1: "Der Magier", 2: "Die Hohepriesterin", 3: "Die Herrscherin", 4: "Der Herrscher", 5: "Der Hohepriester",
-      6: "Die Liebenden", 7: "Der Wagen", 8: "Die Kraft / Gerechtigkeit", 9: "Der Eremit", 10: "Das Rad des Schicksals",
-      11: "Gerechtigkeit / Stärke", 12: "Der Gehängte", 13: "Der Tod / Transformation", 14: "Die Mäßigkeit", 15: "Der Teufel",
-      16: "Der Turm", 17: "Der Stern", 18: "Der Mond", 19: "Die Sonne", 20: "Das Gericht / Wiedergeburt", 21: "Die Welt", 22: "Der Narr"
-    };
-    return { ...masterEntry, name: deNames[arcanaNum] || masterEntry.name };
-  }
-
-  if (locale === 'hi') {
-    const hiNames: Record<number, string> = {
-      1: "द मैजिशियन (जादुगर)", 2: "द हाई प्रियेस्टेस (उच्च पुजारिन)", 3: "द एम्प्रेस (महारानी)", 4: "द एम्परर (सम्राट)", 5: "द हीरोफेंट (धर्मगुरु)",
-      6: "द लवर्स (प्रेमी)", 7: "द चैरियट (रथ)", 8: "द स्ट्रेंथ (शक्ति)", 9: "द हर्मिट (सन्यासी)", 10: "व्हील ऑफ फॉर्च्यून (भाग्य चक्र)",
-      11: "जस्टिस (न्याय)", 12: "द हैंग्ड मैन (लटका हुआ मनुष्य)", 13: "डेथ (रूपांतरण)", 14: "टेंपरेंस (संतुलन)", 15: "द डेविल (आकर्षण)",
-      16: "द टॉवर (परिवर्तन)", 17: "द स्टार (नक्षत्र)", 18: "द मून (चंद्रमा)", 19: "द सन (सूर्य)", 20: "जजमेंट (पुनर्जन्म)", 21: "द वर्ल्ड (संसार)", 22: "द फूल (साहसी)"
-    };
-    return { ...masterEntry, name: hiNames[arcanaNum] || masterEntry.name };
-  }
-
-  if (locale === 'ar') {
-    const arNames: Record<number, string> = {
-      1: "الساحر (The Magician)", 2: "كاهنة العليا", 3: "الامبراطورة", 4: "الامبراطور", 5: "الكاهن الأعظم",
-      6: "العشاق", 7: "العربة", 8: "القوة", 9: "الناسك", 10: "عجلة الحظ",
-      11: "العدالة", 12: "المعلق", 13: "الموت والتحول", 14: "الاعتدال", 15: "الشيطان",
-      16: "البرج", 17: "النجمة", 18: "القمر", 19: "الشمس", 20: "البعث والقيامة", 21: "العالم", 22: "الأحمق المغامر"
-    };
-    return { ...masterEntry, name: arNames[arcanaNum] || masterEntry.name };
-  }
-
   return masterEntry;
 }
-

@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import Card from '../../../../components/ui/Card.astro';
-import Icon from '../../../../components/ui/Icon.astro';
+import Breadcrumbs from '../../../../components/common/Breadcrumbs.astro';
+import CalculationBreakdown from '../../../../components/common/CalculationBreakdown.astro';
+import DisclaimerBox from '../../../../components/common/DisclaimerBox.astro';
+import MethodologyBox from '../../../../components/common/MethodologyBox.astro';
+import { NUMEROLOGY_NUMBER_DETAILS, type NumberMeaningDetail } from '../../../../data/numerology-content';
 import { numerologyCalculators, type CalculatorConfig } from '../../../../config/calculators.config';
 import { supportedLocales } from '../../../../config/locales.config';
 import { t } from '../../../../i18n';
@@ -27,240 +30,156 @@ export function getStaticPaths() {
 }
 
 const { locale = 'en', calcSlug, number } = Astro.params;
-const currentNum = parseInt(number || '1', 10);
-const calcConfig = numerologyCalculators.find((c: CalculatorConfig) => c.slug === calcSlug) || numerologyCalculators[0];
+const currentLocale = locale;
+const currentNum = parseInt(number || '1', 10) || 1;
 
+const calcConfig = numerologyCalculators.find((c: CalculatorConfig) => c.slug === calcSlug) || numerologyCalculators[0];
 const calcName = calcConfig.id.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase());
-const pageTitle = `${calcName} ${currentNum} Meaning & Archetype Analysis | Souliography`;
-const pageDesc = `Comprehensive guide to ${calcName} Number ${currentNum}. Discover how vibration ${currentNum} specifically influences your ${calcName.toLowerCase()}, career alignment, relationships, and karmic trajectory.`;
+
+const numberDetails: NumberMeaningDetail = NUMEROLOGY_NUMBER_DETAILS[currentNum] || NUMEROLOGY_NUMBER_DETAILS[1];
+
+const pageTitle = `${calcName} Number ${currentNum}: ${numberDetails.title} | Souliography`;
+const pageDesc = `Comprehensive guide to ${calcName} Number ${currentNum}. Discover how vibration ${currentNum} influences your ${calcName.toLowerCase()}, career alignment, strengths, challenges, and karmic trajectory.`;
+
+const breadcrumbItems = [
+  { label: 'Numerology', href: `/${currentLocale}/numerology/` },
+  { label: calcName, href: `/${currentLocale}/numerology/${calcSlug}/` },
+  { label: `Number ${currentNum}` },
+];
 
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: pageTitle,
   description: pageDesc,
-  author: { '@type': 'Organization', name: 'Souliography Research Team' },
-  publisher: { '@type': 'Organization', name: 'Souliography', url: 'https://souliography.com' },
+  author: { '@type': 'Organization', name: 'Souliography Editorial Team' },
+  publisher: { '@type': 'Organization', name: 'Souliography', url: `https://souliography.com/${currentLocale}/` },
 };
 
-// Dynamic calculator context generator to ensure 100% unique search intent & content
-const calcContextMap: Record<string, { summary: string; traits: string; career: string; love: string }> = {
-  'phone-numerology': {
-    summary: `In Phone Numerology, Number ${currentNum} governs communication frequency, incoming call resonance, digital outreach, and incoming opportunities.`,
-    traits: `A phone number vibrating at ${currentNum} attracts contacts seeking decisive action, clear communication, and purposeful dialogue. It creates an energetic atmosphere of authority and responsiveness.`,
-    career: `Ideal for business hotlines, consulting lines, executive contact numbers, and client acquisition calls requiring high trust and clarity.`,
-    love: `Encourages direct, honest relationship text exchanges and clear emotional boundary setting during telephone conversations.`
-  },
-  'karmic-lesson-number': {
-    summary: `In Karmic Lesson Numerology, Number ${currentNum} indicates a specific soul lesson, spiritual test, or life skill requiring conscious cultivation in this lifetime.`,
-    traits: `Karmic Lesson ${currentNum} highlights areas where past patterns caused hesitation. Developing the positive vibration of ${currentNum} transforms subconscious vulnerability into unshakeable spiritual strength.`,
-    career: `Overcoming challenges in professional delegation, creative confidence, and vocal self-advocacy leads to breakthrough career mastery.`,
-    love: `Attracts partners who gently mirror karmic growth opportunities, helping heal past relational attachment patterns.`
-  },
-  'essence-number': {
-    summary: `In Essence Numerology, Number ${currentNum} dictates yearly spiritual transits, physical vitality shifts, and emotional themes for your current cycle.`,
-    traits: `Essence ${currentNum} signals a period marked by distinct personal transformations, internal shifts, and heightened awareness around personal goals.`,
-    career: `Favorable timing for launching new initiatives, recalibrating professional strategies, or restructuring long-term commitments.`,
-    love: `Promotes emotional honesty and realigning relationship goals with your evolving personal identity.`
-  },
-  'business-numerology': {
-    summary: `In Business Numerology, Number ${currentNum} shapes brand authority, commercial magnetism, organizational culture, and revenue flow.`,
-    traits: `A business frequency of ${currentNum} commands market presence, customer trust, and strategic brand positioning across competitive industries.`,
-    career: `Excels in market expansion, proprietary product launches, executive leadership, and scalable enterprise ventures.`,
-    love: `Supports healthy work-life balance and strong partnership agreements based on shared vision and mutual accountability.`
-  },
-  'soul-urge-number': {
-    summary: `In Soul Urge (Heart's Desire) Numerology, Number ${currentNum} reveals your deepest subconscious desires, hidden motivations, and inner emotional truth.`,
-    traits: `Soul Urge ${currentNum} reflects what your soul craves when all external expectations are stripped away — genuine self-expression, peace, and spiritual alignment.`,
-    career: `Fulfilling vocations allow full expression of internal values, creative autonomy, and meaningful contribution to community.`,
-    love: `Seeks soulful intimacy with partners who honor your innermost emotional vulnerabilities and core spiritual longings.`
-  },
-  'vehicle-numerology': {
-    summary: `In Vehicle & License Plate Numerology, Number ${currentNum} influences travel safety, mechanical harmony, and movement energy on the road.`,
-    traits: `A vehicle vibrating with Number ${currentNum} projects confidence, focused direction, and smooth transit energy during daily commutes and long journeys.`,
-    career: `Supports mobile professionals, travel consultants, logistics directors, and commuters needing reliable transport momentum.`,
-    love: `Creates pleasant shared road trip memories and harmonious travel experiences with loved ones.`
-  },
-  'destiny-number': {
-    summary: `In Destiny (Expression) Numerology, Number ${currentNum} defines your lifelong purpose, natural talents, and vocal expression.`,
-    traits: `Destiny ${currentNum} represents the complete energetic footprint of your full birth name, guiding how you leave your mark on the world.`,
-    career: `Thrives in roles of strategic leadership, creative innovation, professional expertise, and inspirational guidance.`,
-    love: `Attracts partners who celebrate your unique life mission and encourage your creative potential.`
-  },
-  'life-path-number': {
-    summary: `In Life Path Numerology, Number ${currentNum} charts your primary life journey, major evolutionary milestones, and karmic path.`,
-    traits: `Life Path ${currentNum} is the foundational frequency calculated from your birth date, shaping key life lessons and personal growth opportunities.`,
-    career: `Ideal vocations align directly with your core vibration, offering sustained fulfillment, leadership, and personal mastery.`,
-    love: `Harmonious relationships thrive when partners honor your Life Path trajectory and share complementary values.`
-  },
-  'marriage-numerology': {
-    summary: `In Marriage & Relationship Numerology, Number ${currentNum} governs marital harmony, joint home energy, and relationship longevity.`,
-    traits: `Marriage Vibration ${currentNum} fosters deep mutual respect, clear communication, and emotional resilience through all seasons of life.`,
-    career: `Encourages mutual support of career ambitions and building shared financial security as a unified team.`,
-    love: `Deepens marital intimacy, trust, and shared commitment to common family goals.`
-  },
-  'house-numerology': {
-    summary: `In House & Building Numerology, Number ${currentNum} influences residential atmosphere, domestic tranquility, and living sanctuary energy.`,
-    traits: `A home vibrating at Number ${currentNum} creates a welcoming space for rejuvenation, focused study, and warm hospitality.`,
-    career: `Supports productive remote work, creative home studios, and peaceful rest after demanding workdays.`,
-    love: `Nurtures warm family gatherings, peaceful cohabitation, and balanced home dynamics.`
-  }
-};
-
-const currentContext = calcContextMap[calcSlug] || {
-  summary: `In ${calcName} Numerology, Number ${currentNum} governs unique energetic vibrations, personal resonance, and archetypal traits.`,
-  traits: `${calcName} ${currentNum} reflects how this numerical vibration influences personal choices, internal motivations, and growth areas.`,
-  career: `In professional environments, ${calcName} ${currentNum} excels when leveraging core strengths of initiative, focus, and integrity.`,
-  love: `In relationships, ${calcName} ${currentNum} seeks authentic emotional resonance and mutual values alignment.`
-};
-
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Home',
-      item: `https://souliography.com/${locale}/`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Numerology',
-      item: `https://souliography.com/${locale}/numerology/`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: calcName,
-      item: `https://souliography.com/${locale}/numerology/${calcSlug}/`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 4,
-      name: `Number ${currentNum}`,
-      item: `https://souliography.com/${locale}/numerology/${calcSlug}/${currentNum}/`,
-    },
-  ],
-};
+const sampleMathSteps = [
+  { label: 'Primary Components Sum', operation: `Vibration input reduction for Number ${currentNum}`, result: currentNum },
+  { label: 'Pythagorean Reduction', operation: currentNum > 9 ? `${currentNum} -> Master Frequency` : `Single Digit ${currentNum}`, result: currentNum, note: currentNum > 9 ? `Preserved Master Number ${currentNum}` : undefined }
+];
 ---
 
-<BaseLayout title={pageTitle} description={pageDesc} locale={locale}>
+<BaseLayout title={pageTitle} description={pageDesc} locale={currentLocale}>
   <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-  <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
-  <!-- Hero Banner -->
-  <section class="bg-gradient-to-b from-violet-950 via-purple-900 to-slate-900 text-white py-16 px-4">
-    <div class="max-w-4xl mx-auto text-center space-y-4">
-      
-      <!-- HTML Breadcrumbs -->
-      <nav aria-label="Breadcrumb" class="mb-4">
-        <ol class="inline-flex items-center gap-2 text-xs text-purple-300 font-mono">
-          <li>
-            <a href={`/${locale}/`} class="hover:text-amber-300 transition-colors">Home</a>
-          </li>
-          <li>/</li>
-          <li>
-            <a href={`/${locale}/numerology/`} class="hover:text-amber-300 transition-colors">Numerology</a>
-          </li>
-          <li>/</li>
-          <li>
-            <a href={`/${locale}/numerology/${calcSlug}/`} class="hover:text-amber-300 transition-colors">{calcName}</a>
-          </li>
-          <li>/</li>
-          <li class="text-amber-200 font-bold" aria-current="page">Number {currentNum}</li>
-        </ol>
-      </nav>
+  <!-- Hero Header Panel -->
+  <section class="bg-[#231530] text-white py-12 px-4 border-b-2 border-[#C4A052]">
+    <div class="max-w-4xl mx-auto space-y-4">
+      <Breadcrumbs items={breadcrumbItems} locale={currentLocale} />
 
-      <div class="inline-flex items-center justify-center p-4 rounded-full bg-amber-400/20 text-amber-300 ring-2 ring-amber-400/40 mb-2">
-        <Icon symbol={calcConfig.icon || "🔮"} size="lg" />
-      </div>
-      <h1 class="text-4xl sm:text-5xl font-black font-heading bg-gradient-to-r from-amber-200 via-pink-200 to-white bg-clip-text text-transparent">
-        {calcName} Number {currentNum}: Full Meaning & Archetype
+      <span class="text-xs uppercase tracking-widest text-[#C4A052] font-mono font-bold bg-white/10 px-3 py-1 rounded inline-block border border-[#C4A052]/40">
+        {calcName.toUpperCase()} REFERENCE GUIDE
+      </span>
+      <h1 class="text-4xl sm:text-5xl font-serif font-bold text-amber-100">
+        {calcName} Number {currentNum}
       </h1>
-      <p class="text-purple-200 max-w-2xl mx-auto text-base sm:text-lg">
-        {currentContext.summary}
+      <p class="text-purple-200 max-w-xl text-base sm:text-lg font-serif">
+        {numberDetails.title} — {numberDetails.archetype}
       </p>
     </div>
   </section>
 
-  <div class="bg-gradient-to-b from-purple-50 via-pink-50/50 to-amber-50/30 py-12 px-4">
-    <div class="max-w-4xl mx-auto space-y-10">
+  <!-- Main Content Body -->
+  <div class="bg-[#FBF9F5] py-10 px-4 text-[#1C1625]">
+    <div class="max-w-4xl mx-auto space-y-8">
 
-      <!-- Navigation & Action Bar -->
-      <div class="flex items-center justify-between">
-        <a href={`/${locale}/numerology/${calcSlug}/`} class="inline-flex items-center gap-2 text-xs font-bold text-purple-700 hover:text-purple-900 font-mono">
-          <span>← Back to {calcName} Directory</span>
+      <!-- Quick Action Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <a href={`/${currentLocale}/numerology/${calcSlug}/`} class="text-xs font-bold text-[#231530] hover:underline font-mono">
+          ← Back to {calcName} Directory
         </a>
-        <a href={`/${locale}/calculators/${calcSlug}/`} class="inline-flex items-center gap-2 text-xs font-bold text-amber-700 hover:text-amber-900 font-mono bg-amber-100 px-3 py-1 rounded border border-amber-300">
-          <span>Run Interactive Calculator ⚡</span>
+        <a href={`/${currentLocale}/calculators/${calcSlug}/`} class="btn-retro text-xs inline-block">
+          Run Interactive {calcName} Calculator ⚡
         </a>
       </div>
 
-
-      <!-- Quick Summary Card -->
-      <Card variant="glow" class="py-8 text-center space-y-4">
-        <span class="text-xs uppercase tracking-widest text-amber-300 font-bold">{calcName.toUpperCase()} VIBRATION</span>
-        <div class="text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-pink-300 font-heading">
-          {currentNum}
-        </div>
-        <h2 class="text-2xl font-bold text-white">Specific Energy of {calcName} Number {currentNum}</h2>
-        <p class="text-purple-100 max-w-xl mx-auto text-sm leading-relaxed">
-          {currentContext.summary}
+      <!-- Overview Card -->
+      <article class="ref-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-2xl font-serif font-bold text-[#1C1625] border-b border-[#D8D0C5] pb-3 flex items-center gap-2">
+          <span>📜</span>
+          <span>1. Core Archetypal Meaning of Number {currentNum}</span>
+        </h2>
+        <p class="text-sm text-[#1C1625] leading-relaxed">
+          {numberDetails.summary}
         </p>
-      </Card>
 
-      <!-- Section 1: Personality Traits -->
-      <Card variant="elevated" class="space-y-4 bg-white border border-purple-200">
-        <h3 class="text-2xl font-bold text-purple-950 font-heading border-b border-purple-100 pb-2">
-          1. Core Archetypal Traits for {calcName} {currentNum}
-        </h3>
-        <p class="text-sm text-purple-900 leading-relaxed">
-          {currentContext.traits}
-        </p>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-          <div class="p-4 bg-purple-50 rounded-xl border border-purple-100">
-            <h4 class="font-bold text-purple-900 text-sm mb-1">Key Strengths</h4>
-            <p class="text-xs text-purple-700">Deep focus, resilience, decisive action, and clear boundary management.</p>
+          <div class="p-4 bg-[#FFFFFF] rounded border border-emerald-300 space-y-2">
+            <h3 class="font-bold text-emerald-950 text-xs uppercase tracking-wider font-mono">Core Strengths & Powers</h3>
+            <ul class="space-y-1 text-xs text-stone-700">
+              {numberDetails.strengths.map((s) => (
+                <li class="flex items-center gap-1.5"><span class="text-emerald-600 font-bold">✓</span><span>{s}</span></li>
+              ))}
+            </ul>
           </div>
-          <div class="p-4 bg-pink-50 rounded-xl border border-pink-100">
-            <h4 class="font-bold text-pink-900 text-sm mb-1">Growth Challenges</h4>
-            <p class="text-xs text-pink-700">Patience cultivation, avoiding over-extension, and balancing emotional clarity.</p>
+
+          <div class="p-4 bg-[#FFFFFF] rounded border border-rose-300 space-y-2">
+            <h3 class="font-bold text-rose-950 text-xs uppercase tracking-wider font-mono">Growth Challenges</h3>
+            <ul class="space-y-1 text-xs text-stone-700">
+              {numberDetails.challenges.map((c) => (
+                <li class="flex items-center gap-1.5"><span class="text-rose-600 font-bold">!</span><span>{c}</span></li>
+              ))}
+            </ul>
           </div>
         </div>
-      </Card>
+      </article>
 
-      <!-- Section 2: Career Alignment -->
-      <Card variant="elevated" class="space-y-4 bg-white border border-purple-200">
-        <h3 class="text-2xl font-bold text-purple-950 font-heading border-b border-purple-100 pb-2">
-          2. Career & Professional Vocation
-        </h3>
-        <p class="text-sm text-purple-900 leading-relaxed">
-          {currentContext.career}
-        </p>
-      </Card>
+      <!-- Vocation & Relationships Card -->
+      <article class="ref-card p-6 sm:p-8 space-y-6">
+        <h2 class="text-2xl font-serif font-bold text-[#1C1625] border-b border-[#D8D0C5] pb-3 flex items-center gap-2">
+          <span>💼</span>
+          <span>2. Vocation & Relationship Dynamics</span>
+        </h2>
 
-      <!-- Section 3: Love & Compatibility -->
-      <Card variant="elevated" class="space-y-4 bg-white border border-purple-200">
-        <h3 class="text-2xl font-bold text-purple-950 font-heading border-b border-purple-100 pb-2">
-          3. Love, Relationships & Relational Synergy
-        </h3>
-        <p class="text-sm text-purple-900 leading-relaxed">
-          {currentContext.love}
-        </p>
-      </Card>
+        <div class="space-y-4">
+          <div class="p-4 bg-[#F5F2EB] rounded border border-[#D8D0C5] space-y-1">
+            <h4 class="text-xs font-bold text-[#231530] font-serif">Career & Professional Vocation</h4>
+            <p class="text-xs text-[#524B5A] leading-relaxed">{numberDetails.vocationAdvice}</p>
+          </div>
 
-      <!-- All Number Navigation Links Cluster -->
-      <div class="pt-6 space-y-4">
-        <h3 class="text-xl font-bold text-purple-950 font-heading text-center">
+          <div class="p-4 bg-[#F5F2EB] rounded border border-[#D8D0C5] space-y-1">
+            <h4 class="text-xs font-bold text-[#231530] font-serif">Love, Relationships & Synergy</h4>
+            <p class="text-xs text-[#524B5A] leading-relaxed">{numberDetails.relationshipAdvice}</p>
+          </div>
+
+          <div class="p-4 bg-[#FFFFFF] rounded border border-[#C4A052] space-y-1">
+            <h4 class="text-xs font-bold text-[#9E7B3B] font-serif">Common Misconceptions</h4>
+            <p class="text-xs text-[#524B5A] leading-relaxed">{numberDetails.misconceptions}</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Calculation Breakdown -->
+      <CalculationBreakdown
+        title={`Arithmetic Calculation Procedure for ${calcName}`}
+        steps={sampleMathSteps}
+        finalResult={currentNum}
+        isMasterNumber={currentNum === 11 || currentNum === 22 || currentNum === 33}
+      />
+
+      <!-- Methodology Disclosures & Disclaimer -->
+      <MethodologyBox
+        title="Pythagorean Numerology Methodology"
+        systemName="Pythagorean Numerical Transliteration System"
+        summary="Calculations use the classical Pythagorean system where numbers are reduced to single digits (1-9), preserving Master Numbers (11, 22, 33)."
+        whyResultMayDiffer="Different numerology traditions treat master numbers or reduction steps differently. Souliography follows classical Pythagorean period reduction rules."
+      />
+
+      <DisclaimerBox />
+
+      <!-- All Numbers Navigation Cluster -->
+      <div class="pt-4 space-y-4 text-center">
+        <h3 class="text-lg font-serif font-bold text-[#1C1625]">
           Explore Other Number Meanings for {calcName}
         </h3>
         <div class="flex flex-wrap justify-center gap-2">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33].map((n) => (
             <a
-              href={`/${locale}/numerology/${calcSlug}/${n}/`}
-              class={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${n === currentNum ? 'bg-purple-600 text-white shadow-md' : 'bg-white text-purple-900 border border-purple-200 hover:border-purple-400'}`}
+              href={`/${currentLocale}/numerology/${calcSlug}/${n}/`}
+              class={`px-3 py-1.5 rounded text-xs font-bold transition-all border ${n === currentNum ? 'bg-[#231530] text-[#C4A052] border-[#C4A052]' : 'bg-white text-[#1C1625] border-[#D8D0C5] hover:border-[#C4A052]'}`}
             >
               Number {n}
             </a>

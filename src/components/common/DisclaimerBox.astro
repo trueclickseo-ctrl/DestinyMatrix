@@ -1,0 +1,15 @@
+---
+interface Props {
+  text?: string;
+}
+
+const { text = 'Souliography provides numerology and Destiny Matrix readings strictly as educational self-reflection tools. Calculations are mathematically deterministic according to stated traditions, but interpretations are non-scientific and should not replace professional medical, legal, or psychological guidance.' } = Astro.props;
+---
+
+<div class="p-4 rounded bg-[#FBF9F5] border border-[#D8D0C5] text-xs text-[#524B5A] leading-relaxed flex items-start gap-2.5">
+  <span class="text-sm">⚖️</span>
+  <div>
+    <strong class="font-bold text-[#1C1625] block mb-0.5">Self-Reflection & Non-Dogmatic Disclaimer</strong>
+    <p>{text}</p>
+  </div>
+</div>

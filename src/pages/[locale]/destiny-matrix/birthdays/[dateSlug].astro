@@ -1,230 +1,200 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import { MAJOR_ARCANA_DATABASE, getLocalizedArcanaEntry } from '../../../../data/arcana';
+import Breadcrumbs from '../../../../components/common/Breadcrumbs.astro';
+import DisclaimerBox from '../../../../components/common/DisclaimerBox.astro';
+import MethodologyBox from '../../../../components/common/MethodologyBox.astro';
+import { getBirthdayProfile, getAllBirthdayProfiles } from '../../../../data/birthdays';
 import { supportedLocales } from '../../../../config/locales.config';
 import { t } from '../../../../i18n';
 
 export function getStaticPaths() {
-  const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+  const allProfiles = getAllBirthdayProfiles();
   const paths = [];
 
   for (const locale of supportedLocales) {
-    for (let m = 0; m < 12; m++) {
-      for (let d = 1; d <= 31; d++) {
-        if (m === 1 && d > 29) continue;
-        if ([3, 5, 8, 10].includes(m) && d > 30) continue;
-        paths.push({
-          params: {
-            locale,
-            dateSlug: `${months[m]}-${d}`
-          }
-        });
-      }
+    for (const profile of allProfiles) {
+      paths.push({
+        params: {
+          locale,
+          dateSlug: profile.slug,
+        },
+      });
     }
   }
   return paths;
 }
 
 const { locale = 'en', dateSlug } = Astro.params;
-const parts = (dateSlug || 'january-1').split('-');
-const monthName = parts[0] ? parts[0].charAt(0).toUpperCase() + parts[0].slice(1) : 'January';
-const dayNum = parseInt(parts[1] || '1', 10);
-const formattedDate = `${monthName} ${dayNum}`;
+const currentLocale = locale;
 
-// Calculate Day Arcana (1-22)
-let dayArcanaNum = dayNum;
-while (dayArcanaNum > 22) {
-  dayArcanaNum = dayArcanaNum.toString().split('').reduce((a, b) => a + parseInt(b, 10), 0);
-}
-if (dayArcanaNum <= 0) dayArcanaNum = 1;
-
-const dayArcana = MAJOR_ARCANA_DATABASE[dayArcanaNum] || MAJOR_ARCANA_DATABASE[1];
-
-const monthList = [
-  { name: 'January', slug: 'january', days: 31 },
-  { name: 'February', slug: 'february', days: 29 },
-  { name: 'March', slug: 'march', days: 31 },
-  { name: 'April', slug: 'april', days: 30 },
-  { name: 'May', slug: 'may', days: 31 },
-  { name: 'June', slug: 'june', days: 30 },
-  { name: 'July', slug: 'july', days: 31 },
-  { name: 'August', slug: 'august', days: 31 },
-  { name: 'September', slug: 'september', days: 30 },
-  { name: 'October', slug: 'october', days: 31 },
-  { name: 'November', slug: 'november', days: 30 },
-  { name: 'December', slug: 'december', days: 31 },
-];
-
-const allDates: { slug: string; title: string }[] = [];
-for (const m of monthList) {
-  for (let d = 1; d <= m.days; d++) {
-    allDates.push({
-      slug: `${m.slug}-${d}`,
-      title: `${m.name} ${d}`,
-    });
-  }
-}
-
-const currentIndex = allDates.findIndex((item) => item.slug === dateSlug);
+const allProfiles = getAllBirthdayProfiles();
+const currentIndex = allProfiles.findIndex((p) => p.slug === dateSlug);
 const validIndex = currentIndex >= 0 ? currentIndex : 0;
-const totalDates = allDates.length;
+const profile = allProfiles[validIndex] || allProfiles[0];
 
-// Get ±3 adjacent dates with circular wrap-around
+// Get ±3 adjacent dates
+const totalDates = allProfiles.length;
 const adjacentDates = [];
 for (let offset = -3; offset <= 3; offset++) {
   if (offset === 0) continue;
   let idx = (validIndex + offset) % totalDates;
   if (idx < 0) idx += totalDates;
-  adjacentDates.push(allDates[idx]);
+  adjacentDates.push(allProfiles[idx]);
 }
+
+const pageTitle = `${profile.formattedDate} Destiny Matrix Profile & Soul Vibration | Souliography`;
+const pageDesc = `Detailed Destiny Matrix birthday guide for ${profile.formattedDate}. Discover personal purpose, Arcana ${profile.primaryArcanaNum} (${profile.primaryArcana.name}) influences, seasonal context, and practical reflection questions.`;
+
+const breadcrumbItems = [
+  { label: 'Destiny Matrix', href: `/${currentLocale}/` },
+  { label: 'Birthdays Directory', href: `/${currentLocale}/destiny-matrix/birthdays/` },
+  { label: profile.formattedDate },
+];
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Home',
-      item: `https://souliography.com/${locale}/`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Destiny Matrix',
-      item: `https://souliography.com/${locale}/`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: 'Birthdays',
-      item: `https://souliography.com/${locale}/destiny-matrix/birthdays/`,
-    },
-    {
-      '@type': 'ListItem',
-      position: 4,
-      name: formattedDate,
-      item: `https://souliography.com/${locale}/destiny-matrix/birthdays/${dateSlug}/`,
-    },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `https://souliography.com/${currentLocale}/` },
+    { '@type': 'ListItem', position: 2, name: 'Birthdays', item: `https://souliography.com/${currentLocale}/destiny-matrix/birthdays/` },
+    { '@type': 'ListItem', position: 3, name: profile.formattedDate, item: `https://souliography.com/${currentLocale}/destiny-matrix/birthdays/${dateSlug}/` },
   ],
 };
 ---
 
-<BaseLayout
-  title={`${formattedDate} Destiny Matrix Reading & Soul Archetype | Souliography`}
-  description={`Discover the complete 22 Arcana Destiny Matrix reading for ${formattedDate}. Explore personal purpose, Arcana ${dayArcana.number} (${dayArcana.name}) influence, money line, and spiritual vocation.`}
-  locale={locale}
->
+<BaseLayout title={pageTitle} description={pageDesc} locale={currentLocale}>
   <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
-  <section class="bg-gradient-to-b from-stone-900 via-purple-950 to-slate-950 text-white py-16 px-4 text-center">
+  <!-- Hero Header Panel -->
+  <section class="bg-[#231530] text-white py-12 px-4 border-b-2 border-[#C4A052]">
     <div class="max-w-4xl mx-auto space-y-4">
-      
-      <!-- HTML Breadcrumbs -->
-      <nav aria-label="Breadcrumb" class="mb-4">
-        <ol class="inline-flex items-center gap-2 text-xs text-purple-300 font-mono">
-          <li>
-            <a href={`/${locale}/`} class="hover:text-amber-300 transition-colors">Home</a>
-          </li>
-          <li>/</li>
-          <li>
-            <a href={`/${locale}/destiny-matrix/birthdays/`} class="hover:text-amber-300 transition-colors">Birthdays Directory</a>
-          </li>
-          <li>/</li>
-          <li class="text-amber-200 font-bold" aria-current="page">{formattedDate}</li>
-        </ol>
-      </nav>
+      <Breadcrumbs items={breadcrumbItems} locale={currentLocale} />
 
-      <span class="text-xs uppercase tracking-widest text-amber-400 font-extrabold bg-white/10 px-4 py-1.5 rounded-full block w-max mx-auto">
-        BIRTHDATE DESTINY MATRIX READING
+      <span class="text-xs uppercase tracking-widest text-[#C4A052] font-mono font-bold bg-white/10 px-3 py-1 rounded inline-block border border-[#C4A052]/40">
+        365 BIRTHDATE DESTINY MATRIX REFERENCE
       </span>
-      <h1 class="text-4xl sm:text-6xl font-serif font-bold text-amber-100">
-        {formattedDate} Destiny Matrix Profile
+      <h1 class="text-4xl sm:text-5xl font-serif font-bold text-amber-100">
+        {profile.formattedDate} Destiny Matrix Profile
       </h1>
-      <p class="text-purple-200 max-w-xl mx-auto text-base sm:text-lg">
-        Soul archetype governed by <strong>Arcana {dayArcana.number}: {dayArcana.name}</strong>.
+      <p class="text-purple-200 max-w-xl text-base sm:text-lg font-serif">
+        Primary birth vibration governed by <strong>Arcana {profile.primaryArcanaNum}: {profile.primaryArcana.name}</strong>.
       </p>
     </div>
   </section>
 
-  <div class="bg-stone-50 py-12 px-4">
+  <!-- Main Content Body -->
+  <div class="bg-[#FBF9F5] py-10 px-4 text-[#1C1625]">
     <div class="max-w-4xl mx-auto space-y-8">
-      
+
       <!-- Core Arcana Integration Card -->
-      <div class="bg-white rounded-3xl p-8 border border-stone-200 shadow-sm space-y-4">
-        <div class="flex justify-between items-center border-b border-stone-100 pb-3">
-          <h2 class="text-2xl font-serif text-teal-950 font-bold">
-            Core Birth Archetype: Arcana {dayArcana.number} ({dayArcana.name})
+      <article class="ref-card p-6 sm:p-8 space-y-4">
+        <div class="flex flex-wrap items-center justify-between border-b border-[#D8D0C5] pb-3 gap-2">
+          <h2 class="text-2xl font-serif font-bold text-[#1C1625]">
+            Birth Archetype: Arcana {profile.primaryArcanaNum} ({profile.primaryArcana.name})
           </h2>
           <a
-            href={`/${locale}/destiny-matrix/arcana/${dayArcana.number}-${dayArcana.name.toLowerCase().replace(/\s+/g, '-')}/`}
-            class="text-xs font-bold text-purple-700 hover:underline font-mono"
+            href={`/${currentLocale}/destiny-matrix/arcana/${profile.primaryArcanaNum}-${profile.primaryArcana.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}/`}
+            class="text-xs font-bold text-[#231530] hover:text-[#9E7B3B] font-mono underline"
           >
-            Read Arcana {dayArcana.number} Guide →
+            Read Arcana {profile.primaryArcanaNum} Encyclopedia Guide →
           </a>
         </div>
-        <p class="text-sm text-stone-700 leading-relaxed font-normal">
-          Individuals born on <strong>{formattedDate}</strong> embody the primary vibration of <strong>{dayArcana.name}</strong> ({dayArcana.archetype}). This birth frequency shapes your core personality, leadership style, and sub-conscious motivators.
+        <p class="text-sm text-[#1C1625] leading-relaxed font-normal">
+          Individuals born on <strong>{profile.formattedDate}</strong> carry the foundational frequency of <strong>{profile.primaryArcana.name}</strong> ({profile.primaryArcana.archetype}). This vibration influences your primary approach to leadership, creative projects, and personal decisions.
         </p>
+
+        <!-- Seasonal & Day Context -->
+        <div class="p-4 bg-[#F5F2EB] rounded border border-[#D8D0C5] space-y-1 pt-3">
+          <h3 class="text-xs font-mono font-bold uppercase text-[#9E7B3B] tracking-wider">Seasonal & Calendar Context</h3>
+          <p class="text-xs text-[#524B5A] leading-relaxed">{profile.seasonalContext}</p>
+          <p class="text-xs text-[#1C1625] leading-relaxed pt-1 font-medium">{profile.dayVibrationNote}</p>
+        </div>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-          <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100 space-y-1">
-            <h4 class="font-bold text-emerald-950 text-xs uppercase tracking-wider font-mono">Positive Vibration</h4>
-            <p class="text-xs text-emerald-900 leading-relaxed">{dayArcana.positiveExpression}</p>
+          <div class="p-4 bg-[#FFFFFF] rounded border border-emerald-300 space-y-1">
+            <h4 class="font-bold text-emerald-950 text-xs uppercase tracking-wider font-mono">Constructive High Frequency</h4>
+            <p class="text-xs text-emerald-900 leading-relaxed">{profile.primaryArcana.positiveExpression}</p>
           </div>
-          <div class="p-4 bg-rose-50 rounded-xl border border-rose-100 space-y-1">
-            <h4 class="font-bold text-rose-950 text-xs uppercase tracking-wider font-mono">Shadow Challenge</h4>
-            <p class="text-xs text-rose-900 leading-relaxed">{dayArcana.shadowExpression}</p>
+          <div class="p-4 bg-[#FFFFFF] rounded border border-rose-300 space-y-1">
+            <h4 class="font-bold text-rose-950 text-xs uppercase tracking-wider font-mono">Shadow Challenges</h4>
+            <p class="text-xs text-rose-900 leading-relaxed">{profile.primaryArcana.shadowExpression}</p>
           </div>
         </div>
-      </div>
+      </article>
 
-      <!-- Vocation & Money Channel -->
-      <div class="bg-white rounded-3xl p-8 border border-stone-200 shadow-sm space-y-4">
-        <h3 class="text-xl font-serif font-bold text-stone-900 border-b border-stone-100 pb-2">
-          Career Vocation & Financial Channel for {formattedDate}
+      <!-- Career Vocation & Money Channel -->
+      <article class="ref-card p-6 sm:p-8 space-y-4">
+        <h3 class="text-xl font-serif font-bold text-[#1C1625] border-b border-[#D8D0C5] pb-2">
+          Vocation & Financial Flow for {profile.formattedDate}
         </h3>
-        <p class="text-xs text-stone-700 leading-relaxed">
-          <strong>Ideal Career Path:</strong> {dayArcana.careerGuidance}
+        <p class="text-xs text-[#524B5A] leading-relaxed">
+          <strong>Ideal Vocation Alignment:</strong> {profile.primaryArcana.careerGuidance}
         </p>
-        <p class="text-xs text-stone-700 leading-relaxed">
-          <strong>Money Line Activation:</strong> {dayArcana.moneyChannel}
+        <p class="text-xs text-[#524B5A] leading-relaxed">
+          <strong>Money Line Activation:</strong> {profile.primaryArcana.moneyChannel}
         </p>
+      </article>
+
+      <!-- Practical Self-Reflection Prompts -->
+      <article class="ref-card p-6 sm:p-8 space-y-4 bg-[#231530] text-white border-2 border-[#C4A052]">
+        <h3 class="text-xl font-serif font-bold text-[#C4A052] flex items-center gap-2">
+          <span>🔮</span>
+          <span>Self-Reflection Questions for {profile.formattedDate}</span>
+        </h3>
+        <ul class="space-y-2 pt-1">
+          {profile.reflectionQuestions.map((q) => (
+            <li class="flex items-start gap-2.5 text-xs text-stone-200">
+              <span class="text-[#C4A052] font-bold">›</span>
+              <span>{q}</span>
+            </li>
+          ))}
+        </ul>
+      </article>
+
+      <!-- Interactive Calculator Callout -->
+      <div class="ref-card p-6 bg-[#F5F2EB] border border-[#C4A052] flex flex-wrap items-center justify-between gap-4">
+        <div class="space-y-1 max-w-xl">
+          <h3 class="text-lg font-serif font-bold text-[#1C1625]">Calculate Your Complete Birth Year Matrix</h3>
+          <p class="text-xs text-[#524B5A] leading-relaxed">
+            Combine your birth day ({profile.formattedDate}) with your birth year in our live calculator for full 7 Chakra energy tables, personal money lines, and AI interpretation.
+          </p>
+        </div>
+        <a href={`/${currentLocale}/`} class="btn-retro inline-block">
+          Open Destiny Matrix Calculator →
+        </a>
       </div>
 
       <!-- Adjacent Dates Navigation Section -->
-      <div class="bg-white rounded-3xl p-8 border border-stone-200 shadow-sm space-y-4">
-        <div class="flex items-center justify-between border-b border-stone-100 pb-3">
-          <h3 class="text-lg font-serif font-bold text-stone-900">
+      <div class="ref-card p-6 space-y-4">
+        <div class="flex items-center justify-between border-b border-[#D8D0C5] pb-3">
+          <h3 class="text-base font-serif font-bold text-[#1C1625]">
             Explore Nearby Birthdates
           </h3>
-          <a href={`/${locale}/destiny-matrix/birthdays/`} class="text-xs font-bold text-purple-700 hover:underline font-mono">
+          <a href={`/${currentLocale}/destiny-matrix/birthdays/`} class="text-xs font-bold text-[#231530] hover:underline font-mono">
             View All 365 Dates →
           </a>
         </div>
-        <div class="flex flex-wrap gap-2 pt-2">
+        <div class="flex flex-wrap gap-2 pt-1">
           {adjacentDates.map((item) => (
             <a
-              href={`/${locale}/destiny-matrix/birthdays/${item.slug}/`}
-              class="px-3 py-1.5 bg-purple-50 hover:bg-purple-600 text-purple-900 hover:text-white rounded-lg text-xs font-bold transition-all border border-purple-100"
+              href={`/${currentLocale}/destiny-matrix/birthdays/${item.slug}/`}
+              class="px-3 py-1.5 bg-[#F5F2EB] hover:bg-[#231530] text-[#1C1625] hover:text-[#C4A052] rounded text-xs font-bold transition-all border border-[#D8D0C5]"
             >
-              {item.title}
+              {item.formattedDate}
             </a>
           ))}
         </div>
       </div>
 
-      <!-- Live Engine Callout Card -->
-      <div class="bg-gradient-to-r from-purple-900 to-slate-900 text-white rounded-3xl p-8 space-y-4 shadow-lg">
-        <h3 class="text-xl font-serif font-bold text-amber-200">Calculate Your Complete Birth Year Chart</h3>
-        <p class="text-xs text-purple-100 leading-relaxed font-medium">
-          Combine your birth day ({formattedDate}) with your birth year in our live calculator for full 7 Chakra energy tables, personal money lines, and AI interpretation.
-        </p>
-        <a href={`/${locale}/`} class="inline-block px-6 py-3 rounded-xl bg-amber-400 text-stone-950 font-bold text-xs hover:bg-amber-500 transition-all">
-          Open Live Destiny Matrix Engine →
-        </a>
-      </div>
+      <MethodologyBox
+        title="Birthday Profile Methodology"
+        systemName="Natalia Ladini 22 Arcana Birth Date Mapping"
+        summary="Calculations map your birth day to its corresponding Arcana frequency (1-22) within the Destiny Matrix framework."
+        disclosures="Birth date profiles serve as self-reflection tools."
+      />
+
+      <DisclaimerBox />
 
     </div>
   </div>
 </BaseLayout>
-
