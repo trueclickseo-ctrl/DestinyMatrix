@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/common/Breadcrumbs.astro';
+import { supportedLocales } from '../../../config/locales.config';
+import { t } from '../../../i18n';
+
+export function getStaticPaths() {
+  return supportedLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.params;
+
+const breadcrumbs = [
+  { label: 'Home', href: `/${locale}/` },
+  { label: t('nav.guides', locale) },
+];
+
+const guidesList = [
+  {
+    slug: 'destiny-matrix-vs-life-path',
+    title: 'Destiny Matrix vs. Life Path Numerology: What Is the Difference?',
+    desc: 'Understand how classical Pythagorean Life Path numbers compare with Natalia Ladini’s 22 Arcana Destiny Matrix system.',
+    category: 'Comparative Numerology',
+  },
+  {
+    slug: 'how-to-read-destiny-matrix',
+    title: 'How to Read a Destiny Matrix Soul Chart: Step-by-Step Guide',
+    desc: 'Learn to interpret core matrix nodes, Money Lines, Love Lines, Karmic Tails, and the 7-chakra energy table.',
+    category: 'Chart Interpretation',
+  },
+  {
+    slug: 'master-numbers-explained',
+    title: 'Master Numbers (11, 22, 33) in Pythagorean Numerology',
+    desc: 'Discover why master numbers are preserved without single-digit reduction and what spiritual frequencies they carry.',
+    category: 'Numerology Theory',
+  },
+];
+---
+
+<BaseLayout
+  title={`${t('nav.guides', locale)} & Educational Articles | Souliography`}
+  description="In-depth educational guides explaining Destiny Matrix chart reading, Pythagorean numerology theory, and master number interpretations."
+  locale={locale}
+>
+  <section class="bg-[#231530] text-white py-12 px-4 border-b-2 border-[#C4A052]">
+    <div class="max-w-5xl mx-auto space-y-4 text-center">
+      <Breadcrumbs items={breadcrumbs} locale={locale} />
+      <span class="text-xs uppercase tracking-widest text-[#C4A052] font-mono font-bold bg-white/10 px-3 py-1 rounded inline-block border border-[#C4A052]/40">
+        Educational Reference Library
+      </span>
+      <h1 class="text-4xl sm:text-5xl font-serif font-bold text-amber-100">
+        {t('nav.guides', locale)} & Reference Articles
+      </h1>
+      <p class="text-purple-200 max-w-2xl mx-auto text-sm sm:text-base font-serif">
+        In-depth guides explaining chart structures, calculation traditions, and esoteric numerology concepts.
+      </p>
+    </div>
+  </section>
+
+  <main class="py-12 px-4 max-w-5xl mx-auto space-y-8 text-[#1C1625]">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {guidesList.map((guide) => (
+        <div class="ref-card p-6 bg-white border border-[#D8D0C5] hover:border-[#C4A052] transition-colors rounded space-y-3 flex flex-col justify-between">
+          <div class="space-y-2">
+            <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-[#9E7B3B] bg-[#FBF9F5] px-2 py-0.5 rounded border border-[#D8D0C5]">
+              {guide.category}
+            </span>
+            <h2 class="font-serif font-bold text-lg text-[#231530]">
+              {guide.title}
+            </h2>
+            <p class="text-xs text-[#524B5A] leading-relaxed">
+              {guide.desc}
+            </p>
+          </div>
+          <div class="pt-3 border-t border-[#D8D0C5]">
+            <a href={`/${locale}/`} class="btn-retro w-full text-center block text-xs">
+              Read Reference Guide →
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </main>
+</BaseLayout>

@@ -1,11 +1,10 @@
 ---
 import { brandConfig } from '../config/brand.config';
 import { localesConfig } from '../config/locales.config';
-import { t } from '../i18n';
 import { SEOEngine } from '../engines/seo';
 import { SchemaEngine } from '../engines/schema';
-import LanguageSwitcher from '../components/common/LanguageSwitcher.astro';
-import Footer from '../components/common/Footer.astro';
+import SiteNavigation from '../components/navigation/SiteNavigation.astro';
+import FooterNavigation from '../components/navigation/FooterNavigation.astro';
 import '../design-system/global.css';
 
 interface Props {
@@ -29,14 +28,8 @@ const seoMeta = SEOEngine.generateMeta({
   availableLocales: Object.keys(localesConfig),
 });
 
-// Use custom OG description if provided, otherwise fall back to meta description
 const ogDesc = ogDescription ?? description;
-
 const websiteSchema = SchemaEngine.generateWebSiteSchema(`https://${brandConfig.domain}`);
-
-// Hero image URL for preload (LCP optimisation)
-const heroImage = '/homepage_hero_bright.jpg';
-const isHomePage = Astro.url.pathname === `/${locale}` || Astro.url.pathname === `/${locale}/`;
 ---
 
 <!DOCTYPE html>
@@ -49,7 +42,7 @@ const isHomePage = Astro.url.pathname === `/${locale}` || Astro.url.pathname ===
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
-    <meta name="theme-color" content="#48205E" />
+    <meta name="theme-color" content="#231530" />
 
     <!-- Manifest -->
     <link rel="manifest" href="/manifest.json" />
@@ -57,35 +50,30 @@ const isHomePage = Astro.url.pathname === `/${locale}` || Astro.url.pathname ===
     <!-- Title & Description -->
     <title>{seoMeta.title}</title>
     <meta name="description" content={seoMeta.description} />
-    <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'} />
+
+    <!-- Robots -->
+    <meta name="robots" content={noIndex ? "noindex, nofollow" : "index, follow"} />
 
     <!-- Canonical & Hreflang -->
     <link rel="canonical" href={seoMeta.canonical} />
-    <link rel="alternate" hreflang="x-default" href={`https://${brandConfig.domain}/en/`} />
-    {seoMeta.hreflangs.map((item) => (
-      <link rel="alternate" hreflang={item.lang} href={item.href} />
+    {seoMeta.hreflangs.map((h) => (
+      <link rel="alternate" hreflang={h.lang} href={h.href} />
     ))}
 
     <!-- OpenGraph -->
     <meta property="og:title" content={seoMeta.openGraph.title} />
     <meta property="og:description" content={ogDesc} />
     <meta property="og:url" content={seoMeta.openGraph.url} />
-    <meta property="og:image" content={`https://${brandConfig.domain}${seoMeta.openGraph.image}`} />
-    <meta property="og:type" content={seoMeta.openGraph.type} />
+    <meta property="og:image" content={seoMeta.openGraph.image} />
+    <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Souliography" />
-    <meta property="og:locale" content={locale === 'ar' ? 'ar_SA' : locale === 'pt' ? 'pt_BR' : 'en_US'} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={seoMeta.openGraph.title} />
+    <meta name="twitter:title" content={seoMeta.title} />
     <meta name="twitter:description" content={ogDesc} />
-    <meta name="twitter:image" content={`https://${brandConfig.domain}${seoMeta.openGraph.image}`} />
+    <meta name="twitter:image" content={seoMeta.openGraph.image} />
     <meta name="twitter:site" content="@souliography" />
-
-    <!-- Preload hero for LCP -->
-    {isHomePage && (
-      <link rel="preload" as="image" href={heroImage} fetchpriority="high" />
-    )}
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -95,26 +83,16 @@ const isHomePage = Astro.url.pathname === `/${locale}` || Astro.url.pathname ===
     <!-- Schema JSON-LD -->
     <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
   </head>
-  <body class="min-h-full flex flex-col bg-slate-50 text-slate-900 antialiased selection:bg-pink-500 selection:text-white">
-    <!-- Distinct Header with Digital Occult Reference Library styling -->
-    <header class="border-b-2 border-[#C4A052] bg-[#231530] text-white sticky top-0 z-50 shadow-md">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href={`/${locale}/`} class="flex items-center gap-2 font-extrabold text-xl tracking-wide text-white hover:text-amber-200 transition-colors">
-          <span class="text-xl text-amber-400">{brandConfig.logo.symbol}</span>
-          <span class="font-serif tracking-widest text-amber-100 uppercase text-lg">{brandConfig.name}</span>
-        </a>
-
-        <!-- Locale Switcher -->
-        <LanguageSwitcher currentLocale={locale} />
-      </div>
-    </header>
+  <body class="min-h-full flex flex-col bg-[#FBF9F5] text-[#1C1625] antialiased">
+    <!-- Global Persistent Header Navigation -->
+    <SiteNavigation locale={locale} currentPath={Astro.url.pathname} />
 
     <!-- Main Content -->
     <main class="flex-grow">
       <slot />
     </main>
 
-    <!-- Beautiful Soul Footer -->
-    <Footer locale={locale} />
+    <!-- Global Persistent Footer Navigation -->
+    <FooterNavigation locale={locale} />
   </body>
 </html>

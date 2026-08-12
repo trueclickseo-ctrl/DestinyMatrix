@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/common/Breadcrumbs.astro';
+import { numerologyCalculators } from '../../../config/calculators.config';
+import { supportedLocales } from '../../../config/locales.config';
+import { t } from '../../../i18n';
+
+export function getStaticPaths() {
+  return supportedLocales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale = 'en' } = Astro.params;
+
+const birthDateCalcs = numerologyCalculators.filter(c => c.inputType === 'date');
+const nameCalcs = numerologyCalculators.filter(c => c.inputType === 'name');
+const otherCalcs = numerologyCalculators.filter(c => c.inputType !== 'date' && c.inputType !== 'name');
+
+const breadcrumbs = [
+  { label: 'Home', href: `/${locale}/` },
+  { label: t('nav.calculators', locale) },
+];
+---
+
+<BaseLayout
+  title={`${t('nav.calculators', locale)} Directory | Souliography`}
+  description="Explore classical Pythagorean numerology and Natalia Ladini Destiny Matrix calculators for birth dates, legal names, and personal transits."
+  locale={locale}
+>
+  <!-- Hero Section -->
+  <section class="bg-[#231530] text-white py-12 px-4 border-b-2 border-[#C4A052]">
+    <div class="max-w-5xl mx-auto space-y-4 text-center">
+      <Breadcrumbs items={breadcrumbs} locale={locale} />
+      <span class="text-xs uppercase tracking-widest text-[#C4A052] font-mono font-bold bg-white/10 px-3 py-1 rounded inline-block border border-[#C4A052]/40">
+        Reference Library Directory
+      </span>
+      <h1 class="text-4xl sm:text-5xl font-serif font-bold text-amber-100">
+        {t('nav.calculators', locale)} Directory
+      </h1>
+      <p class="text-purple-200 max-w-2xl mx-auto text-sm sm:text-base font-serif">
+        All 26 classical Pythagorean numerology and Destiny Matrix calculators, categorized by birth date, legal name, and relationship parameters.
+      </p>
+    </div>
+  </section>
+
+  <!-- Categorized Calculator Panels -->
+  <section class="py-12 px-4 max-w-6xl mx-auto space-y-12 text-[#1C1625]">
+
+    <!-- Category 1: Birth Date Calculators -->
+    <div class="space-y-6">
+      <div class="border-b-2 border-[#C4A052] pb-2 flex items-center justify-between">
+        <h2 class="text-2xl font-serif font-bold text-[#231530] flex items-center gap-2">
+          <span>📅</span> Birth Date Calculators
+        </h2>
+        <span class="text-xs font-mono text-[#9E7B3B] font-bold uppercase tracking-wider bg-[#F5F2EB] px-2.5 py-1 rounded border border-[#D8D0C5]">
+          4 Tools
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {birthDateCalcs.map((calc) => (
+          <div class="ref-card p-6 space-y-3 bg-white border border-[#D8D0C5] rounded hover:border-[#C4A052] transition-colors flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="text-2xl">{calc.icon}</span>
+                <h3 class="text-lg font-serif font-bold text-[#231530]">
+                  {t(calc.titleKey, locale)}
+                </h3>
+              </div>
+              <p class="text-xs text-[#524B5A] leading-relaxed">
+                {t(calc.descKey, locale)}
+              </p>
+              <div class="text-[11px] font-mono text-[#9E7B3B] bg-[#FBF9F5] p-2 rounded border border-[#D8D0C5]/60 space-y-0.5">
+                <div><strong>Input:</strong> Date of Birth (YYYY-MM-DD)</div>
+                <div><strong>System:</strong> Pythagorean Period Reduction</div>
+              </div>
+            </div>
+            <div class="pt-3 border-t border-[#D8D0C5]">
+              <a href={`/${locale}/calculators/${calc.slug}/`} class="btn-retro w-full text-center block text-xs">
+                Calculate {t(calc.titleKey, locale)} →
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Category 2: Name Calculators -->
+    <div class="space-y-6">
+      <div class="border-b-2 border-[#C4A052] pb-2 flex items-center justify-between">
+        <h2 class="text-2xl font-serif font-bold text-[#231530] flex items-center gap-2">
+          <span>✍️</span> Name & Identity Calculators
+        </h2>
+        <span class="text-xs font-mono text-[#9E7B3B] font-bold uppercase tracking-wider bg-[#F5F2EB] px-2.5 py-1 rounded border border-[#D8D0C5]">
+          Pythagorean System
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {nameCalcs.map((calc) => (
+          <div class="ref-card p-6 space-y-3 bg-white border border-[#D8D0C5] rounded hover:border-[#C4A052] transition-colors flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="text-2xl">{calc.icon}</span>
+                <h3 class="text-lg font-serif font-bold text-[#231530]">
+                  {t(calc.titleKey, locale)}
+                </h3>
+              </div>
+              <p class="text-xs text-[#524B5A] leading-relaxed">
+                {t(calc.descKey, locale)}
+              </p>
+              <div class="text-[11px] font-mono text-[#9E7B3B] bg-[#FBF9F5] p-2 rounded border border-[#D8D0C5]/60 space-y-0.5">
+                <div><strong>Input:</strong> Full Legal Name</div>
+                <div><strong>System:</strong> Pythagorean Letter Transliteration (A=1...Z=8)</div>
+              </div>
+            </div>
+            <div class="pt-3 border-t border-[#D8D0C5]">
+              <a href={`/${locale}/calculators/${calc.slug}/`} class="btn-retro w-full text-center block text-xs">
+                Calculate {t(calc.titleKey, locale)} →
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Category 3: Relationships & Special Calculators -->
+    <div class="space-y-6">
+      <div class="border-b-2 border-[#C4A052] pb-2 flex items-center justify-between">
+        <h2 class="text-2xl font-serif font-bold text-[#231530] flex items-center gap-2">
+          <span>💞</span> Relationship & Life Parameter Calculators
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {otherCalcs.map((calc) => (
+          <div class="ref-card p-6 space-y-3 bg-white border border-[#D8D0C5] rounded hover:border-[#C4A052] transition-colors flex flex-col justify-between">
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="text-2xl">{calc.icon}</span>
+                <h3 class="text-lg font-serif font-bold text-[#231530]">
+                  {t(calc.titleKey, locale)}
+                </h3>
+              </div>
+              <p class="text-xs text-[#524B5A] leading-relaxed">
+                {t(calc.descKey, locale)}
+              </p>
+            </div>
+            <div class="pt-3 border-t border-[#D8D0C5]">
+              <a href={`/${locale}/calculators/${calc.slug}/`} class="btn-retro w-full text-center block text-xs">
+                Calculate →
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </section>
+</BaseLayout>

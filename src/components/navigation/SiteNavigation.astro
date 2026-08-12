@@ -1,0 +1,144 @@
+---
+import LanguageSwitcher from '../common/LanguageSwitcher.astro';
+import { t } from '../../i18n';
+
+interface Props {
+  locale?: string;
+  currentPath?: string;
+}
+
+const { locale = 'en', currentPath = '' } = Astro.props;
+
+// Active route checkers
+const isNumerologyActive = currentPath.includes('/numerology');
+const isDestinyMatrixActive = currentPath.includes('/destiny-matrix') && !currentPath.includes('/arcana') && !currentPath.includes('/birthdays');
+const isCalculatorsActive = currentPath.includes('/calculators');
+const isArcanaActive = currentPath.includes('/arcana');
+const isBirthdaysActive = currentPath.includes('/birthdays');
+const isGuidesActive = currentPath.includes('/guides');
+
+const navHome = t('nav.home', locale);
+const navNumerology = t('nav.numerology', locale);
+const navDestinyMatrix = t('nav.destinyMatrix', locale);
+const navCalculators = t('nav.calculators', locale);
+const navArcana = t('nav.arcana', locale);
+const navBirthdays = t('nav.birthdays', locale);
+const navGuides = t('nav.guides', locale);
+---
+
+<header class="border-b-2 border-[#C4A052] bg-[#231530] text-white sticky top-0 z-50 shadow-md">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href={`/${locale}/`} class="flex items-center gap-2 font-serif tracking-widest text-amber-100 uppercase text-lg font-bold hover:text-amber-200 transition-colors">
+        <span class="text-xl text-[#C4A052]">✨</span>
+        <span>Souliography</span>
+      </a>
+
+      <!-- Desktop Reference Navigation Bar -->
+      <nav class="hidden lg:flex items-center space-x-1 text-xs font-mono font-semibold">
+        <!-- Home -->
+        <a
+          href={`/${locale}/`}
+          class={`px-3 py-2 rounded transition-colors ${currentPath === `/${locale}/` || currentPath === `/${locale}` ? 'bg-[#311E43] text-[#C4A052] font-bold border border-[#C4A052]/40' : 'text-stone-200 hover:text-white hover:bg-white/10'}`}
+        >
+          {navHome}
+        </a>
+
+        <!-- Numerology Hub -->
+        <div class="relative group">
+          <a
+            href={`/${locale}/numerology/`}
+            class={`px-3 py-2 rounded flex items-center gap-1 transition-colors ${isNumerologyActive ? 'bg-[#311E43] text-[#C4A052] font-bold border border-[#C4A052]/40' : 'text-stone-200 hover:text-white hover:bg-white/10'}`}
+          >
+            <span>{navNumerology}</span>
+            <span class="text-[9px] text-[#C4A052]">▼</span>
+          </a>
+          <!-- Compact Parchment Dropdown -->
+          <div class="absolute left-0 top-full hidden group-hover:block w-56 pt-1 z-50">
+            <div class="bg-[#FBF9F5] text-[#1C1625] rounded border border-[#D8D0C5] shadow-xl p-2 space-y-1">
+              <a href={`/${locale}/numerology/`} class="block px-3 py-1.5 rounded text-xs font-bold hover:bg-[#F5F2EB] hover:text-[#9E7B3B]">
+                {navNumerology} Overview
+              </a>
+              <div class="border-t border-[#D8D0C5] my-1"></div>
+              <a href={`/${locale}/calculators/life-path-number/`} class="block px-3 py-1 rounded text-[11px] text-[#524B5A] hover:bg-[#F5F2EB] hover:text-[#1C1625]">Life Path Number</a>
+              <a href={`/${locale}/calculators/destiny-number/`} class="block px-3 py-1 rounded text-[11px] text-[#524B5A] hover:bg-[#F5F2EB] hover:text-[#1C1625]">Destiny Number</a>
+              <a href={`/${locale}/calculators/soul-urge-number/`} class="block px-3 py-1 rounded text-[11px] text-[#524B5A] hover:bg-[#F5F2EB] hover:text-[#1C1625]">Soul Urge Number</a>
+              <a href={`/${locale}/calculators/personality-number/`} class="block px-3 py-1 rounded text-[11px] text-[#524B5A] hover:bg-[#F5F2EB] hover:text-[#1C1625]">Personality Number</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Destiny Matrix Hub -->
+        <div class="relative group">
+          <a
+            href={`/${locale}/`}
+            class={`px-3 py-2 rounded flex items-center gap-1 transition-colors ${isDestinyMatrixActive ? 'bg-[#311E43] text-[#C4A052] font-bold border border-[#C4A052]/40' : 'text-stone-200 hover:text-white hover:bg-white/10'}`}
+          >
+            <span>{navDestinyMatrix}</span>
+            <span class="text-[9px] text-[#C4A052]">▼</span>
+          </a>
+          <div class="absolute left-0 top-full hidden group-hover:block w-60 pt-1 z-50">
+            <div class="bg-[#FBF9F5] text-[#1C1625] rounded border border-[#D8D0C5] shadow-xl p-2 space-y-1">
+              <a href={`/${locale}/`} class="block px-3 py-1.5 rounded text-xs font-bold hover:bg-[#F5F2EB] hover:text-[#9E7B3B]">
+                Destiny Matrix Chart Engine
+              </a>
+              <div class="border-t border-[#D8D0C5] my-1"></div>
+              <a href={`/${locale}/destiny-matrix/arcana/`} class="block px-3 py-1 rounded text-[11px] text-[#524B5A] hover:bg-[#F5F2EB] hover:text-[#1C1625]">22 Major Arcana Library</a>
+              <a href={`/${locale}/destiny-matrix/birthdays/`} class="block px-3 py-1 rounded text-[11px] text-[#524B5A] hover:bg-[#F5F2EB] hover:text-[#1C1625]">365 Birthday Profiles</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- All Calculators Directory -->
+        <div class="relative group">
+          <a
+            href={`/${locale}/calculators/`}
+            class={`px-3 py-2 rounded flex items-center gap-1 transition-colors ${isCalculatorsActive ? 'bg-[#311E43] text-[#C4A052] font-bold border border-[#C4A052]/40' : 'text-stone-200 hover:text-white hover:bg-white/10'}`}
+          >
+            <span>{navCalculators}</span>
+            <span class="text-[9px] text-[#C4A052]">▼</span>
+          </a>
+          <div class="absolute left-0 top-full hidden group-hover:block w-64 pt-1 z-50">
+            <div class="bg-[#FBF9F5] text-[#1C1625] rounded border border-[#D8D0C5] shadow-xl p-3 space-y-2">
+              <a href={`/${locale}/calculators/`} class="block text-xs font-serif font-bold text-[#231530] border-b border-[#D8D0C5] pb-1 hover:text-[#9E7B3B]">
+                All Calculators Directory →
+              </a>
+              <div class="space-y-1 text-[11px]">
+                <span class="text-[10px] uppercase font-mono text-[#9E7B3B] font-bold block">By Birth Date</span>
+                <a href={`/${locale}/calculators/life-path-number/`} class="block text-[#524B5A] hover:text-[#1C1625]">Life Path Calculator</a>
+                <a href={`/${locale}/calculators/personal-year/`} class="block text-[#524B5A] hover:text-[#1C1625]">Personal Year Calculator</a>
+                <span class="text-[10px] uppercase font-mono text-[#9E7B3B] font-bold block pt-1">By Name</span>
+                <a href={`/${locale}/calculators/destiny-number/`} class="block text-[#524B5A] hover:text-[#1C1625]">Destiny Number</a>
+                <a href={`/${locale}/calculators/essence-number/`} class="block text-[#524B5A] hover:text-[#1C1625]">Essence Number</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Arcana Direct Link -->
+        <a
+          href={`/${locale}/destiny-matrix/arcana/`}
+          class={`px-3 py-2 rounded transition-colors ${isArcanaActive ? 'bg-[#311E43] text-[#C4A052] font-bold border border-[#C4A052]/40' : 'text-stone-200 hover:text-white hover:bg-white/10'}`}
+        >
+          {navArcana}
+        </a>
+
+        <!-- Birthdays Direct Link -->
+        <a
+          href={`/${locale}/destiny-matrix/birthdays/`}
+          class={`px-3 py-2 rounded transition-colors ${isBirthdaysActive ? 'bg-[#311E43] text-[#C4A052] font-bold border border-[#C4A052]/40' : 'text-stone-200 hover:text-white hover:bg-white/10'}`}
+        >
+          {navBirthdays}
+        </a>
+      </nav>
+
+      <!-- Language Switcher -->
+      <div class="flex items-center gap-2">
+        <LanguageSwitcher currentLocale={locale} />
+      </div>
+
+    </div>
+  </div>
+</header>

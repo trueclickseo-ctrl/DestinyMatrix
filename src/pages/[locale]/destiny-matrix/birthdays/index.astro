@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/common/Breadcrumbs.astro';
+import { getAllBirthdayProfiles } from '../../../../data/birthdays';
 import { supportedLocales } from '../../../../config/locales.config';
 import { t } from '../../../../i18n';
 
@@ -9,60 +11,92 @@ export function getStaticPaths() {
 
 const { locale = 'en' } = Astro.params;
 
-const months = [
-  { name: 'January', slug: 'january', days: 31 },
-  { name: 'February', slug: 'february', days: 29 },
-  { name: 'March', slug: 'march', days: 31 },
-  { name: 'April', slug: 'april', days: 30 },
-  { name: 'May', slug: 'may', days: 31 },
-  { name: 'June', slug: 'june', days: 30 },
-  { name: 'July', slug: 'july', days: 31 },
-  { name: 'August', slug: 'august', days: 31 },
-  { name: 'September', slug: 'september', days: 30 },
-  { name: 'October', slug: 'october', days: 31 },
-  { name: 'November', slug: 'november', days: 30 },
-  { name: 'December', slug: 'december', days: 31 },
+const breadcrumbs = [
+  { label: 'Home', href: `/${locale}/` },
+  { label: t('nav.destinyMatrix', locale), href: `/${locale}/` },
+  { label: t('nav.birthdays', locale) },
 ];
+
+const months = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
+
+const allProfiles = getAllBirthdayProfiles();
 ---
 
 <BaseLayout
-  title="365 Birthdate Destiny Matrix Directory | Souliography"
-  description="Explore the complete 365-day Destiny Matrix reading directory. Find deep personal archetype, money line, and soul vocation readings for every birthdate."
+  title={`${t('nav.birthdays', locale)} Directory | Souliography`}
+  description="365-day birthday reference directory mapping daily Arcana frequencies, seasonal vibrations, and personal reflections."
   locale={locale}
 >
-  <section class="bg-gradient-to-b from-stone-900 via-purple-950 to-slate-950 text-white py-16 px-4 text-center">
-    <div class="max-w-4xl mx-auto space-y-4">
-      <span class="text-xs uppercase tracking-widest text-amber-400 font-extrabold bg-white/10 px-4 py-1.5 rounded-full inline-block">
-        365 BIRTHDATE INTELLIGENCE DIRECTORY
+  <section class="bg-[#231530] text-white py-12 px-4 border-b-2 border-[#C4A052]">
+    <div class="max-w-5xl mx-auto space-y-4 text-center">
+      <Breadcrumbs items={breadcrumbs} locale={locale} />
+      <span class="text-xs uppercase tracking-widest text-[#C4A052] font-mono font-bold bg-white/10 px-3 py-1 rounded inline-block border border-[#C4A052]/40">
+        365-Day Vibrational Directory
       </span>
-      <h1 class="text-4xl sm:text-6xl font-serif font-bold text-amber-200">
-        Birthdate Destiny Matrix Directory
+      <h1 class="text-4xl sm:text-5xl font-serif font-bold text-amber-100">
+        {t('nav.birthdays', locale)} Directory
       </h1>
-      <p class="text-purple-200 max-w-2xl mx-auto text-base sm:text-lg">
-        Select your birth date below to access your complete Destiny Matrix profile, soul purpose, money channels, and relationship resonance.
+      <p class="text-purple-200 max-w-2xl mx-auto text-sm sm:text-base font-serif">
+        Browse by calendar month to find your birth date's core Arcana alignment and vibration.
       </p>
     </div>
   </section>
 
-  <div class="bg-stone-50 py-12 px-4">
-    <div class="max-w-6xl mx-auto space-y-10">
-      {months.map((month) => (
-        <div class="bg-white rounded-2xl p-6 border border-stone-200 shadow-sm space-y-4">
-          <h2 class="text-2xl font-serif font-bold text-stone-900 border-b border-stone-100 pb-2">
-            {month.name} Destiny Matrix Readings
-          </h2>
-          <div class="flex flex-wrap gap-2">
-            {Array.from({ length: month.days }, (_, i) => i + 1).map((day) => (
+  <main class="py-12 px-4 max-w-6xl mx-auto space-y-12 text-[#1C1625]">
+
+    <!-- Month Navigation Quick Bar -->
+    <div class="ref-card p-6 bg-white border border-[#D8D0C5] space-y-4">
+      <h2 class="text-lg font-serif font-bold text-[#231530] border-b border-[#D8D0C5] pb-2 text-center">
+        Jump to Month
+      </h2>
+      <div class="flex flex-wrap justify-center gap-2 text-xs font-mono font-bold">
+        {months.map((m) => (
+          <a
+            href={`#month-${m.toLowerCase()}`}
+            class="px-3 py-1.5 rounded bg-[#FBF9F5] border border-[#D8D0C5] text-[#231530] hover:border-[#C4A052] hover:text-[#9E7B3B] transition-colors"
+          >
+            {m}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Month Sections with Date Grids -->
+    {months.map((monthName) => {
+      const monthProfiles = allProfiles.filter(p => p.formattedDate.startsWith(monthName));
+
+      return (
+        <div id={`month-${monthName.toLowerCase()}`} class="space-y-4 pt-4">
+          <div class="border-b-2 border-[#C4A052] pb-2 flex items-center justify-between">
+            <h2 class="text-2xl font-serif font-bold text-[#231530]">
+              📅 {monthName} Birthdays
+            </h2>
+            <span class="text-xs font-mono text-[#9E7B3B] font-bold">
+              {monthProfiles.length} Days
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+            {monthProfiles.map((b) => (
               <a
-                href={`/${locale}/destiny-matrix/birthdays/${month.slug}-${day}/`}
-                class="px-3 py-1.5 bg-purple-50 hover:bg-purple-600 text-purple-900 hover:text-white rounded-lg text-xs font-bold transition-all border border-purple-100"
+                href={`/${locale}/destiny-matrix/birthdays/${b.slug}/`}
+                class="ref-card p-3 bg-white border border-[#D8D0C5] hover:border-[#C4A052] transition-colors rounded text-center space-y-1 group block"
               >
-                {month.name} {day}
+                <span class="text-sm font-serif font-bold text-[#231530] group-hover:text-[#9E7B3B] block">
+                  {b.formattedDate}
+                </span>
+                <span class="text-[10px] font-mono text-[#9E7B3B] block">
+                  Arcana {b.primaryArcanaNum}
+                </span>
               </a>
             ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
+      );
+    })}
+
+  </main>
 </BaseLayout>
