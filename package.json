@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "postbuild": "node scripts/audit-translations.js",
     "preview": "astro preview",
     "astro": "astro",
     "sync-translations": "node scripts/sync-translations.js"

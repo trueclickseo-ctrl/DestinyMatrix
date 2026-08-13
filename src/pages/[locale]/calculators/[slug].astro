@@ -1,17 +1,12 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/common/Breadcrumbs.astro';
-import CalculationBreakdown from '../../../components/common/CalculationBreakdown.astro';
 import DisclaimerBox from '../../../components/common/DisclaimerBox.astro';
 import MethodologyBox from '../../../components/common/MethodologyBox.astro';
 import { numerologyCalculators, type CalculatorConfig } from '../../../config/calculators.config';
 import { supportedLocales } from '../../../config/locales.config';
 import { t } from '../../../i18n';
 import { SchemaEngine } from '../../../engines/schema';
-
-// Import pure calculation engines
-import { calculateLifePath } from '../../../engines/calculator/life-path/calculation';
-import { calculateDestinyNumber } from '../../../engines/calculator/name/destiny';
 
 export function getStaticPaths() {
   const paths = [];
@@ -35,29 +30,26 @@ const appSchema = SchemaEngine.generateSoftwareApplicationSchema(
 );
 
 const breadcrumbItems = [
-  { label: 'Calculators', href: `/${currentLocale}/` },
+  { label: t('nav.home', currentLocale), href: `/${currentLocale}/` },
+  { label: t('nav.calculators', currentLocale), href: `/${currentLocale}/calculators/` },
   { label: t(currentCalc.titleKey, currentLocale) },
 ];
-
-// Perform initial server-side calculation for default preview
-const initialLifePath = calculateLifePath('1995-07-15');
-const initialNameRes = calculateDestinyNumber('Alexander Soul');
 ---
 
 <BaseLayout
-  title={t(currentCalc.titleKey, currentLocale)}
+  title={`${t(currentCalc.titleKey, currentLocale)} — Souliography`}
   description={t(currentCalc.descKey, currentLocale)}
   locale={currentLocale}
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(appSchema)} />
 
-  <!-- Hero Section with Reference Library Header Styling -->
+  <!-- Hero Section -->
   <section class="bg-[#231530] text-white py-12 px-4 border-b-2 border-[#C4A052]">
     <div class="max-w-4xl mx-auto space-y-4 text-center">
       <Breadcrumbs items={breadcrumbItems} locale={currentLocale} />
 
       <span class="text-xs uppercase tracking-widest text-[#C4A052] font-mono font-bold bg-white/10 px-3 py-1 rounded inline-block border border-[#C4A052]/40">
-        Interactive Numerology Calculator
+        Pythagorean Reference Tool
       </span>
       <h1 class="text-4xl sm:text-5xl font-serif font-bold text-amber-100">
         {t(currentCalc.titleKey, currentLocale)}
@@ -84,7 +76,7 @@ const initialNameRes = calculateDestinyNumber('Alexander Soul');
         <h2 class="text-lg font-serif font-bold text-[#1C1625] border-b border-[#D8D0C5] pb-2 text-center">
           Enter Details for Calculation
         </h2>
-        <form id="calculatorForm" class="space-y-4" action="javascript:void(0);">
+        <form id="calculatorForm" class="space-y-4" action="javascript:void(0);" onsubmit="return false;">
           <div class="space-y-1">
             <label htmlFor="calcInput" class="text-xs font-bold text-[#1C1625] block">
               {currentCalc.inputType === 'date' ? t('form.birthDate', currentLocale) : currentCalc.inputType === 'address' ? t('form.address', currentLocale) : currentCalc.inputType === 'phone' ? t('form.phone', currentLocale) : currentCalc.inputType === 'plate' ? t('form.plate', currentLocale) : t('form.fullName', currentLocale)}
@@ -93,13 +85,13 @@ const initialNameRes = calculateDestinyNumber('Alexander Soul');
               type={currentCalc.inputType === 'date' ? 'date' : 'text'}
               id="calcInput"
               name="calcInput"
-              value={currentCalc.inputType === 'date' ? '1995-07-15' : 'Alexander Soul'}
+              placeholder={currentCalc.inputType === 'date' ? 'YYYY-MM-DD' : 'e.g. Eleanor Vance'}
               required
               class="w-full px-3 py-2 rounded bg-[#FFFFFF] border border-[#D8D0C5] text-xs font-mono text-[#1C1625] focus:outline-none focus:border-[#C4A052]"
             />
           </div>
 
-          <button type="button" class="btn-retro w-full text-center" id="calcSubmitBtn">
+          <button type="submit" class="btn-retro w-full text-center cursor-pointer" id="calcSubmitBtn">
             {t('form.calculate', currentLocale)}
           </button>
 
@@ -109,33 +101,49 @@ const initialNameRes = calculateDestinyNumber('Alexander Soul');
         </form>
       </div>
 
-      <!-- Main Result Card & Calculation Breakdown -->
-      <div class="max-w-2xl mx-auto space-y-6">
+      <!-- Pre-Calculation Callout State -->
+      <div id="preCalcState" class="ref-card max-w-2xl mx-auto p-8 text-center space-y-3 bg-[#FFFFFF] border border-[#D8D0C5]">
+        <span class="text-2xl text-[#C4A052] block">✨</span>
+        <h3 class="text-lg font-serif font-bold text-[#231530]">
+          Enter Your Details Above to Calculate Your Result
+        </h3>
+        <p class="text-xs text-[#524B5A] max-w-md mx-auto leading-relaxed">
+          Your personal numerical vibration and step-by-step calculation breakdown will be calculated instantly in your browser upon submission.
+        </p>
+      </div>
+
+      <!-- Dynamic Result Container (Hidden until user calculates) -->
+      <div id="resultContainer" class="hidden max-w-2xl mx-auto space-y-6">
         
         <div class="ref-card p-8 text-center space-y-4 border-2 border-[#C4A052] bg-[#FFFFFF]">
           <span class="text-xs uppercase tracking-widest text-[#9E7B3B] font-mono font-bold">
             ✨ {t('result.yourNumber', currentLocale)}
           </span>
           <div id="resultDisplay" class="text-6xl sm:text-7xl font-serif font-bold text-[#231530] font-mono">
-            {currentCalc.inputType === 'date' ? initialLifePath.lifePathNumber : initialNameRes.destinyNumber}
+            -
           </div>
           <h2 id="resultTitle" class="text-2xl font-serif font-bold text-[#1C1625]">
-            Calculated Vibration & Archetype
+            Calculated Vibration
           </h2>
           <p id="resultSummary" class="text-xs text-[#524B5A] max-w-lg mx-auto leading-relaxed">
-            Your input yields the numerical vibration shown above. Explore the full calculation breakdown and methodology below.
+            Your input yields the numerical vibration shown above.
           </p>
         </div>
 
-        <!-- Dynamic Calculation Breakdown Component -->
-        <CalculationBreakdown
-          title={`Step-by-Step Calculation Breakdown for ${t(currentCalc.titleKey, currentLocale)}`}
-          steps={currentCalc.inputType === 'date' ? initialLifePath.breakdown : initialNameRes.breakdown}
-          finalResult={currentCalc.inputType === 'date' ? initialLifePath.lifePathNumber : initialNameRes.destinyNumber}
-          isMasterNumber={currentCalc.inputType === 'date' ? initialLifePath.isMasterNumber : initialNameRes.isMasterNumber}
-        />
+        <!-- Step-by-Step Breakdown Card -->
+        <div class="ref-card p-6 bg-white border border-[#D8D0C5] space-y-4">
+          <h3 class="text-base font-serif font-bold text-[#231530] border-b border-[#D8D0C5] pb-2">
+            Step-by-Step Calculation Breakdown
+          </h3>
+          <div id="breakdownSteps" class="space-y-2 text-xs font-mono text-[#524B5A]">
+            <!-- Injected dynamically -->
+          </div>
+        </div>
 
-        <!-- Methodology Disclosures -->
+      </div>
+
+      <!-- Methodology Disclosures -->
+      <div class="max-w-2xl mx-auto space-y-6">
         <MethodologyBox
           title="Pythagorean Numerology Methodology"
           systemName="Pythagorean Numerical Transliteration & Period Reduction"
@@ -144,9 +152,128 @@ const initialNameRes = calculateDestinyNumber('Alexander Soul');
         />
 
         <DisclaimerBox />
-
       </div>
 
     </div>
   </div>
+
+  <!-- Pure Client-Side Interactive Calculator Script -->
+  <script is:inline data-input-type={currentCalc.inputType} data-calc-slug={currentCalc.slug}>
+    (() => {
+      const form = document.getElementById('calculatorForm');
+      const input = document.getElementById('calcInput');
+      const preCalcState = document.getElementById('preCalcState');
+      const resultContainer = document.getElementById('resultContainer');
+      const resultDisplay = document.getElementById('resultDisplay');
+      const resultTitle = document.getElementById('resultTitle');
+      const resultSummary = document.getElementById('resultSummary');
+      const breakdownSteps = document.getElementById('breakdownSteps');
+
+      if (!form || !input) return;
+
+      const inputType = document.currentScript.getAttribute('data-input-type') || 'date';
+      const calcSlug = document.currentScript.getAttribute('data-calc-slug') || 'life-path-number';
+
+      const pythagoreanMap = {
+        a:1, j:1, s:1,
+        b:2, k:2, t:2,
+        c:3, l:3, u:3,
+        d:4, m:4, v:4,
+        e:5, n:5, w:5,
+        f:6, o:6, x:6,
+        g:7, p:7, y:7,
+        h:8, q:8, z:8,
+        i:9, r:9
+      };
+
+      function reduceNumber(num) {
+        if (num === 11 || num === 22 || num === 33) return num;
+        while (num > 9) {
+          num = String(num).split('').reduce((sum, d) => sum + parseInt(d, 10), 0);
+          if (num === 11 || num === 22 || num === 33) return num;
+        }
+        return num;
+      }
+
+      function calculateDateValue(val) {
+        const parts = val.split('-');
+        if (parts.length !== 3) return null;
+        const year = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10);
+        const day = parseInt(parts[2], 10);
+
+        if (isNaN(year) || isNaN(month) || isNaN(day)) return null;
+
+        const redMonth = reduceNumber(month);
+        const redDay = reduceNumber(day);
+        const redYear = reduceNumber(String(year).split('').reduce((s, d) => s + parseInt(d, 10), 0));
+
+        const rawSum = redMonth + redDay + redYear;
+        const finalNum = reduceNumber(rawSum);
+
+        const steps = [
+          `Month (${month}) reduced -> ${redMonth}`,
+          `Day (${day}) reduced -> ${redDay}`,
+          `Year (${year}) reduced -> ${redYear}`,
+          `Sum of reduced periods: ${redMonth} + ${redDay} + ${redYear} = ${rawSum}`,
+          `Final reduced vibration: ${finalNum}`
+        ];
+
+        return { number: finalNum, steps };
+      }
+
+      function calculateNameValue(val) {
+        const cleaned = val.toLowerCase().replace(/[^a-z]/g, '');
+        if (!cleaned) return null;
+
+        let total = 0;
+        const letterBreakdown = [];
+        for (let i = 0; i < cleaned.length; i++) {
+          const char = cleaned[i];
+          const val = pythagoreanMap[char] || 0;
+          total += val;
+          letterBreakdown.push(`${char.toUpperCase()}(${val})`);
+        }
+
+        const finalNum = reduceNumber(total);
+        const steps = [
+          `Transliterated letters: ${letterBreakdown.join(' + ')}`,
+          `Raw sum of values: ${total}`,
+          `Final reduced vibration: ${finalNum}`
+        ];
+
+        return { number: finalNum, steps };
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const val = input.value.trim();
+        if (!val) return;
+
+        let res = null;
+        if (inputType === 'date') {
+          res = calculateDateValue(val);
+        } else {
+          res = calculateNameValue(val);
+        }
+
+        if (!res) return;
+
+        // Hide pre-calc state, show result container
+        if (preCalcState) preCalcState.classList.add('hidden');
+        if (resultContainer) resultContainer.classList.remove('hidden');
+
+        // Update DOM elements
+        if (resultDisplay) resultDisplay.textContent = res.number;
+        if (resultTitle) resultTitle.textContent = `Vibration Number ${res.number}`;
+        if (resultSummary) {
+          resultSummary.textContent = `Your calculation for "${val}" yields the numerical vibration ${res.number}${res.number === 11 || res.number === 22 || res.number === 33 ? ' (Master Number)' : ''}.`;
+        }
+
+        if (breakdownSteps) {
+          breakdownSteps.innerHTML = res.steps.map(step => `<div class="p-2 bg-[#FBF9F5] border border-[#D8D0C5] rounded">✓ ${step}</div>`).join('');
+        }
+      });
+    })();
+  </script>
 </BaseLayout>

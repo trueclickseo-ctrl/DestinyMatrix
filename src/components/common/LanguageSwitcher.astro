@@ -21,37 +21,38 @@ const targetPath = rawPath ? `/${rawPath}/` : '/';
     type="button"
     aria-expanded="false"
     aria-haspopup="true"
-    class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold transition-all shadow-xs backdrop-blur-xs cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-300"
+    aria-label="Select language"
+    class="flex items-center gap-2 px-3 py-1.5 rounded bg-[#311E43] hover:bg-[#3d2653] border border-[#C4A052]/50 text-white text-xs font-mono font-semibold transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#C4A052]"
   >
-    <span class="text-sm">🌐</span>
-    <span class="font-medium">{currentConfig.nativeName}</span>
-    <span class="text-[10px] text-amber-200 uppercase font-mono tracking-wider">({currentLocale})</span>
-    <span class="text-stone-300 text-[10px]">▼</span>
+    <span class="text-sm text-[#C4A052]">🌐</span>
+    <span class="font-medium text-amber-100">{currentConfig.nativeName}</span>
+    <span class="text-[10px] text-[#C4A052] uppercase font-mono tracking-wider">({currentLocale})</span>
+    <span class="text-stone-300 text-[9px]">▼</span>
   </button>
 
   <!-- Dropdown Modal Panel -->
   <div
     id="langDropdownPanel"
-    class="hidden absolute right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 mt-2 w-72 sm:w-80 rounded-2xl bg-white shadow-2xl border border-purple-100 z-50 overflow-hidden transition-all duration-200 transform opacity-0 scale-95"
+    class="hidden absolute right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 mt-2 w-72 sm:w-80 rounded-md bg-[#FBF9F5] shadow-2xl border-2 border-[#C4A052] z-50 overflow-hidden text-[#1C1625]"
   >
     <!-- Search Bar -->
-    <div class="p-3 bg-gradient-to-r from-purple-950 via-purple-900 to-indigo-950 text-white border-b border-purple-800/50">
+    <div class="p-3 bg-[#231530] text-white border-b border-[#C4A052]/40">
       <div class="flex items-center justify-between mb-2">
-        <span class="text-xs font-bold text-amber-200 flex items-center gap-1.5">
-          <span>🌐</span> {t('lang.selectLanguage', currentLocale)}
+        <span class="text-xs font-bold text-amber-200 flex items-center gap-1.5 font-serif">
+          <span class="text-[#C4A052]">🌐</span> {t('lang.selectLanguage', currentLocale)}
         </span>
-        <span class="text-[10px] text-purple-200 bg-white/10 px-2 py-0.5 rounded-full font-mono">40 Locales</span>
+        <span class="text-[10px] text-[#C4A052] bg-white/10 px-2 py-0.5 rounded font-mono">40 Locales</span>
       </div>
       <input
         type="text"
         id="langSearchInput"
         placeholder={t('lang.searchPlaceholder', currentLocale)}
-        class="w-full px-3 py-1.5 rounded-xl bg-white/10 border border-white/20 text-white text-xs placeholder-purple-200/70 focus:outline-none focus:bg-white/20 focus:border-amber-300 transition-colors"
+        class="w-full px-3 py-1.5 rounded bg-[#FFFFFF] border border-[#D8D0C5] text-xs text-[#1C1625] placeholder-[#524B5A] focus:outline-none focus:border-[#C4A052]"
       />
     </div>
 
     <!-- Language Grid / List -->
-    <div class="max-h-72 overflow-y-auto p-1.5 space-y-0.5" id="langListContainer">
+    <div class="max-h-72 overflow-y-auto p-2 space-y-1" id="langListContainer">
       {supportedLocales.map((code) => {
         const item = localesConfig[code];
         const isSelected = code === currentLocale;
@@ -62,21 +63,21 @@ const targetPath = rawPath ? `/${rawPath}/` : '/';
             data-lang-code={code}
             data-lang-name={item.name.toLowerCase()}
             data-lang-native={item.nativeName.toLowerCase()}
-            class={`lang-item-btn flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-colors ${
+            class={`lang-item-btn flex items-center justify-between px-3 py-2 rounded text-xs transition-colors ${
               isSelected
-                ? 'bg-purple-100 text-purple-950 font-bold border border-purple-300'
-                : 'text-stone-700 hover:bg-stone-100 hover:text-purple-900'
+                ? 'bg-[#231530] text-amber-200 font-bold border border-[#C4A052]'
+                : 'text-[#1C1625] hover:bg-[#F5F2EB] hover:text-[#9E7B3B]'
             }`}
           >
             <div class="flex items-center gap-2">
-              <span class="font-bold text-stone-900">{item.nativeName}</span>
-              <span class="text-[11px] text-stone-400">({item.name})</span>
+              <span class="font-bold">{item.nativeName}</span>
+              <span class="text-[11px] text-[#524B5A]">({item.name})</span>
             </div>
             <div class="flex items-center gap-1">
-              <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-stone-100 text-stone-500 font-bold">
+              <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-stone-200 text-stone-700 font-bold">
                 {code}
               </span>
-              {isSelected && <span class="text-xs text-purple-700">✓</span>}
+              {isSelected && <span class="text-xs text-[#C4A052]">✓</span>}
             </div>
           </a>
         );
@@ -87,49 +88,55 @@ const targetPath = rawPath ? `/${rawPath}/` : '/';
 
 <script is:inline>
   (() => {
+    const container = document.getElementById('languageSwitcherContainer');
     const trigger = document.getElementById('langDropdownTrigger');
     const panel = document.getElementById('langDropdownPanel');
     const searchInput = document.getElementById('langSearchInput');
     const langItems = document.querySelectorAll('.lang-item-btn');
 
-    if (!trigger || !panel) return;
+    if (!container || !trigger || !panel) return;
 
-    function toggleDropdown() {
-      const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
-      if (isExpanded) {
+    let isOpen = false;
+
+    function openDropdown() {
+      isOpen = true;
+      trigger.setAttribute('aria-expanded', 'true');
+      panel.classList.remove('hidden');
+      if (searchInput) {
+        setTimeout(() => searchInput.focus(), 50);
+      }
+    }
+
+    function closeDropdown() {
+      isOpen = false;
+      trigger.setAttribute('aria-expanded', 'false');
+      panel.classList.add('hidden');
+    }
+
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (isOpen) {
         closeDropdown();
       } else {
         openDropdown();
       }
-    }
-
-    function openDropdown() {
-      trigger.setAttribute('aria-expanded', 'true');
-      panel.classList.remove('hidden');
-      requestAnimationFrame(() => {
-        panel.classList.remove('opacity-0', 'scale-95');
-        panel.classList.add('opacity-100', 'scale-100');
-      });
-      if (searchInput) searchInput.focus();
-    }
-
-    function closeDropdown() {
-      trigger.setAttribute('aria-expanded', 'false');
-      panel.classList.remove('opacity-100', 'scale-100');
-      panel.classList.add('opacity-0', 'scale-95');
-      setTimeout(() => {
-        panel.classList.add('hidden');
-      }, 150);
-    }
-
-    trigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleDropdown();
     });
 
-    document.addEventListener('click', (e) => {
-      if (!panel.contains(e.target) && !trigger.contains(e.target)) {
+    container.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    document.addEventListener('click', () => {
+      if (isOpen) {
         closeDropdown();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        closeDropdown();
+        trigger.focus();
       }
     });
 
@@ -141,9 +148,9 @@ const targetPath = rawPath ? `/${rawPath}/` : '/';
           const name = item.getAttribute('data-lang-name') || '';
           const native = item.getAttribute('data-lang-native') || '';
           if (code.includes(query) || name.includes(query) || native.includes(query)) {
-            item.classList.remove('hidden');
+            item.style.display = 'flex';
           } else {
-            item.classList.add('hidden');
+            item.style.display = 'none';
           }
         });
       });
