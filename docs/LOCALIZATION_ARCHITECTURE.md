@@ -1,31 +1,59 @@
-# LOCALIZATION ARCHITECTURE & TRANSLATION QUALITY GATE
+# SOULIOGRAPHY LOCALIZATION ARCHITECTURE
 
-## 1. Single Source of Truth (`src/config/locales.config.ts`)
-The `localesConfig` object defines all 40 supported locales with language names, native names, and LTR/RTL text directions:
-- `en` (English - LTR, Default)
-- `de` (German - LTR)
-- `fr` (French - LTR)
-- `es` (Spanish - LTR)
-- `pt` (Portuguese - LTR)
-- `it` (Italian - LTR)
-- `ar` (Arabic - RTL)
-- `ur` (Urdu - RTL)
-- ... (Total 40 locales)
+## 1. Authoritative Locale Single Source of Truth
 
-## 2. Translation Dictionaries (`src/i18n/`)
-- `src/i18n/ui/*.ts`: Individual locale translation files.
-- `src/i18n/ui/calculators.ts`: Dedicated multilingual dictionary for all 26 numerology calculators.
-- `src/i18n/index.ts`: Master i18n lookup engine with `t(key, locale)` lookup.
+All locale metadata is defined in a single authoritative configuration file:
+`src/config/locales.config.ts`
 
-## 3. Strict Translation Completeness Gate (`scripts/audit-translations.js`)
-To prevent silent English fallback on localized pages:
-1. Crawls all compiled `.html` files in `dist/`.
-2. Scans for raw translation keys (`calc.*`, `nav.*`, `form.*`, `result.*`).
-3. Checks for unrendered placeholder strings.
-4. **Fails the build process** (`exit code 1`) if any raw translation key is detected in any locale output.
+```typescript
+export interface LocaleConfig {
+  code: string;
+  name: string;
+  nativeName: string;
+  dir: 'ltr' | 'rtl';
+  enabled: boolean;
+  isDefault?: boolean;
+}
+```
 
-## 4. Localized HTML & SEO Attributes
-Every generated page strictly renders:
-- `<html lang="{locale}" dir="ltr|rtl">`
-- Self-referential `<link rel="canonical" href="https://souliography.com/{locale}/{path}/">`
-- Reciprocal `<link rel="alternate" hreflang="{locale}" href="...">` for all 40 locales + `x-default`.
+### Supported Locales (40 Total)
+- **Default Locale**: `en` (English)
+- **LTR Locales (38)**: `en`, `de`, `fr`, `es`, `pt`, `it`, `nl`, `pl`, `sv`, `da`, `no`, `fi`, `is`, `cs`, `sk`, `hu`, `ro`, `bg`, `el`, `uk`, `ru`, `tr`, `id`, `ms`, `vi`, `th`, `zh`, `ja`, `ko`, `hi`, `bn`, `ta`, `te`, `mr`, `gu`, `kn`, `ml`, `pa`
+- **RTL Locales (2)**: `ar` (Arabic), `ur` (Urdu)
+
+---
+
+## 2. Dynamic Routing Architecture
+
+Every enabled locale is served via deterministic Astro file-based static routes under `src/pages/[locale]/`:
+- `/[locale]/` -> Homepage & Destiny Matrix Engine
+- `/[locale]/numerology/` -> Numerology Knowledge Hub
+- `/[locale]/numerology/[calcSlug]/` -> Core Number Calculator & Profile Index
+- `/[locale]/numerology/[calcSlug]/[number]/` -> Specific Number Profile (1-9, 11, 22, 33)
+- `/[locale]/calculators/` -> All Calculators Directory
+- `/[locale]/calculators/[slug]/` -> Specific Calculator App
+- `/[locale]/guides/` -> Guides Index
+- `/[locale]/guides/[slug]/` -> Individual Guide Page
+- `/[locale]/destiny-matrix/arcana/` -> 22 Major Arcana Hub
+- `/[locale]/destiny-matrix/arcana/[slug]/` -> Specific Arcana Profile
+- `/[locale]/destiny-matrix/birthdays/` -> 365 Birthdays Hub
+- `/[locale]/destiny-matrix/birthdays/[slug]/` -> Specific Birthday Profile
+
+---
+
+## 3. Translation Engine (`src/i18n/index.ts`)
+
+Translations are looked up via the `t(key, locale)` function.
+- UI strings are stored in `src/i18n/ui/[locale].ts`
+- Calculator strings are stored in `src/i18n/ui/calculators.ts`
+- **Strict Translation Rule**: Production builds validate key completeness and prevent silent English fallback on non-English pages.
+
+---
+
+## 4. Internal Link Localization
+
+All internal links inside components MUST use the locale prefix helper:
+```astro
+<a href={`/${locale}/numerology/`}>{t('nav.numerology', locale)}</a>
+```
+Cross-locale links are prohibited except inside the explicit `LanguageSwitcher.astro` component.

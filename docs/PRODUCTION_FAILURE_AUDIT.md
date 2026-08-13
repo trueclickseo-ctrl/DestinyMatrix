@@ -1,67 +1,154 @@
 # PRODUCTION FAILURE DIAGNOSTIC AUDIT & TECHNICAL SPECIFICATION
 
 **Website**: https://souliography.com/  
-**Date**: August 13, 2026  
-**Status**: CRITICAL RECOVERY DIAGNOSTIC  
+**Audit Date**: August 13, 2026  
+**Status**: CRITICAL PRODUCTION RECOVERY AUDIT COMPLETE  
 
 ---
 
-## 1. Technical Framework & Environment Details
+## 1. Technical Framework & System Architecture Audit
 
-- **Framework**: Astro 5.x (Static SSG Mode `output: "static"`)
-- **Build Engine**: Vite + TailwindCSS v4 (`@tailwindcss/vite`)
-- **Total Static Route Population**: ~30,601 static pages across 40 supported locales
-- **Deployment Strategy**: Static site deployment via CDN (Netlify / Cloudflare Pages / Vercel / AWS CloudFront)
-- **Base Asset Pathing**: `/_astro/` directory for bundled CSS & JS assets
-
----
-
-## 2. Production Failure Cases — Root Cause Analysis
-
-### Case 1: Unstyled Raw HTML on `/de/numerology/` (Production Severity: P0)
-- **Symptom**: Live page `https://souliography.com/de/numerology/` renders with raw browser fonts, blue unstyled hyperlinks, default buttons, missing background styles, and unstyled navigation/footer layout.
-- **Root Cause**:
-  1. In Astro SSG build outputs, stylesheet references are generated as relative/absolute paths like `/_astro/BaseLayout.XXXX.css`.
-  2. When hosting environments enforce trailing slash redirects (e.g. `/de/numerology` -> `/de/numerology/`) or sub-route routing without absolute asset base configurations, relative link resolution breaks if assets resolve relative to the current subfolder (`/de/numerology/_astro/...`).
-  3. CDN edge servers return a 404 HTML fallback page for the requested CSS path, causing the browser to refuse to load the CSS due to MIME type mismatch (`text/html` instead of `text/css`).
-
-### Case 2: Portuguese (`/pt/`) Contains Un-translated English Content (Production Severity: P1)
-- **Symptom**: `https://souliography.com/pt/` and `https://souliography.com/pt/numerology/` display English body sections and UI elements.
-- **Root Cause**:
-  1. `src/i18n/index.ts` contained a silent fallback mechanism: `t(key, locale)` returned `masterDictionary[key]` (English) whenever `localizedDictionaries[pt][key]` was missing or empty.
-  2. Dictionary key coverage in `src/i18n/ui/pt.ts` was incomplete for complex UI components.
-  3. No build-time translation completeness check existed to block deployments when a non-English page relied on silent English fallback.
-
-### Case 3: Numerology Repetitive & Generic Card Descriptions (Production Severity: P1)
-- **Symptom**: `https://souliography.com/pt/numerology/` displayed identical templated card descriptions across all numbers (*"Explore full vibrational meanings, career alignment, relationships..."*).
-- **Root Cause**:
-  1. `src/pages/[locale]/numerology/index.astro` and `src/data/numerology-content.ts` used generic fallback template strings across number cards.
-  2. The data model lacked distinct, human-crafted descriptions for each specific number (1-9, 11, 22, 33) and core numerology concept (Life Path, Destiny, Soul Urge, Personality, Birthday, Personal Year, Essence).
-
-### Case 4: Header & Footer Architecture Incompleteness (Production Severity: P1)
-- **Symptom**: Navigation links and footer columns did not expose the complete directory taxonomy across localized subpages.
-- **Root Cause**:
-  1. Header navigation and footer links were partially hardcoded across multiple component files instead of consuming a single canonical navigation registry (`SiteNavigation.astro` and `FooterNavigation.astro`).
-  2. Sub-route locale prefixing was inconsistent in deep child components.
+### A. Framework & Build Infrastructure
+- **Framework**: Astro v7.1.6 (`output: "static"`)
+- **Build Tooling**: Vite + `@tailwindcss/vite` (TailwindCSS v4.3.3)
+- **Architecture**: Static Site Generation (SSG) with dynamic route parameterization (`getStaticPaths` across all 40 locales).
+- **Routing Architecture**: File-based routing located under `src/pages/[locale]/`:
+  - `/[locale]/` -> `index.astro` (Homepage & Destiny Matrix Chart Engine)
+  - `/[locale]/numerology/` -> `index.astro` (Numerology Knowledge Hub)
+  - `/[locale]/numerology/[calcSlug]/` -> `index.astro` (Calculators & Specific Core Number Index)
+  - `/[locale]/numerology/[calcSlug]/[number].astro` -> `[number].astro` (Individual Number Profile)
+  - `/[locale]/calculators/` -> `index.astro` (All Calculators Directory)
+  - `/[locale]/calculators/[slug]/` -> `[slug].astro` (Individual Calculator Apps)
+  - `/[locale]/guides/` -> `index.astro` (Guides Directory)
+  - `/[locale]/guides/[slug]/` -> `[slug].astro` (Individual Guide)
+  - `/[locale]/destiny-matrix/arcana/` -> `index.astro` (22 Major Arcana Hub)
+  - `/[locale]/destiny-matrix/arcana/[slug]/` -> `[slug].astro` (Individual Arcana)
+  - `/[locale]/destiny-matrix/birthdays/` -> `index.astro` (365 Birthdays Directory)
+  - `/[locale]/destiny-matrix/birthdays/[slug]/` -> `[slug].astro` (Individual Birthday Profile)
+- **Deployment Platform**: FTP Deployment to cPanel/Apache web hosting root (`public_html`).
+- **Deployment Command**: `node src/deploy.mjs` (Full `dist` upload via `basic-ftp`).
+- **Build Command**: `npm run build` (`astro build`).
 
 ---
 
-## 3. Root Cause vs. Symptom Matrix
+### B. Locale System Audit
+- **Authoritative Source**: `src/config/locales.config.ts` (`localesConfig`)
+- **Total Supported Locales**: 40
+- **Supported Locales Table**:
+  - `en` (English, LTR, Default)
+  - `de` (German, LTR)
+  - `fr` (French, LTR)
+  - `es` (Spanish, LTR)
+  - `pt` (Portuguese, LTR)
+  - `it` (Italian, LTR)
+  - `nl` (Dutch, LTR)
+  - `pl` (Polish, LTR)
+  - `sv` (Swedish, LTR)
+  - `da` (Danish, LTR)
+  - `no` (Norwegian, LTR)
+  - `fi` (Finnish, LTR)
+  - `is` (Icelandic, LTR)
+  - `cs` (Czech, LTR)
+  - `sk` (Slovak, LTR)
+  - `hu` (Hungarian, LTR)
+  - `ro` (Romanian, LTR)
+  - `bg` (Bulgarian, LTR)
+  - `el` (Greek, LTR)
+  - `uk` (Ukrainian, LTR)
+  - `ru` (Russian, LTR)
+  - `tr` (Turkish, LTR)
+  - `id` (Indonesian, LTR)
+  - `ms` (Malay, LTR)
+  - `vi` (Vietnamese, LTR)
+  - `th` (Thai, LTR)
+  - `zh` (Chinese, LTR)
+  - `ja` (Japanese, LTR)
+  - `ko` (Korean, LTR)
+  - `ar` (Arabic, RTL)
+  - `hi` (Hindi, LTR)
+  - `bn` (Bengali, LTR)
+  - `ta` (Tamil, LTR)
+  - `te` (Telugu, LTR)
+  - `mr` (Marathi, LTR)
+  - `gu` (Gujarati, LTR)
+  - `kn` (Kannada, LTR)
+  - `ml` (Malayalam, LTR)
+  - `pa` (Punjabi, LTR)
+  - `ur` (Urdu, RTL)
+- **Translation File Organization**:
+  - UI dictionaries live in `src/i18n/ui/[locale].ts`
+  - Calculator dictionaries live in `src/i18n/ui/calculators.ts`
+  - Core i18n lookup engine in `src/i18n/index.ts`
+- **Translation Completeness Status**: Incomplete across non-English UI dictionaries; multiple Astro components contain hardcoded English strings in templates instead of referencing `t()`.
 
-| Issue ID | Affected URL | Symptom | True Root Cause | Category | Severity | Fix Strategy |
+---
+
+### C. Routing & URL Resolution Audit
+- **Issue**: Some localized URLs produce 404 or redirect loops.
+- **Root Cause**:
+  1. `astro.config.mjs` enforces `trailingSlash: 'always'`. If links omit trailing slashes or if sub-directory deployments miss index files, web servers return 404.
+  2. Selective upload script (`deploy-priority.mjs`) previously uploaded only selected HTML files, leaving many localized route directories un-deployed on production.
+
+---
+
+### D. CSS & Asset Pipeline Failure Audit (Case 1: German Raw HTML)
+- **Production Evidence**: `https://souliography.com/de/numerology/` renders raw browser HTML with no styles applied.
+- **Root Causes**:
+  1. **Tailwind v4 Modern Syntax Incompatibility**: `@tailwindcss/vite` compiles CSS using Tailwind CSS v4 `@supports` queries and relative color syntax (`color: rgb(from red r g b)`). Browsers or webviews that do not support CSS Color Module Level 5 ignore all rules wrapped inside `@supports`, stripping all background, font, flexbox, and grid styling.
+  2. **Incomplete Asset Synchronization**: Asset filenames in `dist/_astro/BaseLayout.[hash].css` change on every build. When selective FTP deploys were run, the live server retained old HTML pointing to deleted CSS file hashes, causing HTTP 404 on CSS assets.
+
+---
+
+### E. Translation Fallback Failure Audit (Case 2: Portuguese English Content)
+- **Production Evidence**: `https://souliography.com/pt/` and `https://souliography.com/pt/numerology/` contain substantial English text.
+- **Root Causes**:
+  1. `src/i18n/index.ts` lines 125-128 contain silent fallback: `if (masterDictionary[key]) return masterDictionary[key];`.
+  2. Astro templates (e.g. `src/pages/[locale]/numerology/index.astro`) hardcode English text directly into JSX markup instead of calling `t()`.
+  3. No build-time completeness validator exists to block builds when non-English translations fall back to English.
+
+---
+
+### F. Navigation & Footer Architecture Audit (Case 4)
+- **Current State**:
+  - `SiteNavigation.astro` hardcodes dropdown link titles and sub-links in English.
+  - `FooterNavigation.astro` contains hardcoded English link names ("Terms of Service", "Privacy Policy", "All Calculators Directory →", "Explore Knowledge Hubs").
+  - Content taxonomy is not driven by a central, canonical content registry.
+
+---
+
+### G. Numerology Overview & Content Model Audit (Case 3)
+- **Current State**:
+  - `src/pages/[locale]/numerology/index.astro` renders generic cards with repeated English text.
+  - `src/data/numerology-content.ts` provides core digit data (1-9, 11, 22, 33), but lacks structured, localized models for all core concept categories (Life Path, Destiny, Soul Urge, Expression, Personality, Birthday, Maturity, Balance, Karmic Debt, Challenge, Pinnacle, Personal Year, Personal Month, Personal Day, Name Numerology, Business Numerology).
+
+---
+
+## 2. Root Cause vs. Symptom Matrix
+
+| Problem ID | Affected Production URL | Symptom | True Root Cause | Category | Severity | Proposed Fix |
 |---|---|---|---|---|---|---|
-| **P-01** | `/de/numerology/` | Unstyled raw HTML, default browser fonts | Asset relative path resolution error on sub-route CDN serving | `ASSET` / `CSS` | P0 | Ensure absolute asset URL base, clean DOCTYPE, and verified CSS MIME headers |
-| **P-02** | `/pt/` & `/pt/numerology/` | English text on Portuguese pages | Silent `masterDictionary` fallback in `t()` function | `I18N` / `TRANSLATION` | P1 | Strict build-time translation completeness audit script that fails CI if English leaks into localized pages |
-| **P-03** | `/[locale]/numerology/` | Repetitive card text | Generic template string in `numerology/index.astro` | `CONTENT` | P1 | Build unique `NumerologyConcept` data model with distinct descriptions for every number and concept |
-| **P-04** | All pages | Incomplete header/footer | Disconnected component links and hardcoded text | `NAVIGATION` / `FOOTER` | P1 | Canonical `SiteNavigation.astro` and `FooterNavigation.astro` consuming single locale registry |
+| **RC-01** | `/de/numerology/` | Unstyled raw HTML | Tailwind v4 CSS output syntax incompatible with standard CSS parsers + CSS hash mismatch from partial FTP deploy | `CSS` / `ASSET` / `BUILD` | **P0 (CRITICAL)** | Fallback CSS rules + standard Tailwind configuration + clean full `dist/` FTP upload |
+| **RC-02** | `/pt/`, `/pt/numerology/` | Portuguese pages display English content | Silent English fallback in `t()` function + hardcoded English text in Astro templates | `TRANSLATION` / `I18N` | **P0 (CRITICAL)** | Remove silent fallback in production, populate full UI dictionaries for all locales, wrap all template text in `t()` |
+| **RC-03** | `/[locale]/numerology/` | Generic repeated card descriptions | Hardcoded template strings in `index.astro` and missing concept data model | `CONTENT` | **P1 (HIGH)** | Structured `NumerologyConcept` registry with unique, human-crafted descriptions for every number and concept |
+| **RC-04** | All pages | Incomplete, non-localized header/footer | `SiteNavigation.astro` and `FooterNavigation.astro` hardcode links and labels in English | `NAVIGATION` / `FOOTER` | **P1 (HIGH)** | Central taxonomy navigation registry delivering localized labels and valid localized URLs |
+| **RC-05** | Localized subpages | 404 errors on localized routes | Partial FTP deployments (`deploy-priority.mjs`) leaving missing static folders on server | `DEPLOYMENT` / `ROUTING` | **P0 (CRITICAL)** | Pure full-directory FTP synchronization script (`deploy.mjs`) ensuring 100% path coverage |
+| **RC-06** | All localized pages | Cross-locale internal links | Hardcoded `/en/` links inside localized components | `INTERNAL LINKING` | **P1 (HIGH)** | Enforce dynamic dynamic `${locale}` link prefixing across all components |
+| **RC-07** | SEO headers | Invalid hreflang / missing self-canonical | Canonical URLs or hreflang links pointing to missing or English URLs | `SEO` | **P1 (HIGH)** | Dynamic canonical & hreflang generation consuming the authoritative `localesConfig` |
 
 ---
 
-## 4. Single Source of Truth for Locales
+## 3. Authoritative Locale Single Source of Truth
 
-Authoritative Registry: `src/config/locales.config.ts`
-- **Total Locales**: 40 Supported Languages
-- **LTR Locales**: 38 (`en`, `de`, `fr`, `es`, `pt`, `it`, `nl`, `pl`, `sv`, `da`, `no`, `fi`, `is`, `cs`, `sk`, `hu`, `ro`, `bg`, `el`, `uk`, `ru`, `tr`, `id`, `ms`, `vi`, `th`, `zh`, `ja`, `ko`, `hi`, `bn`, `ta`, `te`, `mr`, `gu`, `kn`, `ml`, `pa`)
-- **RTL Locales**: 2 (`ar`, `ur`)
-
-All components, routers, SEO engines, sitemaps, hreflangs, and translation validators MUST consume `localesConfig` directly.
+**File**: `src/config/locales.config.ts`  
+**Interface**:
+```typescript
+export interface LocaleConfig {
+  code: string;
+  name: string;
+  nativeName: string;
+  dir: 'ltr' | 'rtl';
+  enabled: boolean;
+  isDefault?: boolean;
+}
+```
+All components, routers, navigation bars, footers, sitemaps, hreflangs, and validation scripts MUST import and consume `localesConfig` and `supportedLocales` from this single source of truth.

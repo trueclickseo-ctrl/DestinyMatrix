@@ -1,71 +1,46 @@
 ---
 import { t } from '../../i18n';
 import LanguageSwitcher from '../common/LanguageSwitcher.astro';
+import { footerNavTaxonomy } from '../../config/navigation.config';
 
 interface Props {
   locale?: string;
 }
 
 const { locale = 'en' } = Astro.props;
-
-const navNumerology = t('nav.numerology', locale);
-const navDestinyMatrix = t('nav.destinyMatrix', locale);
-const navArcana = t('nav.arcana', locale);
-const navBirthdays = t('nav.birthdays', locale);
-const navCalculators = t('nav.calculators', locale);
 ---
 
 <footer class="bg-[#231530] text-white border-t-2 border-[#C4A052] py-12 px-4 font-sans text-xs">
   <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
     
-    <!-- Col 1: Explore Hubs -->
-    <div class="space-y-3">
-      <h4 class="font-serif text-sm font-bold text-amber-200 uppercase tracking-widest border-b border-[#C4A052]/40 pb-1">
-        Explore Knowledge Hubs
-      </h4>
-      <ul class="space-y-2 text-stone-300">
-        <li><a href={`/${locale}/numerology/`} class="hover:text-amber-300 transition-colors">{navNumerology} Directory</a></li>
-        <li><a href={`/${locale}/`} class="hover:text-amber-300 transition-colors">{navDestinyMatrix} Engine</a></li>
-        <li><a href={`/${locale}/destiny-matrix/arcana/`} class="hover:text-amber-300 transition-colors">{navArcana} (22 Major Arcana)</a></li>
-        <li><a href={`/${locale}/destiny-matrix/birthdays/`} class="hover:text-amber-300 transition-colors">{navBirthdays} (365 Dates)</a></li>
-      </ul>
-    </div>
+    {footerNavTaxonomy.map((col) => (
+      <div class="space-y-3">
+        <h4 class="font-serif text-sm font-bold text-amber-200 uppercase tracking-widest border-b border-[#C4A052]/40 pb-1">
+          {t(col.titleKey, locale)}
+        </h4>
+        <ul class="space-y-2 text-stone-300">
+          {col.items.map((item) => (
+            <li>
+              <a
+                href={`/${locale}/${item.href}`}
+                class="hover:text-amber-300 transition-colors block"
+              >
+                {t(item.key, locale)}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
 
-    <!-- Col 2: Calculators Directory -->
-    <div class="space-y-3">
-      <h4 class="font-serif text-sm font-bold text-amber-200 uppercase tracking-widest border-b border-[#C4A052]/40 pb-1">
-        {navCalculators}
-      </h4>
-      <ul class="space-y-2 text-stone-300">
-        <li><a href={`/${locale}/calculators/`} class="hover:text-amber-300 transition-colors font-bold text-amber-100">All Calculators Directory →</a></li>
-        <li><a href={`/${locale}/calculators/life-path-number/`} class="hover:text-amber-300 transition-colors">Life Path Number</a></li>
-        <li><a href={`/${locale}/calculators/destiny-number/`} class="hover:text-amber-300 transition-colors">Destiny Number</a></li>
-        <li><a href={`/${locale}/calculators/soul-urge-number/`} class="hover:text-amber-300 transition-colors">Soul Urge Number</a></li>
-        <li><a href={`/${locale}/calculators/personal-year/`} class="hover:text-amber-300 transition-colors">Personal Year Cycle</a></li>
-        <li><a href={`/${locale}/calculators/essence-number/`} class="hover:text-amber-300 transition-colors">Essence Cycle Number</a></li>
-      </ul>
-    </div>
-
-    <!-- Col 3: Reference & Legal -->
-    <div class="space-y-3">
-      <h4 class="font-serif text-sm font-bold text-amber-200 uppercase tracking-widest border-b border-[#C4A052]/40 pb-1">
-        Reference & Terms
-      </h4>
-      <ul class="space-y-2 text-stone-300">
-        <li><a href={`/${locale}/terms/`} class="hover:text-amber-300 transition-colors">Terms of Service</a></li>
-        <li><a href={`/${locale}/privacy/`} class="hover:text-amber-300 transition-colors">Privacy Policy</a></li>
-        <li><a href={`/${locale}/report/`} class="hover:text-amber-300 transition-colors">Personal Report Overview</a></li>
-      </ul>
-    </div>
-
-    <!-- Col 4: Brand & Language -->
-    <div class="space-y-3">
+    <!-- Brand & Language Switcher Column -->
+    <div class="space-y-3 sm:col-span-2 md:col-span-1">
       <div class="flex items-center gap-2 font-serif text-amber-100 uppercase tracking-widest text-sm font-bold">
         <span class="text-amber-400">✨</span>
         <span>Souliography</span>
       </div>
       <p class="text-stone-300 leading-relaxed text-[11px]">
-        Souliography provides classical Pythagorean numerology and Natalia Ladini 22 Arcana Destiny Matrix reference tools for self-discovery and personal reflection.
+        {t('footer.about', locale)}
       </p>
       <div class="pt-2">
         <LanguageSwitcher currentLocale={locale} />
@@ -75,7 +50,7 @@ const navCalculators = t('nav.calculators', locale);
   </div>
 
   <div class="max-w-7xl mx-auto border-t border-[#C4A052]/30 mt-8 pt-4 flex flex-wrap items-center justify-between text-[11px] text-stone-400">
-    <p>© {new Date().getFullYear()} Souliography. All rights reserved.</p>
-    <p class="italic">Early-2000s Digital Occult Reference Library Architecture</p>
+    <p>© {new Date().getFullYear()} Souliography. {t('footer.copyright', locale)}</p>
+    <p class="italic">Digital Occult Reference Library Architecture</p>
   </div>
 </footer>

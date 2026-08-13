@@ -18,7 +18,23 @@ export const uiTranslations_en = {
   'nav.home': 'Home',
   'nav.calculators': 'Calculators',
   'nav.numerology': 'Numerology',
+  'nav.numerologyOverview': 'Numerology Directory',
+  'nav.lifePathNumber': 'Life Path Number',
+  'nav.destinyNumber': 'Destiny Number',
+  'nav.soulUrgeNumber': 'Soul Urge Number',
+  'nav.personalityNumber': 'Personality Number',
+  'nav.personalYear': 'Personal Year Cycle',
+  'nav.essenceNumber': 'Essence Number',
   'nav.destinyMatrix': 'Destiny Matrix',
+  'nav.destinyMatrixEngine': 'Destiny Matrix Chart Engine',
+  'nav.arcanaLibrary': '22 Major Arcana Encyclopedia',
+  'nav.birthdayProfiles': '365 Birthday Profiles',
+  'nav.allCalculators': 'All Calculators Directory →',
+  'nav.lifePathCalc': 'Life Path Calculator',
+  'nav.destinyCalc': 'Destiny Calculator',
+  'nav.soulUrgeCalc': 'Soul Urge Calculator',
+  'nav.personalYearCalc': 'Personal Year Calculator',
+  'nav.essenceCalc': 'Essence Calculator',
   'nav.arcana': 'Arcana Encyclopedia',
   'nav.birthdays': 'Birthday Directory',
   'nav.guides': 'Guides & Articles',
@@ -26,6 +42,10 @@ export const uiTranslations_en = {
   'nav.terms': 'Terms of Service',
   'nav.privacy': 'Privacy Policy',
   'nav.disclaimer': 'Disclaimer',
+  'footer.destinySection': 'Destiny Matrix',
+  'footer.numerologySection': 'Numerology',
+  'footer.legal': 'Legal & Reference',
+
 
   // Form Labels
   'form.birthDate': 'Date of Birth',
@@ -139,8 +159,28 @@ export const uiTranslations_en = {
   'footer.legal': 'Legal & Privacy',
   'footer.copyright': 'All rights reserved.',
 
+  // Numerology Overview Page
+  'numerology.hubTag': 'Pythagorean Reference Hub',
+  'numerology.title': 'Numerology Knowledge Directory',
+  'numerology.subtitle': 'Understand the foundational principles of Pythagorean numerology, core personal vibrations, and numerical archetypes.',
+  'numerology.whatIsTitle': 'What Is Pythagorean Numerology?',
+  'numerology.whatIsBody': 'Pythagorean numerology is an ancient esoteric mathematics system attributed to the Greek philosopher Pythagoras. It asserts that letters and numbers carry distinct vibrational frequencies that reflect human personality, life purpose, and recurring personal cycles.',
+  'numerology.dobTitle': '1. Date of Birth',
+  'numerology.dobDesc': 'Reveals your Life Path Number and personal growth cycles.',
+  'numerology.nameTitle': '2. Full Legal Name',
+  'numerology.nameDesc': 'Maps Destiny (Expression), Soul Urge, and Personality vibrations.',
+  'numerology.masterTitle': '3. Master Numbers',
+  'numerology.masterDesc': 'Preserves higher octave frequencies (11, 22, 33) without reduction.',
+  'numerology.coreIndexTitle': 'The Core Numerology Concepts',
+  'numerology.libraryTitle': 'Number Meaning Reference Library',
+  'numerology.12Vibrations': '12 Core Vibrations',
+  'numerology.primaryDigit': 'Primary Digit',
+  'numerology.masterNumber': 'Master Number',
+  'numerology.calculateNow': 'Calculate Now →',
+
   // Language Switcher
   'lang.selectLanguage': 'Select Language',
   'lang.searchPlaceholder': 'Search 40 languages...',
   'lang.currentLocale': 'Current Language',
 };
+

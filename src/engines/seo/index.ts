@@ -24,14 +24,21 @@ export class SEOEngine {
       title: cleanTitle,
       description: props.description,
       canonical,
-      hreflangs: props.availableLocales.map((loc) => {
-        let href = canonical.replace(`/${props.locale}/`, `/${loc}/`);
-        if (!href.endsWith('/')) href += '/';
-        return {
-          lang: loc,
-          href,
-        };
-      }),
+      hreflangs: [
+        ...props.availableLocales.map((loc) => {
+          let href = canonical.replace(`/${props.locale}/`, `/${loc}/`);
+          if (!href.endsWith('/')) href += '/';
+          return {
+            lang: loc,
+            href,
+          };
+        }),
+        {
+          lang: 'x-default',
+          href: canonical.replace(`/${props.locale}/`, '/en/'),
+        },
+      ],
+
       openGraph: {
         title: props.title,
         description: props.description,

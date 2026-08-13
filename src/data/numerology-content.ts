@@ -10,6 +10,155 @@ export interface NumberMeaningDetail {
   misconceptions: string;
 }
 
+export interface NumerologyConcept {
+  slug: string;
+  name: string;
+  category: string;
+  icon?: string;
+  shortDescription: string;
+  intro: string;
+  calculatorSlug?: string;
+  relatedConcepts: string[];
+}
+
+export const NUMEROLOGY_CONCEPTS: Record<string, NumerologyConcept> = {
+  'life-path-number': {
+    slug: 'life-path-number',
+    name: 'Life Path Number',
+    category: 'Core Numbers',
+    shortDescription: 'The central blueprint of your journey, calculated from your full date of birth. Reveals your primary life purpose, key lessons, and evolutionary trajectory.',
+    intro: 'Your Life Path Number is considered the most foundational calculation in classical Pythagorean numerology. Derived by reducing your complete day, month, and year of birth down to a single digit or master number, it outlines the core opportunities, challenges, and lessons you are designed to encounter.',
+    calculatorSlug: 'calculators/life-path-number/',
+    relatedConcepts: ['destiny-number', 'soul-urge-number', 'personal-year'],
+  },
+  'destiny-number': {
+    slug: 'destiny-number',
+    name: 'Destiny (Expression) Number',
+    category: 'Core Numbers',
+    shortDescription: 'Calculated from every letter in your full legal birth name. Outlines your natural talents, physical potential, and overall life expression.',
+    intro: 'The Destiny Number (often called the Expression Number) reveals the tools and talents you were born with. While your Life Path Number reveals what you are here to learn, your Destiny Number illuminates how you express those lessons in the physical world through your work and creative output.',
+    calculatorSlug: 'calculators/destiny-number/',
+    relatedConcepts: ['life-path-number', 'soul-urge-number', 'personality-number'],
+  },
+  'soul-urge-number': {
+    slug: 'soul-urge-number',
+    name: 'Soul Urge (Heart’s Desire) Number',
+    category: 'Core Numbers',
+    shortDescription: 'Derived from the vowels in your full name. Maps your inner desires, private motivations, and emotional fulfillment needs.',
+    intro: 'Your Soul Urge Number reflects the quiet cravings of your spirit—what genuinely satisfies your soul regardless of external approval. Calculated strictly from the vowels of your birth name, it explains your deepest romantic longings, spiritual values, and private motivations.',
+    calculatorSlug: 'calculators/soul-urge-number/',
+    relatedConcepts: ['personality-number', 'destiny-number', 'life-path-number'],
+  },
+  'personality-number': {
+    slug: 'personality-number',
+    name: 'Personality Number',
+    category: 'Core Numbers',
+    shortDescription: 'Calculated from the consonants of your full name. Represents your outer persona, initial presentation, and first impression.',
+    intro: 'The Personality Number acts as your emotional cloak—the outer boundary you present to the world. Mapped from the consonants of your birth name, it shows how acquaintances perceive you before gaining access to your deeper Soul Urge.',
+    calculatorSlug: 'calculators/personality-number/',
+    relatedConcepts: ['soul-urge-number', 'destiny-number'],
+  },
+  'birthday-number': {
+    slug: 'birthday-number',
+    name: 'Birthday Number',
+    category: 'Sub-Numbers',
+    shortDescription: 'The single day of the month on which you were born. Highlights specific innate abilities and modifier traits.',
+    intro: 'Your Birthday Number is the day of the month you were born (1 through 31). It acts as a specialized modifier to your Life Path Number, providing unique talents, behavioral tendencies, and immediate tools.',
+    calculatorSlug: 'calculators/life-path-number/',
+    relatedConcepts: ['life-path-number', 'pinnacle-number'],
+  },
+  'maturity-number': {
+    slug: 'maturity-number',
+    name: 'Maturity Number',
+    category: 'Sub-Numbers',
+    shortDescription: 'The sum of your Life Path and Destiny numbers. Unfolds during the second half of life as your ultimate maturity goal.',
+    intro: 'The Maturity Number comes into full force between ages 35 and 50. By combining your Life Path and Destiny vibrations, it indicates the ultimate direction of your mature years and long-term legacy.',
+    calculatorSlug: 'calculators/life-path-number/',
+    relatedConcepts: ['life-path-number', 'destiny-number'],
+  },
+  'balance-number': {
+    slug: 'balance-number',
+    name: 'Balance Number',
+    category: 'Sub-Numbers',
+    shortDescription: 'Calculated from the initials of your full name. Guidance on how to regain emotional stability during stressful crises.',
+    intro: 'Your Balance Number provides guidance during turbulent moments. It reveals how you naturally react to emotional pressure and offers a constructive pathway for restoring internal harmony.',
+    calculatorSlug: 'calculators/destiny-number/',
+    relatedConcepts: ['personality-number', 'challenge-number'],
+  },
+  'karmic-debt-number': {
+    slug: 'karmic-debt-number',
+    name: 'Karmic Debt Number',
+    category: 'Karmic Cycles',
+    shortDescription: 'Special compound numbers (13, 14, 16, 19) representing specific lessons and obligations carried into this lifetime.',
+    intro: 'In Pythagorean numerology, Karmic Debt Numbers (13/4, 14/5, 16/7, 19/1) signal specific lessons that demand conscious discipline, accountability, and spiritual refinement to master.',
+    calculatorSlug: 'calculators/life-path-number/',
+    relatedConcepts: ['life-path-number', 'challenge-number'],
+  },
+  'challenge-number': {
+    slug: 'challenge-number',
+    name: 'Challenge Number',
+    category: 'Karmic Cycles',
+    shortDescription: 'Derived by subtracting birth date digits. Identifies specific psychological hurdles to overcome during life stages.',
+    intro: 'Challenge Numbers point to internal friction and recurring psychological hurdles. Recognizing your specific challenges empowers you to convert weaknesses into pillars of resilience.',
+    calculatorSlug: 'calculators/life-path-number/',
+    relatedConcepts: ['pinnacle-number', 'life-path-number'],
+  },
+  'pinnacle-number': {
+    slug: 'pinnacle-number',
+    name: 'Pinnacle Number',
+    category: 'Life Cycles',
+    shortDescription: 'Four distinct chronological eras in your life journey, governing main developmental themes.',
+    intro: 'Pinnacle Numbers divide your life span into four distinct developmental periods. Each Pinnacle represents a major learning environment and specific growth opportunities.',
+    calculatorSlug: 'calculators/life-path-number/',
+    relatedConcepts: ['personal-year', 'challenge-number'],
+  },
+  'personal-year': {
+    slug: 'personal-year',
+    name: 'Personal Year Cycle',
+    category: 'Predictive Cycles',
+    shortDescription: 'Your annual 9-year cycle vibration, running from birthday to birthday or calendar year. Outlines key seasonal themes.',
+    intro: 'The Personal Year Cycle runs on an enduring 9-year loop. Understanding your current year’s vibration helps you align decisions with cosmic momentum—whether to plant seeds, take action, or harvest results.',
+    calculatorSlug: 'calculators/personal-year/',
+    relatedConcepts: ['personal-month', 'life-path-number'],
+  },
+  'personal-month': {
+    slug: 'personal-month',
+    name: 'Personal Month Cycle',
+    category: 'Predictive Cycles',
+    shortDescription: 'Monthly sub-vibration refining your Personal Year theme for tactical short-term timing.',
+    intro: 'The Personal Month vibration refines the broader theme of your Personal Year. It offers month-by-month tactical timing for business moves, travel, relationship shifts, and inner reflection.',
+    calculatorSlug: 'calculators/personal-year/',
+    relatedConcepts: ['personal-year', 'personal-day'],
+  },
+  'personal-day': {
+    slug: 'personal-day',
+    name: 'Personal Day Rhythm',
+    category: 'Predictive Cycles',
+    shortDescription: 'Daily numerical frequency guiding short-term micro-decisions, focus, and energy management.',
+    intro: 'Your Personal Day frequency offers daily energetic weather reports. It guides micro-decisions, meetings, artistic work, or resting moments based on daily numbers.',
+    calculatorSlug: 'calculators/personal-year/',
+    relatedConcepts: ['personal-month', 'personal-year'],
+  },
+  'name-numerology': {
+    slug: 'name-numerology',
+    name: 'Name Numerology Matrix',
+    category: 'Methodologies',
+    shortDescription: 'The ancient art of translating alphabetic letter values into numerical vibrations using the Pythagorean grid.',
+    intro: 'Name Numerology relies on assigning numerical values (1 through 9) to letters of the alphabet. Your legal name acts as an energetic signature shaping your public potential and self-expression.',
+    calculatorSlug: 'calculators/destiny-number/',
+    relatedConcepts: ['destiny-number', 'business-numerology'],
+  },
+  'business-numerology': {
+    slug: 'business-numerology',
+    name: 'Business & Brand Numerology',
+    category: 'Methodologies',
+    shortDescription: 'Applying numerical principles to corporate brand titles, product lines, launch dates, and domain names.',
+    intro: 'Business Numerology evaluates brand names, corporate incorporation dates, and product titles to ensure commercial alignment, brand resonance, and optimal market positioning.',
+    calculatorSlug: 'calculators/destiny-number/',
+    relatedConcepts: ['name-numerology', 'destiny-number'],
+  },
+};
+
 export const NUMEROLOGY_NUMBER_DETAILS: Record<number, NumberMeaningDetail> = {
   1: {
     number: 1,

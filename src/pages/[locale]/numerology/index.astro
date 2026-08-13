@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/common/Breadcrumbs.astro';
-import { NUMEROLOGY_NUMBER_DETAILS } from '../../../data/numerology-content';
+import { NUMEROLOGY_NUMBER_DETAILS, NUMEROLOGY_CONCEPTS } from '../../../data/numerology-content';
 import { supportedLocales } from '../../../config/locales.config';
 import { t } from '../../../i18n';
 
@@ -12,16 +12,17 @@ export function getStaticPaths() {
 const { locale = 'en' } = Astro.params;
 
 const breadcrumbs = [
-  { label: 'Home', href: `/${locale}/` },
+  { label: t('nav.home', locale), href: `/${locale}/` },
   { label: t('nav.numerology', locale) },
 ];
 
 const numbersList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33];
+const conceptKeys = ['life-path-number', 'destiny-number', 'soul-urge-number', 'personality-number', 'birthday-number', 'personal-year'];
 ---
 
 <BaseLayout
-  title={`${t('nav.numerology', locale)} Knowledge Directory | Souliography`}
-  description="Comprehensive reference library for classical Pythagorean numerology, Core Numbers, and individual number vibrations (1–9, 11, 22, 33)."
+  title={`${t('nav.numerology', locale)} ${t('numerology.title', locale)} | Souliography`}
+  description={t('numerology.subtitle', locale)}
   locale={locale}
 >
   <!-- Hero Section -->
@@ -29,13 +30,13 @@ const numbersList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33];
     <div class="max-w-5xl mx-auto space-y-4 text-center">
       <Breadcrumbs items={breadcrumbs} locale={locale} />
       <span class="text-xs uppercase tracking-widest text-[#C4A052] font-mono font-bold bg-white/10 px-3 py-1 rounded inline-block border border-[#C4A052]/40">
-        Pythagorean Reference Hub
+        {t('numerology.hubTag', locale)}
       </span>
       <h1 class="text-4xl sm:text-5xl font-serif font-bold text-amber-100">
-        {t('nav.numerology', locale)} Knowledge Directory
+        {t('numerology.title', locale)}
       </h1>
       <p class="text-purple-200 max-w-2xl mx-auto text-sm sm:text-base font-serif leading-relaxed">
-        Understand the foundational principles of Pythagorean numerology, core personal vibrations, and numerical archetypes.
+        {t('numerology.subtitle', locale)}
       </p>
     </div>
   </section>
@@ -45,48 +46,51 @@ const numbersList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33];
     <!-- Overview Section -->
     <div class="ref-card p-8 bg-white border border-[#D8D0C5] space-y-4 border-t-4 border-t-[#C4A052]">
       <h2 class="text-2xl font-serif font-bold text-[#231530] border-b border-[#D8D0C5] pb-2">
-        What Is Pythagorean Numerology?
+        {t('numerology.whatIsTitle', locale)}
       </h2>
       <p class="text-xs sm:text-sm text-[#524B5A] leading-relaxed">
-        Pythagorean numerology is an ancient esoteric mathematics system attributed to the Greek philosopher Pythagoras. It asserts that letters and numbers carry distinct vibrational frequencies that reflect human personality, life purpose, and recurring personal cycles.
+        {t('numerology.whatIsBody', locale)}
       </p>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
         <div class="p-4 bg-[#FBF9F5] border border-[#D8D0C5] rounded space-y-1 text-xs">
-          <strong class="text-[#231530] block font-serif">1. Date of Birth</strong>
-          <p class="text-[#524B5A] text-[11px]">Reveals your Life Path Number and personal growth cycles.</p>
+          <strong class="text-[#231530] block font-serif">{t('numerology.dobTitle', locale)}</strong>
+          <p class="text-[#524B5A] text-[11px]">{t('numerology.dobDesc', locale)}</p>
         </div>
         <div class="p-4 bg-[#FBF9F5] border border-[#D8D0C5] rounded space-y-1 text-xs">
-          <strong class="text-[#231530] block font-serif">2. Full Legal Name</strong>
-          <p class="text-[#524B5A] text-[11px]">Maps Destiny (Expression), Soul Urge, and Personality vibrations.</p>
+          <strong class="text-[#231530] block font-serif">{t('numerology.nameTitle', locale)}</strong>
+          <p class="text-[#524B5A] text-[11px]">{t('numerology.nameDesc', locale)}</p>
         </div>
         <div class="p-4 bg-[#FBF9F5] border border-[#D8D0C5] rounded space-y-1 text-xs">
-          <strong class="text-[#231530] block font-serif">3. Master Numbers</strong>
-          <p class="text-[#524B5A] text-[11px]">Preserves higher octave frequencies (11, 22, 33) without reduction.</p>
+          <strong class="text-[#231530] block font-serif">{t('numerology.masterTitle', locale)}</strong>
+          <p class="text-[#524B5A] text-[11px]">{t('numerology.masterDesc', locale)}</p>
         </div>
       </div>
     </div>
 
-    <!-- Core Numbers Index -->
+    <!-- Core Concepts Index -->
     <div class="space-y-6">
       <h2 class="text-2xl font-serif font-bold text-[#231530] border-b-2 border-[#C4A052] pb-2">
-        The Core Numerology Numbers
+        {t('numerology.coreIndexTitle', locale)}
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="ref-card p-5 bg-white border border-[#D8D0C5] space-y-2">
-          <h3 class="font-serif font-bold text-base text-[#231530]">Life Path Number</h3>
-          <p class="text-xs text-[#524B5A]">Derived from your birth date. Represents your central life purpose and lessons.</p>
-          <a href={`/${locale}/calculators/life-path-number/`} class="text-xs font-bold text-[#9E7B3B] hover:underline block pt-1">Calculate Life Path →</a>
-        </div>
-        <div class="ref-card p-5 bg-white border border-[#D8D0C5] space-y-2">
-          <h3 class="font-serif font-bold text-base text-[#231530]">Destiny / Expression</h3>
-          <p class="text-xs text-[#524B5A]">Calculated from all letters in your full name. Reflects physical talents.</p>
-          <a href={`/${locale}/calculators/destiny-number/`} class="text-xs font-bold text-[#9E7B3B] hover:underline block pt-1">Calculate Destiny →</a>
-        </div>
-        <div class="ref-card p-5 bg-white border border-[#D8D0C5] space-y-2">
-          <h3 class="font-serif font-bold text-base text-[#231530]">Soul Urge Number</h3>
-          <p class="text-xs text-[#524B5A]">Calculated from vowels. Reflects inner desires and heart motivations.</p>
-          <a href={`/${locale}/calculators/soul-urge-number/`} class="text-xs font-bold text-[#9E7B3B] hover:underline block pt-1">Calculate Soul Urge →</a>
-        </div>
+        {conceptKeys.map((slug) => {
+          const concept = NUMEROLOGY_CONCEPTS[slug];
+          if (!concept) return null;
+          return (
+            <div class="ref-card p-5 bg-white border border-[#D8D0C5] space-y-2 flex flex-col justify-between">
+              <div class="space-y-1">
+                <span class="text-[10px] uppercase font-mono text-[#9E7B3B] font-bold block">{concept.category}</span>
+                <h3 class="font-serif font-bold text-base text-[#231530]">{concept.name}</h3>
+                <p class="text-xs text-[#524B5A] leading-relaxed">{concept.shortDescription}</p>
+              </div>
+              {concept.calculatorSlug && (
+                <a href={`/${locale}/${concept.calculatorSlug}`} class="text-xs font-bold text-[#9E7B3B] hover:underline block pt-2">
+                  {t('numerology.calculateNow', locale)}
+                </a>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
 
@@ -94,9 +98,9 @@ const numbersList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33];
     <div class="space-y-6">
       <div class="border-b-2 border-[#C4A052] pb-2 flex items-center justify-between">
         <h2 class="text-2xl font-serif font-bold text-[#231530]">
-          Number Meaning Reference Library
+          {t('numerology.libraryTitle', locale)}
         </h2>
-        <span class="text-xs font-mono text-[#9E7B3B] font-bold">12 Core Vibrations</span>
+        <span class="text-xs font-mono text-[#9E7B3B] font-bold">{t('numerology.12Vibrations', locale)}</span>
       </div>
 
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -114,7 +118,7 @@ const numbersList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33];
                 {content?.archetype || `Number ${num}`}
               </span>
               <span class="text-[11px] text-[#524B5A] block italic">
-                {num === 11 || num === 22 || num === 33 ? 'Master Number' : 'Primary Digit'}
+                {num === 11 || num === 22 || num === 33 ? t('numerology.masterNumber', locale) : t('numerology.primaryDigit', locale)}
               </span>
             </a>
           );
