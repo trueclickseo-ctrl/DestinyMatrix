@@ -8,27 +8,190 @@ export function getStaticPaths() {
 
 const { locale = 'en' } = Astro.params;
 
-const pageTitle = "The Love Line in Destiny Matrix: Complete Guide";
-const pageDesc = "Learn what the Love Line in your Destiny Matrix chart reveals about relationship dynamics, attraction, and emotional patterns.";
+const pageTitle = "What Is the Love Line in Your Destiny Matrix Chart? | Souliography";
+const pageDesc = "Learn how to find and read your Love Line in your Destiny Matrix chart — what it reveals about attraction, relationship patterns, and how to work with it.";
+const canonicalUrl = `https://souliography.com/${locale}/guides/love-line-destiny-matrix/`;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does the Love Line predict who I'll end up with?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It doesn't identify a specific person or predict a relationship outcome. It maps the emotional pattern and energy you bring into relationships, which is useful for self-reflection rather than prediction."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can two people compare Love Lines for compatibility?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — this is what a Destiny Matrix Compatibility chart does. It layers two people's charts, including their Love Lines, to show where the energies naturally align and where more friction is likely."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does a \"difficult\" Love Line mean a difficult love life?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not necessarily. Every Arcana carries both a growth-oriented expression and a shadow expression. A challenging Love Line usually points to a pattern worth becoming aware of — not a fixed outcome."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the Love Line different from the Soul Urge Number?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your Soul Urge Number reflects your inner emotional motivation in general — what you want at a heart level across all areas of life. The Love Line is specific to how that shows up in romantic relationships."
+      }
+    }
+  ]
+};
 ---
 
-<BaseLayout title={pageTitle} description={pageDesc} locale={locale}>
-  <section class="bg-[#F7F3EC] py-16 px-4 font-sans">
-    <div class="max-w-4xl mx-auto bg-white rounded-3xl p-8 border border-stone-200/80 shadow-sm space-y-6">
-      <span class="text-xs font-bold text-[#B67B7B] uppercase tracking-widest bg-[#F7F3EC] px-3.5 py-1 rounded-full inline-block">
-        Destiny Matrix Guide
+<BaseLayout title={pageTitle} description={pageDesc} canonical={canonicalUrl} locale={locale}>
+  <!-- JSON-LD FAQ Schema -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-b from-[#2e1d2b] via-[#4a2638] to-[#F7F3EC] text-white py-16 px-4 text-center">
+    <div class="max-w-4xl mx-auto space-y-4">
+      <span class="text-xs uppercase tracking-widest text-amber-300 font-extrabold bg-white/10 px-4 py-1.5 rounded-full inline-block">
+        DESTINY MATRIX GUIDE
       </span>
-      <h1 class="text-3xl sm:text-4xl font-serif text-[#2E3D34] font-bold">
-        Understanding the Love Line in Your Destiny Matrix
+      <h1 class="text-3xl sm:text-5xl font-serif text-amber-100 font-bold leading-tight max-w-3xl mx-auto">
+        What Is the Love Line in Your Destiny Matrix Chart?
       </h1>
-      <p class="text-stone-600 leading-relaxed text-sm sm:text-base">
-        The Love Line is the diagonal run of numbers in your Destiny Matrix chart that maps your romantic and relationship energy — how you give and receive love, what kind of partner you're naturally drawn to, and the emotional patterns that tend to resurface in relationships until they're consciously addressed.
+      <p class="text-rose-100/90 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
+        Discover what your chart reveals about attraction, romantic energy, and recurring relationship patterns.
       </p>
-      <div class="pt-4 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
-        <a href={`/${locale}/`} class="text-[#2E3D34] font-bold hover:underline">
-          ← Back to Destiny Matrix Calculator
-        </a>
-      </div>
     </div>
   </section>
+
+  <!-- Main Article Body -->
+  <div class="bg-[#F7F3EC] py-12 px-4 font-sans">
+    <div class="max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-stone-200/80 shadow-sm space-y-8 text-stone-700 leading-relaxed text-sm sm:text-base">
+      
+      <!-- Intro -->
+      <div class="space-y-4">
+        <p>
+          If the same relationship pattern keeps showing up — the same type of partner, the same argument, the same point where things fall apart — your Love Line is usually where the Destiny Matrix chart points first. It's one of the most-read sections of any Destiny Matrix reading, and one of the easiest to misread if you don't know what you're looking at.
+        </p>
+        <p>
+          This guide walks through what the Love Line actually is, where it sits on your chart, how to interpret it, and what to do with what you find.
+        </p>
+      </div>
+
+      <!-- What the Love Line Represents -->
+      <section class="space-y-4 pt-4 border-t border-stone-100">
+        <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">What the Love Line Represents</h2>
+        <p>
+          The Love Line is a diagonal run of numbers across your Destiny Matrix chart that maps your romantic and relationship energy. It doesn't predict a specific partner or outcome. Instead, it shows the emotional patterns you bring into relationships — how you give love, how you receive it, what kind of connection you're naturally drawn toward, and where friction tends to build.
+        </p>
+        <p>In practice, the Love Line covers three connected questions:</p>
+        <ul class="list-disc pl-6 space-y-2 text-stone-600">
+          <li><strong>How you love</strong> — your natural way of expressing affection, commitment, and closeness</li>
+          <li><strong>What you attract</strong> — the type of relationship dynamic your energy tends to draw in</li>
+          <li><strong>Where the pattern repeats</strong> — the recurring friction point that shows up across different relationships, regardless of who the partner is</li>
+        </ul>
+        <p>
+          That last piece is usually the most useful. Most people can name what keeps going wrong in their relationships. The Love Line is meant to show why it keeps happening in the first place.
+        </p>
+      </section>
+
+      <!-- Where to Find Your Love Line -->
+      <section class="space-y-4 pt-4 border-t border-stone-100">
+        <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">Where to Find Your Love Line</h2>
+        <p>
+          Your Love Line sits on the diagonal axis of your Destiny Matrix chart, calculated from specific birth-date positions combined using the same 22-Arcana modular arithmetic used for the rest of your chart. If a calculation exceeds 22, the digits are reduced (added together) to stay within the 22 core Arcana archetypes — the same method used for every other number in your matrix.
+        </p>
+        <p>
+          You don't need to calculate this by hand. Enter your date of birth into the <a href={`/${locale}/`} class="text-[#2E3D34] font-bold hover:underline">Souliography Destiny Matrix calculator</a> and your Love Line numbers appear automatically as part of your free chart.
+        </p>
+      </section>
+
+      <!-- How to Read Your Love Line Numbers -->
+      <section class="space-y-4 pt-4 border-t border-stone-100">
+        <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">How to Read Your Love Line Numbers</h2>
+        <p>
+          Each Love Line position corresponds to one of the 22 Major Arcana, and each Arcana carries a distinct theme. A few examples of what different energies tend to indicate:
+        </p>
+        <div class="space-y-3 pl-2 border-l-2 border-[#2E3D34]/20">
+          <p>
+            <strong>Harmony-oriented Arcana</strong> (like The Lovers or Temperance) often point to a need for balance, choice, and emotional equilibrium in relationships — sometimes showing up as difficulty choosing between competing desires or people.
+          </p>
+          <p>
+            <strong>Independence-oriented Arcana</strong> (like The Chariot or Strength) often indicate a drive for control or self-reliance in love, which can read as either healthy boundaries or difficulty being vulnerable, depending on how it's expressed.
+          </p>
+          <p>
+            <strong>Karmic or shadow Arcana</strong> (like The Devil or The Hermit) frequently point to patterns around attachment, isolation, or repeating a dynamic from a past relationship until it's consciously addressed.
+          </p>
+        </div>
+        <p>
+          The specific meaning depends on your full chart context, not the Love Line in isolation — which is why Souliography pairs your raw Arcana positions with AI-guided interpretation that reads the Love Line alongside your other core numbers (Life Path, Soul Urge, Expression, and Personality) rather than as a standalone data point.
+        </p>
+      </section>
+
+      <!-- Love Line vs. Karmic Tail -->
+      <section class="space-y-4 pt-4 border-t border-stone-100">
+        <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">Love Line vs. Karmic Tail: What's the Difference?</h2>
+        <p>
+          These two are often confused. Your Karmic Tail is a broader pattern that can show up in any area of life — money, career, family, or relationships. Your Love Line is specific to romantic and relationship energy. Sometimes they overlap (a karmic pattern that happens to express itself through relationships), and sometimes they don't. If your Love Line and Karmic Tail point to related themes, that's usually a strong signal worth paying attention to.
+        </p>
+      </section>
+
+      <!-- Common Questions About the Love Line -->
+      <section class="space-y-4 pt-4 border-t border-stone-100">
+        <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">Common Questions About the Love Line</h2>
+        <div class="space-y-4">
+          <div class="p-4 bg-[#F7F3EC]/70 rounded-2xl border border-stone-200/60 space-y-1">
+            <h3 class="font-bold text-[#2E3D34]">Does the Love Line predict who I'll end up with?</h3>
+            <p class="text-stone-600 text-xs sm:text-sm">
+              No. It doesn't identify a specific person or predict a relationship outcome. It maps the emotional pattern and energy you bring into relationships, which is useful for self-reflection rather than prediction.
+            </p>
+          </div>
+
+          <div class="p-4 bg-[#F7F3EC]/70 rounded-2xl border border-stone-200/60 space-y-1">
+            <h3 class="font-bold text-[#2E3D34]">Can two people compare Love Lines for compatibility?</h3>
+            <p class="text-stone-600 text-xs sm:text-sm">
+              Yes — this is what a Destiny Matrix Compatibility chart does. It layers two people's charts, including their Love Lines, to show where the energies naturally align and where more friction is likely. Try the <a href={`/${locale}/calculators/compatibility-numerology/`} class="text-[#2E3D34] font-bold hover:underline">Compatibility Calculator</a>.
+            </p>
+          </div>
+
+          <div class="p-4 bg-[#F7F3EC]/70 rounded-2xl border border-stone-200/60 space-y-1">
+            <h3 class="font-bold text-[#2E3D34]">Does a "difficult" Love Line mean a difficult love life?</h3>
+            <p class="text-stone-600 text-xs sm:text-sm">
+              Not necessarily. Every Arcana carries both a growth-oriented expression and a shadow expression. A challenging Love Line usually points to a pattern worth becoming aware of — not a fixed outcome.
+            </p>
+          </div>
+
+          <div class="p-4 bg-[#F7F3EC]/70 rounded-2xl border border-stone-200/60 space-y-1">
+            <h3 class="font-bold text-[#2E3D34]">How is the Love Line different from the Soul Urge Number?</h3>
+            <p class="text-stone-600 text-xs sm:text-sm">
+              Your <a href={`/${locale}/numerology/soul-urge-number/`} class="text-[#2E3D34] font-bold hover:underline">Soul Urge Number</a> reflects your inner emotional motivation in general — what you want at a heart level across all areas of life. The Love Line is specific to how that shows up in romantic relationships.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- See Your Love Line Callout -->
+      <section class="p-6 bg-gradient-to-r from-[#2F153F] to-[#48205E] text-white rounded-2xl text-center space-y-4 shadow-md">
+        <h2 class="text-2xl font-serif text-amber-200 font-bold">See Your Love Line</h2>
+        <p class="text-xs sm:text-sm text-stone-200 max-w-lg mx-auto leading-relaxed">
+          Your Love Line is calculated automatically as part of your free Destiny Matrix chart — no separate calculator needed.
+        </p>
+        <a href={`/${locale}/`} class="inline-block px-6 py-3 bg-amber-200 hover:bg-amber-300 text-[#2F153F] font-bold rounded-xl text-xs sm:text-sm shadow-sm transition-all">
+          Calculate My Free Destiny Matrix Chart →
+        </a>
+      </section>
+
+      <div class="pt-4 border-t border-stone-100 text-xs text-stone-400 italic leading-relaxed">
+        Method note: Calculations are based on the 22-Arcana framework associated with the Matrix of Destiny method developed by Natalia Ladini. Interpretations are intended for self-reflection and personal growth, not as prediction or professional relationship advice.
+      </div>
+
+    </div>
+  </div>
 </BaseLayout>

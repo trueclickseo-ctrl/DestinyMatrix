@@ -8,27 +8,202 @@ export function getStaticPaths() {
 
 const { locale = 'en' } = Astro.params;
 
-const pageTitle = "The Money Line in Destiny Matrix: Complete Guide";
-const pageDesc = "Learn what the Money Line in your Destiny Matrix chart reveals about career potential, wealth creation, and financial blocks.";
+const pageTitle = "What Is the Money Line in Your Destiny Matrix Chart? | Souliography";
+const pageDesc = "Learn how to find and read your Money Line in your Destiny Matrix chart — what it reveals about earning energy, financial blocks, and career direction.";
+const canonicalUrl = `https://souliography.com/${locale}/guides/money-line-destiny-matrix/`;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does the Money Line predict how much money I'll make?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It doesn't predict a dollar amount or financial event. It maps your natural earning energy and the patterns that support or block financial flow — useful for self-reflection and decision-making, not prediction."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can the Money Line point to a specific career?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not directly, but it can highlight the type of energy that tends to create financial flow for you — structure vs. creativity, leadership vs. collaboration — which can inform career decisions even without naming a specific job title."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a \"difficult\" Money Line a bad sign?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not inherently. Every Arcana has both a growth expression and a shadow expression. A challenging Money Line usually points to a pattern worth becoming aware of, not a fixed financial outcome."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is the Money Line different from the Expression Number?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your Expression Number reflects your natural talents and abilities across all areas of life. The Money Line is specific to how those talents translate into earning energy and financial patterns."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the Money Line relate to business name numerology?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "They're related but distinct tools. Your personal Money Line reflects your individual financial energy; the Business Name Calculator evaluates the numerological energy of a business name itself. Many people check both when starting a venture."
+      }
+    }
+  ]
+};
 ---
 
-<BaseLayout title={pageTitle} description={pageDesc} locale={locale}>
-  <section class="bg-[#F7F3EC] py-16 px-4 font-sans">
-    <div class="max-w-4xl mx-auto bg-white rounded-3xl p-8 border border-stone-200/80 shadow-sm space-y-6">
-      <span class="text-xs font-bold text-[#B67B7B] uppercase tracking-widest bg-[#F7F3EC] px-3.5 py-1 rounded-full inline-block">
-        Destiny Matrix Guide
+<BaseLayout title={pageTitle} description={pageDesc} canonical={canonicalUrl} locale={locale}>
+  <!-- JSON-LD FAQ Schema -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-b from-[#1b2a26] via-[#2E4A3D] to-[#F7F3EC] text-white py-16 px-4 text-center">
+    <div class="max-w-4xl mx-auto space-y-4">
+      <span class="text-xs uppercase tracking-widest text-emerald-300 font-extrabold bg-white/10 px-4 py-1.5 rounded-full inline-block">
+        DESTINY MATRIX GUIDE
       </span>
-      <h1 class="text-3xl sm:text-4xl font-serif text-[#2E3D34] font-bold">
-        Understanding the Money Line in Your Destiny Matrix
+      <h1 class="text-3xl sm:text-5xl font-serif text-emerald-100 font-bold leading-tight max-w-3xl mx-auto">
+        What Is the Money Line in Your Destiny Matrix Chart?
       </h1>
-      <p class="text-stone-600 leading-relaxed text-sm sm:text-base">
-        The Money Line maps your relationship to career, wealth-building, and financial decision-making. It shows your natural earning energy, common money blocks, and the abundance mindset shifts your chart suggests.
+      <p class="text-emerald-100/90 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
+        Discover what your chart reveals about earning energy, financial blocks, and career direction.
       </p>
-      <div class="pt-4 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
-        <a href={`/${locale}/`} class="text-[#2E3D34] font-bold hover:underline">
-          ← Back to Destiny Matrix Calculator
-        </a>
-      </div>
     </div>
   </section>
+
+  <!-- Main Article Body -->
+  <div class="bg-[#F7F3EC] py-12 px-4 font-sans">
+    <div class="max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-stone-200/80 shadow-sm space-y-8 text-stone-700 leading-relaxed text-sm sm:text-base">
+      
+      <!-- Intro -->
+      <div class="space-y-4">
+        <p>
+          If money always feels harder than it should — even when the numbers on paper say it shouldn't be — the Money Line in your Destiny Matrix chart is usually the first place to look. It's one of the most consulted sections of a Destiny Matrix reading because career and finances touch nearly every other part of life: security, confidence, freedom, and choice.
+        </p>
+        <p>
+          This guide covers what the Money Line is, where it sits in your chart, how to interpret it, and how it connects to the rest of your reading.
+        </p>
+      </div>
+
+      <!-- What the Money Line Represents -->
+      <section class="space-y-4 pt-4 border-t border-stone-100">
+        <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">What the Money Line Represents</h2>
+        <p>
+          The Money Line maps your natural relationship to career, wealth-building, and financial decision-making. It doesn't predict a specific income figure or financial event. Instead, it shows the underlying energy you bring to money — how you tend to earn, where you naturally create value, what blocks tend to show up, and what mindset shifts your chart suggests for aligning with your financial potential.
+        </p>
+        <p>The Money Line generally speaks to three connected areas:</p>
+        <ul class="list-disc pl-6 space-y-2 text-stone-600">
+          <li><strong>Earning energy</strong> — the natural way you tend to generate income or create value, whether through structure, creativity, leadership, or service</li>
+          <li><strong>Financial blocks</strong> — recurring patterns that get in the way of financial flow, such as underpricing your work, avoiding risk, or over-giving</li>
+          <li><strong>Abundance mindset</strong> — the underlying beliefs about money your chart flags as worth examining</li>
+        </ul>
+      </section>
+
+      <!-- Where to Find Your Money Line -->
+      <section class="space-y-4 pt-4 border-t border-stone-100">
+        <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">Where to Find Your Money Line</h2>
+        <p>
+          Like the Love Line, your Money Line is a diagonal run of positions on your Destiny Matrix chart, calculated from your birth date using the same 22-Arcana modular arithmetic as the rest of your chart — any total above 22 is reduced by adding its digits together, keeping the result within the 22 core Arcana.
+        </p>
+        <p>
+          You don't need to calculate this manually. Enter your date of birth into the <a href={`/${locale}/`} class="text-[#2E3D34] font-bold hover:underline">Souliography Destiny Matrix calculator</a> and your Money Line appears automatically as part of your free chart.
+        </p>
+      </section>
+
+      <!-- How to Read Your Money Line Numbers -->
+      <section class="space-y-4 pt-4 border-t border-stone-100">
+        <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">How to Read Your Money Line Numbers</h2>
+        <p>
+          Each Money Line position maps to one of the 22 Major Arcana, and different Arcana point to different financial themes. A few examples:
+        </p>
+        <div class="space-y-3 pl-2 border-l-2 border-[#2E3D34]/20">
+          <p>
+            <strong>Builder-oriented Arcana</strong> (like The Emperor or The Chariot) often indicate financial success through structure, discipline, and long-term planning — sometimes with a tendency to overwork or tie self-worth too closely to output.
+          </p>
+          <p>
+            <strong>Flow-oriented Arcana</strong> (like The Star or The Moon) often point to financial growth through intuition, creativity, or timing — but can also indicate inconsistency or difficulty with practical financial structure.
+          </p>
+          <p>
+            <strong>Karmic or shadow Arcana</strong> (like The Devil or The Hermit) frequently point to money patterns rooted in scarcity, fear, or an old belief about not having enough — patterns that tend to resolve once they're consciously named.
+          </p>
+        </div>
+        <p>
+          As with the Love Line, the Money Line is most accurate read in context with your full chart — your Life Path, Expression Number, and Karmic Tail all shape how the Money Line energy actually plays out. Souliography's AI-guided interpretation reads these together rather than treating the Money Line as an isolated data point.
+        </p>
+      </section>
+
+      <!-- Money Line vs. Karmic Tail -->
+      <section class="space-y-4 pt-4 border-t border-stone-100">
+        <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">Money Line vs. Karmic Tail: What's the Difference?</h2>
+        <p>
+          Your Karmic Tail is a broader pattern that can surface in any life area. Your Money Line is specific to financial and career energy. When the two overlap — for example, a karmic pattern around self-worth showing up specifically in how you price your work or ask for a raise — that overlap is usually one of the more significant threads to work with in a full reading.
+        </p>
+      </section>
+
+      <!-- Common Questions About the Money Line -->
+      <section class="space-y-4 pt-4 border-t border-stone-100">
+        <h2 class="text-2xl font-serif text-[#2E3D34] font-bold">Common Questions About the Money Line</h2>
+        <div class="space-y-4">
+          <div class="p-4 bg-[#F7F3EC]/70 rounded-2xl border border-stone-200/60 space-y-1">
+            <h3 class="font-bold text-[#2E3D34]">Does the Money Line predict how much money I'll make?</h3>
+            <p class="text-stone-600 text-xs sm:text-sm">
+              No. It doesn't predict a dollar amount or financial event. It maps your natural earning energy and the patterns that support or block financial flow — useful for self-reflection and decision-making, not prediction.
+            </p>
+          </div>
+
+          <div class="p-4 bg-[#F7F3EC]/70 rounded-2xl border border-stone-200/60 space-y-1">
+            <h3 class="font-bold text-[#2E3D34]">Can the Money Line point to a specific career?</h3>
+            <p class="text-stone-600 text-xs sm:text-sm">
+              Not directly, but it can highlight the type of energy that tends to create financial flow for you — structure vs. creativity, leadership vs. collaboration — which can inform career decisions even without naming a specific job title.
+            </p>
+          </div>
+
+          <div class="p-4 bg-[#F7F3EC]/70 rounded-2xl border border-stone-200/60 space-y-1">
+            <h3 class="font-bold text-[#2E3D34]">Is a "difficult" Money Line a bad sign?</h3>
+            <p class="text-stone-600 text-xs sm:text-sm">
+              Not inherently. Every Arcana has both a growth expression and a shadow expression. A challenging Money Line usually points to a pattern worth becoming aware of, not a fixed financial outcome.
+            </p>
+          </div>
+
+          <div class="p-4 bg-[#F7F3EC]/70 rounded-2xl border border-stone-200/60 space-y-1">
+            <h3 class="font-bold text-[#2E3D34]">How is the Money Line different from the Expression Number?</h3>
+            <p class="text-stone-600 text-xs sm:text-sm">
+              Your Expression Number reflects your natural talents and abilities across all areas of life. The Money Line is specific to how those talents translate into earning energy and financial patterns.
+            </p>
+          </div>
+
+          <div class="p-4 bg-[#F7F3EC]/70 rounded-2xl border border-stone-200/60 space-y-1">
+            <h3 class="font-bold text-[#2E3D34]">Does the Money Line relate to business name numerology?</h3>
+            <p class="text-stone-600 text-xs sm:text-sm">
+              They're related but distinct tools. Your personal Money Line reflects your individual financial energy; the <a href={`/${locale}/calculators/business-numerology/`} class="text-[#2E3D34] font-bold hover:underline">Business Name Calculator</a> evaluates the numerological energy of a business name itself. Many people check both when starting a venture.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- See Your Money Line Callout -->
+      <section class="p-6 bg-gradient-to-r from-[#1b2a26] to-[#2E4A3D] text-white rounded-2xl text-center space-y-4 shadow-md">
+        <h2 class="text-2xl font-serif text-emerald-200 font-bold">See Your Money Line</h2>
+        <p class="text-xs sm:text-sm text-stone-200 max-w-lg mx-auto leading-relaxed">
+          Your Money Line is calculated automatically as part of your free Destiny Matrix chart — no separate calculator needed.
+        </p>
+        <a href={`/${locale}/`} class="inline-block px-6 py-3 bg-emerald-300 hover:bg-emerald-400 text-[#1b2a26] font-bold rounded-xl text-xs sm:text-sm shadow-sm transition-all">
+          Calculate My Free Destiny Matrix Chart →
+        </a>
+      </section>
+
+      <div class="pt-4 border-t border-stone-100 text-xs text-stone-400 italic leading-relaxed">
+        Method note: Calculations are based on the 22-Arcana framework associated with the Matrix of Destiny method developed by Natalia Ladini. Interpretations are intended for self-reflection and personal growth, not as financial advice or prediction.
+      </div>
+
+    </div>
+  </div>
 </BaseLayout>
