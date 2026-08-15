@@ -7,6 +7,9 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://souliography.com',
   trailingSlash: 'always',
+  build: {
+    assets: 'assets',
+  },
   integrations: [
     sitemap({
       filter: (page) => {
@@ -19,4 +22,3 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 });
-
