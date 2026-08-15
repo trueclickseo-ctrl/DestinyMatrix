@@ -12,105 +12,87 @@ const password = process.env.FTP_PASSWORD;
 const port = parseInt(process.env.FTP_PORT || '21', 10);
 
 async function createClient() {
-  const client = new ftp.Client(30000);
+  const client = new ftp.Client(60000);
   client.ftp.verbose = false;
   await client.access({ host, port, user, password, secure: false, useEPSV: false });
   return client;
 }
 
-async function uploadFolderRecursively(localDir, remoteDir) {
-  let client = await createClient();
-  try {
-    await client.ensureDir(remoteDir);
-  } catch (e) {
-    client.close();
-    client = await createClient();
-    await client.ensureDir(remoteDir);
-  }
-
-  const entries = fs.readdirSync(localDir, { withFileTypes: true });
-
-  for (const entry of entries) {
-    const localPath = path.join(localDir, entry.name);
-    const remotePath = `${remoteDir}/${entry.name}`;
-
-    if (entry.isDirectory()) {
-      client.close();
-      await uploadFolderRecursively(localPath, remotePath);
-      client = await createClient();
-      await client.cd('/' + remoteDir);
-    } else {
-      let fileSuccess = false;
-      let attempts = 0;
-      while (!fileSuccess && attempts < 3) {
-        attempts++;
-        try {
-          await client.uploadFrom(localPath, entry.name);
-          fileSuccess = true;
-        } catch (err) {
-          client.close();
-          await new Promise(r => setTimeout(r, 1000));
-          client = await createClient();
-          await client.cd('/' + remoteDir);
-        }
-      }
-    }
-  }
-
-  client.close();
-}
-
-async function resilientDeploy() {
-  const distDir = path.join(process.cwd(), 'dist');
-  console.log(`Starting Resilient Synchronized FTP Deployment...`);
-
-  // Step 1: Upload _astro assets
-  console.log(`[1/3] Uploading _astro/ bundle assets...`);
-  await uploadFolderRecursively(path.join(distDir, '_astro'), 'public_html/_astro');
-  console.log(`  ✓ _astro/ uploaded.`);
-
-  // Step 2: Upload root files
-  console.log(`[2/3] Uploading root static files...`);
-  const rootClient = await createClient();
-  try {
-    await rootClient.cd('/public_html');
-    const rootItems = fs.readdirSync(distDir);
-    for (const item of rootItems) {
-      const itemPath = path.join(distDir, item);
-      if (!fs.statSync(itemPath).isDirectory()) {
-        await rootClient.uploadFrom(itemPath, item);
-      }
-    }
-    console.log(`  ✓ Root files uploaded.`);
-  } finally {
-    rootClient.close();
-  }
-
-  // Step 3: Upload locale directories
-  const items = fs.readdirSync(distDir);
-  const localeDirs = items.filter(item => {
-    const itemPath = path.join(distDir, item);
-    return fs.statSync(itemPath).isDirectory() && item !== '_astro';
-  });
-
-  console.log(`[3/3] Uploading ${localeDirs.length} localized route directories...`);
-  for (let i = 0; i < localeDirs.length; i++) {
-    const loc = localeDirs[i];
-    console.log(`  [${i + 1}/${localeDirs.length}] Uploading /${loc}/...`);
+async function uploadDirWithRetry(client, localDir, remoteSubDir, maxRetries = 3) {
+  let attempt = 0;
+  while (attempt < maxRetries) {
+    attempt++;
     try {
-      await uploadFolderRecursively(path.join(distDir, loc), `public_html/${loc}`);
-      console.log(`  ✓ /${loc}/ completed.`);
-    } catch (e) {
-      console.error(`  ❌ /${loc}/ failed:`, e.message);
+      await client.cd('/public_html');
+      await client.ensureDir(remoteSubDir);
+      await client.uploadFromDir(localDir, remoteSubDir);
+      return;
+    } catch (err) {
+      console.warn(`    ⚠️ Upload attempt ${attempt} for ${remoteSubDir} failed: ${err.message}. Retrying...`);
+      try { client.close(); } catch (_) {}
+      await new Promise(r => setTimeout(r, 2000 * attempt));
+      client = await createClient();
     }
   }
-
-  console.log(`\n==================================================`);
-  console.log(`🎉 RESILIENT PRODUCTION DEPLOYMENT COMPLETE!`);
-  console.log(`==================================================\n`);
+  throw new Error(`Failed to upload ${remoteSubDir} after ${maxRetries} attempts.`);
 }
 
-resilientDeploy().catch(err => {
-  console.error(`Fatal deploy error:`, err.message);
+async function deployFullProduction() {
+  const distDir = path.join(process.cwd(), 'dist');
+  console.log('===========================================================');
+  console.log('     STARTING ROBUST FULL-SITE FTP DEPLOYMENT              ');
+  console.log('===========================================================\n');
+
+  let client = await createClient();
+
+  try {
+    // 1. Upload _astro assets
+    console.log('[1/4] Uploading _astro/ CSS and JS asset bundles...');
+    await uploadDirWithRetry(client, path.join(distDir, '_astro'), '_astro');
+    console.log('  ✓ _astro/ uploaded successfully.\n');
+
+    // 2. Upload root files (index.html, sitemaps, robots, icons)
+    console.log('[2/4] Uploading root static assets...');
+    await client.cd('/public_html');
+    const rootFiles = fs.readdirSync(distDir).filter(f => !fs.statSync(path.join(distDir, f)).isDirectory());
+    for (const file of rootFiles) {
+      await client.uploadFrom(path.join(distDir, file), file);
+    }
+    console.log(`  ✓ ${rootFiles.length} root static files uploaded successfully.\n`);
+
+    // 3. Upload localized directories in batches
+    const items = fs.readdirSync(distDir);
+    const localeDirs = items.filter(item => {
+      const itemPath = path.join(distDir, item);
+      return fs.statSync(itemPath).isDirectory() && item !== '_astro';
+    });
+
+    console.log(`[3/4] Uploading ${localeDirs.length} localized directories...`);
+    for (let i = 0; i < localeDirs.length; i++) {
+      const loc = localeDirs[i];
+      const locPath = path.join(distDir, loc);
+      console.log(`  [${i + 1}/${localeDirs.length}] Uploading /${loc}/...`);
+      try {
+        await uploadDirWithRetry(client, locPath, loc);
+        console.log(`    ✓ /${loc}/ uploaded.`);
+      } catch (err) {
+        console.error(`    ❌ Failed /${loc}/:`, err.message);
+        // Refresh client before continuing to next locale
+        try { client.close(); } catch (_) {}
+        client = await createClient();
+      }
+    }
+
+    console.log('\n[4/4] Finalizing deployment...');
+    console.log('\n===========================================================');
+    console.log('🎉 FULL PRODUCTION DEPLOYMENT FINISHED!');
+    console.log('===========================================================\n');
+  } finally {
+    try { client.close(); } catch (_) {}
+  }
+}
+
+deployFullProduction().catch(err => {
+  console.error('Fatal deployment error:', err);
   process.exit(1);
 });

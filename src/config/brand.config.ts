@@ -29,6 +29,7 @@ export const brandConfig: BrandConfig = {
     wordmark: "Souliography",
     symbol: "✨",
     favicon: "/favicon.svg",
+    horizontal: "/logo-horizontal.svg",
     ogDefaultImage: "/og-souliography.png",
   },
 };

@@ -11,12 +11,25 @@ export function getStaticPaths() {
 
 const { locale = 'en' } = Astro.params;
 
-const birthDateCalcs = numerologyCalculators.filter(c => c.inputType === 'date');
-const nameCalcs = numerologyCalculators.filter(c => c.inputType === 'name');
-const otherCalcs = numerologyCalculators.filter(c => c.inputType !== 'date' && c.inputType !== 'name');
+const birthDateCalcs = numerologyCalculators.filter(c => c.inputType === 'date' || c.inputType === 'personal-cycle');
+const nameCalcs = numerologyCalculators.filter(c => c.inputType === 'name' || c.inputType === 'business');
+const otherCalcs = numerologyCalculators.filter(c => !['date', 'personal-cycle', 'name', 'business'].includes(c.inputType));
+
+const inputBadgeMap: Record<string, string> = {
+  date: 'Birth Date',
+  name: 'Legal Name',
+  address: 'Property Address',
+  phone: 'Phone Number',
+  plate: 'License Plate / Vehicle',
+  'wedding-date': 'Wedding Date',
+  business: 'Business Name',
+  compatibility: '2 Birth Dates',
+  'name-and-date': 'Name & Birth Date',
+  'personal-cycle': 'Birth Date & Target Year',
+};
 
 const breadcrumbs = [
-  { label: 'Home', href: `/${locale}/` },
+  { label: t('nav.home', locale), href: `/${locale}/` },
   { label: t('nav.calculators', locale) },
 ];
 ---
@@ -52,31 +65,32 @@ const breadcrumbs = [
           <span>📅</span> Birth Date Calculators
         </h2>
         <span class="text-xs font-mono text-[#9E7B3B] font-bold uppercase tracking-wider bg-[#F5F2EB] px-2.5 py-1 rounded border border-[#D8D0C5]">
-          4 Tools
+          Date System
         </span>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {birthDateCalcs.map((calc) => (
-          <div class="ref-card p-6 space-y-3 bg-white border border-[#D8D0C5] rounded hover:border-[#C4A052] transition-colors flex flex-col justify-between">
-            <div class="space-y-2">
-              <div class="flex items-center gap-2">
-                <span class="text-2xl">{calc.icon}</span>
-                <h3 class="text-lg font-serif font-bold text-[#231530]">
-                  {t(calc.titleKey, locale)}
-                </h3>
+          <div class="ref-card p-6 bg-white border border-[#D8D0C5] rounded hover:border-[#C4A052] transition-colors flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                  <span class="text-2xl">{calc.icon}</span>
+                  <h3 class="text-lg font-serif font-bold text-[#231530]">
+                    {t(calc.titleKey, locale)}
+                  </h3>
+                </div>
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-[#F5F2EB] text-[#9E7B3B] border border-[#D8D0C5] shrink-0">
+                  {inputBadgeMap[calc.inputType] || calc.inputType}
+                </span>
               </div>
               <p class="text-xs text-[#524B5A] leading-relaxed">
                 {t(calc.descKey, locale)}
               </p>
-              <div class="text-[11px] font-mono text-[#9E7B3B] bg-[#FBF9F5] p-2 rounded border border-[#D8D0C5]/60 space-y-0.5">
-                <div><strong>Input:</strong> Date of Birth (YYYY-MM-DD)</div>
-                <div><strong>System:</strong> Pythagorean Period Reduction</div>
-              </div>
             </div>
             <div class="pt-3 border-t border-[#D8D0C5]">
               <a href={`/${locale}/calculators/${calc.slug}/`} class="btn-retro w-full text-center block text-xs">
-                Calculate {t(calc.titleKey, locale)} →
+                Calculate {t(calc.titleKey, locale).replace(/\s+Calculator$/i, '')} →
               </a>
             </div>
           </div>
@@ -97,25 +111,26 @@ const breadcrumbs = [
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {nameCalcs.map((calc) => (
-          <div class="ref-card p-6 space-y-3 bg-white border border-[#D8D0C5] rounded hover:border-[#C4A052] transition-colors flex flex-col justify-between">
-            <div class="space-y-2">
-              <div class="flex items-center gap-2">
-                <span class="text-2xl">{calc.icon}</span>
-                <h3 class="text-lg font-serif font-bold text-[#231530]">
-                  {t(calc.titleKey, locale)}
-                </h3>
+          <div class="ref-card p-6 bg-white border border-[#D8D0C5] rounded hover:border-[#C4A052] transition-colors flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                  <span class="text-2xl">{calc.icon}</span>
+                  <h3 class="text-lg font-serif font-bold text-[#231530]">
+                    {t(calc.titleKey, locale)}
+                  </h3>
+                </div>
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-[#F5F2EB] text-[#9E7B3B] border border-[#D8D0C5] shrink-0">
+                  {inputBadgeMap[calc.inputType] || calc.inputType}
+                </span>
               </div>
               <p class="text-xs text-[#524B5A] leading-relaxed">
                 {t(calc.descKey, locale)}
               </p>
-              <div class="text-[11px] font-mono text-[#9E7B3B] bg-[#FBF9F5] p-2 rounded border border-[#D8D0C5]/60 space-y-0.5">
-                <div><strong>Input:</strong> Full Legal Name</div>
-                <div><strong>System:</strong> Pythagorean Letter Transliteration (A=1...Z=8)</div>
-              </div>
             </div>
             <div class="pt-3 border-t border-[#D8D0C5]">
               <a href={`/${locale}/calculators/${calc.slug}/`} class="btn-retro w-full text-center block text-xs">
-                Calculate {t(calc.titleKey, locale)} →
+                Calculate {t(calc.titleKey, locale).replace(/\s+Calculator$/i, '')} →
               </a>
             </div>
           </div>
@@ -133,13 +148,18 @@ const breadcrumbs = [
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {otherCalcs.map((calc) => (
-          <div class="ref-card p-6 space-y-3 bg-white border border-[#D8D0C5] rounded hover:border-[#C4A052] transition-colors flex flex-col justify-between">
-            <div class="space-y-2">
-              <div class="flex items-center gap-2">
-                <span class="text-2xl">{calc.icon}</span>
-                <h3 class="text-lg font-serif font-bold text-[#231530]">
-                  {t(calc.titleKey, locale)}
-                </h3>
+          <div class="ref-card p-6 bg-white border border-[#D8D0C5] rounded hover:border-[#C4A052] transition-colors flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                  <span class="text-2xl">{calc.icon}</span>
+                  <h3 class="text-lg font-serif font-bold text-[#231530]">
+                    {t(calc.titleKey, locale)}
+                  </h3>
+                </div>
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-[#F5F2EB] text-[#9E7B3B] border border-[#D8D0C5] shrink-0">
+                  {inputBadgeMap[calc.inputType] || calc.inputType}
+                </span>
               </div>
               <p class="text-xs text-[#524B5A] leading-relaxed">
                 {t(calc.descKey, locale)}
@@ -147,7 +167,7 @@ const breadcrumbs = [
             </div>
             <div class="pt-3 border-t border-[#D8D0C5]">
               <a href={`/${locale}/calculators/${calc.slug}/`} class="btn-retro w-full text-center block text-xs">
-                Calculate →
+                Calculate {t(calc.titleKey, locale).replace(/\s+Calculator$/i, '')} →
               </a>
             </div>
           </div>

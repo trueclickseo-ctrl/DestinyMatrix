@@ -41,13 +41,14 @@ import { uiTranslations_pa } from './ui/pa.ts';
 import { uiTranslations_ur } from './ui/ur.ts';
 
 import { calculatorTranslations } from './ui/calculators.ts';
+import { calculatorGuides } from './ui/guides.ts';
 
 // Master English Dictionary
-export const masterDictionary: Record<string, string> = { ...uiTranslations_en, ...(calculatorTranslations['en'] || {}) };
+export const masterDictionary: Record<string, string> = { ...uiTranslations_en, ...(calculatorTranslations['en'] || {}), ...calculatorGuides };
 
 // Registered Localized Dictionaries for all 40 supported locales
 const localizedDictionaries: Record<string, Record<string, string>> = {
-  en: { ...uiTranslations_en, ...(calculatorTranslations['en'] || {}) },
+  en: { ...uiTranslations_en, ...(calculatorTranslations['en'] || {}), ...calculatorGuides },
   de: { ...uiTranslations_de, ...(calculatorTranslations['de'] || {}) },
   fr: { ...uiTranslations_fr, ...(calculatorTranslations['fr'] || {}) },
   es: { ...uiTranslations_es, ...(calculatorTranslations['es'] || {}) },

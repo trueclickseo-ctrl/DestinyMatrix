@@ -1,36 +1,43 @@
 ---
+import { t } from '../../i18n';
+
 interface Props {
-  title: string;
-  systemName: string;
-  summary: string;
+  locale?: string;
+  title?: string;
+  systemName?: string;
+  summary?: string;
   whyResultMayDiffer?: string;
   disclosures?: string;
 }
 
-const { title, systemName, summary, whyResultMayDiffer, disclosures } = Astro.props;
+const { locale = 'en', title, systemName, summary, whyResultMayDiffer, disclosures } = Astro.props;
+const boxTitle = title || t('methodology.pythagoreanTitle', locale);
+const boxSystem = systemName || t('methodology.pythagoreanSystem', locale);
+const boxSummary = summary || t('methodology.pythagoreanSummary', locale);
+const boxWhyDiffer = whyResultMayDiffer || t('methodology.pythagoreanWhyDiffer', locale);
 ---
 
 <div class="ref-card p-6 space-y-4 bg-[#F5F2EB] border border-[#D8D0C5]">
   <div class="border-b border-[#D8D0C5] pb-3">
     <span class="text-[10px] font-mono uppercase tracking-widest text-[#9E7B3B] font-bold block">
-      Methodology & Tradition Disclosures
+      {t('methodology.disclosuresTag', locale)}
     </span>
-    <h3 class="text-xl font-serif font-bold text-[#1C1625] pt-0.5">{title}</h3>
-    <span class="text-xs font-semibold text-[#524B5A] block pt-0.5">System: {systemName}</span>
+    <h3 class="text-xl font-serif font-bold text-[#1C1625] pt-0.5">{boxTitle}</h3>
+    <span class="text-xs font-semibold text-[#524B5A] block pt-0.5">{t('methodology.systemLabel', locale)}: {boxSystem}</span>
   </div>
 
   <p class="text-xs text-[#1C1625] leading-relaxed font-normal">
-    {summary}
+    {boxSummary}
   </p>
 
-  {whyResultMayDiffer && (
+  {boxWhyDiffer && (
     <div class="p-3.5 bg-[#FFFFFF] rounded border border-[#D8D0C5] space-y-1">
       <h4 class="text-xs font-bold text-[#231530] flex items-center gap-1.5">
         <span>❓</span>
-        <span>Why your result may differ on other websites</span>
+        <span>{t('methodology.whyDifferTitle', locale)}</span>
       </h4>
       <p class="text-xs text-[#524B5A] leading-relaxed">
-        {whyResultMayDiffer}
+        {boxWhyDiffer}
       </p>
     </div>
   )}
@@ -41,3 +48,4 @@ const { title, systemName, summary, whyResultMayDiffer, disclosures } = Astro.pr
     </p>
   )}
 </div>
+

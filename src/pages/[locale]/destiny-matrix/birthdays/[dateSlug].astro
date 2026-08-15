@@ -5,7 +5,6 @@ import DisclaimerBox from '../../../../components/common/DisclaimerBox.astro';
 import MethodologyBox from '../../../../components/common/MethodologyBox.astro';
 import { getBirthdayProfile, getAllBirthdayProfiles } from '../../../../data/birthdays';
 import { supportedLocales } from '../../../../config/locales.config';
-import { t } from '../../../../i18n';
 
 export function getStaticPaths() {
   const allProfiles = getAllBirthdayProfiles();
@@ -32,18 +31,8 @@ const currentIndex = allProfiles.findIndex((p) => p.slug === dateSlug);
 const validIndex = currentIndex >= 0 ? currentIndex : 0;
 const profile = allProfiles[validIndex] || allProfiles[0];
 
-// Get ±3 adjacent dates
-const totalDates = allProfiles.length;
-const adjacentDates = [];
-for (let offset = -3; offset <= 3; offset++) {
-  if (offset === 0) continue;
-  let idx = (validIndex + offset) % totalDates;
-  if (idx < 0) idx += totalDates;
-  adjacentDates.push(allProfiles[idx]);
-}
-
-const pageTitle = `${profile.formattedDate} Destiny Matrix Profile & Soul Vibration | Souliography`;
-const pageDesc = `Detailed Destiny Matrix birthday guide for ${profile.formattedDate}. Discover personal purpose, Arcana ${profile.primaryArcanaNum} (${profile.primaryArcana.name}) influences, seasonal context, and practical reflection questions.`;
+const pageTitle = profile.metaTitle || `${profile.formattedDate} Birthday: ${profile.primaryArcana.name} Guide | Souliography`;
+const pageDesc = profile.metaDescription || `Detailed Destiny Matrix birthday guide for ${profile.formattedDate}. Discover personal purpose, Arcana ${profile.primaryArcanaNum} (${profile.primaryArcana.name}) influences, career vocation, and reflection questions.`;
 
 const breadcrumbItems = [
   { label: 'Destiny Matrix', href: `/${currentLocale}/` },
@@ -73,11 +62,14 @@ const breadcrumbSchema = {
       <span class="text-xs uppercase tracking-widest text-[#C4A052] font-mono font-bold bg-white/10 px-3 py-1 rounded inline-block border border-[#C4A052]/40">
         365 BIRTHDATE DESTINY MATRIX REFERENCE
       </span>
-      <h1 class="text-4xl sm:text-5xl font-serif font-bold text-amber-100">
-        {profile.formattedDate} Destiny Matrix Profile
+
+      <!-- 1. Required H1 Format -->
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-amber-100 leading-tight">
+        {profile.formattedDate} Birthday: {profile.primaryArcana.name} and What It Means for You
       </h1>
-      <p class="text-purple-200 max-w-xl text-base sm:text-lg font-serif">
-        Primary birth vibration governed by <strong>Arcana {profile.primaryArcanaNum}: {profile.primaryArcana.name}</strong>.
+
+      <p class="text-purple-200 max-w-2xl text-base sm:text-lg font-serif">
+        Primary birth frequency governed by <strong>Arcana {profile.primaryArcanaNum}: {profile.primaryArcana.name}</strong>.
       </p>
     </div>
   </section>
@@ -86,8 +78,16 @@ const breadcrumbSchema = {
   <div class="bg-[#FBF9F5] py-10 px-4 text-[#1C1625]">
     <div class="max-w-4xl mx-auto space-y-8">
 
-      <!-- Core Arcana Integration Card -->
-      <article class="ref-card p-6 sm:p-8 space-y-4">
+      <!-- 2. Snippet-Ready Direct Definition Box (40-60 words) -->
+      <div class="bg-white p-6 rounded-lg border border-[#D8D0C5] shadow-sm space-y-2">
+        <span class="text-xs font-mono font-bold uppercase text-[#9E7B3B] tracking-wider block">Quick Summary</span>
+        <p class="text-sm text-[#1C1625] leading-relaxed font-serif text-base">
+          {profile.snippetAnswer}
+        </p>
+      </div>
+
+      <!-- 3. Birth Archetype & Concrete Vignette Section -->
+      <article class="ref-card p-6 sm:p-8 space-y-5">
         <div class="flex flex-wrap items-center justify-between border-b border-[#D8D0C5] pb-3 gap-2">
           <h2 class="text-2xl font-serif font-bold text-[#1C1625]">
             Birth Archetype: Arcana {profile.primaryArcanaNum} ({profile.primaryArcana.name})
@@ -99,93 +99,163 @@ const breadcrumbSchema = {
             Read Arcana {profile.primaryArcanaNum} Encyclopedia Guide →
           </a>
         </div>
-        <p class="text-sm text-[#1C1625] leading-relaxed font-normal">
-          Individuals born on <strong>{profile.formattedDate}</strong> carry the foundational frequency of <strong>{profile.primaryArcana.name}</strong> ({profile.primaryArcana.archetype}). This vibration influences your primary approach to leadership, creative projects, and personal decisions.
+
+        <p class="text-sm text-[#1C1625] leading-relaxed">
+          {profile.birthArchetypeContent}
         </p>
 
-        <!-- Seasonal & Day Context -->
-        <div class="p-4 bg-[#F5F2EB] rounded border border-[#D8D0C5] space-y-1 pt-3">
-          <h3 class="text-xs font-mono font-bold uppercase text-[#9E7B3B] tracking-wider">Seasonal & Calendar Context</h3>
-          <p class="text-xs text-[#524B5A] leading-relaxed">{profile.seasonalContext}</p>
-          <p class="text-xs text-[#1C1625] leading-relaxed pt-1 font-medium">{profile.dayVibrationNote}</p>
+        <!-- Concrete Scenario / Vignette Box -->
+        <div class="bg-[#F5F2EB] p-5 rounded-lg border border-[#D8D0C5] space-y-2">
+          <h3 class="text-xs font-mono font-bold uppercase text-[#9E7B3B] tracking-wider">
+            Real-World Scenario: {profile.vignetteTitle}
+          </h3>
+          <p class="text-xs text-[#231530] leading-relaxed font-normal">
+            {profile.vignetteScenario}
+          </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-          <div class="p-4 bg-[#FFFFFF] rounded border border-emerald-300 space-y-1">
-            <h4 class="font-bold text-emerald-950 text-xs uppercase tracking-wider font-mono">Constructive High Frequency</h4>
-            <p class="text-xs text-emerald-900 leading-relaxed">{profile.primaryArcana.positiveExpression}</p>
+        <div class="p-4 bg-[#F9F7F2] rounded border border-[#D8D0C5] space-y-1">
+          <h4 class="text-xs font-mono font-bold uppercase text-[#9E7B3B] tracking-wider">Seasonal & Calendar Nuance</h4>
+          <p class="text-xs text-[#524B5A] leading-relaxed">{profile.seasonalContext}</p>
+          <p class="text-xs text-[#1C1625] leading-relaxed font-medium pt-1">{profile.dayVibrationNote}</p>
+        </div>
+      </article>
+
+      <!-- 4. Comparison Data Table: Yesterday vs Today vs Tomorrow -->
+      <article class="ref-card p-6 sm:p-8 space-y-4">
+        <h3 class="text-xl font-serif font-bold text-[#1C1625] border-b border-[#D8D0C5] pb-2">
+          Comparative Analysis: {profile.formattedDate} vs. Neighboring Dates
+        </h3>
+        <p class="text-xs text-[#524B5A] leading-relaxed">
+          How your birth date vibration compares directly with the days immediately before and after:
+        </p>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border-collapse border border-[#D8D0C5]">
+            <thead class="bg-[#F5F2EB] text-[#231530] font-serif font-bold">
+              <tr>
+                <th class="p-3 border border-[#D8D0C5]">Date</th>
+                <th class="p-3 border border-[#D8D0C5]">Primary Arcana</th>
+                <th class="p-3 border border-[#D8D0C5]">Core Theme</th>
+                <th class="p-3 border border-[#D8D0C5]">Best-Suited Focus</th>
+                <th class="p-3 border border-[#D8D0C5]">Vibrational Contrast</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#D8D0C5] text-[#1C1625]">
+              {profile.comparisonTable.map((row) => (
+                <tr class={row.isCurrentDay ? "bg-amber-50/80 font-medium" : ""}>
+                  <td class="p-3 border font-bold text-[#231530]">{row.dateLabel}</td>
+                  <td class="p-3 border font-mono">Arcana {row.arcanaNum} ({row.arcanaName})</td>
+                  <td class="p-3 border">{row.coreTheme}</td>
+                  <td class="p-3 border">{row.bestFocus}</td>
+                  <td class="p-3 border text-[#524B5A]">{row.keyContrast}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <!-- 5. High Frequency vs. Shadow Challenges (Two Short Distinct Sections) -->
+      <article class="ref-card p-6 sm:p-8 space-y-6">
+        <h3 class="text-xl font-serif font-bold text-[#1C1625] border-b border-[#D8D0C5] pb-2">
+          Vibrational State Analysis for {profile.formattedDate}
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="p-5 bg-emerald-50/50 rounded-lg border border-emerald-300 space-y-2">
+            <h4 class="font-bold text-emerald-950 text-xs uppercase tracking-wider font-mono flex items-center gap-1.5">
+              <span>✨</span>
+              <span>Constructive High Frequency</span>
+            </h4>
+            <p class="text-xs text-emerald-900 leading-relaxed font-normal">
+              {profile.highFrequencyExpression}
+            </p>
           </div>
-          <div class="p-4 bg-[#FFFFFF] rounded border border-rose-300 space-y-1">
-            <h4 class="font-bold text-rose-950 text-xs uppercase tracking-wider font-mono">Shadow Challenges</h4>
-            <p class="text-xs text-rose-900 leading-relaxed">{profile.primaryArcana.shadowExpression}</p>
+
+          <div class="p-5 bg-rose-50/50 rounded-lg border border-rose-300 space-y-2">
+            <h4 class="font-bold text-rose-950 text-xs uppercase tracking-wider font-mono flex items-center gap-1.5">
+              <span>⚠️</span>
+              <span>Shadow Challenges</span>
+            </h4>
+            <p class="text-xs text-rose-900 leading-relaxed font-normal">
+              {profile.shadowChallenges}
+            </p>
           </div>
         </div>
       </article>
 
-      <!-- Career Vocation & Money Channel -->
+      <!-- 6. Vocation & Financial Flow -->
       <article class="ref-card p-6 sm:p-8 space-y-4">
         <h3 class="text-xl font-serif font-bold text-[#1C1625] border-b border-[#D8D0C5] pb-2">
           Vocation & Financial Flow for {profile.formattedDate}
         </h3>
-        <p class="text-xs text-[#524B5A] leading-relaxed">
-          <strong>Ideal Vocation Alignment:</strong> {profile.primaryArcana.careerGuidance}
-        </p>
-        <p class="text-xs text-[#524B5A] leading-relaxed">
-          <strong>Money Line Activation:</strong> {profile.primaryArcana.moneyChannel}
+        <p class="text-xs text-[#1C1625] leading-relaxed">
+          {profile.vocationAndFinance}
         </p>
       </article>
 
-      <!-- Practical Self-Reflection Prompts -->
-      <article class="ref-card p-6 sm:p-8 space-y-4 bg-[#231530] text-white border-2 border-[#C4A052]">
-        <h3 class="text-xl font-serif font-bold text-[#C4A052] flex items-center gap-2">
+      <!-- 7. Self-Reflection Questions (Unique Wording) -->
+      <article class="p-6 sm:p-8 space-y-4 bg-[#231530] text-white border-2 border-[#C4A052] rounded-lg shadow-md">
+        <h3 class="text-xl font-serif font-bold text-[#F3E5AB] flex items-center gap-2">
           <span>🔮</span>
           <span>Self-Reflection Questions for {profile.formattedDate}</span>
         </h3>
-        <ul class="space-y-2 pt-1">
+        <ul class="space-y-2.5 pt-1">
           {profile.reflectionQuestions.map((q) => (
-            <li class="flex items-start gap-2.5 text-xs text-stone-200">
-              <span class="text-[#C4A052] font-bold">›</span>
-              <span>{q}</span>
+            <li class="flex items-start gap-2.5 text-xs sm:text-sm text-white font-medium">
+              <span class="text-[#F3E5AB] font-bold text-base leading-none">›</span>
+              <span class="leading-relaxed">{q}</span>
             </li>
           ))}
         </ul>
       </article>
 
-      <!-- Interactive Calculator Callout -->
-      <div class="ref-card p-6 bg-[#F5F2EB] border border-[#C4A052] flex flex-wrap items-center justify-between gap-4">
-        <div class="space-y-1 max-w-xl">
-          <h3 class="text-lg font-serif font-bold text-[#1C1625]">Calculate Your Complete Birth Year Matrix</h3>
-          <p class="text-xs text-[#524B5A] leading-relaxed">
-            Combine your birth day ({profile.formattedDate}) with your birth year in our live calculator for full 7 Chakra energy tables, personal money lines, and AI interpretation.
-          </p>
-        </div>
-        <a href={`/${currentLocale}/`} class="btn-retro inline-block">
-          Open Destiny Matrix Calculator →
-        </a>
-      </div>
-
-      <!-- Adjacent Dates Navigation Section -->
-      <div class="ref-card p-6 space-y-4">
-        <div class="flex items-center justify-between border-b border-[#D8D0C5] pb-3">
-          <h3 class="text-base font-serif font-bold text-[#1C1625]">
-            Explore Nearby Birthdates
-          </h3>
-          <a href={`/${currentLocale}/destiny-matrix/birthdays/`} class="text-xs font-bold text-[#231530] hover:underline font-mono">
-            View All 365 Dates →
-          </a>
-        </div>
-        <div class="flex flex-wrap gap-2 pt-1">
-          {adjacentDates.map((item) => (
-            <a
-              href={`/${currentLocale}/destiny-matrix/birthdays/${item.slug}/`}
-              class="px-3 py-1.5 bg-[#F5F2EB] hover:bg-[#231530] text-[#1C1625] hover:text-[#C4A052] rounded text-xs font-bold transition-all border border-[#D8D0C5]"
-            >
-              {item.formattedDate}
-            </a>
+      <!-- 8. FAQ Section (4-5 H3 Questions with 1-2 sentence answers) -->
+      <article class="ref-card p-6 sm:p-8 space-y-6">
+        <h3 class="text-xl font-serif font-bold text-[#1C1625] border-b border-[#D8D0C5] pb-2">
+          Frequently Asked Questions About {profile.formattedDate} Birthdays
+        </h3>
+        <div class="space-y-4">
+          {profile.faqItems.map((faq) => (
+            <div class="p-4 bg-[#F9F7F2] rounded border border-[#D8D0C5] space-y-1.5">
+              <h4 class="text-sm font-serif font-bold text-[#231530] m-0">{faq.question}</h4>
+              <p class="text-xs text-[#524B5A] leading-relaxed m-0">{faq.answer}</p>
+            </div>
           ))}
         </div>
-      </div>
+      </article>
 
+      <!-- 9. High-Resolution Arcana Master Illustration & Unique Caption -->
+      <figure class="ref-card p-4 sm:p-6 space-y-3 text-center bg-white rounded-lg border border-[#D8D0C5] shadow-sm">
+        <img
+          src={profile.primaryArcanaNum <= 13 ? `/images/arcana/${profile.primaryArcanaNum}-${profile.primaryArcana.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.jpg` : `/images/arcana/${profile.primaryArcanaNum}-${profile.primaryArcana.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.svg`}
+          alt={`${profile.formattedDate} birthday — Arcana ${profile.primaryArcanaNum} (${profile.primaryArcana.name}) archetype illustration`}
+          class="max-w-md w-full h-auto mx-auto rounded-lg border border-[#C4A052]/40 shadow-md object-cover"
+          loading="lazy"
+        />
+        <figcaption class="text-xs text-[#524B5A] font-serif italic max-w-lg mx-auto">
+          {profile.formattedDate} Archetype Visualisation — Arcana {profile.primaryArcanaNum} ({profile.primaryArcana.name}): {profile.imageBrief}
+        </figcaption>
+      </figure>
+
+      <!-- 10. Internal Links Cluster (With One-Line Reasons) -->
+      <article class="ref-card p-6 space-y-4">
+        <h3 class="text-base font-serif font-bold text-[#1C1625]">Explore Related Guides & Tools</h3>
+        <ul class="space-y-2.5 text-xs text-[#1C1625] ps-4 list-disc text-start">
+          {profile.internalLinks.map((link) => {
+            const localizedHref = link.href.replace(/^\/[a-z]{2}\//, `/${currentLocale}/`).replace(/^\//, `/${currentLocale}/`);
+            return (
+              <li>
+                <a href={localizedHref} class="text-[#9E7B3B] hover:underline font-bold">{link.label}</a>
+                <span class="text-[#524B5A]"> — {link.reason}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </article>
+
+      <!-- 11. Preserved Methodology & Disclaimer Blocks (Untouched) -->
       <MethodologyBox
         title="Birthday Profile Methodology"
         systemName="Natalia Ladini 22 Arcana Birth Date Mapping"

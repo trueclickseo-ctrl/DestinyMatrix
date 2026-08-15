@@ -1,7 +1,11 @@
 ---
+import { t } from '../../i18n';
+
 interface Props {
+  locale?: string;
   chakras?: Array<{
     name: string;
+    key?: string;
     sanskrit?: string;
     physics: number;
     energy: number;
@@ -9,14 +13,14 @@ interface Props {
   }>;
 }
 
-const { chakras = [
-  { name: 'Crown (Sahasrara)', physics: 14, energy: 1, emotions: 15 },
-  { name: 'Third eye (Ajna)', physics: 7, energy: 8, emotions: 15 },
-  { name: 'Throat (Vishuddha)', physics: 20, energy: 7, emotions: 9 },
-  { name: 'Heart (Anahata)', physics: 8, energy: 13, emotions: 21 },
-  { name: 'Solar plexus (Manipura)', physics: 6, energy: 6, emotions: 12 },
-  { name: 'Sacral (Swadhisthana)', physics: 9, energy: 12, emotions: 21 },
-  { name: 'Root (Muladhara)', physics: 6, energy: 21, emotions: 9 },
+const { locale = 'en', chakras = [
+  { name: 'Crown (Sahasrara)', key: 'chakra.crown', physics: 14, energy: 1, emotions: 15 },
+  { name: 'Third eye (Ajna)', key: 'chakra.thirdEye', physics: 7, energy: 8, emotions: 15 },
+  { name: 'Throat (Vishuddha)', key: 'chakra.throat', physics: 20, energy: 7, emotions: 9 },
+  { name: 'Heart (Anahata)', key: 'chakra.heart', physics: 8, energy: 13, emotions: 21 },
+  { name: 'Solar plexus (Manipura)', key: 'chakra.solarPlexus', physics: 6, energy: 6, emotions: 12 },
+  { name: 'Sacral (Swadhisthana)', key: 'chakra.sacral', physics: 9, energy: 12, emotions: 21 },
+  { name: 'Root (Muladhara)', key: 'chakra.root', physics: 6, energy: 21, emotions: 9 },
 ] } = Astro.props;
 
 const chakraTextColors: Record<string, string> = {
@@ -33,19 +37,20 @@ const chakraTextColors: Record<string, string> = {
 <div class="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-md space-y-4">
   <!-- Table Header -->
   <div class="flex justify-between items-center pb-2">
-    <span class="text-xs font-serif text-[#B67B7B]">Name of Chakra</span>
+    <span class="text-xs font-serif text-[#B67B7B]">{t('chakra.tableName', locale)}</span>
     <div class="flex items-center gap-12 sm:gap-16 pr-4 text-xs font-serif text-[#B67B7B]">
-      <span>Physics</span>
-      <span>Energy</span>
-      <span>Emotions</span>
+      <span>{t('chakra.physics', locale)}</span>
+      <span>{t('chakra.energy', locale)}</span>
+      <span>{t('chakra.emotions', locale)}</span>
     </div>
   </div>
 
   <!-- Rounded Rows matching user screenshot -->
   <div class="space-y-3">
     {chakras.map((c) => {
-      const displayName = c.sanskrit ? `${c.name} (${c.sanskrit})` : c.name;
-      const textColor = chakraTextColors[displayName] || 'text-stone-700';
+      const translatedName = c.key ? t(c.key, locale) : c.name;
+      const displayName = c.sanskrit ? `${translatedName} (${c.sanskrit})` : translatedName;
+      const textColor = chakraTextColors[c.name] || 'text-stone-700';
       return (
         <div class="bg-[#FDFBF7] hover:bg-[#F7F3EC] transition-colors rounded-2xl p-4 flex items-center justify-between border border-stone-100 shadow-2xs">
           <span class={`font-bold text-sm ${textColor}`}>{displayName}</span>
@@ -60,7 +65,7 @@ const chakraTextColors: Record<string, string> = {
 
     <!-- Bottom Result Summary Row (Matching Screenshot) -->
     <div class="bg-[#C99494] text-white rounded-2xl p-4 flex items-center justify-between shadow-xs font-bold text-sm">
-      <span>Result</span>
+      <span>{t('chakra.result', locale)}</span>
       <div class="flex items-center gap-14 sm:gap-20 pr-2">
         <span class="w-6 text-center">7</span>
         <span class="w-6 text-center">14</span>
@@ -69,3 +74,4 @@ const chakraTextColors: Record<string, string> = {
     </div>
   </div>
 </div>
+

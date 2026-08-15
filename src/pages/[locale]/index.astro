@@ -161,9 +161,9 @@ const softwareSchema = {
 
       <!-- Badge Row -->
       <div class="hero-badges">
-        <span class="hbadge hbadge-gold">✨ No Login Required</span>
-        <span class="hbadge hbadge-green">🌿 Unlimited Generations</span>
-        <span class="hbadge hbadge-rose">🔮 AI-Powered Guidance</span>
+        <span class="hbadge hbadge-gold">{t('badge.noLogin', locale)}</span>
+        <span class="hbadge hbadge-green">{t('badge.unlimited', locale)}</span>
+        <span class="hbadge hbadge-rose">{t('badge.ai', locale)}</span>
       </div>
 
       <!-- H1 -->
@@ -510,11 +510,11 @@ const softwareSchema = {
             
             <div>
               <span class="text-[10px] font-extrabold uppercase tracking-widest text-[#2E3D34] bg-[#F7F3EC] px-3.5 py-1 rounded-full border border-stone-200 inline-block">
-                FREE RESULT
+                {t('result.freeResult', locale)}
               </span>
-              <h2 class="text-3xl font-serif text-[#2E3D34] font-bold pt-2">Your Personal Matrix</h2>
+              <h2 class="text-3xl font-serif text-[#2E3D34] font-bold pt-2">{t('result.personalMatrix', locale)}</h2>
               <p class="text-xs text-stone-500 font-medium pt-1">
-                Your matrix, core numbers, and complete chakra table stay visible here for free. Deeper interpretations open in the Personal Matrix Deep Report.
+                {t('result.personalMatrixDesc', locale)}
               </p>
             </div>
 
@@ -538,39 +538,39 @@ const softwareSchema = {
             <!-- Numerology Core Numbers Cards below Diagram -->
             <div class="space-y-4 pt-2">
               <div class="flex justify-between items-center pb-1">
-                <h2 class="text-xl font-serif font-bold text-[#2E3D34]">Your Numerology Numbers</h2>
-                <span class="text-[10px] font-bold text-[#B67B7B] uppercase tracking-widest">ALWAYS FREE</span>
+                <h2 class="text-xl font-serif font-bold text-[#2E3D34]">{t('result.numerologyNumbers', locale)}</h2>
+                <span class="text-[10px] font-bold text-[#B67B7B] uppercase tracking-widest">{t('result.alwaysFree', locale)}</span>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="p-4 bg-white rounded-2xl border border-stone-200/80 flex items-center justify-between shadow-2xs">
                   <div>
-                    <h4 class="text-xs font-bold text-[#2E3D34]">Soul Number</h4>
-                    <p class="text-[11px] text-stone-500">Your inner desires</p>
+                    <h4 class="text-xs font-bold text-[#2E3D34]">{t('result.soulNumber', locale)}</h4>
+                    <p class="text-[11px] text-stone-500">{t('result.soulNumberDesc', locale)}</p>
                   </div>
                   <span class="text-2xl font-serif font-bold text-[#B67B7B]" id="resSoulNum">{initialData.soulNumber}</span>
                 </div>
 
                 <div class="p-4 bg-white rounded-2xl border border-stone-200/80 flex items-center justify-between shadow-2xs">
                   <div>
-                    <h4 class="text-xs font-bold text-[#2E3D34]">Personality Number</h4>
-                    <p class="text-[11px] text-stone-500">How others see you</p>
+                    <h4 class="text-xs font-bold text-[#2E3D34]">{t('result.personalityNumber', locale)}</h4>
+                    <p class="text-[11px] text-stone-500">{t('result.personalityNumberDesc', locale)}</p>
                   </div>
                   <span class="text-2xl font-serif font-bold text-[#B67B7B]" id="resPersonalityNum">{initialData.personalityNumber}</span>
                 </div>
 
                 <div class="p-4 bg-white rounded-2xl border border-stone-200/80 flex items-center justify-between shadow-2xs">
                   <div>
-                    <h4 class="text-xs font-bold text-[#2E3D34]">Expression Number</h4>
-                    <p class="text-[11px] text-stone-500">Your natural talents</p>
+                    <h4 class="text-xs font-bold text-[#2E3D34]">{t('result.expressionNumber', locale)}</h4>
+                    <p class="text-[11px] text-stone-500">{t('result.expressionNumberDesc', locale)}</p>
                   </div>
                   <span class="text-2xl font-serif font-bold text-[#B67B7B]" id="resExpressionNum">{initialData.expressionNumber}</span>
                 </div>
 
                 <div class="p-4 bg-white rounded-2xl border border-stone-200/80 flex items-center justify-between shadow-2xs">
                   <div>
-                    <h4 class="text-xs font-bold text-[#2E3D34]">Life Path Number</h4>
-                    <p class="text-[11px] text-stone-500">Your life purpose</p>
+                    <h4 class="text-xs font-bold text-[#2E3D34]">{t('result.lifePathNumber', locale)}</h4>
+                    <p class="text-[11px] text-stone-500">{t('result.lifePathNumberDesc', locale)}</p>
                   </div>
                   <span class="text-2xl font-serif font-bold text-[#B67B7B]" id="resLifePathNum">{initialData.lifePathNumber}</span>
                 </div>
@@ -588,13 +588,13 @@ const softwareSchema = {
             <!-- Card Header with Mystical Girl Artwork Overlay -->
             <div class="relative z-10 space-y-2 pr-24">
               <span class="text-[10px] font-extrabold uppercase tracking-widest text-[#9C7A44] flex items-center gap-1">
-                <span>✨</span> DEEP INTERPRETATION
+                <span>✨</span> {t('sidebar.deepLabel', locale)}
               </span>
               <h2 class="text-2xl font-serif text-[#2D1B36] font-bold leading-tight">
-                Unlock the Meaning Behind Your Matrix
+                {t('sidebar.deepTitle', locale)}
               </h2>
               <p class="text-xs text-stone-600 leading-relaxed pt-1">
-                Your numbers hold a story. Discover the patterns, energy & purpose written in your chart.
+                {t('sidebar.deepDesc', locale)}
               </p>
             </div>
 
@@ -614,8 +614,8 @@ const softwareSchema = {
                     ✨
                   </div>
                   <div class="text-left">
-                    <h3 class="font-bold text-xs text-[#3D254C]">FREE PERSONALIZED PREVIEW</h3>
-                    <p class="text-[11px] text-stone-500">Get a glimpse of your full Destiny Matrix Deep Report.</p>
+                    <h3 class="font-bold text-xs text-[#3D254C]">{t('sidebar.freePreview', locale)}</h3>
+                    <p class="text-[11px] text-stone-500">{t('sidebar.freePreviewDesc', locale)}</p>
                   </div>
                 </div>
                 <span class="text-stone-400 group-hover:translate-x-1 transition-transform text-lg">›</span>
@@ -628,14 +628,14 @@ const softwareSchema = {
                     📜
                   </div>
                   <div class="text-left">
-                    <h3 class="font-bold text-xs text-white">View Personal Matrix Deep Report</h3>
-                    <p class="text-[11px] text-amber-200/90">Unlock your complete interpretation</p>
+                    <h3 class="font-bold text-xs text-white">{t('sidebar.deepReport', locale)}</h3>
+                    <p class="text-[11px] text-amber-200/90">{t('sidebar.deepReportDesc', locale)}</p>
                   </div>
                 </div>
                 <span class="text-amber-200 group-hover:translate-x-1 transition-transform text-lg font-bold">›</span>
               </a>
 
-              <!-- 3. Informational Text Block (Replaces redundant PDF link / redirects) -->
+              <!-- 3. Informational Text Block -->
               <div class="w-full p-4 rounded-2xl bg-white border border-stone-200 text-[#3D254C] flex items-center justify-between shadow-2xs">
                 <div class="flex items-center gap-3">
                   <div class="w-10 h-10 rounded-full bg-[#F7F3EC] text-stone-700 flex items-center justify-center text-lg shrink-0">
@@ -643,10 +643,10 @@ const softwareSchema = {
                   </div>
                   <div class="text-left">
                     <h3 class="font-bold text-xs text-[#3D254C]">
-                      {locale === 'ar' ? 'دليل مصفوفة الروح' : (locale === 'pt' ? 'Guia da Matriz da Alma' : 'Soul Matrix Guide')}
+                      {t('sidebar.guideTitle', locale)}
                     </h3>
                     <p class="text-[11px] text-stone-500 font-sans">
-                      {locale === 'ar' ? 'احفظ هذه الصفحة أو سجل نتائجك للرجوع إلى تفاصيل قراءتك المخصصة في أي وقت.' : (locale === 'pt' ? 'Salve seus resultados ou adicione esta página aos favoritos para revisitar os detalhes de sua leitura personalizada a qualquer momento.' : 'Bookmark this page or save your results to revisit your personalized reading details anytime.')}
+                      {t('sidebar.guideDesc', locale)}
                     </p>
                   </div>
                 </div>
@@ -658,8 +658,8 @@ const softwareSchema = {
                     📖
                   </div>
                   <div class="text-left">
-                    <h3 class="font-bold text-xs text-[#3D254C]">How to Read Your Chart Guide</h3>
-                    <p class="text-[11px] text-stone-500">Understand every part of your matrix</p>
+                    <h3 class="font-bold text-xs text-[#3D254C]">{t('sidebar.howToRead', locale)}</h3>
+                    <p class="text-[11px] text-stone-500">{t('sidebar.howToReadDesc', locale)}</p>
                   </div>
                 </div>
                 <span class="text-stone-400 group-hover:translate-x-1 transition-transform text-lg">›</span>
@@ -670,14 +670,14 @@ const softwareSchema = {
             <!-- Quick Questions Grid Section -->
             <div class="pt-4 border-t border-stone-200/70 space-y-3">
               <span class="text-[10px] font-extrabold uppercase tracking-widest text-[#3D254C] flex items-center gap-1">
-                <span>⚡</span> QUICK QUESTIONS
+                <span>⚡</span> {t('sidebar.quickQ', locale)}
               </span>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <a id="qqThemeBtn" href={`/${locale}/report?dob=1980-01-14&name=Kashif#core-personality`} class="quick-q-btn p-3.5 rounded-2xl bg-[#F8F3FA] hover:bg-[#EFE6F5] border border-[#E9D9F2] text-left flex justify-between items-center group transition-colors">
                   <div class="flex items-center gap-2">
                     <span class="w-7 h-7 rounded-full bg-[#52296B] text-amber-200 flex items-center justify-center text-xs shrink-0">❇️</span>
-                    <span class="text-[11px] font-bold text-[#3D254C] leading-snug">What are the 3 main themes right now?</span>
+                    <span class="text-[11px] font-bold text-[#3D254C] leading-snug">{t('sidebar.q1', locale)}</span>
                   </div>
                   <span class="text-stone-400 group-hover:translate-x-0.5 text-xs font-bold">›</span>
                 </a>
@@ -685,7 +685,7 @@ const softwareSchema = {
                 <a id="qqCareerBtn" href={`/${locale}/report?dob=1980-01-14&name=Kashif#career-money`} class="quick-q-btn p-3.5 rounded-2xl bg-[#F8F3FA] hover:bg-[#EFE6F5] border border-[#E9D9F2] text-left flex justify-between items-center group transition-colors">
                   <div class="flex items-center gap-2">
                     <span class="w-7 h-7 rounded-full bg-[#52296B] text-amber-200 flex items-center justify-center text-xs shrink-0">📈</span>
-                    <span class="text-[11px] font-bold text-[#3D254C] leading-snug">What does my chart say about career & money?</span>
+                    <span class="text-[11px] font-bold text-[#3D254C] leading-snug">{t('sidebar.q2', locale)}</span>
                   </div>
                   <span class="text-stone-400 group-hover:translate-x-0.5 text-xs font-bold">›</span>
                 </a>
@@ -693,7 +693,7 @@ const softwareSchema = {
                 <a id="qqLoveBtn" href={`/${locale}/report?dob=1980-01-14&name=Kashif#love-compatibility`} class="quick-q-btn p-3.5 rounded-2xl bg-[#F8F3FA] hover:bg-[#EFE6F5] border border-[#E9D9F2] text-left flex justify-between items-center group transition-colors">
                   <div class="flex items-center gap-2">
                     <span class="w-7 h-7 rounded-full bg-[#52296B] text-amber-200 flex items-center justify-center text-xs shrink-0">💜</span>
-                    <span class="text-[11px] font-bold text-[#3D254C] leading-snug">What relationship patterns keep repeating?</span>
+                    <span class="text-[11px] font-bold text-[#3D254C] leading-snug">{t('sidebar.q3', locale)}</span>
                   </div>
                   <span class="text-stone-400 group-hover:translate-x-0.5 text-xs font-bold">›</span>
                 </a>
@@ -701,7 +701,7 @@ const softwareSchema = {
                 <a id="qqKarmicBtn" href={`/${locale}/report?dob=1980-01-14&name=Kashif#karmic-blueprint`} class="quick-q-btn p-3.5 rounded-2xl bg-[#F8F3FA] hover:bg-[#EFE6F5] border border-[#E9D9F2] text-left flex justify-between items-center group transition-colors">
                   <div class="flex items-center gap-2">
                     <span class="w-7 h-7 rounded-full bg-[#52296B] text-amber-200 flex items-center justify-center text-xs shrink-0">♾️</span>
-                    <span class="text-[11px] font-bold text-[#3D254C] leading-snug">What do my karmic numbers mean?</span>
+                    <span class="text-[11px] font-bold text-[#3D254C] leading-snug">{t('sidebar.q4', locale)}</span>
                   </div>
                   <span class="text-stone-400 group-hover:translate-x-0.5 text-xs font-bold">›</span>
                 </a>
@@ -713,12 +713,12 @@ const softwareSchema = {
               <div class="flex items-center gap-3">
                 <span class="text-2xl">☸️</span>
                 <div>
-                  <h4 class="font-serif font-bold text-xs text-amber-200">Your Journey. Your Truth.</h4>
-                  <p class="text-[10px] text-stone-300">Every number has a message. Every pattern has a purpose.</p>
+                  <h4 class="font-serif font-bold text-xs text-amber-200">{t('sidebar.journeyTitle', locale)}</h4>
+                  <p class="text-[10px] text-stone-300">{t('sidebar.journeyDesc', locale)}</p>
                 </div>
               </div>
               <a href="#openFullReportLink" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-amber-200 font-bold text-[10px] whitespace-nowrap transition-colors">
-                ✨ Explore Deeper
+                {t('sidebar.exploreDeeper', locale)}
               </a>
             </div>
 
@@ -728,7 +728,7 @@ const softwareSchema = {
       </div>
 
       <!-- Chakra Energy Table Section -->
-      <ChakraEnergyTable chakras={initialData.chakras} />
+      <ChakraEnergyTable chakras={initialData.chakras} locale={locale} />
 
     </div>
   </section>

@@ -1,0 +1,108 @@
+---
+import { numerologyCalculators, type CalculatorConfig } from '../../config/calculators.config';
+import { t } from '../../i18n';
+
+interface Props {
+  currentSlug: string;
+  locale?: string;
+  currentNumber?: number | string;
+}
+
+const { currentSlug, locale = 'en', currentNumber } = Astro.props;
+
+const currentCalc = numerologyCalculators.find((c) => c.slug === currentSlug);
+const relatedSlugs = currentCalc?.relatedSlugs || ['life-path-number', 'destiny-number', 'soul-urge-number', 'personal-year'];
+const relatedCalculators = numerologyCalculators.filter((c) => relatedSlugs.includes(c.slug));
+
+const meaningSlug = currentCalc?.meaningSlug || currentSlug;
+---
+
+<section class="space-y-8 pt-6">
+  <!-- Related Calculators Grid -->
+  <div class="ref-card p-6 sm:p-8 bg-white border border-[#D8D0C5] space-y-5">
+    <div class="border-b border-[#D8D0C5] pb-3 flex items-center justify-between">
+      <h3 class="text-lg font-serif font-bold text-[#231530] flex items-center gap-2">
+        <span>✨</span>
+        <span>{t('calc.exploreMore', locale)}</span>
+      </h3>
+      <a
+        href={`/${locale}/calculators/`}
+        class="text-xs font-mono font-bold text-[#9E7B3B] hover:underline"
+      >
+        {t('nav.allCalculators', locale)}
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {relatedCalculators.map((calc) => (
+        <a
+          href={`/${locale}/calculators/${calc.slug}/`}
+          class="p-4 bg-[#FBF9F5] border border-[#D8D0C5] hover:border-[#C4A052] rounded-lg transition-all group block space-y-2 text-start"
+        >
+          <div class="flex items-center gap-2">
+            <span class="text-xl group-hover:scale-110 transition-transform">{calc.icon}</span>
+            <span class="text-xs font-serif font-bold text-[#231530] group-hover:text-[#9E7B3B] line-clamp-1">
+              {t(calc.titleKey, locale)}
+            </span>
+          </div>
+          <p class="text-[11px] text-[#524B5A] leading-relaxed line-clamp-2">
+            {t(calc.descKey, locale)}
+          </p>
+          <span class="text-[10px] font-mono font-bold text-[#9E7B3B] inline-flex items-center gap-1 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 transition-transform">
+            Calculate →
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- Deep Archetype & Destiny Matrix Cross-Links -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- Archetype Knowledge Hub Link -->
+    <div class="ref-card p-5 bg-[#F5F2EB] border border-[#D8D0C5] space-y-3 flex flex-col justify-between">
+      <div class="space-y-1.5">
+        <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-[#9E7B3B]">Knowledge Directory</span>
+        <h4 class="text-sm font-serif font-bold text-[#231530]">
+          {t('calc.readArchetype', locale)}
+        </h4>
+        <p class="text-xs text-[#524B5A] leading-relaxed">
+          Learn how each vibration manifests across personality, career vocation, spiritual lessons, and relationship dynamics.
+        </p>
+      </div>
+      <a
+        href={`/${locale}/numerology/${meaningSlug}/`}
+        class="text-xs font-mono font-bold text-[#231530] hover:text-[#9E7B3B] underline inline-block pt-1"
+      >
+        View Numerical Meaning Index →
+      </a>
+    </div>
+
+    <!-- Destiny Matrix Birthday Alignment Link -->
+    <div class="ref-card p-5 bg-[#231530] text-white border-2 border-[#C4A052] space-y-3 flex flex-col justify-between shadow-md">
+      <div class="space-y-1.5">
+        <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-[#C4A052]">Natalia Ladini 22 Arcana</span>
+        <h4 class="text-sm font-serif font-bold text-amber-100">
+          {t('calc.exploreBirthdays', locale)}
+        </h4>
+        <p class="text-xs text-purple-200 leading-relaxed">
+          Discover how your daily birth frequency harmonizes with the 22 Major Arcana archetypes in your full Soul Matrix chart.
+        </p>
+      </div>
+      <div class="flex items-center gap-3 pt-1">
+        <a
+          href={`/${locale}/destiny-matrix/birthdays/`}
+          class="text-xs font-mono font-bold text-[#C4A052] hover:text-amber-200 underline"
+        >
+          365 Birthday Directory →
+        </a>
+        <span class="text-purple-400 text-xs">•</span>
+        <a
+          href={`/${locale}/destiny-matrix/arcana/`}
+          class="text-xs font-mono font-bold text-[#C4A052] hover:text-amber-200 underline"
+        >
+          22 Arcana →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

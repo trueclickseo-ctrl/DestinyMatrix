@@ -14,15 +14,14 @@ const rawPath = Astro.url.pathname.replace(/^\/[a-z]{2}/, '').replace(/^\/+|\/+$
 const targetPath = rawPath ? `/${rawPath}/` : '/';
 ---
 
-<div class="relative inline-block text-left" id="languageSwitcherContainer">
+<div class="relative inline-block text-start js-language-switcher-container">
   <!-- Trigger Button -->
   <button
-    id="langDropdownTrigger"
     type="button"
     aria-expanded="false"
     aria-haspopup="true"
     aria-label="Select language"
-    class="flex items-center gap-2 px-3 py-1.5 rounded bg-[#311E43] hover:bg-[#3d2653] border border-[#C4A052]/50 text-white text-xs font-mono font-semibold transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#C4A052]"
+    class="js-lang-trigger flex items-center gap-2 px-3 py-1.5 rounded bg-[#311E43] hover:bg-[#3d2653] border border-[#C4A052]/50 text-white text-xs font-mono font-semibold transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#C4A052]"
   >
     <span class="text-sm text-[#C4A052]">🌐</span>
     <span class="font-medium text-amber-100">{currentConfig.nativeName}</span>
@@ -32,8 +31,7 @@ const targetPath = rawPath ? `/${rawPath}/` : '/';
 
   <!-- Dropdown Modal Panel -->
   <div
-    id="langDropdownPanel"
-    class="hidden absolute right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 mt-2 w-72 sm:w-80 rounded-md bg-[#FBF9F5] shadow-2xl border-2 border-[#C4A052] z-50 overflow-hidden text-[#1C1625]"
+    class="js-lang-panel hidden absolute right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 bottom-full mb-2 sm:bottom-auto sm:mb-0 sm:mt-2 w-72 sm:w-80 rounded-md bg-[#FBF9F5] shadow-2xl border-2 border-[#C4A052] z-50 overflow-hidden text-[#1C1625]"
   >
     <!-- Search Bar -->
     <div class="p-3 bg-[#231530] text-white border-b border-[#C4A052]/40">
@@ -45,14 +43,13 @@ const targetPath = rawPath ? `/${rawPath}/` : '/';
       </div>
       <input
         type="text"
-        id="langSearchInput"
         placeholder={t('lang.searchPlaceholder', currentLocale)}
-        class="w-full px-3 py-1.5 rounded bg-[#FFFFFF] border border-[#D8D0C5] text-xs text-[#1C1625] placeholder-[#524B5A] focus:outline-none focus:border-[#C4A052]"
+        class="js-lang-search w-full px-3 py-1.5 rounded bg-[#FFFFFF] border border-[#D8D0C5] text-xs text-[#1C1625] placeholder-[#524B5A] focus:outline-none focus:border-[#C4A052]"
       />
     </div>
 
     <!-- Language Grid / List -->
-    <div class="max-h-72 overflow-y-auto p-2 space-y-1" id="langListContainer">
+    <div class="max-h-72 overflow-y-auto p-2 space-y-1">
       {supportedLocales.map((code) => {
         const item = localesConfig[code];
         const isSelected = code === currentLocale;
@@ -88,72 +85,96 @@ const targetPath = rawPath ? `/${rawPath}/` : '/';
 
 <script is:inline>
   (() => {
-    const container = document.getElementById('languageSwitcherContainer');
-    const trigger = document.getElementById('langDropdownTrigger');
-    const panel = document.getElementById('langDropdownPanel');
-    const searchInput = document.getElementById('langSearchInput');
-    const langItems = document.querySelectorAll('.lang-item-btn');
+    function initLanguageSwitchers() {
+      const containers = document.querySelectorAll('.js-language-switcher-container');
 
-    if (!container || !trigger || !panel) return;
+      containers.forEach((container) => {
+        if (container.hasAttribute('data-initialized')) return;
+        container.setAttribute('data-initialized', 'true');
 
-    let isOpen = false;
+        const trigger = container.querySelector('.js-lang-trigger');
+        const panel = container.querySelector('.js-lang-panel');
+        const searchInput = container.querySelector('.js-lang-search');
+        const langItems = container.querySelectorAll('.lang-item-btn');
 
-    function openDropdown() {
-      isOpen = true;
-      trigger.setAttribute('aria-expanded', 'true');
-      panel.classList.remove('hidden');
-      if (searchInput) {
-        setTimeout(() => searchInput.focus(), 50);
-      }
-    }
+        if (!trigger || !panel) return;
 
-    function closeDropdown() {
-      isOpen = false;
-      trigger.setAttribute('aria-expanded', 'false');
-      panel.classList.add('hidden');
-    }
+        let isOpen = false;
 
-    trigger.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (isOpen) {
-        closeDropdown();
-      } else {
-        openDropdown();
-      }
-    });
+        function openDropdown() {
+          isOpen = true;
+          trigger.setAttribute('aria-expanded', 'true');
+          panel.classList.remove('hidden');
+          if (searchInput) {
+            setTimeout(() => searchInput.focus(), 50);
+          }
+        }
 
-    container.addEventListener('click', (e) => {
-      e.stopPropagation();
-    });
+        function closeDropdown() {
+          isOpen = false;
+          trigger.setAttribute('aria-expanded', 'false');
+          panel.classList.add('hidden');
+        }
 
-    document.addEventListener('click', () => {
-      if (isOpen) {
-        closeDropdown();
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isOpen) {
-        closeDropdown();
-        trigger.focus();
-      }
-    });
-
-    if (searchInput) {
-      searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase().trim();
-        langItems.forEach((item) => {
-          const code = item.getAttribute('data-lang-code') || '';
-          const name = item.getAttribute('data-lang-name') || '';
-          const native = item.getAttribute('data-lang-native') || '';
-          if (code.includes(query) || name.includes(query) || native.includes(query)) {
-            item.style.display = 'flex';
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (isOpen) {
+            closeDropdown();
           } else {
-            item.style.display = 'none';
+            // Close all other open dropdowns first
+            document.querySelectorAll('.js-language-switcher-container').forEach(other => {
+              const otherTrigger = other.querySelector('.js-lang-trigger');
+              const otherPanel = other.querySelector('.js-lang-panel');
+              if (otherPanel && otherTrigger && other !== container) {
+                otherPanel.classList.add('hidden');
+                otherTrigger.setAttribute('aria-expanded', 'false');
+              }
+            });
+            openDropdown();
           }
         });
+
+        container.addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
+
+        document.addEventListener('click', () => {
+          if (isOpen) {
+            closeDropdown();
+          }
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && isOpen) {
+            closeDropdown();
+            trigger.focus();
+          }
+        });
+
+        if (searchInput) {
+          searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            langItems.forEach((item) => {
+              const code = item.getAttribute('data-lang-code') || '';
+              const name = item.getAttribute('data-lang-name') || '';
+              const native = item.getAttribute('data-lang-native') || '';
+              if (code.includes(query) || name.includes(query) || native.includes(query)) {
+                item.style.display = 'flex';
+              } else {
+                item.style.display = 'none';
+              }
+            });
+          });
+        }
       });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLanguageSwitchers);
+    } else {
+      initLanguageSwitchers();
     }
   })();
 </script>
+

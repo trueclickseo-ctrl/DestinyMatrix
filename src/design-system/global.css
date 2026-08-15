@@ -76,9 +76,26 @@ footer {
   border-top: 2px solid #C4A052;
 }
 
+footer h4 {
+  color: #e8c77c !important;
+  font-weight: 500 !important;
+  border-bottom: 1px solid #4a3a5c !important;
+  padding-bottom: 0.25rem;
+}
+
+footer a {
+  color: #e8e2f2 !important;
+  transition: color 0.15s ease-in-out, text-decoration-color 0.15s ease-in-out;
+}
+
+footer a:hover {
+  color: #fde68a !important;
+  text-decoration: underline !important;
+}
+
+
 /* Reference Library Custom Utility Classes */
 .ref-card {
-  background-color: #ffffff;
   border: 1px solid #D8D0C5;
   border-radius: 0.375rem;
   box-shadow: 0 1px 3px rgba(28, 22, 37, 0.05);
@@ -118,3 +135,25 @@ footer {
   border-bottom: 2px solid #C4A052;
   color: #ffffff;
 }
+
+/* RTL Typography & Directional Layout Rules */
+html[dir="rtl"] {
+  font-family: var(--font-arabic), "Amiri", "Traditional Arabic", "Noto Naskh Arabic", serif, system-ui;
+}
+
+html[dir="rtl"] h1,
+html[dir="rtl"] h2,
+html[dir="rtl"] h3,
+html[dir="rtl"] h4,
+html[dir="rtl"] h5,
+html[dir="rtl"] h6 {
+  font-family: var(--font-arabic), "Amiri", serif;
+}
+
+html[dir="rtl"] input[type="date"],
+html[dir="rtl"] input[type="tel"],
+html[dir="rtl"] .numeral-ltr {
+  direction: ltr;
+  text-align: right;
+}
+

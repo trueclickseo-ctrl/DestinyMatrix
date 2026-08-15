@@ -31,7 +31,7 @@ const currentLocale = locale;
 const arcanaNum = parseInt((arcanaSlug || '1').split('-')[0], 10) || 1;
 const arcanaData = getLocalizedArcanaEntry(arcanaNum, currentLocale);
 
-const pageTitle = `Arcana ${arcanaData.number}: ${arcanaData.name} — Destiny Matrix Reference Guide`;
+const pageTitle = `Arcana ${arcanaData.number}: ${arcanaData.name} Guide`;
 const pageDesc = `Explore Arcana ${arcanaData.number} (${arcanaData.name}) in the Destiny Matrix system. Detailed analysis of positive and shadow expressions, career vocation, love line, money channel, and practical self-reflection questions.`;
 
 const articleSchema = {
@@ -45,29 +45,55 @@ const articleSchema = {
 };
 
 const breadcrumbItems = [
-  { label: 'Destiny Matrix', href: `/${currentLocale}/` },
+  { label: t('nav.home', currentLocale), href: `/${currentLocale}/` },
   { label: 'Arcana Directory', href: `/${currentLocale}/destiny-matrix/arcana/` },
   { label: `Arcana ${arcanaData.number}: ${arcanaData.name}` }
 ];
+
+const guideKey = `arcana.${arcanaNum}.guideHtml`;
+const rawGuideHtml = t(guideKey, currentLocale);
+const hasGuide = rawGuideHtml && rawGuideHtml !== guideKey;
+
+const cardImageSlug = `${arcanaData.number}-${arcanaData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
+const cardJpgPath = `/images/arcana/${cardImageSlug}.jpg`;
 ---
 
 <BaseLayout title={pageTitle} description={pageDesc} locale={currentLocale}>
   <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
 
-  <!-- Hero Header Panel -->
+  <!-- Hero Header Panel with Tarot Card Illustration -->
   <section class="bg-[#231530] text-white py-12 px-4 border-b-2 border-[#C4A052]">
     <div class="max-w-4xl mx-auto space-y-4">
       <Breadcrumbs items={breadcrumbItems} locale={currentLocale} />
 
-      <span class="text-xs uppercase tracking-widest text-[#C4A052] font-mono font-bold bg-white/10 px-3 py-1 rounded inline-block border border-[#C4A052]/40">
-        22 Major Arcana Reference Library
-      </span>
-      <h1 class="text-4xl sm:text-5xl font-serif font-bold text-amber-100">
-        Arcana {arcanaData.number}: {arcanaData.name}
-      </h1>
-      <p class="text-purple-200 max-w-2xl text-base sm:text-lg font-serif">
-        {arcanaData.archetype}
-      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center pt-2">
+        <div class="md:col-span-2 space-y-4">
+          <span class="text-xs uppercase tracking-widest text-[#C4A052] font-mono font-bold bg-white/10 px-3 py-1 rounded inline-block border border-[#C4A052]/40">
+            22 Major Arcana Reference Library
+          </span>
+          <h1 class="text-4xl sm:text-5xl font-serif font-bold text-amber-100">
+            Arcana {arcanaData.number}: {arcanaData.name}
+          </h1>
+          <p class="text-purple-200 max-w-2xl text-base sm:text-lg font-serif">
+            {arcanaData.archetype}
+          </p>
+          <div class="flex flex-wrap gap-2.5 pt-2 text-xs font-mono text-[#C4A052]">
+            <span class="bg-black/40 px-3 py-1 rounded border border-[#C4A052]/30">Chakra: {arcanaData.chakraConnection}</span>
+          </div>
+        </div>
+
+        <div class="flex justify-center md:justify-end">
+          <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-[#C4A052] to-[#9E7B3B] rounded-lg blur opacity-40 group-hover:opacity-75 transition duration-300"></div>
+            <img 
+              src={cardJpgPath} 
+              alt={`Tarot Card Illustration of Arcana ${arcanaData.number}: ${arcanaData.name}`} 
+              class="relative w-44 sm:w-52 rounded-lg border-2 border-[#C4A052] shadow-2xl object-cover aspect-[3/4]"
+              onerror="this.onerror=null; this.src=this.src.replace('.jpg', '.svg');"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -90,30 +116,42 @@ const breadcrumbItems = [
         </div>
       </article>
 
-      <!-- 2. Constructive High Frequency vs Shadow Expressions -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div class="ref-card p-6 bg-[#FFFFFF] border-t-4 border-t-emerald-600 space-y-3">
-          <h3 class="text-lg font-serif font-bold text-emerald-950 flex items-center gap-2">
-            <span>🌟</span>
-            <span>Constructive High Frequency</span>
-          </h3>
-          <p class="text-xs text-stone-700 leading-relaxed font-normal">{arcanaData.positiveExpression}</p>
+      <!-- 2. Constructive High Frequency vs Shadow Expressions Table -->
+      <article class="ref-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-2xl font-serif font-bold text-[#1C1625] border-b border-[#D8D0C5] pb-3 flex items-center gap-2">
+          <span>⚖️</span>
+          <span>2. Constructive High Frequency (+{arcanaData.number}) vs. Shadow Challenges (-{arcanaData.number})</span>
+        </h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border-collapse border border-[#D8D0C5]">
+            <thead class="bg-[#F5F2EB] text-[#231530] font-serif font-bold">
+              <tr>
+                <th class="p-3 border border-[#D8D0C5]">Vibrational State</th>
+                <th class="p-3 border border-[#D8D0C5]">Key Behaviors & Manifestations</th>
+                <th class="p-3 border border-[#D8D0C5]">Harmonization & Remediation Strategy</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#D8D0C5] text-[#1C1625]">
+              <tr class="bg-emerald-50/40">
+                <td class="p-3 border font-bold text-emerald-900">High Frequency (+{arcanaData.number})</td>
+                <td class="p-3 border">{arcanaData.positiveExpression}</td>
+                <td class="p-3 border">Align daily goals with ethical integrity, channel vital potential into constructive projects, and cultivate calm confidence.</td>
+              </tr>
+              <tr class="bg-rose-50/40">
+                <td class="p-3 border font-bold text-rose-900">Shadow Frequency (-{arcanaData.number})</td>
+                <td class="p-3 border">{arcanaData.shadowExpression}</td>
+                <td class="p-3 border">Acknowledge shadow triggers without self-judgment, establish clear personal boundaries, and avoid coercive or fear-driven control.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
-        <div class="ref-card p-6 bg-[#FFFFFF] border-t-4 border-t-rose-600 space-y-3">
-          <h3 class="text-lg font-serif font-bold text-rose-950 flex items-center gap-2">
-            <span>🌱</span>
-            <span>Shadow Expression & Blockages</span>
-          </h3>
-          <p class="text-xs text-stone-700 leading-relaxed font-normal">{arcanaData.shadowExpression}</p>
-        </div>
-      </div>
+      </article>
 
       <!-- 3. Vocation, Money Line & Love Synergy -->
       <article class="ref-card p-6 sm:p-8 space-y-6">
         <h2 class="text-2xl font-serif font-bold text-[#1C1625] border-b border-[#D8D0C5] pb-3 flex items-center gap-2">
           <span>💼</span>
-          <span>2. Vocation, Money Line & Love Synergy</span>
+          <span>3. Vocation, Money Line & Love Synergy</span>
         </h2>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
@@ -135,56 +173,38 @@ const breadcrumbItems = [
       </article>
 
       <!-- 4. Practical Self-Reflection Prompts -->
-      <article class="ref-card p-6 sm:p-8 space-y-4 bg-[#231530] text-white border-2 border-[#C4A052]">
-        <h3 class="text-xl font-serif font-bold text-[#C4A052] flex items-center gap-2">
+      <article class="p-6 sm:p-8 space-y-4 bg-[#231530] text-white border-2 border-[#C4A052] rounded-lg shadow-md">
+        <h3 class="text-xl font-serif font-bold text-[#F3E5AB] flex items-center gap-2">
           <span>🔮</span>
           <span>Practical Self-Reflection Prompts</span>
         </h3>
-        <p class="text-xs text-stone-300">
+        <p class="text-xs sm:text-sm text-purple-100 font-medium">
           Use these reflection questions to examine how Arcana {arcanaData.number} manifests in your choices:
         </p>
-        <ul class="space-y-2 pt-1">
+        <ul class="space-y-2.5 pt-1">
           {arcanaData.reflectionQuestions.map((q) => (
-            <li class="flex items-start gap-2.5 text-xs text-stone-200">
-              <span class="text-[#C4A052] font-bold">›</span>
+            <li class="text-xs sm:text-sm text-purple-100 flex items-start gap-2.5 leading-relaxed">
+              <span class="text-[#C4A052] font-bold select-none text-base">›</span>
               <span>{q}</span>
             </li>
           ))}
         </ul>
-        <div class="border-t border-[#C4A052]/40 pt-3 text-[11px] text-amber-200">
-          <strong>Daily Guidance:</strong> {arcanaData.dailyWisdom}
-        </div>
+        <p class="text-xs text-[#C4A052] italic pt-1">
+          Daily Wisdom: "{arcanaData.dailyWisdom}"
+        </p>
       </article>
 
-      <!-- Methodology Disclosures & Disclaimer -->
-      <MethodologyBox
-        title="Arcana Reference Methodology"
-        systemName="Natalia Ladini 22 Arcana Destiny Matrix System"
-        summary="Calculations follow Natalia Ladini's 22 Major Arcana framework developed in the mid-2000s, mapping birth date numbers to Tarot archetypes."
-        disclosures="Destiny Matrix readings are non-dogmatic tools for self-reflection and personal contemplation."
-      />
-
-      <DisclaimerBox />
-
-      <!-- All 22 Arcana Navigation Cluster -->
-      <div class="pt-4 space-y-4 text-center">
-        <h3 class="text-lg font-serif font-bold text-[#1C1625]">
-          Explore All 22 Major Arcana Encyclopedias
-        </h3>
-        <div class="flex flex-wrap justify-center gap-2">
-          {Array.from({ length: 22 }, (_, index) => index + 1).map((num) => {
-            const entry = MAJOR_ARCANA_DATABASE[num] || MAJOR_ARCANA_DATABASE[1];
-            const slug = `${num}-${entry.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
-            return (
-              <a
-                href={`/${currentLocale}/destiny-matrix/arcana/${slug}/`}
-                class={`px-3 py-1.5 rounded text-xs font-bold transition-all border ${num === arcanaNum ? 'bg-[#231530] text-[#C4A052] border-[#C4A052]' : 'bg-white text-[#1C1625] border-[#D8D0C5] hover:border-[#C4A052]'}`}
-              >
-                Arcana {num}
-              </a>
-            );
-          })}
+      <!-- 5. Extended Comprehensive Guide Article (if present) -->
+      {hasGuide && (
+        <div class="pt-4">
+          <Fragment set:html={rawGuideHtml} />
         </div>
+      )}
+
+      <!-- Standard Methodology & Disclaimer Components -->
+      <div class="pt-6 space-y-6">
+        <MethodologyBox locale={currentLocale} />
+        <DisclaimerBox locale={currentLocale} />
       </div>
 
     </div>

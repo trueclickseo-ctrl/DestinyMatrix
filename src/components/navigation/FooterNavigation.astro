@@ -14,8 +14,8 @@ const { locale = 'en' } = Astro.props;
   <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
     
     {footerNavTaxonomy.map((col) => (
-      <div class="space-y-3">
-        <h4 class="font-serif text-sm font-bold text-amber-200 uppercase tracking-widest border-b border-[#C4A052]/40 pb-1">
+      <div class="space-y-3 text-start">
+        <h4 class="font-serif text-sm font-medium text-[#e8c77c] uppercase tracking-widest border-b border-[#4a3a5c] pb-1">
           {t(col.titleKey, locale)}
         </h4>
         <ul class="space-y-2 text-stone-300">
@@ -23,7 +23,7 @@ const { locale = 'en' } = Astro.props;
             <li>
               <a
                 href={`/${locale}/${item.href}`}
-                class="hover:text-amber-300 transition-colors block"
+                class="text-[#e8e2f2] hover:text-[#fde68a] hover:underline transition-colors block"
               >
                 {t(item.key, locale)}
               </a>

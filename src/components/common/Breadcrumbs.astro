@@ -7,23 +7,32 @@ export interface BreadcrumbItem {
 interface Props {
   items: BreadcrumbItem[];
   locale?: string;
+  variant?: 'dark' | 'light';
 }
 
-const { items, locale = 'en' } = Astro.props;
+const { items = [], locale = 'en', variant = 'dark' } = Astro.props;
+
+const isDark = variant === 'dark';
+const linkClass = isDark
+  ? 'text-purple-100 hover:text-amber-200 transition-colors font-medium underline-offset-2 hover:underline'
+  : 'text-[#231530] hover:text-[#9E7B3B] transition-colors font-medium underline-offset-2 hover:underline';
+const activeClass = isDark
+  ? 'text-amber-200 font-bold tracking-wide'
+  : 'text-[#1C1625] font-bold tracking-wide';
+const separatorClass = isDark
+  ? 'text-amber-400 font-bold'
+  : 'text-[#9E7B3B] font-bold';
 ---
 
 <nav aria-label="Breadcrumb" class="py-2">
-  <ol class="flex flex-wrap items-center gap-2 text-xs font-mono text-[#524B5A]">
-    <li>
-      <a href={`/${locale}/`} class="hover:text-[#C4A052] transition-colors">Home</a>
-    </li>
+  <ol class="flex flex-wrap items-center justify-center gap-2 text-xs font-mono">
     {items.map((item, index) => (
       <li class="flex items-center gap-2">
-        <span class="text-[#D8D0C5]">/</span>
+        {index > 0 && <span class={separatorClass}>/</span>}
         {item.href ? (
-          <a href={item.href} class="hover:text-[#C4A052] transition-colors">{item.label}</a>
+          <a href={item.href} class={linkClass}>{item.label}</a>
         ) : (
-          <span class="text-[#1C1625] font-bold" aria-current="page">{item.label}</span>
+          <span class={activeClass} aria-current="page">{item.label}</span>
         )}
       </li>
     ))}

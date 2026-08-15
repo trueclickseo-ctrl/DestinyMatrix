@@ -12,9 +12,8 @@ export function getStaticPaths() {
 const { locale = 'en' } = Astro.params;
 
 const breadcrumbs = [
-  { label: 'Home', href: `/${locale}/` },
-  { label: t('nav.destinyMatrix', locale), href: `/${locale}/` },
-  { label: t('nav.arcana', locale) },
+  { label: t('nav.home', locale), href: `/${locale}/` },
+  { label: `${t('nav.arcana', locale)} Directory` },
 ];
 
 const arcanaItems = Object.keys(MAJOR_ARCANA_DATABASE).map((key) => {

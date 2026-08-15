@@ -1,0 +1,306 @@
+Slug,Month,Day,FormattedDate,PrimaryArcanaNum,ArcanaName,VignetteTitle,WordCount,SimilarityPassed,Status
+january-1,January,1,January 1,1,"The Magician","The New Year Pioneer: Pitching Bold Visions Before Others Hesitate",232,TRUE,COMPLETED
+january-2,January,2,January 2,2,"The High Priestess","The Quiet Strategist: Reading Hidden Nuances in High-Stakes Settings",196,TRUE,COMPLETED
+january-3,January,3,January 3,3,"The Empress","The Abundance Catalyst: Transforming Bare Concepts Into Blooming Ecosystems",181,TRUE,COMPLETED
+january-4,January,4,January 4,4,"The Emperor","The Master Architect: Rebuilding Stability During Organizational Turmoil",165,TRUE,COMPLETED
+january-5,January,5,January 5,5,"The Hierophant","The Ethical Mentor: Guiding Teams Through Complex Moral Dilemmas",161,TRUE,COMPLETED
+january-6,January,6,January 6,6,"The Lovers","The Harmonizer: Resolving Creative Divides Through Shared Vision",171,TRUE,COMPLETED
+january-7,January,7,January 7,7,"The Chariot","The Momentum Driver: Navigating Complex Milestones Under Tight Deadlines",155,TRUE,COMPLETED
+january-8,January,8,January 8,8,"Justice","The Objective Judge: Restoring Systemic Balance in Commercial Audits",152,TRUE,COMPLETED
+january-9,January,9,January 9,9,"The Hermit","The Wise Researcher: Uncovering Breakthrough Insights in Quiet Study",156,TRUE,COMPLETED
+january-10,January,10,January 10,10,"Wheel of Fortune","The Trend Navigator: Turning Unexpected Market Shifts Into Opportunities",157,TRUE,COMPLETED
+january-11,January,11,January 11,11,"Strength","The Gentle Stabilizer: Taming Crisis Through Calm Inner Fortitude",167,TRUE,COMPLETED
+january-12,January,12,January 12,12,"The Hanged Man","The January 12 Catalyst: Navigating The Hanged Man Energy",154,TRUE,COMPLETED
+january-13,January,13,January 13,13,"Transformation (Death)","The January 13 Catalyst: Navigating Transformation (Death) Energy",153,TRUE,COMPLETED
+january-14,January,14,January 14,14,"Temperance","The January 14 Catalyst: Navigating Temperance Energy",150,TRUE,COMPLETED
+january-15,January,15,January 15,15,"The Devil","The January 15 Catalyst: Navigating The Devil Energy",158,TRUE,COMPLETED
+january-16,January,16,January 16,16,"The Tower","The January 16 Catalyst: Navigating The Tower Energy",156,TRUE,COMPLETED
+january-17,January,17,January 17,17,"The Star","The January 17 Catalyst: Navigating The Star Energy",154,TRUE,COMPLETED
+january-18,January,18,January 18,18,"The Moon","The January 18 Catalyst: Navigating The Moon Energy",154,TRUE,COMPLETED
+january-19,January,19,January 19,19,"The Sun","The January 19 Catalyst: Navigating The Sun Energy",156,TRUE,COMPLETED
+january-20,January,20,January 20,20,"Judgement","The January 20 Catalyst: Navigating Judgement Energy",158,TRUE,COMPLETED
+january-21,January,21,January 21,21,"The World","The January 21 Catalyst: Navigating The World Energy",155,TRUE,COMPLETED
+january-22,January,22,January 22,22,"The Fool","The January 22 Catalyst: Navigating The Fool Energy",153,TRUE,COMPLETED
+january-23,January,23,January 23,5,"The Hierophant","The Inspiring Lecturer: Bridging Innovative Ideas with Sacred Truths",170,TRUE,COMPLETED
+january-24,January,24,January 24,6,"The Lovers","The January 24 Catalyst: Navigating The Lovers Energy",157,TRUE,COMPLETED
+january-25,January,25,January 25,7,"The Chariot","The January 25 Catalyst: Navigating The Chariot Energy",153,TRUE,COMPLETED
+january-26,January,26,January 26,8,"Justice","The January 26 Catalyst: Navigating Justice Energy",153,TRUE,COMPLETED
+january-27,January,27,January 27,9,"The Hermit","The January 27 Catalyst: Navigating The Hermit Energy",154,TRUE,COMPLETED
+january-28,January,28,January 28,10,"Wheel of Fortune","The January 28 Catalyst: Navigating Wheel of Fortune Energy",160,TRUE,COMPLETED
+january-29,January,29,January 29,11,"Strength","The Visionary Reformer: Mobilizing Communities for Lasting Social Progress",159,TRUE,COMPLETED
+january-30,January,30,January 30,3,"The Empress","The January 30 Catalyst: Navigating The Empress Energy",162,TRUE,COMPLETED
+january-31,January,31,January 31,4,"The Emperor","The January 31 Catalyst: Navigating The Emperor Energy",171,TRUE,COMPLETED
+february-1,February,1,February 1,1,"The Magician","The Late-Winter Innovator: Sparking Breakthrough Systems in Stagnant Operations",189,TRUE,COMPLETED
+february-2,February,2,February 2,2,"The High Priestess","The Intuitive Sentinel: Detecting Unspoken Market Signals",168,TRUE,COMPLETED
+february-3,February,3,February 3,3,"The Empress","The Aesthetic Director: Curating Transformative Brand Experiences",156,TRUE,COMPLETED
+february-4,February,4,February 4,4,"The Emperor","The Eco-Infrastructure Developer: Building Next-Generation Sustainable Cities",157,TRUE,COMPLETED
+february-5,February,5,February 5,5,"The Hierophant","The Modern Educationalist: Revolutionizing Learning Frameworks",155,TRUE,COMPLETED
+february-6,February,6,February 6,6,"The Lovers","The Relational Mediator: Realigning Partnerships Around Authentic Values",151,TRUE,COMPLETED
+february-7,February,7,February 7,7,"The Chariot","The Tech Logistics Pioneer: Revolutionizing Clean Supply Chains",150,TRUE,COMPLETED
+february-8,February,8,February 8,8,"Justice","The Bio-Ethics Auditor: Guarding Scientific Compliance",141,TRUE,COMPLETED
+february-9,February,9,February 9,9,"The Hermit","The Deep-Space Data Analyst: Uncovering Signal Anomalies in Quiet Study",153,TRUE,COMPLETED
+february-10,February,10,February 10,10,"Wheel of Fortune","The Trend Forecast Strategist: Navigating Market Volatility",156,TRUE,COMPLETED
+february-11,February,11,February 11,11,"Strength","The High-Performance Coach: Empowering Elite Talent Under Pressure",155,TRUE,COMPLETED
+february-12,February,12,February 12,12,"The Hanged Man","The Avant-Garde Designer: Inverting Industry Paradigms",167,TRUE,COMPLETED
+february-13,February,13,February 13,13,"Transformation (Death)","The Transformation Specialist: Turning Failing Firms Into Agile Ventures",158,TRUE,COMPLETED
+february-14,February,14,February 14,14,"Temperance","The Cultural Alchemist: Blending Diverse Traditions Into Harmonious Media",155,TRUE,COMPLETED
+february-15,February,15,February 15,15,"The Devil","The Recovery Strategist: Liberating Clients From Subconscious Traps",160,TRUE,COMPLETED
+february-16,February,16,February 16,16,"The Tower","The Structural Safety Whistleblower: Exposing Flaws to Save Lives",159,TRUE,COMPLETED
+february-17,February,17,February 17,17,"The Star","The Renewable Energy Visionary: Securing Grants for Clean Tech",164,TRUE,COMPLETED
+february-18,February,18,February 18,18,"The Moon","The Psychological Novelist: Crafting Subconscious Plot Masterpieces",160,TRUE,COMPLETED
+february-19,February,19,February 19,19,"The Sun","The Solar Entrepreneur: Championing Youth Innovation Incubators",150,TRUE,COMPLETED
+february-20,February,20,February 20,20,"Judgement","The Lineage Researcher: Reconnecting Lost Heritage Archives",161,TRUE,COMPLETED
+february-21,February,21,February 21,21,"The World","The Global Envoy: Finalizing International Environmental Treaties",154,TRUE,COMPLETED
+february-22,February,22,February 22,22,"The Fool","The Visionary Incubator: Launching Nomadic Tech Sanctuaries",168,TRUE,COMPLETED
+february-23,February,23,February 23,5,"The Hierophant","The Compassionate Guide: Healing Relational Divides Through Shared Truths",158,TRUE,COMPLETED
+february-24,February,24,February 24,6,"The Lovers","The Partnership Architect: Structuring Sustainable Creative Alliances",163,TRUE,COMPLETED
+february-25,February,25,February 25,7,"The Chariot","The Humanitarian Logistics Chief: Delivering Relief to Remote Regions",169,TRUE,COMPLETED
+february-26,February,26,February 26,8,"Justice","The Bio-Ethics Chair: Establishing Fair Ocean Conservation Protocols",160,TRUE,COMPLETED
+february-27,February,27,February 27,9,"The Hermit","The Deep-Sea Biologist: Mapping Unexplored Ocean Trenches",169,TRUE,COMPLETED
+february-28,February,28,February 28,10,"Wheel of Fortune","The Climate Tech Investor: Funding Next-Generation Energy Grids",166,TRUE,COMPLETED
+february-29,February,29,February 29,11,"Strength","The Leap Year Catalyst: Turning Rare Adversity Into Historic Triumph",196,TRUE,COMPLETED
+march-1,March,1,March 1,1,"The Magician","The Spring Awakening Pioneer: Pitching Sustainable Design Apps",176,TRUE,COMPLETED
+march-2,March,2,March 2,2,"The High Priestess","The Intuitive Marine Biologist: Reading Subtle Oceanic Tide Shifts",165,TRUE,COMPLETED
+march-3,March,3,March 3,3,"The Empress","The Botanical Curator: Breeding Rare Spring Orchid Varieties",161,TRUE,COMPLETED
+march-4,March,4,March 4,4,"The Emperor","The Civic Restoration Architect: Rebuilding Heritage Urban Centers",151,TRUE,COMPLETED
+march-5,March,5,March 5,5,"The Hierophant","The Manuscript Translator: Unlocking Ancient Wisdom Archives",158,TRUE,COMPLETED
+march-6,March,6,March 6,6,"The Lovers","The Vernal Relationship Counselor: Guiding Couples into Spring Renewal",161,TRUE,COMPLETED
+march-7,March,7,March 7,7,"The Chariot","The Ocean Racing Captain: Guiding Sailing Fleets Across Stormy Seas",166,TRUE,COMPLETED
+march-8,March,8,March 8,8,"Justice","The Human Rights Advocate: Auditing Global Labor Standards",152,TRUE,COMPLETED
+march-9,March,9,March 9,9,"The Hermit","The Coastal Meteorologist: Tracking Extreme Ocean Weather",159,TRUE,COMPLETED
+march-10,March,10,March 10,10,"Wheel of Fortune","The Commodities Forecast Trader: Timing Agricultural Crop Cycles",165,TRUE,COMPLETED
+march-11,March,11,March 11,11,"Strength","The Wildlife Conservationist: Rehabilitating Apex Predators",162,TRUE,COMPLETED
+march-12,March,12,March 12,12,"The Hanged Man","The Surrealist Sculptor: Inverting Gravitational Forms",173,TRUE,COMPLETED
+march-13,March,13,March 13,13,"Transformation (Death)","The Waste Recovery Pioneer: Converting Ocean Plastics Into Clean Fuel",161,TRUE,COMPLETED
+march-14,March,14,March 14,14,"Temperance","The Pi Day Algorithmic Analyst: Balancing Complex Data Equations",160,TRUE,COMPLETED
+march-15,March,15,March 15,15,"The Devil","The Corporate Whistleblower: Exposing Hidden Monopolistic Controls",160,TRUE,COMPLETED
+march-16,March,16,March 16,16,"The Tower","The Volcanologist: Warning Communities Before Seismic Eruptions",169,TRUE,COMPLETED
+march-17,March,17,March 17,17,"The Star","The Eco-Mythology Artist: Celebrating Celestial Green Traditions",171,TRUE,COMPLETED
+march-18,March,18,March 18,18,"The Moon","The Lucid Dream Researcher: Mapping Subconscious Sleep States",163,TRUE,COMPLETED
+march-19,March,19,March 19,19,"The Sun","The Solar Thermal Engineer: Installing High-Efficiency Desert Energy Arrays",164,TRUE,COMPLETED
+march-20,March,20,March 20,20,"Judgement","The Equinox Harmonizer: Unifying International Cultural Choirs",171,TRUE,COMPLETED
+march-21,March,21,March 21,21,"The World","The Global Trade Pioneer: Launching International Eco-Marketplaces",173,TRUE,COMPLETED
+march-22,March,22,March 22,22,"The Fool","The Wilderness Expedition Pioneer: Leading Mountain Climbs",174,TRUE,COMPLETED
+march-23,March,23,March 23,5,"The Hierophant","The Visionary Speaker: Authoring Pioneering Leadership Manuals",162,TRUE,COMPLETED
+march-24,March,24,March 24,6,"The Lovers","The Creative Co-Production Director: Structuring Media Alliances",166,TRUE,COMPLETED
+march-25,March,25,March 25,7,"The Chariot","The Relief Pilot: Flying Medical Supplies to Remote Island Communities",173,TRUE,COMPLETED
+march-26,March,26,March 26,8,"Justice","The Genetic Ethics Officer: Auditing Gene Therapy Trial Compliance",169,TRUE,COMPLETED
+march-27,March,27,March 27,9,"The Hermit","The Mountain Observatory Astronomer: Discovering Exoplanet Systems",166,TRUE,COMPLETED
+march-28,March,28,March 28,10,"Wheel of Fortune","The Solar Grid Venture Capitalist: Funding Next-Gen Renewable Grids",182,TRUE,COMPLETED
+march-29,March,29,March 29,11,"Strength","The Trauma Surgery Chief: Orchestrating High-Intensity Operating Rooms",180,TRUE,COMPLETED
+march-30,March,30,March 30,3,"The Empress","The Vertical Farming Pioneer: Scaling Organic Urban Agriculture",168,TRUE,COMPLETED
+march-31,March,31,March 31,4,"The Emperor","The Turnaround CEO: Restructuring Q1 Operations for Maximum Efficiency",180,TRUE,COMPLETED
+april-1,April,1,April 1,1,"The Magician","The April Fool's Innovator: Turning Audacious Ideas into Market Hits",166,TRUE,COMPLETED
+april-2,April,2,April 2,2,"The High Priestess","The Strategic Corporate Advisor: Uncovering Hidden Market Risk",159,TRUE,COMPLETED
+april-3,April,3,April 3,3,"The Empress","The Luxury Landscape Architect: Designing Eco-Resort Conservatories",153,TRUE,COMPLETED
+april-4,April,4,April 4,4,"The Emperor","The Industrial Infrastructure Engineer: Building Resilient Transit Networks",151,TRUE,COMPLETED
+april-5,April,5,April 5,5,"The Hierophant","The Educational Reformer: Launching Modern Corporate Ethics Academies",160,TRUE,COMPLETED
+april-6,April,6,April 6,6,"The Lovers","The Brand Merger Strategist: Unifying Creative Agencies",155,TRUE,COMPLETED
+april-7,April,7,April 7,7,"The Chariot","The Motorsport Chief Engineer: Winning Electric Regattas & Grand Prix",166,TRUE,COMPLETED
+april-8,April,8,April 8,8,"Justice","The Antitrust Regulatory Lead: Auditing Global Tech Mergers",163,TRUE,COMPLETED
+april-9,April,9,April 9,9,"The Hermit","The AI Research Pioneer: Developing Next-Gen Neural Architectures",166,TRUE,COMPLETED
+april-10,April,10,April 10,10,"Wheel of Fortune","The Tech Venture Trader: Timing Innovation Investment Cycles",155,TRUE,COMPLETED
+april-11,April,11,April 11,11,"Strength","The Olympic Performance Coach: Training Elite Endurance Athletes",156,TRUE,COMPLETED
+april-12,April,12,April 12,12,"The Hanged Man","The Circular Economy Director: Reversing Linear Manufacturing",162,TRUE,COMPLETED
+april-13,April,13,April 13,13,"Transformation (Death)","The Corporate Overhaul Specialist: Rescuing Struggling Tech Divisions",166,TRUE,COMPLETED
+april-14,April,14,April 14,14,"Temperance","The Portfolio Risk Strategist: Balancing Multi-Asset Volatility",159,TRUE,COMPLETED
+april-15,April,15,April 15,15,"The Devil","The Debt Restructuring Architect: Liberating Distressed Enterprises",163,TRUE,COMPLETED
+april-16,April,16,April 16,16,"The Tower","The Structural Safety Inspector: Auditing High-Rise Engineering Flaws",156,TRUE,COMPLETED
+april-17,April,17,April 17,17,"The Star","The Commercial Satellite Director: Launching Earth-Observation Arrays",162,TRUE,COMPLETED
+april-18,April,18,April 18,18,"The Moon","The Night-Vision Optical Engineer: Designing Thermal Imaging Systems",156,TRUE,COMPLETED
+april-19,April,19,April 19,19,"The Sun","The Solar Concentrator Pioneer: Building Utility-Scale Concentrated Solar Plants",167,TRUE,COMPLETED
+april-20,April,20,April 20,20,"Judgement","The Land Restoration Pioneer: Reclaiming Degraded Mine Sites",167,TRUE,COMPLETED
+april-21,April,21,April 21,21,"The World","The Global Agri-Trade Director: Structuring Sustainable Commodity Networks",169,TRUE,COMPLETED
+april-22,April,22,April 22,22,"The Fool","The Earth Day Master Builder: Founding Global Wilderness Corridors",175,TRUE,COMPLETED
+april-23,April,23,April 23,5,"The Hierophant","The Agronomy Professor: Authoring Regenerative Agriculture Manuals",173,TRUE,COMPLETED
+april-24,April,24,April 24,6,"The Lovers","The Organic Farm Co-Op Founder: Structuring Regional Agricultural Alliances",178,TRUE,COMPLETED
+april-25,April,25,April 25,7,"The Chariot","The Automated Agronomy Fleet Lead: Deploying Electric Harvesters",171,TRUE,COMPLETED
+april-26,April,26,April 26,8,"Justice","The Organic Certification Auditor: Verifying Global Farm Integrity",173,TRUE,COMPLETED
+april-27,April,27,April 27,9,"The Hermit","The Soil Microbiologist: Unlocking Mycorrhizal Fungal Networks",183,TRUE,COMPLETED
+april-28,April,28,April 28,10,"Wheel of Fortune","The Timberland Fund Director: Timing Sustainable Forestry Cycles",185,TRUE,COMPLETED
+april-29,April,29,April 29,11,"Strength","The Master Equestrian Trainer: Rehabilitating Wild Thoroughbreds",175,TRUE,COMPLETED
+april-30,April,30,April 30,3,"The Empress","The Herbal Alchemist: Scaling Organic Botanical Skincare Enterprises",176,TRUE,COMPLETED
+may-1,May,1,May 1,1,"The Magician","The May Day Floral Herbalist: Launching Organic Artisan Tea Lines",172,TRUE,COMPLETED
+may-2,May,2,May 2,2,"The High Priestess","The Spring Forest Herbalist: Decoding Fungal Communication Signatures",165,TRUE,COMPLETED
+may-3,May,3,May 3,3,"The Empress","The Lavender Estate Master: Cultivating Organic Scent Distilleries",165,TRUE,COMPLETED
+may-4,May,4,May 4,4,"The Emperor","The Passive Solar Architect: Building Earth-Sheltered Autonomous Estates",152,TRUE,COMPLETED
+may-5,May,5,May 5,5,"The Hierophant","The Agroforestry Institute Founder: Educating Global Food Forest Designers",166,TRUE,COMPLETED
+may-6,May,6,May 6,6,"The Lovers","The Eco-Glamping Alliance Director: Unifying Luxury Wilderness Retreats",159,TRUE,COMPLETED
+may-7,May,7,May 7,7,"The Chariot","The Solar River Catamaran Lead: Clean Inland Water Freight Fleets",180,TRUE,COMPLETED
+may-8,May,8,May 8,8,"Justice","The Fair-Trade Tea Auditor: Evaluating Mountain Plantation Wage Contracts",167,TRUE,COMPLETED
+may-9,May,9,May 9,9,"The Hermit","The Canopy Botanist: Studying Epiphytic Orchids in Rainforest Tops",165,TRUE,COMPLETED
+may-10,May,10,May 10,10,"Wheel of Fortune","The Citrus Orchard Investor: Acquiring & Scaling Organic Fruit Groves",177,TRUE,COMPLETED
+may-11,May,11,May 11,11,"Strength","The Primate Sanctuary Lead: Protecting Mountain Rainforest Troops",158,TRUE,COMPLETED
+may-12,May,12,May 12,12,"The Hanged Man","The Micro-Plastic Filtration Engineer: Intercepting Industrial Fiber Waste",166,TRUE,COMPLETED
+may-13,May,13,May 13,13,"Transformation (Death)","The Phytoremediation Lead: Reclaiming Open-Pit Copper Mines",176,TRUE,COMPLETED
+may-14,May,14,May 14,14,"Temperance","The Glacial Water Allocation Envoy: Managing Alpine River Basins",175,TRUE,COMPLETED
+may-15,May,15,May 15,15,"The Devil","The Seed Sovereignty Litigator: Breaking Corporate Seed Monopolies",172,TRUE,COMPLETED
+may-16,May,16,May 16,16,"The Tower","The Seawall Engineer: Retrofitting Coastal Tsunami Defense Barriers",164,TRUE,COMPLETED
+may-17,May,17,May 17,17,"The Star","The Ocean Coral Array Lead: Deploying Deep-Sea Nursery Monitoring Satellites",175,TRUE,COMPLETED
+may-18,May,18,May 18,18,"The Moon","The Hydrothermal Vent Ecologist: Mapping Abyssal Chemosynthesis",161,TRUE,COMPLETED
+may-19,May,19,May 19,19,"The Sun","The Hydro-Solar Array Developer: Commissioning Floating PV Reservoirs",173,TRUE,COMPLETED
+may-20,May,20,May 20,20,"Judgement","The Subterranean Crop Vault Director: Safeguard for Global Genetic Food Security",178,TRUE,COMPLETED
+may-21,May,21,May 21,21,"The World","The High-Seas Treaty Negotiator: Unifying 120 Nations on Marine Sanctuaries",168,TRUE,COMPLETED
+may-22,May,22,May 22,22,"The Fool","The World Biodiversity Day Champion: Launching Amazonian Corridor Networks",151,TRUE,COMPLETED
+may-23,May,23,May 23,5,"The Hierophant","The Urban Arboriculture Author: Designing City Tree Canopy Policies",181,TRUE,COMPLETED
+may-24,May,24,May 24,6,"The Lovers","The Mountain Guide Co-Op Director: Unifying Expedition Trekking Alliances",170,TRUE,COMPLETED
+may-25,May,25,May 25,7,"The Chariot","The Hydrogen Cargo Drone Lead: Zero-Emission Heavy Air Freight",178,TRUE,COMPLETED
+may-26,May,26,May 26,8,"Justice","The Tea Trade Compliance Lawyer: Enforcing Organic Plantation Ethics",184,TRUE,COMPLETED
+may-27,May,27,May 27,9,"The Hermit","The Digital Herbarium AI Indexer: Modeling 200 Years of Plant Migration",191,TRUE,COMPLETED
+may-28,May,28,May 28,10,"Wheel of Fortune","The Battery Storage Venture Director: Timing Utility Energy Storage IPOs",192,TRUE,COMPLETED
+may-29,May,29,May 29,11,"Strength","The Migratory Songbird Flyway Lead: Protecting International Wetland Corridors",182,TRUE,COMPLETED
+may-30,May,30,May 30,3,"The Empress","The Damask Rose Distiller: Scaling Organic Rose Water Fragrance Houses",175,TRUE,COMPLETED
+may-31,May,31,May 31,4,"The Emperor","The Permaculture Estate Architect: Building Off-Grid Sustainable Communities",189,TRUE,COMPLETED
+june-1,June,1,June 1,1,"The Magician","The Solar Kinetic Sculptor: Creating Wind-Powered Public Urban Plaza Art",171,TRUE,COMPLETED
+june-2,June,2,June 2,2,"The High Priestess","The Subaquatic Speleologist: Mapping Subterranean Cavern Acoustic Echoes",158,TRUE,COMPLETED
+june-3,June,3,June 3,3,"The Empress","The Alpine Strawberry Estate Master: Scaling Organic Berry Preserves",171,TRUE,COMPLETED
+june-4,June,4,June 4,4,"The Emperor","The Sub-Surface Tunnel Engineer: Constructing Zero-Carbon Hyper-Loop Transit Lines",161,TRUE,COMPLETED
+june-5,June,5,June 5,5,"The Hierophant","The World Environment Day Industrial Lead: Publishing Zero-Waste Factory Standards",171,TRUE,COMPLETED
+june-6,June,6,June 6,6,"The Lovers","The Double-6 Berry Guild Lead: Unifying Organic Strawberry & Blackberry Growers",163,TRUE,COMPLETED
+june-7,June,7,June 7,7,"The Chariot","The Hydrogen Rail Lead: Engineering High-Payload Freight Locomotives",178,TRUE,COMPLETED
+june-8,June,8,June 8,8,"Justice","The World Oceans Day Seabed Tribunal Lead: Enforcing Deep-Sea Trench Mining Bans",187,TRUE,COMPLETED
+june-9,June,9,June 9,9,"The Hermit","The Glacial Ice Core Taxonomist: Decoding 100,000 Years of Atmospheric History",185,TRUE,COMPLETED
+june-10,June,10,June 10,10,"Wheel of Fortune","The Geothermal Reservoir Engineer: Scaling 5,000m Thermal Power Fields",166,TRUE,COMPLETED
+june-11,June,11,June 11,11,"Strength","The Himalayan Wildlife Lead: High-Altitude Snow Leopard Sanctuary Defense",172,TRUE,COMPLETED
+june-12,June,12,June 12,12,"The Hanged Man","The Circuit Board Silver Solar Upcycler: Reclaiming Precious Metal Photovoltaics",166,TRUE,COMPLETED
+june-13,June,13,June 13,13,"Transformation (Death)","The Refinery Wastewater Remediation Lead: Decontaminating Sludge Fields",177,TRUE,COMPLETED
+june-14,June,14,June 14,14,"Temperance","The Estuary Salinity Gate Mediator: Balancing Silt Flow with Farmland Runoff",170,TRUE,COMPLETED
+june-15,June,15,June 15,15,"The Devil","The Smelter Emissions Antitrust Litigator: Prosecuting Air Pollution Cartels",174,TRUE,COMPLETED
+june-16,June,16,June 16,16,"The Tower","The Subsea Pipeline Safety Auditor: Detecting Deep-Ocean Stress Fractures",181,TRUE,COMPLETED
+june-17,June,17,June 17,17,"The Star","The World Day to Combat Desertification Lead: Deploying Solar Dew Harvesters",191,TRUE,COMPLETED
+june-18,June,18,June 18,18,"The Moon","The Bioluminescent Fungal Mycologist: Mapping Nocturnal Spore Light Networks",175,TRUE,COMPLETED
+june-19,June,19,June 19,19,"The Sun","The Solar Parabolic Trough Lead: Engineering 400°C Industrial Steam Fields",188,TRUE,COMPLETED
+june-20,June,20,June 20,20,"Judgement","The World Refugee Day Climate Envoy: Drafting International Relocation Treaties",198,TRUE,COMPLETED
+june-21,June,21,June 21,21,"The World","The Summer Solstice Power Grid Architect: Interconnecting 24-Hour Solar Energy Systems",176,TRUE,COMPLETED
+june-22,June,22,June 22,22,"The Fool","The Autonomous Reforestation Master Builder: Deploying Drone Swarms Over Burned Slopes",168,TRUE,COMPLETED
+june-23,June,23,June 23,5,"The Hierophant","The Circular Materials Author: Publishing Non-Toxic Bio-Resin Standards",157,TRUE,COMPLETED
+june-24,June,24,June 24,6,"The Lovers","The Midsummer Apiculture Co-Op Lead: Unifying Organic Honeybee Sanctuaries",169,TRUE,COMPLETED
+june-25,June,25,June 25,7,"The Chariot","The Alpine Solar Tramway Lead: Engineering High-Altitude Incline Cable Transit",177,TRUE,COMPLETED
+june-26,June,26,June 26,8,"Justice","The Organic Stone Fruit Compliance Auditor: Guaranteeing Harvest Labor Standards",172,TRUE,COMPLETED
+june-27,June,27,June 27,9,"The Hermit","The Basalt Carbon Sequestration Indexer: Modeling Subterranean CO2 Mineralization",192,TRUE,COMPLETED
+june-28,June,28,June 28,10,"Wheel of Fortune","The Wave Hydrodynamics Engineer: Prototyping Subsea Wave Turbine Arrays",191,TRUE,COMPLETED
+june-29,June,29,June 29,11,"Strength","The Albatross Island Sanctuary Lead: Protecting Sub-Antarctic Cliff Nesting Colonies",174,TRUE,COMPLETED
+june-30,June,30,June 30,3,"The Empress","The Midsummer Stone Fruit Estate Master: Scaling Organic Preserve Empires",170,TRUE,COMPLETED
+july-1,July,1,July 1,1,"The Magician","The High-Altitude Solar Skyscraper Architect: Designing Kinetic Facade Shading",167,TRUE,COMPLETED
+july-2,July,2,July 2,2,"The High Priestess","The Bathyal Sonar Acoustic Lead: Mapping Deep-Sea Trench Echo Signals",164,TRUE,COMPLETED
+july-3,July,3,July 3,3,"The Empress","The Plastic Free Day Bio-Packaging Lead: Formulating Seaweed Packaging Polymers",168,TRUE,COMPLETED
+july-4,July,4,July 4,4,"The Emperor","The Space Solar Structural Engineer: Deploying Orbital Satellite Solar Wings",176,TRUE,COMPLETED
+july-5,July,5,July 5,5,"The Hierophant","The Mangrove Estuary Director: Publishing Coastal Wetland Restoration Charters",169,TRUE,COMPLETED
+july-6,July,6,July 6,6,"The Lovers","The Terraced Caper & Virgin Olive Oil Lead: Managing Mediterranean Exports",175,TRUE,COMPLETED
+july-7,July,7,July 7,7,"The Chariot","The Electric Cargo Sailboat Lead: Transporting Organic Cacao Across Oceans",190,TRUE,COMPLETED
+july-8,July,8,July 8,8,"Justice","The Coral Injunction Legal Advocate: Halting Illegal Ocean Trawling",167,TRUE,COMPLETED
+july-9,July,9,July 9,9,"The Hermit","The Hydrothermal Extremophile Analyst: Decoding Abyssal Vent Microbe Enzymes",175,TRUE,COMPLETED
+july-10,July,10,July 10,10,"Wheel of Fortune","The Ocean Current Subsea Turbine Lead: Scaling 100MW Tidal Array Barrages",184,TRUE,COMPLETED
+july-11,July,11,July 11,11,"Strength","The Amazonian Jaguar Basin Director: Managing Flooded Forest River Patrols",168,TRUE,COMPLETED
+july-12,July,12,July 12,12,"The Hanged Man","The Desalination Brine Mineral Refiner: Extracting Battery-Grade Lithium",178,TRUE,COMPLETED
+july-13,July,13,July 13,13,"Transformation (Death)","The Green Steel Decarbonization Lead: Transforming Fossil Foundries into Hydrogen Mills",181,TRUE,COMPLETED
+july-14,July,14,July 14,14,"Temperance","The Cloud Forest Fog Moisture Lead: Harvesting Canopy Moisture for Primate Reserves",193,TRUE,COMPLETED
+july-15,July,15,July 15,15,"The Devil","The Deep-Sea Mining Ban Advocate: Litigating Abyssal Trench Preservation",163,TRUE,COMPLETED
+july-16,July,16,July 16,16,"The Tower","The Volcanic Lava Tube Structural Engineer: Reinforcing Geothermal Caverns",155,TRUE,COMPLETED
+july-17,July,17,July 17,17,"The Star","The High-Altitude Optical Astronomer: Aligning Deep-Space Telescope Mirrors",173,TRUE,COMPLETED
+july-18,July,18,July 18,18,"The Moon","The Dinoflagellate Bio-Optics Lead: Sensing Nocturnal Marine Swarms",169,TRUE,COMPLETED
+july-19,July,19,July 19,19,"The Sun","The Desert Solar Steam Desalination Chair: Generating Coastal Fresh Water",172,TRUE,COMPLETED
+july-20,July,20,July 20,20,"Judgement","The Lunar Oxygen Extraction Lead: Engineering Space Habitat Life Support",188,TRUE,COMPLETED
+july-21,July,21,July 21,21,"The World","The Global Ocean Treaty Plenipotentiary: Unifying 150 Nations for Marine Restoration",162,TRUE,COMPLETED
+july-22,July,22,July 22,22,"The Fool","The Abyssal Trench Harvester Founder: Deploying Subsea Micro-Submarines",160,TRUE,COMPLETED
+july-23,July,23,July 23,5,"The Hierophant","The Fragrance Chemistry Professor: Setting Organic Essential Oil Standards",167,TRUE,COMPLETED
+july-24,July,24,July 24,6,"The Lovers","The Organic Lemongrass & Ginger Guild Lead: Directing Botanical Co-Ops",173,TRUE,COMPLETED
+july-25,July,25,July 25,7,"The Chariot","The Clean Harbor Ferry Commodore: Launching Hydrogen Fuel Cell Vessels",174,TRUE,COMPLETED
+july-26,July,26,July 26,8,"Justice","The Mangrove Sanctuary Litigator: Defending Coastal Blue Carbon Forests",174,TRUE,COMPLETED
+july-27,July,27,July 27,9,"The Hermit","The Antarctic Sub-Ice Glaciologist: Sampling Ancient Subterranean Lakes",163,TRUE,COMPLETED
+july-28,July,28,July 28,10,"Wheel of Fortune","The Spar-Buoy Aerogenerator Lead: Deploying 500MW Offshore Wind Arrays",169,TRUE,COMPLETED
+july-29,July,29,July 29,11,"Strength","The Savanna Cheetah Corridor Lead: Protecting Grassland Migration Reserves",167,TRUE,COMPLETED
+july-30,July,30,July 30,3,"The Empress","The Micro-Algae Biofuel Estate Lead: Refining Zero-Carbon Aviation Fuel",163,TRUE,COMPLETED
+july-31,July,31,July 31,4,"The Emperor","The World Ranger Day Governance Lead: Building Sanctuary Security Infrastructure",189,TRUE,COMPLETED
+august-1,August,1,August 1,1,"The Magician","The Heliostat Solar Thermal Lead: Engineering Desert Molten Salt Power Towers",184,TRUE,COMPLETED
+august-2,August,2,August 2,2,"The High Priestess","The Caldera Seismologist: Mapping Subterranean Magma Acoustic Frequencies",163,TRUE,COMPLETED
+august-3,August,3,August 3,3,"The Empress","The Lavandin Distillation Master: Refining Helichrysum Volatile Oils",170,TRUE,COMPLETED
+august-4,August,4,August 4,4,"The Emperor","The Penstock Hydro Engineer: Building Dual-Basin Storage Reservoirs",169,TRUE,COMPLETED
+august-5,August,5,August 5,5,"The Hierophant","The Cryosphere Glaciologist: Deploying Glacier Thermal Barrier Blankets",157,TRUE,COMPLETED
+august-6,August,6,August 6,6,"The Lovers","The Saffron Stigma Merchant: Structuring Piedmont Spice Trade Charters",163,TRUE,COMPLETED
+august-7,August,7,August 7,7,"The Chariot","The Island Cargo Drone Pilot: Routing Electric Rotorcraft Payload Corridors",167,TRUE,COMPLETED
+august-8,August,8,August 8,8,"Justice","The Elephant Corridor Attorney: Litigating Anti-Poaching Sanctuary Boundaries",151,TRUE,COMPLETED
+august-9,August,9,August 9,9,"The Hermit","The Halite Core Curator: Archiving Continental Geological Drill Cylinders",179,TRUE,COMPLETED
+august-10,August,10,August 10,10,"Wheel of Fortune","The Ocean Wave Hydrodynamics Lead: Tuning Hydraulic Ram Swell Converters",150,TRUE,COMPLETED
+august-11,August,11,August 11,11,"Strength","The Serengeti Elephant Captain: Managing Grassland Ranger Outposts",156,TRUE,COMPLETED
+august-12,August,12,August 12,12,"The Hanged Man","The Liquid Upcycling Lead: Reclaiming Nitrogen Bio-Fertilizer From Factory Effluent",133,TRUE,COMPLETED
+august-13,August,13,August 13,13,"Transformation (Death)","The Basalt Ash Agro-Ecologist: Reclaiming Lava Fields into Fruit Agroforests",168,TRUE,COMPLETED
+august-14,August,14,August 14,14,"Temperance","The Oasis Dew Collector: Deploying Solar Atmospheric Moisture Generators",143,TRUE,COMPLETED
+august-15,August,15,August 15,15,"The Devil","The Hardwood Clearing Litigator: Exposing Fraudulent Timber Certificates",152,TRUE,COMPLETED
+august-16,August,16,August 16,16,"The Tower","The Structural Seismic Auditor: Retrofitting Urban Skyscraper Shear-Walls",166,TRUE,COMPLETED
+august-17,August,17,August 17,17,"The Star","The Upper Atmosphere Meteorologist: Telemetering Stratospheric Solar Balloons",167,TRUE,COMPLETED
+august-18,August,18,August 18,18,"The Moon","The Reef Spawning Bio-Optics Lead: Mapping Coral Larvae Drift Patterns",156,TRUE,COMPLETED
+august-19,August,19,August 19,19,"The Sun","The Mojave Heliostat Director: Supplying Solar Steam Power",143,TRUE,COMPLETED
+august-20,August,20,August 20,20,"Judgement","The Orbital Asteroid Spectrometrist: Mining Platinum Space Metals",162,TRUE,COMPLETED
+august-21,August,21,August 21,21,"The World","The Transcontinental Grid Diplomat: Ratifying Cross-Border Cable Treaties",129,TRUE,COMPLETED
+august-22,August,22,August 22,22,"The Fool","The Precision Agtech Swarm Founder: Deploying Organic Oat Field Micro-Robots",176,TRUE,COMPLETED
+august-23,August,23,August 23,5,"The Hierophant","The Pharmacognosy Scholar: Publishing Plant Monograph Quality Assays",155,TRUE,COMPLETED
+august-24,August,24,August 24,6,"The Lovers","The Malagasy Vanilla Curing Master: Directing Gourmet Spice Co-Operatives",155,TRUE,COMPLETED
+august-25,August,25,August 25,7,"The Chariot","The Levitation Transit Lead: Testing 300mph Maglev Rail Corridors",137,TRUE,COMPLETED
+august-26,August,26,August 26,8,"Justice","The Groundwater Rights Arbitrator: Decreeing Agricultural Aquifer Limits",130,TRUE,COMPLETED
+august-27,August,27,August 27,9,"The Hermit","The Polar Germplasm Curator: Archiving Frozen Crop Seeds",172,TRUE,COMPLETED
+august-28,August,28,August 28,10,"Wheel of Fortune","The Low-Head Hydro Engineer: Building Alpine Run-of-River Intakes",143,TRUE,COMPLETED
+august-29,August,29,August 29,11,"Strength","The Taiga Wildlife Captain: Tracking Sub-Zero Siberian Tiger Corridors",157,TRUE,COMPLETED
+august-30,August,30,August 30,3,"The Empress","The Algae Biorefinery Director: Extracting Sustainable Plant Protein Isolates",132,TRUE,COMPLETED
+august-31,August,31,August 31,4,"The Emperor","The Reserve Sanctuary Director: Administering Biosphere Radar Outposts",126,TRUE,COMPLETED
+september-1,September,1,September 1,1,"The Magician","The Greenhouse Robotics Founder: Deploying Micro-Drone Pollination Swarms",138,TRUE,COMPLETED
+september-2,September,2,September 2,2,"The High Priestess","The Root Exudate Biochemist: Mapping Sub-Surface Forest Defense Signals",145,TRUE,COMPLETED
+september-3,September,3,September 3,3,"The Empress","The Vineyard Biodynamic Composting Master: Fermenting Organic Humus Preparations",135,TRUE,COMPLETED
+september-4,September,4,September 4,4,"The Emperor","The Alpine Rockfall Engineer: Installing Cliff Face Retention Cable Nets",147,TRUE,COMPLETED
+september-5,September,5,September 5,5,"The Hierophant","The Botanical Entomology Chair: Authoring Biopesticide Curricula",135,TRUE,COMPLETED
+september-6,September,6,September 6,6,"The Lovers","The Piedmont Nut Harvest Lead: Managing Tonda Gentile Roasting Facilities",129,TRUE,COMPLETED
+september-7,September,7,September 7,7,"The Chariot","The Vineyard Cableway Lead: Routing Terraced Slope Harvest Freight",150,TRUE,COMPLETED
+september-8,September,8,September 8,8,"Justice","The Soil Contamination Litigator: Enforcing Lead Phytoremediation Orders",148,TRUE,COMPLETED
+september-9,September,9,September 9,9,"The Hermit","The Dune Paleo-Hydrology Director: Archiving Sahara Fossil Aquifer Samples",141,TRUE,COMPLETED
+september-10,September,10,September 10,10,"Wheel of Fortune","The Sub-Glacial Meltwater Turbine Engineer: Harnessing Ice Sheet Hydrokinetic Flow",140,TRUE,COMPLETED
+september-11,September,11,September 11,11,"Strength","The Cryosphere Foundation Lead: Installing Thermosyphon Ground Cooling Loops",134,TRUE,COMPLETED
+september-12,September,12,September 12,12,"The Hanged Man","The Waste Timber Lignin Bio-Refiner: Converting Sawmill Residue into Vanillin & Resin",134,TRUE,COMPLETED
+september-13,September,13,September 13,13,"Transformation (Death)","The Open-Pit Terraforming Ecologist: Reclaiming Coal Mines into Pioneer Forests",147,TRUE,COMPLETED
+september-14,September,14,September 14,14,"Temperance","The Estuarine Salinity Hydrologist: Managing Salt Marsh Water Mixing Gates",148,TRUE,COMPLETED
+september-15,September,15,September 15,15,"The Devil","The Wildlife Cyber-Prosecutor: Exposing Exotic Flora Trafficking Networks",148,TRUE,COMPLETED
+september-16,September,16,September 16,16,"The Tower","The Mine Shaft Structural Auditor: Mounting Subterranean Hoist Friction Brakes",151,TRUE,COMPLETED
+september-17,September,17,September 17,17,"The Star","The Orbital Lidar Satellite Analyst: Telemetering Forest Canopy Biomass",158,TRUE,COMPLETED
+september-18,September,18,September 18,18,"The Moon","The Bat Echo-Location Bio-Acoustician: Mapping Sub-Tropical Forest Canopy Chiroptera Flight",153,TRUE,COMPLETED
+september-19,September,19,September 19,19,"The Sun","The Floating Solar Array Lead: Engineering Reservoir Photovoltaic Grids",153,TRUE,COMPLETED
+september-20,September,20,September 20,20,"Judgement","The Paleo-Botanical Archaeologist: Uncovering Fossilized Glacial Seed Deposits",129,TRUE,COMPLETED
+september-21,September,21,September 21,21,"The World","The Subsea Cable Telecommunication Lead: Routing Deep-Ocean Fiber Trenches",140,TRUE,COMPLETED
+september-22,September,22,September 22,22,"The Fool","The Equinox Agroforestry Guild Designer: Planting Multi-Tier Topsoil Shelterbelts",147,TRUE,COMPLETED
+september-23,September,23,September 23,5,"The Hierophant","The Mycelium Bioremediation Engineer: Installing Sub-Surface Fungal Filtration Mats",144,TRUE,COMPLETED
+september-24,September,24,September 24,6,"The Lovers","The Murano Glass Atelier Lead: Directing Hand-Blown Crystal Craftsmen",153,TRUE,COMPLETED
+september-25,September,25,September 25,7,"The Chariot","The Autonomous Electric Cargo Vessel Captain: Routing Coastal Zero-Emission Container Ships",145,TRUE,COMPLETED
+september-26,September,26,September 26,8,"Justice","The Maritime Collision Arbitrator: Decreeing Ocean Vessel Liability Limits",142,TRUE,COMPLETED
+september-27,September,27,September 27,9,"The Hermit","The Abyssal Sediment Core Curator: Indexing Micro-Fossil Plankton Shells",152,TRUE,COMPLETED
+september-28,September,28,September 28,10,"Wheel of Fortune","The Molten Salt Thermal Engine Lead: Operating Desert Solar Storage Tanks",162,TRUE,COMPLETED
+september-29,September,29,September 29,11,"Strength","The Abyssal Cephalopod Hydrophone Lead: Mapping Deep Trench Giant Squid Pulses",153,TRUE,COMPLETED
+september-30,September,30,September 30,3,"The Empress","The Pomegranate Seed Oil Bio-Refiner: Extracting Punicic Acid Polyphenols",140,TRUE,COMPLETED
+october-1,October,1,October 1,1,"The Magician","The Quantum Optics Architect: Synchronizing Cold-Atom Lattice Clocks",131,TRUE,COMPLETED
+october-2,October,2,October 2,2,"The High Priestess","The Karst Hydro-Geologist: Mapping Subterranean Cavern Drip Isotope Cycles",132,TRUE,COMPLETED
+october-3,October,3,October 3,3,"The Empress","The Passionflower Flavonoid Bio-Refiner: Crystallizing Calming Phytomedicines",119,TRUE,COMPLETED
+october-4,October,4,October 4,4,"The Emperor","The Deepwater Platform Dismantling Lead: Executing Diamond Wire Subsea Cuts",141,TRUE,COMPLETED
+october-5,October,5,October 5,5,"The Hierophant","The Geothermal Hydro-Geology Chair: Authoring Volcanic Aquifer Curricula",135,TRUE,COMPLETED
+october-6,October,6,October 6,6,"The Lovers","The Bavarian Hops Kiln Lead: Managing Hallertau Drying Facilities",136,TRUE,COMPLETED
+october-7,October,7,October 7,7,"The Chariot","The eVTOL Air-Taxi Flight Director: Routing Urban Vertiport Corridors",144,TRUE,COMPLETED
+october-8,October,8,October 8,8,"Justice","The Subsea Cable Landing Arbitrator: Validating Coastal Easement Access",144,TRUE,COMPLETED
+october-9,October,9,October 9,9,"The Hermit","The Cave Ice Crystal Curator: Documenting High-Alpine Melt Layer Isotope Records",161,TRUE,COMPLETED
+october-10,October,10,October 10,10,"Wheel of Fortune","The Salinity Gradient Blue Energy Lead: Operating Pressure-Retarded Osmosis Turbines",151,TRUE,COMPLETED
+october-11,October,11,October 11,11,"Strength","The Alpine Ibex Sanctuary Warden: Safeguarding Sheer Mountain Cliff Ranges",148,TRUE,COMPLETED
+october-12,October,12,October 12,12,"The Hanged Man","The Apple Bark Bio-Leather Refiner: Repurposing Pomace Residue into Biomaterials",129,TRUE,COMPLETED
+october-13,October,13,October 13,13,"Transformation (Death)","The Nickel Slag Terraforming Ecologist: Converting Smelter Dumps into Fern Sanctuaries",140,TRUE,COMPLETED
+october-14,October,14,October 14,14,"Temperance","The Coastal Lagoon Hydrologist: Regulating Tidal Inlet Flushing Gates",138,TRUE,COMPLETED
+october-15,October,15,October 15,15,"The Devil","The High-Seas Cyber-Prosecutor: Targeting Illegal Shark Finning Syndicates",142,TRUE,COMPLETED
+october-16,October,16,October 16,16,"The Tower","The Suspension Bridge Structural Auditor: Retrofitting Stay-Cable Wind Dampers",142,TRUE,COMPLETED
+october-17,October,17,October 17,17,"The Star","The Orbital Thermal Infrared Satellite Analyst: Modeling Magma Thermal Anomalies",146,TRUE,COMPLETED
+october-18,October,18,October 18,18,"The Moon","The Nocturnal Owl Bio-Acoustician: Analyzing Silent Flight Feather Biomimicry",139,TRUE,COMPLETED
+october-19,October,19,October 19,19,"The Sun","The Solar Desalination Dome Lead: Operating Floating Concentrator Arrays",151,TRUE,COMPLETED
+october-20,October,20,October 20,20,"Judgement","The Amber Paleo-Ornithologist: Cataloging Cretaceous Feather Nodules",136,TRUE,COMPLETED
+october-21,October,21,October 21,21,"The World","The Trans-Atlantic Quantum Subsea Cable Lead: Installing Encrypted Ocean Fiber",140,TRUE,COMPLETED
+october-22,October,22,October 22,22,"The Fool","The Cusp Alpine Avalanche Shelterbelt Designer: Rooting Mountain Slope Barriers",146,TRUE,COMPLETED
+october-23,October,23,October 23,5,"The Hierophant","The Oceanography Physics Chair: Instructing Thermohaline Circulation Dynamics",129,TRUE,COMPLETED
+october-24,October,24,October 24,6,"The Lovers","The Piedmont Chestnut Mill Lead: Managing Organic Stone-Milling Facilities",151,TRUE,COMPLETED
+october-25,October,25,October 25,7,"The Chariot","The Electric Straddle Carrier Captain: Maneuvering Automated Port Corridors",138,TRUE,COMPLETED
+october-26,October,26,October 26,8,"Justice","The Transboundary Air Pollution Arbitrator: Validating Plume Emission Treaties",152,TRUE,COMPLETED
+october-27,October,27,October 27,9,"The Hermit","The Cretaceous Amber Resin Curator: Documenting Ancient Air Bubble Archives",150,TRUE,COMPLETED
+october-28,October,28,October 28,10,"Wheel of Fortune","The Floating Wind Flywheel Lead: Operating Gyroscopic Stabilizing Generators",155,TRUE,COMPLETED
+october-29,October,29,October 29,11,"Strength","The Abyssal Blue Whale Bio-Acoustician: Tracking Low-Frequency Infrasound",152,TRUE,COMPLETED
+october-30,October,30,October 30,3,"The Empress","The Cranberry Seed Lipid Bio-Refiner: Extracting Proanthocyanidin Polyphenols",123,TRUE,COMPLETED
+october-31,October,31,October 31,4,"The Emperor","The Subterranean DNA Vault Engineer: Fortifying Climate-Proof Gene Bunkers",147,TRUE,COMPLETED
