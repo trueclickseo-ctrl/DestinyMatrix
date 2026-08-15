@@ -50,34 +50,34 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is a Soul Matrix chart?",
+      "name": "What is a Soul Matrix (Destiny Matrix) chart?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A Soul Matrix — also called a Destiny Matrix — is a chart calculated from your birth date using numerology and the 22 Arcana framework. It maps your core numbers across personality, relationships, career, and karma, showing how they interact rather than reading each number in isolation."
+        "text": "A Soul Matrix is a comprehensive blueprint calculated from your date of birth. It combines numerology and 22 Arcana archetypes to map personality, career, love, and karma."
       }
     },
     {
       "@type": "Question",
-      "name": "Is the Soul Matrix calculator free?",
+      "name": "Is the Soul Matrix calculator free to use?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Chart generation is free, unlimited, and requires no account. The Deep Report and AI follow-up questions use credits."
+        "text": "Yes. Generating your complete matrix chart and chakra table is 100% free with unlimited uses."
       }
     },
     {
       "@type": "Question",
-      "name": "How is Destiny Matrix different from regular numerology?",
+      "name": "How does Destiny Matrix differ from traditional numerology?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Standard numerology reads individual numbers separately — your Life Path number on its own, your Expression number on its own. A Destiny Matrix chart maps those numbers onto a single connected structure, showing how they influence each other rather than reading them one at a time."
+        "text": "Traditional numerology evaluates numbers separately, whereas Destiny Matrix places them in a unified visual matrix showing how energies interact."
       }
     },
     {
       "@type": "Question",
-      "name": "Is a Destiny Matrix reading accurate?",
+      "name": "Are the calculations mathematically consistent?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The chart calculation itself is mathematically consistent — the same birth date always produces the same chart. The interpretation functions as a self-reflection tool rather than a fixed prediction; many users find the karmic and personality sections resonate strongly with lived experience."
+        "text": "Yes. The same birth date will always produce the exact same matrix chart based on 22 Arcana modular arithmetic."
       }
     },
     {
@@ -85,7 +85,7 @@ const faqSchema = {
       "name": "What is the karmic tail / karmic number in my chart?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It refers to unresolved patterns — often relational or emotional — that keep resurfacing until they're consciously addressed. Your chart's karmic section breaks this down specifically based on your birth date."
+        "text": "It refers to unresolved patterns — often relational or emotional — that keep resurfacing until they're consciously addressed."
       }
     },
     {
@@ -93,19 +93,55 @@ const faqSchema = {
       "name": "Can I check compatibility with someone else?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes — the Compatibility Matrix compares two charts to show where you naturally align and where tension is more likely to appear."
-      },
+        "text": "Yes — the Compatibility Matrix compares two charts to show where you naturally align and where tension is more likely to show up."
+      }
+    },
+    {
       "@type": "Question",
-      "name": "Who developed the Destiny Matrix system?",
+      "name": "What is the difference between Destiny Matrix and Matrix of Fate?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The Destiny Matrix (also known as Matrix of Destiny) method traces back to the 22 Arcana framework popularized in the mid-2000s, combining numerology, tarot symbolism, and chakra correspondences into a single chart structure."
-      },
+        "text": "They're different names for the same method — Destiny Matrix, Matrix of Destiny, Matrix of Fate, and Soul Matrix all refer to the system created by Natalia Ladini in 2006."
+      }
+    },
+    {
       "@type": "Question",
-      "name": "How long does it take to generate my chart?",
+      "name": "Is the Destiny Matrix based on astrology?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Instantly. Enter your birth date and your full chart, core numbers, and chakra table appear immediately — no waiting, no email required."
+        "text": "No. Unlike astrology, which uses planetary positions and birth time/location, the Destiny Matrix is calculated entirely from your date of birth using numerology and the 22 Major Arcana — no birth time or location needed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I read my own Destiny Matrix chart?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Start with your four core numbers (Life Path, Soul Urge, Expression, Personality), then look at your Love Line, Money Line, and Karmic Tail. Our How to Read Your Chart guide walks through each section step by step."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is Destiny Matrix compatibility?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Compatibility compares two people's charts to show where their energies naturally align and where friction is more likely — useful for romantic partners, family members, or close friends."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I calculate a Destiny Matrix for someone else?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You can generate a chart for any date of birth — a partner, child, parent, or friend — with no limit on how many charts you create."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are Destiny Matrix interpretations scientifically proven?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Like other symbolic self-reflection systems (astrology, tarot, numerology), the Destiny Matrix isn't a scientifically validated method. We present it as a tool for self-reflection and personal growth, not a factual or medical claim."
       }
     }
   ]
@@ -131,7 +167,7 @@ const softwareSchema = {
 
 <BaseLayout
   title="Souliography — Free Destiny Matrix & Soul Matrix Chart Calculator"
-  description="Map your Destiny Matrix (Soul Matrix) chart free, instantly, with no login. See your core numbers and chakra table, then let AI turn them into clear, personal guidance."
+  description="Map your free Destiny Matrix (also called Matrix of Destiny or Soul Matrix) chart instantly — no login. See your core numbers, karmic tail, and chakra table, then let AI turn them into clear, personal guidance."
   ogDescription="Enter your birth date and see your full Destiny Matrix chart instantly — free, unlimited, no account needed. AI-powered guidance included."
   locale={locale}
 >
@@ -168,8 +204,13 @@ const softwareSchema = {
 
       <!-- H1 -->
       <h1 class="hero-h1">
-        {t('hero.title', locale)}<br/>
-        <span class="hero-h1-accent">{t('hero.subtitle', locale)}</span>
+        {t('hero.title', locale)}
+        {locale !== 'en' && t('hero.subtitle', locale) && t('hero.subtitle', locale) !== 'hero.subtitle' && t('hero.subtitle', locale).trim() !== '' ? (
+          <>
+            <br/>
+            <span class="hero-h1-accent">{t('hero.subtitle', locale)}</span>
+          </>
+        ) : null}
       </h1>
 
       <!-- Subheading -->
@@ -490,7 +531,7 @@ const softwareSchema = {
       <h2 class="text-2xl sm:text-3xl font-serif text-[#2E3D34] font-bold">
         {t('explainer.title', locale)}
       </h2>
-      <p class="text-sm text-stone-600 leading-relaxed">
+      <p class="text-sm text-stone-600 leading-relaxed whitespace-pre-line">
         {t('explainer.body', locale)}
       </p>
     </div>
@@ -746,16 +787,33 @@ const softwareSchema = {
             <div class="p-4 bg-[#F7F3EC]/70 rounded-2xl border border-stone-200/60">
               <h3 class="font-bold text-[#2E3D34] text-sm">{t('concept.loveLine.title', locale)}</h3>
               <p class="text-xs text-stone-600 pt-1 leading-relaxed">{t('concept.loveLine.body', locale)}</p>
+              <a href={`/${locale}/guides/love-line-destiny-matrix/`} class="inline-block mt-2 text-xs font-bold text-[#2E3D34] hover:underline">
+                {t('concept.loveLine.linkText', locale)}
+              </a>
             </div>
 
             <div class="p-4 bg-[#F7F3EC]/70 rounded-2xl border border-stone-200/60">
               <h3 class="font-bold text-[#2E3D34] text-sm">{t('concept.moneyLine.title', locale)}</h3>
               <p class="text-xs text-stone-600 pt-1 leading-relaxed">{t('concept.moneyLine.body', locale)}</p>
+              <a href={`/${locale}/guides/money-line-destiny-matrix/`} class="inline-block mt-2 text-xs font-bold text-[#2E3D34] hover:underline">
+                {t('concept.moneyLine.linkText', locale)}
+              </a>
             </div>
 
             <div class="p-4 bg-[#F7F3EC]/70 rounded-2xl border border-stone-200/60">
               <h3 class="font-bold text-[#2E3D34] text-sm">{t('concept.karmic.title', locale)}</h3>
               <p class="text-xs text-stone-600 pt-1 leading-relaxed">{t('concept.karmic.body', locale)}</p>
+              <a href={`/${locale}/numerology/karmic-debt-number/`} class="inline-block mt-2 text-xs font-bold text-[#2E3D34] hover:underline">
+                {t('concept.karmic.linkText', locale)}
+              </a>
+            </div>
+
+            <div class="p-4 bg-[#F7F3EC]/70 rounded-2xl border border-stone-200/60">
+              <h3 class="font-bold text-[#2E3D34] text-sm">{t('concept.arcana.title', locale)}</h3>
+              <p class="text-xs text-stone-600 pt-1 leading-relaxed">{t('concept.arcana.body', locale)}</p>
+              <a href={`/${locale}/destiny-matrix/arcana/`} class="inline-block mt-2 text-xs font-bold text-[#2E3D34] hover:underline">
+                {t('concept.arcana.linkText', locale)}
+              </a>
             </div>
           </div>
         </div>
@@ -815,6 +873,7 @@ const softwareSchema = {
           <li>{t('includes.item2', locale)}</li>
           <li>{t('includes.item3', locale)}</li>
           <li>{t('includes.item4', locale)}</li>
+          <li>{t('includes.item5', locale)}</li>
         </ul>
       </div>
 
@@ -831,7 +890,17 @@ const softwareSchema = {
 
   </section>
 
-  <!-- 8. Frequently Asked Questions -->
+  <!-- 8. Why Souliography Section -->
+  <section class="bg-[#F7F3EC] pb-10 px-4 font-sans">
+    <div class="max-w-6xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-stone-200/80 shadow-sm space-y-4 text-stone-700">
+      <h2 class="text-2xl sm:text-3xl font-serif text-[#2E3D34] font-bold">{t('section.whySouliography', locale)}</h2>
+      <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+        {t('whySouliography.body', locale)}
+      </p>
+    </div>
+  </section>
+
+  <!-- 9. Frequently Asked Questions -->
   <section class="bg-[#F7F3EC] pb-16 px-4 font-sans">
     <div class="max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-stone-200/80 shadow-sm space-y-6">
       <h2 class="text-3xl font-serif text-[#2E3D34] font-bold">{t('faq.title', locale)}</h2>
@@ -865,6 +934,38 @@ const softwareSchema = {
         <div class="p-4 bg-[#F7F3EC]/60 rounded-2xl border border-stone-200/60">
           <h3 class="font-bold text-[#2E3D34] text-base">{t('faq.q6', locale)}</h3>
           <p class="text-xs sm:text-sm text-stone-600 pt-1.5 leading-relaxed">{t('faq.a6', locale)}</p>
+        </div>
+
+        <div class="p-4 bg-[#F7F3EC]/60 rounded-2xl border border-stone-200/60">
+          <h3 class="font-bold text-[#2E3D34] text-base">{t('faq.q7', locale)}</h3>
+          <p class="text-xs sm:text-sm text-stone-600 pt-1.5 leading-relaxed">{t('faq.a7', locale)}</p>
+        </div>
+
+        <div class="p-4 bg-[#F7F3EC]/60 rounded-2xl border border-stone-200/60">
+          <h3 class="font-bold text-[#2E3D34] text-base">{t('faq.q8', locale)}</h3>
+          <p class="text-xs sm:text-sm text-stone-600 pt-1.5 leading-relaxed">{t('faq.a8', locale)}</p>
+        </div>
+
+        <div class="p-4 bg-[#F7F3EC]/60 rounded-2xl border border-stone-200/60">
+          <h3 class="font-bold text-[#2E3D34] text-base">{t('faq.q9', locale)}</h3>
+          <p class="text-xs sm:text-sm text-stone-600 pt-1.5 leading-relaxed">
+            Start with your four core numbers (Life Path, Soul Urge, Expression, Personality), then look at your Love Line, Money Line, and Karmic Tail. Our <a href={`/${locale}/guides/how-to-read-destiny-matrix-chart/`} class="text-[#2E3D34] font-bold hover:underline">How to Read Your Chart guide</a> walks through each section step by step.
+          </p>
+        </div>
+
+        <div class="p-4 bg-[#F7F3EC]/60 rounded-2xl border border-stone-200/60">
+          <h3 class="font-bold text-[#2E3D34] text-base">{t('faq.q10', locale)}</h3>
+          <p class="text-xs sm:text-sm text-stone-600 pt-1.5 leading-relaxed">{t('faq.a10', locale)}</p>
+        </div>
+
+        <div class="p-4 bg-[#F7F3EC]/60 rounded-2xl border border-stone-200/60">
+          <h3 class="font-bold text-[#2E3D34] text-base">{t('faq.q11', locale)}</h3>
+          <p class="text-xs sm:text-sm text-stone-600 pt-1.5 leading-relaxed">{t('faq.a11', locale)}</p>
+        </div>
+
+        <div class="p-4 bg-[#F7F3EC]/60 rounded-2xl border border-stone-200/60">
+          <h3 class="font-bold text-[#2E3D34] text-base">{t('faq.q12', locale)}</h3>
+          <p class="text-xs sm:text-sm text-stone-600 pt-1.5 leading-relaxed">{t('faq.a12', locale)}</p>
         </div>
       </div>
     </div>

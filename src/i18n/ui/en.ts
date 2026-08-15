@@ -12,7 +12,7 @@ export const uiTranslations_en = {
 
   // Explainer
   'explainer.title': 'What Is a Soul Matrix (Destiny Matrix) Chart?',
-  'explainer.body': 'A Soul Matrix — also known as a Destiny Matrix — is a chart built entirely from your birth date. It maps out your core numbers, recurring life patterns, and the areas where those patterns show up most: money, relationships, karma, and personal growth. The chart itself gives you the structure. Souliography\'s AI guidance helps you understand what that structure actually means for your day-to-day choices.',
+  'explainer.body': 'A Soul Matrix — also called a Destiny Matrix — is a complete energetic blueprint calculated entirely from your date of birth. Developed by Natalia Ladini in 2006, the method combines numerology, the 22 Major Arcana of Tarot, Kabbalistic number symbolism, and the seven-chakra energy system into a single chart, usually drawn as an octagram (two overlapping squares forming an eight-pointed star).\n\nUnlike traditional numerology, which reduces your birthdate to one or two core numbers, a Destiny Matrix chart maps how multiple numbers interact across 10+ life dimensions at once — your core personality, hidden talents, karmic patterns, relationship dynamics (Love Line), financial tendencies (Money Line), and life purpose. The chart shows you where patterns live in your life. Souliography\'s AI-guided interpretation helps you understand why they keep repeating and what to do about them.',
 
   // Navigation
   'nav.home': 'Home',
@@ -109,9 +109,9 @@ export const uiTranslations_en = {
   'result.lifePathNumberDesc': 'Your primary life purpose & path',
 
   // Hero Section
-  'hero.title': 'Your Free Destiny Matrix & Soul Chart',
-  'hero.subtitle': 'Decoded by Advanced AI',
-  'hero.desc': 'Souliography turns your date of birth into a complete Soul Matrix chart in seconds — no account or login required. Generate unlimited charts, map your core vibrations, and explore deep interpretations.',
+  'hero.title': 'Your Free Destiny Matrix & Soul Matrix Chart — Decoded by AI',
+  'hero.subtitle': 'Decoded by AI',
+  'hero.desc': 'Souliography turns your date of birth into a complete Destiny Matrix chart — also known as the Matrix of Destiny, Matrix of Fate, or Soul Matrix — in seconds. No account, no login, unlimited use. See your core numbers, karmic patterns, and full chakra energy table, then let AI turn your energetic blueprint into guidance you can actually use.',
 
   // Hero Badges
   'badge.noLogin': '✨ No Login Required',
@@ -121,6 +121,8 @@ export const uiTranslations_en = {
   // Section Titles
   'section.keyConcepts': 'Key Soul Matrix Concepts',
   'section.howItWorks': 'How It Works',
+  'section.whySouliography': 'Why Souliography',
+  'whySouliography.body': 'Souliography was built to make the Destiny Matrix method — created by Natalia Ladini in 2006 and now used by millions worldwide — genuinely easy to understand, not just to calculate. Most Destiny Matrix tools give you a chart full of numbers and leave you to decode it yourself. We pair the traditional 22-Arcana calculation with AI-guided interpretation, so you get both the precise chart and a plain-language explanation of what it means for your relationships, career, and personal growth. Every chart is calculated using consistent modular arithmetic — the same birth date always produces the same chart — and every interpretation is offered as a tool for self-reflection, not a prediction or diagnosis.',
   'section.faq': 'Frequently Asked Questions',
   'section.chartIncludes': 'What Your Free Chart Includes',
   'section.calcWorks': 'How the Calculation Works',
@@ -128,28 +130,62 @@ export const uiTranslations_en = {
 
   // Concepts
   'concept.loveLine.title': 'What is the Love Line?',
-  'concept.loveLine.body': 'The Love Line maps how you experience romantic connection — emotional security, relationship patterns, and recurring friction.',
+  'concept.loveLine.body': 'The Love Line is the diagonal run of numbers in your Destiny Matrix chart that maps your romantic and relationship energy — how you give and receive love, what kind of partner you\'re naturally drawn to, and the emotional patterns that tend to resurface in relationships until they\'re consciously addressed.',
+  'concept.loveLine.linkText': 'Read the full Love Line guide →',
   'concept.moneyLine.title': 'What is the Money Line?',
-  'concept.moneyLine.body': 'The Money Line maps your relationship to career, wealth creation, financial decision-making, and abundance beliefs.',
+  'concept.moneyLine.body': 'The Money Line maps your relationship to career, wealth-building, and financial decision-making. It shows your natural earning energy, common money blocks, and the abundance mindset shifts your chart suggests.',
+  'concept.moneyLine.linkText': 'Read the full Money Line guide →',
   'concept.karmic.title': 'What are Karmic Numbers?',
-  'concept.karmic.body': 'Karmic numbers (your Karmic Tail) indicate lessons and recurring emotional patterns carried forward to be resolved in this lifetime.',
+  'concept.karmic.body': 'Your Karmic Tail — sometimes called karmic debt or the karmic loop — points to unresolved patterns, often relational or emotional, carried forward and repeated until they\'re recognized and worked through. It\'s one of the most-referenced parts of a Destiny Matrix reading because it explains why the same problem keeps returning in different forms.',
+  'concept.karmic.linkText': 'Read the full Karmic Numbers guide →',
+  'concept.arcana.title': 'What are the 22 Major Arcana in a Destiny Matrix?',
+  'concept.arcana.body': 'Each position in your chart corresponds to one of 22 Major Arcana archetypes (numbered 1–22), each representing a distinct energy, talent, or life lesson. Where a number falls above 22, it\'s reduced by adding its digits — keeping every result within the 22-archetype framework.',
+  'concept.arcana.linkText': 'Browse the full Arcana Encyclopedia →',
 
   // How it works steps
   'howto.step1.title': '1. Enter Your Birth Date',
-  'howto.step1.body': 'That is the only input required to generate your complete Soul Matrix chart.',
+  'howto.step1.body': 'That\'s the only input required to generate your complete Destiny Matrix chart.',
   'howto.step2.title': '2. View Your Matrix Instantly',
-  'howto.step2.body': 'See your core numbers, secondary energies, and full chakra table calculated on the 22 Arcana scale.',
+  'howto.step2.body': 'See your core numbers, karmic tail, ancestral lines, and full chakra table, calculated on the 22-Arcana scale.',
   'howto.step3.title': '3. Unlock AI-Guided Depth',
-  'howto.step3.body': 'Explore your Personal Deep Report for relationship, career, and personal growth guidance.',
+  'howto.step3.body': 'Explore your Personal Deep Report for relationship, career, and personal-growth guidance drawn directly from your chart.',
   'howto.step4.title': '4. Explore Compatibility',
-  'howto.step4.body': 'Compare your chart with a partner or friend to uncover relational synergy and growth areas.',
+  'howto.step4.body': 'Compare your chart with a partner, friend, or family member to see where your energies align and where friction is more likely to show up.',
 
   // Included items
   'includes.title': 'What Your Free Chart Includes',
-  'includes.item1': 'Complete Destiny Matrix chart with core and secondary Arcana',
-  'includes.item2': 'Life Path, Soul, Expression, and Personality numbers',
-  'includes.item3': 'Full 7-Chakra energy distribution table',
-  'includes.item4': 'Unlimited chart generations for yourself, family, and friends',
+  'includes.item1': 'Your complete Destiny Matrix chart, including core, karmic, and ancestral Arcana positions',
+  'includes.item2': 'Life Path, Soul Urge, Expression, and Personality numbers',
+  'includes.item3': 'A full seven-chakra energy distribution table (Root to Crown)',
+  'includes.item4': 'Your karmic tail — the recurring emotional pattern your chart flags for resolution',
+  'includes.item5': 'Unlimited chart generations for yourself, a partner, family, or friends',
+
+  // FAQs
+  'faq.title': 'Frequently Asked Questions',
+  'faq.q1': 'What is a Soul Matrix (Destiny Matrix) chart?',
+  'faq.a1': 'A Soul Matrix is a comprehensive blueprint calculated from your date of birth. It combines numerology and 22 Arcana archetypes to map personality, career, love, and karma.',
+  'faq.q2': 'Is the Soul Matrix calculator free to use?',
+  'faq.a2': 'Yes. Generating your complete matrix chart and chakra table is 100% free with unlimited uses.',
+  'faq.q3': 'How does Destiny Matrix differ from traditional numerology?',
+  'faq.a3': 'Traditional numerology evaluates numbers separately, whereas Destiny Matrix places them in a unified visual matrix showing how energies interact.',
+  'faq.q4': 'Are the calculations mathematically consistent?',
+  'faq.a4': 'Yes. The same birth date will always produce the exact same matrix chart based on 22 Arcana modular arithmetic.',
+  'faq.q5': 'What is the karmic tail / karmic number in my chart?',
+  'faq.a5': 'It refers to unresolved patterns — often relational or emotional — that keep resurfacing until they\'re consciously addressed.',
+  'faq.q6': 'Can I check compatibility with someone else?',
+  'faq.a6': 'Yes — the Compatibility Matrix compares two charts to show where you naturally align and where tension is more likely to show up.',
+  'faq.q7': 'What is the difference between Destiny Matrix and Matrix of Fate?',
+  'faq.a7': 'They\'re different names for the same method — Destiny Matrix, Matrix of Destiny, Matrix of Fate, and Soul Matrix all refer to the system created by Natalia Ladini in 2006.',
+  'faq.q8': 'Is the Destiny Matrix based on astrology?',
+  'faq.a8': 'No. Unlike astrology, which uses planetary positions and birth time/location, the Destiny Matrix is calculated entirely from your date of birth using numerology and the 22 Major Arcana — no birth time or location needed.',
+  'faq.q9': 'How do I read my own Destiny Matrix chart?',
+  'faq.a9': 'Start with your four core numbers (Life Path, Soul Urge, Expression, Personality), then look at your Love Line, Money Line, and Karmic Tail. Our How to Read Your Chart guide walks through each section step by step.',
+  'faq.q10': 'What is Destiny Matrix compatibility?',
+  'faq.a10': 'Compatibility compares two people\'s charts to show where their energies naturally align and where friction is more likely — useful for romantic partners, family members, or close friends.',
+  'faq.q11': 'Can I calculate a Destiny Matrix for someone else?',
+  'faq.a11': 'Yes. You can generate a chart for any date of birth — a partner, child, parent, or friend — with no limit on how many charts you create.',
+  'faq.q12': 'Are Destiny Matrix interpretations scientifically proven?',
+  'faq.a12': 'No. Like other symbolic self-reflection systems (astrology, tarot, numerology), the Destiny Matrix isn\'t a scientifically validated method. We present it as a tool for self-reflection and personal growth, not a factual or medical claim.',
 
   // Sidebar & Actions
   'sidebar.deepLabel': '✨ DEEP INTERPRETATION',
