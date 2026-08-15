@@ -1,11 +1,12 @@
 import * as ftp from 'basic-ftp';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
+import * as fs from 'fs';
 
 dotenv.config({ path: path.join(process.cwd(), 'files/.env') });
 
 async function deployPriority() {
-  const client = new ftp.Client();
+  const client = new ftp.Client(60000);
   client.ftp.verbose = true;
 
   const rawHost = process.env.FTP_HOST || '';
@@ -16,56 +17,58 @@ async function deployPriority() {
 
   try {
     console.log(`Connecting to FTP host: ${host}:${port}...`);
-    await client.access({ host, port, user, password, secure: false });
+    await client.access({ host, port, user, password, secure: false, useEPSV: false });
 
-    console.log('1. Uploading public assets (hero image, images, css)...');
-    await client.uploadFromDir(path.join(process.cwd(), 'dist/_astro'), '_astro');
-    await client.uploadFrom(path.join(process.cwd(), 'dist/destiny_hero_mystic.jpg'), 'destiny_hero_mystic.jpg');
-    await client.uploadFrom(path.join(process.cwd(), 'dist/contact_hero_combined.jpg'), 'contact_hero_combined.jpg');
-    await client.uploadFrom(path.join(process.cwd(), 'dist/homepage_hero_bright.jpg'), 'homepage_hero_bright.jpg');
-
-    console.log('2. Uploading root index.html...');
-    await client.uploadFrom(path.join(process.cwd(), 'dist/index.html'), 'index.html');
-    
-    console.log('3. Uploading en/index.html...');
+    // 1. Upload _astro assets directly into /public_html/_astro
+    console.log('1. Uploading _astro/ CSS and JS asset bundles...');
     await client.cd('/public_html');
-    await client.ensureDir('en');
-    await client.uploadFrom(path.join(process.cwd(), 'dist/en/index.html'), 'index.html');
+    await client.ensureDir('_astro');
+    await client.cd('/public_html/_astro');
+    await client.uploadFromDir(path.join(process.cwd(), 'dist/_astro'));
 
-    console.log('4. Uploading en/report/index.html...');
-    await client.cd('/public_html/en');
-    await client.ensureDir('report');
-    await client.uploadFrom(path.join(process.cwd(), 'dist/en/report/index.html'), 'index.html');
+    // 2. Upload root files
+    console.log('2. Uploading root static files...');
+    await client.cd('/public_html');
+    const rootFiles = ['index.html', 'favicon.ico', 'favicon.svg', 'favicon.png', 'apple-touch-icon.png', 'manifest.json', 'sitemap-index.xml'];
+    for (const f of rootFiles) {
+      const p = path.join(process.cwd(), 'dist', f);
+      if (fs.existsSync(p)) {
+        await client.uploadFrom(p, f);
+      }
+    }
 
-    console.log('5. Uploading en/contact/index.html...');
-    await client.cd('/public_html/en');
-    await client.ensureDir('contact');
-    await client.uploadFrom(path.join(process.cwd(), 'dist/en/contact/index.html'), 'index.html');
+    // 3. Upload target localized route directories
+    const priorityLocales = ['en', 'ar', 'hi', 'ur', 'de', 'fr', 'es'];
+    for (const loc of priorityLocales) {
+      console.log(`3. Uploading /${loc}/ core directories...`);
+      await client.cd('/public_html');
+      await client.ensureDir(loc);
+      await client.cd(`/public_html/${loc}`);
+      
+      const locIndex = path.join(process.cwd(), 'dist', loc, 'index.html');
+      if (fs.existsSync(locIndex)) {
+        await client.uploadFrom(locIndex, 'index.html');
+      }
 
-    console.log('6. Uploading en/terms/index.html...');
-    await client.cd('/public_html/en');
-    await client.ensureDir('terms');
-    await client.uploadFrom(path.join(process.cwd(), 'dist/en/terms/index.html'), 'index.html');
+      // Upload calculators directory for this locale
+      const calcDir = path.join(process.cwd(), 'dist', loc, 'calculators');
+      if (fs.existsSync(calcDir)) {
+        await client.ensureDir('calculators');
+        await client.cd(`/public_html/${loc}/calculators`);
+        await client.uploadFromDir(calcDir);
+      }
 
-    console.log('7. Uploading en/privacy/index.html...');
-    await client.cd('/public_html/en');
-    await client.ensureDir('privacy');
-    await client.uploadFrom(path.join(process.cwd(), 'dist/en/privacy/index.html'), 'index.html');
+      // Upload numerology directory for this locale
+      const numDir = path.join(process.cwd(), 'dist', loc, 'numerology');
+      if (fs.existsSync(numDir)) {
+        await client.cd(`/public_html/${loc}`);
+        await client.ensureDir('numerology');
+        await client.cd(`/public_html/${loc}/numerology`);
+        await client.uploadFromDir(numDir);
+      }
+    }
 
-    console.log('8. Uploading en/disclaimer/index.html...');
-    await client.cd('/public_html/en');
-    await client.ensureDir('disclaimer');
-    await client.uploadFrom(path.join(process.cwd(), 'dist/en/disclaimer/index.html'), 'index.html');
-
-    console.log('9. Uploading en/calculators/life-path-number (redirect)...');
-    await client.cd('/public_html/en');
-    await client.ensureDir('calculators');
-    await client.cd('/public_html/en/calculators');
-    await client.ensureDir('life-path-number');
-    await client.uploadFrom(path.join(process.cwd(), 'dist/en/calculators/life-path-number/index.html'), 'index.html');
-    
-    console.log('ALL TARGET FILES UPLOADED SUCCESSFULLY!');
-
+    console.log('\n✅ PRIORITY DEPLOYMENT SUCCESSFUL!');
   } catch (err) {
     console.error('FTP Deploy Error:', err);
   } finally {
