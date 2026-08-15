@@ -53,6 +53,7 @@ const breadcrumbItems = [
 const guideKey = `arcana.${arcanaNum}.guideHtml`;
 const rawGuideHtml = t(guideKey, currentLocale);
 const hasGuide = rawGuideHtml && rawGuideHtml !== guideKey;
+const localizedGuideHtml = hasGuide ? rawGuideHtml.replace(/href="\/en\//g, `href="/${currentLocale}/`) : '';
 
 const cardImageSlug = `${arcanaData.number}-${arcanaData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
 const cardJpgPath = `/images/arcana/${cardImageSlug}.jpg`;
@@ -197,7 +198,7 @@ const cardJpgPath = `/images/arcana/${cardImageSlug}.jpg`;
       <!-- 5. Extended Comprehensive Guide Article (if present) -->
       {hasGuide && (
         <div class="pt-4">
-          <Fragment set:html={rawGuideHtml} />
+          <Fragment set:html={localizedGuideHtml} />
         </div>
       )}
 

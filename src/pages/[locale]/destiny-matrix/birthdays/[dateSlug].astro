@@ -45,10 +45,14 @@ const breadcrumbSchema = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: `https://souliography.com/${currentLocale}/` },
-    { '@type': 'ListItem', position: 2, name: 'Birthdays', item: `https://souliography.com/${currentLocale}/destiny-matrix/birthdays/` },
-    { '@type': 'ListItem', position: 3, name: profile.formattedDate, item: `https://souliography.com/${currentLocale}/destiny-matrix/birthdays/${dateSlug}/` },
   ],
 };
+
+function localizeHref(href: string, targetLocale: string): string {
+  const cleanPath = href.replace(/^\/[a-z]{2}(\/|$)/, '/');
+  const normalizedPath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
+  return `/${targetLocale}${normalizedPath}`.replace(/\/+/g, '/');
+}
 ---
 
 <BaseLayout title={pageTitle} description={pageDesc} locale={currentLocale}>
@@ -93,7 +97,7 @@ const breadcrumbSchema = {
             Birth Archetype: Arcana {profile.primaryArcanaNum} ({profile.primaryArcana.name})
           </h2>
           <a
-            href={`/${currentLocale}/destiny-matrix/arcana/${profile.primaryArcanaNum}-${profile.primaryArcana.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}/`}
+            href={localizeHref(`/destiny-matrix/arcana/${profile.primaryArcanaNum}-${profile.primaryArcana.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}/`, currentLocale)}
             class="text-xs font-bold text-[#231530] hover:text-[#9E7B3B] font-mono underline"
           >
             Read Arcana {profile.primaryArcanaNum} Encyclopedia Guide →
@@ -195,7 +199,15 @@ const breadcrumbSchema = {
         </p>
       </article>
 
-      <!-- 7. Self-Reflection Questions (Unique Wording) -->
+      <!-- 6. Seasonal Context & Day Vibration Note -->
+      {profile.seasonalContext && (
+        <article class="ref-card p-6 space-y-2 bg-[#F5F2EB]">
+          <h3 class="text-sm font-serif font-bold text-[#231530]">Seasonal Energy Context</h3>
+          <p class="text-xs text-[#524B5A] leading-relaxed">{profile.seasonalContext}</p>
+        </article>
+      )}
+
+      <!-- 7. Self-Reflection Questions -->
       <article class="p-6 sm:p-8 space-y-4 bg-[#231530] text-white border-2 border-[#C4A052] rounded-lg shadow-md">
         <h3 class="text-xl font-serif font-bold text-[#F3E5AB] flex items-center gap-2">
           <span>🔮</span>
@@ -211,7 +223,7 @@ const breadcrumbSchema = {
         </ul>
       </article>
 
-      <!-- 8. FAQ Section (4-5 H3 Questions with 1-2 sentence answers) -->
+      <!-- 8. FAQ Section -->
       <article class="ref-card p-6 sm:p-8 space-y-6">
         <h3 class="text-xl font-serif font-bold text-[#1C1625] border-b border-[#D8D0C5] pb-2">
           Frequently Asked Questions About {profile.formattedDate} Birthdays
@@ -226,10 +238,10 @@ const breadcrumbSchema = {
         </div>
       </article>
 
-      <!-- 9. High-Resolution Arcana Master Illustration & Unique Caption -->
+      <!-- 9. Arcana Master Illustration & Caption -->
       <figure class="ref-card p-4 sm:p-6 space-y-3 text-center bg-white rounded-lg border border-[#D8D0C5] shadow-sm">
         <img
-          src={profile.primaryArcanaNum <= 13 ? `/images/arcana/${profile.primaryArcanaNum}-${profile.primaryArcana.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.jpg` : `/images/arcana/${profile.primaryArcanaNum}-${profile.primaryArcana.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.svg`}
+          src={profile.primaryArcanaNum <= 13 ? `/images/arcana/${profile.primaryArcanaNum}-${profile.primaryArcana.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}.jpg` : `/images/arcana/${profile.primaryArcanaNum}-${profile.primaryArcana.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}.svg`}
           alt={`${profile.formattedDate} birthday — Arcana ${profile.primaryArcanaNum} (${profile.primaryArcana.name}) archetype illustration`}
           class="max-w-md w-full h-auto mx-auto rounded-lg border border-[#C4A052]/40 shadow-md object-cover"
           loading="lazy"
@@ -244,7 +256,7 @@ const breadcrumbSchema = {
         <h3 class="text-base font-serif font-bold text-[#1C1625]">Explore Related Guides & Tools</h3>
         <ul class="space-y-2.5 text-xs text-[#1C1625] ps-4 list-disc text-start">
           {profile.internalLinks.map((link) => {
-            const localizedHref = link.href.replace(/^\/[a-z]{2}\//, `/${currentLocale}/`).replace(/^\//, `/${currentLocale}/`);
+            const localizedHref = localizeHref(link.href, currentLocale);
             return (
               <li>
                 <a href={localizedHref} class="text-[#9E7B3B] hover:underline font-bold">{link.label}</a>

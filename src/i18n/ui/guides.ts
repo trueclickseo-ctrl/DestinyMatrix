@@ -1661,7 +1661,7 @@ export const calculatorGuides: Record<string, string> = {
     <h3 class="text-base font-serif font-bold text-[#231530]">Explore Related Arcana & Calculators</h3>
     <ul class="text-xs text-[#1C1625] space-y-2.5 pl-4 list-disc">
       <li><a href="/en/destiny-matrix/arcana/" class="text-[#9E7B3B] hover:underline font-bold">22 Major Arcana Encyclopedia Directory</a> — Explore all 22 Destiny Matrix archetypes.</li>
-      <li><a href="/en/destiny-matrix/arcana/13-death/" class="text-[#9E7B3B] hover:underline font-bold">Arcana 13 (Death & Transformation)</a> — Discover how spiritual perspective transitions into rebirth.</li>
+      <li><a href="/en/destiny-matrix/arcana/13-transformation-death/" class="text-[#9E7B3B] hover:underline font-bold">Arcana 13 (Death & Transformation)</a> — Discover how spiritual perspective transitions into rebirth.</li>
       <li><a href="/en/calculators/soul-urge-number/" class="text-[#9E7B3B] hover:underline font-bold">Soul Urge Number Calculator</a> — Explore your inner heart's desire.</li>
       <li><a href="/en/calculators/expression-number/" class="text-[#9E7B3B] hover:underline font-bold">Expression Number Calculator</a> — Uncover your natural talents.</li>
     </ul>

@@ -54,7 +54,7 @@ async function deployFullProduction() {
     // 2. Upload root files (index.html, sitemaps, robots, icons)
     console.log('[2/4] Uploading root static assets...');
     await client.cd('/public_html');
-    const rootFiles = fs.readdirSync(distDir).filter(f => !fs.statSync(path.join(distDir, f)).isDirectory());
+    const rootFiles = fs.readdirSync(distDir).filter(f => !fs.statSync(path.join(distDir, f)).isDirectory() && !f.endsWith('.zip'));
     for (const file of rootFiles) {
       await client.uploadFrom(path.join(distDir, file), file);
     }
@@ -64,7 +64,7 @@ async function deployFullProduction() {
     const items = fs.readdirSync(distDir);
     const localeDirs = items.filter(item => {
       const itemPath = path.join(distDir, item);
-      return fs.statSync(itemPath).isDirectory() && item !== '_astro';
+      return fs.statSync(itemPath).isDirectory() && item !== '_astro' && !item.startsWith('.');
     });
 
     console.log(`[3/4] Uploading ${localeDirs.length} localized directories...`);

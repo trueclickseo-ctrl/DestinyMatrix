@@ -1126,17 +1126,17 @@ export function getMarchProfile(day: number): BirthdayProfileData {
     internalLinks: [
       {
         label: `Arcana ${primaryArcanaNum} (${primaryArcana.name}) Encyclopedia Guide`,
-        href: `/en/destiny-matrix/arcana/${primaryArcanaNum}-${primaryArcana.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}/`,
+        href: `/destiny-matrix/arcana/${primaryArcanaNum}-${primaryArcana.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}/`,
         reason: "Deepen your understanding of your primary birth archetype."
       },
       {
         label: "22 Major Arcana Directory",
-        href: "/en/destiny-matrix/arcana/",
+        href: "/destiny-matrix/arcana/",
         reason: "Explore all 22 Destiny Matrix archetypes."
       },
       {
         label: "Destiny Matrix Calculator",
-        href: "/en/",
+        href: "/",
         reason: "Calculate your complete birth matrix with 7 Chakra tables."
       }
     ],
