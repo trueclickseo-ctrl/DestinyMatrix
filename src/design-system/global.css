@@ -71,26 +71,31 @@ header {
 }
 
 footer {
-  background-color: #231530;
-  color: #ffffff;
-  border-top: 2px solid #C4A052;
+  background-color: #231530 !important;
+  color: #ffffff !important;
+  border-top: 2px solid #C4A052 !important;
 }
 
 footer h4 {
-  color: #e8c77c !important;
-  font-weight: 500 !important;
-  border-bottom: 1px solid #4a3a5c !important;
-  padding-bottom: 0.25rem;
+  color: #F3E8C8 !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid rgba(196, 160, 82, 0.4) !important;
+  padding-bottom: 0.35rem !important;
 }
 
 footer a {
-  color: #e8e2f2 !important;
+  color: #EAE5F5 !important;
+  text-decoration: none !important;
   transition: color 0.15s ease-in-out, text-decoration-color 0.15s ease-in-out;
 }
 
 footer a:hover {
-  color: #fde68a !important;
+  color: #FDE68A !important;
   text-decoration: underline !important;
+}
+
+footer p {
+  color: #D1C7DF !important;
 }
 
 

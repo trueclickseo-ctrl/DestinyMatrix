@@ -10,20 +10,21 @@ interface Props {
 const { locale = 'en' } = Astro.props;
 ---
 
-<footer class="bg-[#231530] text-white border-t-2 border-[#C4A052] py-12 px-4 font-sans text-xs">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+<footer class="bg-[#231530] text-white border-t-2 border-[#C4A052] py-12 px-4 font-sans text-xs" style="background-color: #231530; color: #ffffff;">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
     
     {footerNavTaxonomy.map((col) => (
       <div class="space-y-3 text-start">
-        <h4 class="font-serif text-sm font-medium text-[#e8c77c] uppercase tracking-widest border-b border-[#4a3a5c] pb-1">
+        <h4 class="font-serif text-sm font-semibold text-[#F3E8C8] uppercase tracking-wider border-b border-[#C4A052]/40 pb-1.5" style="color: #F3E8C8 !important;">
           {t(col.titleKey, locale)}
         </h4>
-        <ul class="space-y-2 text-stone-300">
+        <ul class="space-y-2 text-[#EAE5F5]">
           {col.items.map((item) => (
             <li>
               <a
                 href={`/${locale}/${item.href}`}
-                class="text-[#e8e2f2] hover:text-[#fde68a] hover:underline transition-colors block"
+                class="text-[#EAE5F5] hover:text-[#FDE68A] hover:underline transition-colors block py-0.5"
+                style="color: #EAE5F5 !important;"
               >
                 {t(item.key, locale)}
               </a>
@@ -34,12 +35,12 @@ const { locale = 'en' } = Astro.props;
     ))}
 
     <!-- Brand & Language Switcher Column -->
-    <div class="space-y-3 sm:col-span-2 md:col-span-1">
-      <div class="flex items-center gap-2 font-serif text-amber-100 uppercase tracking-widest text-sm font-bold">
+    <div class="space-y-3 text-start sm:col-span-2 lg:col-span-1">
+      <div class="flex items-center gap-2 font-serif text-[#F3E8C8] uppercase tracking-widest text-sm font-bold" style="color: #F3E8C8 !important;">
         <span class="text-amber-400">✨</span>
         <span>Souliography</span>
       </div>
-      <p class="text-stone-300 leading-relaxed text-[11px]">
+      <p class="text-[#D1C7DF] leading-relaxed text-[11px]" style="color: #D1C7DF !important;">
         {t('footer.about', locale)}
       </p>
       <div class="pt-2">
@@ -49,8 +50,8 @@ const { locale = 'en' } = Astro.props;
 
   </div>
 
-  <div class="max-w-7xl mx-auto border-t border-[#C4A052]/30 mt-8 pt-4 flex flex-wrap items-center justify-between text-[11px] text-stone-400">
-    <p>© {new Date().getFullYear()} Souliography. {t('footer.copyright', locale)}</p>
-    <p class="italic">Digital Occult Reference Library Architecture</p>
+  <div class="max-w-7xl mx-auto border-t border-[#C4A052]/30 mt-10 pt-4 flex flex-wrap items-center justify-between text-[11px] text-[#C5BCCF]" style="color: #C5BCCF !important;">
+    <p style="color: #C5BCCF !important;">© {new Date().getFullYear()} Souliography. {t('footer.copyright', locale)}</p>
+    <p class="italic" style="color: #C5BCCF !important;">Digital Occult Reference Library Architecture</p>
   </div>
 </footer>

@@ -139,6 +139,22 @@ const calcHrefs = headerCalculators.children.map(c => c.href);
 const intersection = numHrefs.filter(h => calcHrefs.includes(h));
 assert(intersection.length === 0, `Zero duplicated hrefs between Numerology and Calculators dropdowns (overlap: ${intersection.join(', ') || 'None'})`);
 
+const footerDestiny = footerNavTaxonomy.find(i => i.titleKey === 'footer.destinySection');
+const footerNumerology = footerNavTaxonomy.find(i => i.titleKey === 'footer.numerologySection');
+const footerCalculators = footerNavTaxonomy.find(i => i.titleKey === 'footer.specialtyCalc');
+const footerLegal = footerNavTaxonomy.find(i => i.titleKey === 'footer.legal');
+
+assert(footerDestiny !== undefined, 'Footer contains Destiny Matrix column with valid titleKey');
+assert(footerNumerology !== undefined, 'Footer contains Numerology Guides column');
+assert(footerCalculators !== undefined, 'Footer contains Specialty Calculators column');
+assert(footerLegal !== undefined, 'Footer contains Legal column');
+
+const footerNumHrefs = footerNumerology.items.map(c => c.href);
+const footerCalcHrefs = footerCalculators.items.map(c => c.href);
+const footerIntersection = footerNumHrefs.filter(h => footerCalcHrefs.includes(h));
+assert(footerIntersection.length === 0, `Zero duplicated hrefs between Footer Numerology and Calculators (overlap: ${footerIntersection.join(', ') || 'None'})`);
+
+
 // -----------------------------------------------------------------------------
 // 4. LOCALE & RTL AUDIT (ALL 40 LOCALES)
 // -----------------------------------------------------------------------------
