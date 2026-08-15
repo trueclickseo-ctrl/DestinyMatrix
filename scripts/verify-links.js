@@ -206,6 +206,12 @@ if (deadLinkErrors.length > 0) {
 }
 
 if (doubleLocaleErrors.length === 0 && deadLinkErrors.length === 0) {
+  // Ensure dist/sitemap.xml fallback exists for direct sitemap.xml requests
+  const sm0Path = path.join(distDir, 'sitemap-0.xml');
+  const smFallback = path.join(distDir, 'sitemap.xml');
+  if (fs.existsSync(sm0Path)) {
+    fs.copyFileSync(sm0Path, smFallback);
+  }
   console.log('\n✅ AUDIT PASSED: 0 broken internal links (0 HTTP 4xx/5xx/missing targets) & 0 double-locale URLs!');
   process.exit(0);
 } else {
