@@ -1,0 +1,55 @@
+# ====================================================================
+# Souliography Production Apache / LiteSpeed Web Server Configuration
+# ====================================================================
+
+# Enable Rewrite Engine
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  DirectorySlash On
+</IfModule>
+
+# Ensure DirectoryIndex resolves index.html for all localized routes
+DirectoryIndex index.html
+
+# Disable Directory Browsing, Allow FollowSymLinks
+Options -Indexes +FollowSymLinks
+
+# Allow Googlebot and Legitimate Search Crawlers Explicitly across all Locales
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|xml)$">
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
+</IfModule>
+
+# MIME Types for Static Assets
+<IfModule mod_mime.c>
+  AddType text/html .html
+  AddType text/css .css
+  AddType application/javascript .js
+  AddType image/svg+xml .svg
+  AddType image/webp .webp
+  AddType application/json .json
+  AddType application/xml .xml
+</IfModule>
+
+# ====================================================================
+# 301 Redirects for Legacy / Renamed Slugs
+# ====================================================================
+# Legacy Arcana Slugs (redirect old [num]-arcana-[num] to canonical [num]-[name])
+RedirectMatch 301 ^/([a-z]{2})/destiny-matrix/arcana/4-arcana-4/?$ /$1/destiny-matrix/arcana/4-the-emperor/
+RedirectMatch 301 ^/([a-z]{2})/destiny-matrix/arcana/6-arcana-6/?$ /$1/destiny-matrix/arcana/6-the-lovers/
+RedirectMatch 301 ^/([a-z]{2})/destiny-matrix/arcana/8-arcana-8/?$ /$1/destiny-matrix/arcana/8-justice/
+RedirectMatch 301 ^/([a-z]{2})/destiny-matrix/arcana/10-arcana-10/?$ /$1/destiny-matrix/arcana/10-wheel-of-fortune/
+RedirectMatch 301 ^/([a-z]{2})/destiny-matrix/arcana/15-arcana-15/?$ /$1/destiny-matrix/arcana/15-the-devil/
+RedirectMatch 301 ^/([a-z]{2})/destiny-matrix/arcana/16-arcana-16/?$ /$1/destiny-matrix/arcana/16-the-tower/
+RedirectMatch 301 ^/([a-z]{2})/destiny-matrix/arcana/17-arcana-17/?$ /$1/destiny-matrix/arcana/17-the-star/
+RedirectMatch 301 ^/([a-z]{2})/destiny-matrix/arcana/19-arcana-19/?$ /$1/destiny-matrix/arcana/19-the-sun/
+RedirectMatch 301 ^/([a-z]{2})/destiny-matrix/arcana/20-arcana-20/?$ /$1/destiny-matrix/arcana/20-judgement/
+RedirectMatch 301 ^/([a-z]{2})/destiny-matrix/arcana/21-arcana-21/?$ /$1/destiny-matrix/arcana/21-the-world/
+RedirectMatch 301 ^/([a-z]{2})/destiny-matrix/arcana/22-arcana-22/?$ /$1/destiny-matrix/arcana/22-the-fool/
+
+# Legacy Birthday Slugs
+RedirectMatch 301 ^/([a-z]{2})/destiny-matrix/birthdays/december-17/?$ /$1/destiny-matrix/birthdays/
+
+# Permanent 301 Redirect from root to default locale /en/
+RedirectMatch 301 ^/$ /en/
